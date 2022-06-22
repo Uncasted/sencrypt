@@ -4,7 +4,7 @@
   "description": "An open source password manager made in electron.",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "electron ."
   },
   "type": "module",
   "author": "Uncasted",

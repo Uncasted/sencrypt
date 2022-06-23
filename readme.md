@@ -1,3 +1,3 @@
 # Sencrypt
 
-An open source password manager made in electron.
+An open source password manager made in Electron.

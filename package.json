@@ -6,13 +6,9 @@
   "scripts": {
     "start": "electron ."
   },
-  "type": "module",
   "author": "Uncasted",
   "license": "MIT",
   "devDependencies": {
     "electron": "^19.0.6"
-  },
-  "dependencies": {
-    "lowdb": "^3.0.0"
   }
 }

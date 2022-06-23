@@ -3,7 +3,7 @@ const fs = require('fs');
 class DBManager {
     constructor(path) {
         this.jsonPath = path;
-        this.data = {};
+        this.data = { posts: {}};
     }
 
     async read() {

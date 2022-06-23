@@ -38,7 +38,7 @@ async function getKeyValue(key) {
 
         return posts[key];
     } catch (error) {
-        console.log("Error at getSK2");
+        console.log("Error at getKeyValue");
         console.log(error);
     }
 }

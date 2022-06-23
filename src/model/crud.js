@@ -1,6 +1,6 @@
 const DBManager = require("./dbManager");
 const path = require('path');
-const crypto = require('./crypto');
+const encryption = require('./encryption');
 
 const database = new DBManager(path.join(__dirname, "database.json"));
 
@@ -11,13 +11,13 @@ async function databaseInit(masterPassword) {
         const {posts} = database.data;
 
         // Generate random Key (SK2)
-        posts["SK2"] = crypto.genRandomKey(masterPassword.length);
+        posts["SK2"] = encryption.genRandomKey(masterPassword.length);
 
         // Secret key
         const secretKey = masterPassword + posts["SK2"]
 
         // Generate Encrypted Master Password (Encrypted SK1)
-        const encryptedSK1 = crypto.encrypt(masterPassword, secretKey);
+        const encryptedSK1 = encryption.encrypt(masterPassword, secretKey);
         // This is done to extract the encrypted SK1 easily.
         posts["SK1"] = encryptedSK1;
         // This will handle the object that contains the usernames and passwords.

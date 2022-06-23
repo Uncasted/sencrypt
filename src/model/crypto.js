@@ -21,5 +21,13 @@ function encrypt(text, secretKey) {
     return encryptedText;
 }
 
+function decrypt(encryptedText, secretKey) {
+    const decipher = crypto.createDecipheriv('aes-256-cbc', secretKey.slice(0, 32), secretKey.slice(32));
+    let decryptedText = decipher.update(encryptedText, 'base64', 'utf8');
+    decryptedText += decipher.final('utf8');
+    return decryptedText;
+}
+
 module.exports.genRandomKey = genRandomKey;
 module.exports.encrypt = encrypt;
+module.exports.decrypt = decrypt;

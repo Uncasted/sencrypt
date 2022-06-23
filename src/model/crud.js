@@ -2,7 +2,7 @@ const DBManager = require("./dbManager");
 const path = require('path');
 const crypto = require('./crypto');
 
-const database = new DBManager(path.join(__dirname, "testing.json"));
+const database = new DBManager(path.join(__dirname, "database.json"));
 
 // Initializer
 async function databaseInit(masterPassword) {

@@ -18,11 +18,27 @@ async function databaseInit(masterPassword) {
 
         // Generate Encrypted Master Password (Encrypted SK1)
         const encryptedSK1 = crypto.encrypt(masterPassword, secretKey);
+        // This is done to extract the encrypted SK1 easily.
+        posts["SK1"] = encryptedSK1;
+        // This will handle the object that contains the usernames and passwords.
         posts[encryptedSK1] = {};
 
         await database.write();
     } catch (error) {
         console.log("Error at databaseInit.");
+        console.log(error);
+    }
+}
+
+// Get the second part of the key.
+async function getKeyValue(key) {
+    try {
+        await database.read();
+        const {posts} = database.data;
+
+        return posts[key];
+    } catch (error) {
+        console.log("Error at getKeyValue");
         console.log(error);
     }
 }
@@ -49,7 +65,7 @@ async function getAccount(SK1, username) {
         // Get the password from the posts object.
         const password = posts[SK1][username];
         return [username, password];
-    } catch(error) {
+    } catch (error) {
         console.log("Error at getAccount.");
         console.log(error);
     }
@@ -95,3 +111,5 @@ async function deleteAccount(SK1, username) {
         console.log(error);
     }
 }
+
+module.exports.getKeyValue = getKeyValue;

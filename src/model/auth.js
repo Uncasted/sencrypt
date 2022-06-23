@@ -1,5 +1,5 @@
 const crud = require('./crud');
-const crypto = require('./crypto');
+const encryption = require('./encryption');
 
 async function authMP(masterPassword) {
     // Get the keys from the database.
@@ -8,7 +8,7 @@ async function authMP(masterPassword) {
         const SK2 = await crud.getKeyValue("SK2");
 
         const userKey = masterPassword + SK2;
-        const encryptedMP = crypto.encrypt(masterPassword, userKey);
+        const encryptedMP = encryption.encrypt(masterPassword, userKey);
 
         // Compare encrypted input to encrypted master password.
         return encryptedMP === encryptedSK1;

@@ -4,7 +4,7 @@ const utility = require('./utility');
 function genRandomKey(length) {
     if (length === 32) {
         // If the length is already 32 just return the IV.
-        return  utility.randomChars(16);
+        return utility.randomChars(16);
     }
     // Second part of the key needs to make the secret key 32 bytes long.
     const SK2 = utility.randomChars(32 - length);

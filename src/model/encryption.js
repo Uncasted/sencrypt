@@ -15,14 +15,14 @@ function genRandomKey(length) {
 
 function encrypt(text, secretKey) {
     // The last 16 chars are the Initialization vector.
-    const cipher = crypto.createCipheriv('aes-256-cbc', secretKey.slice(0, 32), secretKey.slice(32));
+    const cipher = crypto.createCipheriv('aes-256-cbc', secretKey.slice(0, 32), secretKey.slice(32, 48));
     let encryptedText = cipher.update(text, 'utf-8', 'base64');
     encryptedText += cipher.final('base64');
     return encryptedText;
 }
 
 function decrypt(encryptedText, secretKey) {
-    const decipher = crypto.createDecipheriv('aes-256-cbc', secretKey.slice(0, 32), secretKey.slice(32));
+    const decipher = crypto.createDecipheriv('aes-256-cbc', secretKey.slice(0, 32), secretKey.slice(32, 48));
     let decryptedText = decipher.update(encryptedText, 'base64', 'utf8');
     decryptedText += decipher.final('utf8');
     return decryptedText;

@@ -2,7 +2,7 @@ const DBManager = require("./dbManager");
 const path = require('path');
 const encryption = require('./encryption');
 
-const database = new DBManager(path.join(__dirname, "database.json"));
+const database = new DBManager(path.join(__dirname, "testing.json"));
 
 // Initializer
 async function databaseInit(masterPassword) {
@@ -39,6 +39,19 @@ async function getKeyValue(key) {
         return posts[key];
     } catch (error) {
         console.log("Error at getKeyValue");
+        console.log(error);
+    }
+}
+
+// Get the length of the posts object.
+async function getDatabaseLength() {
+    try {
+        await database.read();
+        const {posts} = database.data;
+
+        return Object.keys(posts).length;
+    } catch(error) {
+        console.log("Error at getDatabaseLength");
         console.log(error);
     }
 }
@@ -113,3 +126,5 @@ async function deleteAccount(SK1, username) {
 }
 
 module.exports.getKeyValue = getKeyValue;
+module.exports.getDatabaseLength = getDatabaseLength;
+module.exports.databaseInit = databaseInit;

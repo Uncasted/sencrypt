@@ -1,16 +1,25 @@
-const {app, BrowserWindow} = require('electron');
+const {app, BrowserWindow, ipcMain} = require('electron');
+const path = require('path');
+const auth = require('./src/controller/authController');
 
 // Main Window.
 const createMainWindow = () => {
     const mainWin = new BrowserWindow({
         width: 800,
         height: 600,
-        autoHideMenuBar: true
+        autoHideMenuBar: true,
+        webPreferences: {
+            preload: path.join(__dirname, "src/controller/authPreload.js")
+        }
     });
 
     // Load index.html.
     mainWin.loadFile("index.html");
 };
+
+ipcMain.on('login:first', async (e, password) => {
+   await auth.createMasterPassword(password);
+})
 
 // Starting the app.
 app.whenReady().then(() => {

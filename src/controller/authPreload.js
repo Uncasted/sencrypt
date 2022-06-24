@@ -16,6 +16,3 @@ function submitPassword(event){
         ipcRenderer.send('login:first', password.value);
     }
 }
-
-
-

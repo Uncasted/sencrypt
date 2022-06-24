@@ -3,11 +3,10 @@ const {ipcRenderer} = require('electron');
 // Wait for the DOM to be loaded.
 window.addEventListener('DOMContentLoaded', () => {
     const submitButton = document.querySelector("#submit");
-
-    submitButton.onclick = submitPassword;
+    submitButton.onclick = createPassword;
 })
 
-function submitPassword(event){
+function createPassword(event){
     event.preventDefault();
     const password = document.getElementById("password");
     const confirmPassword = document.getElementById("confirm-password");

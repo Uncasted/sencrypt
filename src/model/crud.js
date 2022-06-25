@@ -56,6 +56,19 @@ async function getDatabaseLength() {
     }
 }
 
+// Get all the usernames.
+async function getUsernames(SK1) {
+    try {
+        await database.read();
+        const {posts} = database.data;
+
+        return Object.keys(posts[SK1]);
+    } catch (error) {
+        console.log("Error at getUsernames.");
+        console.log(error);
+    }
+}
+
 // Basic CRUD Operations.
 async function createAccount(SK1, username, password) {
     try {
@@ -70,14 +83,14 @@ async function createAccount(SK1, username, password) {
     }
 }
 
-async function getAccount(SK1, username) {
+async function getPassword(SK1, username) {
     try {
         await database.read();
         const {posts} = database.data;
 
         // Get the password from the posts object.
         const password = posts[SK1][username];
-        return [username, password];
+        return password;
     } catch (error) {
         console.log("Error at getAccount.");
         console.log(error);
@@ -128,5 +141,11 @@ async function deleteAccount(SK1, username) {
 module.exports = {
     getKeyValue,
     getDatabaseLength,
-    databaseInit
+    databaseInit,
+    createAccount,
+    getPassword,
+    updateUsername,
+    updatePassword,
+    deleteAccount,
+    getUsernames,
 };

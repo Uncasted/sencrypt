@@ -25,7 +25,7 @@ async function databaseInit(masterPassword) {
 
         await database.write();
     } catch (error) {
-        console.log("Error at databaseInit.");
+        console.log("Error at databaseInit (Model).");
         console.log(error);
     }
 }
@@ -38,7 +38,7 @@ async function getKeyValue(key) {
 
         return posts[key];
     } catch (error) {
-        console.log("Error at getKeyValue");
+        console.log("Error at getKeyValue (Model).");
         console.log(error);
     }
 }
@@ -51,7 +51,7 @@ async function getDatabaseLength() {
 
         return Object.keys(posts).length;
     } catch(error) {
-        console.log("Error at getDatabaseLength");
+        console.log("Error at getDatabaseLength (Model).");
         console.log(error);
     }
 }
@@ -64,7 +64,7 @@ async function getUsernames(SK1) {
 
         return Object.keys(posts[SK1]);
     } catch (error) {
-        console.log("Error at getUsernames.");
+        console.log("Error at getUsernames (Model).");
         console.log(error);
     }
 }
@@ -78,7 +78,7 @@ async function createAccount(SK1, username, password) {
         posts[SK1][username] = password;
         await database.write();
     } catch (error) {
-        console.log("Error at createAccount.");
+        console.log("Error at createAccount (Model).");
         console.log(error);
     }
 }
@@ -92,7 +92,7 @@ async function getPassword(SK1, username) {
         const password = posts[SK1][username];
         return password;
     } catch (error) {
-        console.log("Error at getAccount.");
+        console.log("Error at getAccount (Model).");
         console.log(error);
     }
 }
@@ -107,7 +107,7 @@ async function updateUsername(SK1, oldUsername, newUsername) {
         delete posts[SK1][oldUsername];
         await database.write();
     } catch (error) {
-        console.log("Error at updateUsername.");
+        console.log("Error at updateUsername (Model).");
         console.log(error);
     }
 }
@@ -120,7 +120,7 @@ async function updatePassword(SK1, username, newPassword) {
         posts[SK1][username] = newPassword;
         await database.write();
     } catch (error) {
-        console.log("Error at updatePassword.");
+        console.log("Error at updatePassword (Model).");
         console.log(error);
     }
 }
@@ -133,7 +133,7 @@ async function deleteAccount(SK1, username) {
         delete posts[SK1][username];
         await database.write();
     } catch (error) {
-        console.log("Error at deleteAccount");
+        console.log("Error at deleteAccount (Model).");
         console.log(error);
     }
 }

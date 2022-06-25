@@ -13,4 +13,6 @@ function randomChars(length) {
     return chars;
 }
 
-module.exports.randomChars = randomChars;
+module.exports = {
+    randomChars
+};

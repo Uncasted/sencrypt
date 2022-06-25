@@ -125,6 +125,8 @@ async function deleteAccount(SK1, username) {
     }
 }
 
-module.exports.getKeyValue = getKeyValue;
-module.exports.getDatabaseLength = getDatabaseLength;
-module.exports.databaseInit = databaseInit;
+module.exports = {
+    getKeyValue,
+    getDatabaseLength,
+    databaseInit
+};

@@ -1,7 +1,7 @@
 const crud = require('./crud');
 const encryption = require('./encryption');
 
-async function authMP(masterPassword) {
+async function verifyMasterPassword(masterPassword) {
     // Get the keys from the database.
     try {
         const encryptedSK1 = await crud.getKeyValue("SK1");
@@ -13,10 +13,12 @@ async function authMP(masterPassword) {
         // Compare encrypted input to encrypted master password.
         return encryptedMP === encryptedSK1;
     } catch (error) {
-        console.log("Error at authMP.");
+        console.log("Error at verifyMasterPassword.");
         console.log(error);
     }
 }
 
-module.exports.authMP = authMP;
+module.exports = {
+    verifyMasterPassword
+};
 

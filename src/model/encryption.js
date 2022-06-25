@@ -28,6 +28,8 @@ function decrypt(encryptedText, secretKey) {
     return decryptedText;
 }
 
-module.exports.genRandomKey = genRandomKey;
-module.exports.encrypt = encrypt;
-module.exports.decrypt = decrypt;
+module.exports = {
+    genRandomKey,
+    encrypt,
+    decrypt
+};

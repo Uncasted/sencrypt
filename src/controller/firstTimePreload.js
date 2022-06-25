@@ -7,11 +7,13 @@ window.addEventListener('DOMContentLoaded', () => {
 })
 
 function createPassword(event){
+    // Prevent page refresh.
     event.preventDefault();
+
     const password = document.getElementById("password");
     const confirmPassword = document.getElementById("confirm-password");
-
+    // Prevent user from entering an empty password.
     if(password.value === confirmPassword.value && password.value.length !== 0) {
-        ipcRenderer.send('login:first', password.value);
+        ipcRenderer.send('login:create', password.value);
     }
 }

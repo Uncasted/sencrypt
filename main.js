@@ -9,6 +9,7 @@ const createMainWindow = async () => {
         view: "src/view/existingUser.html"
     };
 
+    // First time opening the application.
     if (await auth.isNewUser()) {
         options = {
             preload: "src/controller/firstTimePreload.js",
@@ -28,10 +29,12 @@ const createMainWindow = async () => {
     await mainWin.loadFile(path.join(__dirname, options.view))
 };
 
-ipcMain.on('login:first', async (e, password) => {
+// Create master password.
+ipcMain.on('login:create', async (e, password) => {
    await auth.createMasterPassword(password);
 })
 
+// Login already existing user.
 ipcMain.on('login:master', async (e, password) => {
     if (password.length !== 0) {
        const result = await auth.validatePassword(password);

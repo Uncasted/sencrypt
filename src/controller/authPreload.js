@@ -1,8 +1,8 @@
 const {ipcRenderer} = require('electron');
 
 window.addEventListener("DOMContentLoaded", () => {
-   const submitButton = document.querySelector("#submit");
-   submitButton.onclick = submitPassword;
+    const submitButton = document.querySelector("#submit");
+    submitButton.onclick = submitPassword;
 });
 
 function submitPassword() {

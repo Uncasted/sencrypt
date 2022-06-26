@@ -51,7 +51,7 @@ class AccountController {
         }
     }
 
-    async updateUsername(oldUsername,  newUsername) {
+    async updateUsername(oldUsername, newUsername) {
         try {
             const encryptedOldUsername = encryption.encrypt(oldUsername, this.SK);
             const encryptedNewUsername = encryption.encrypt(newUsername, this.SK);

@@ -8,21 +8,27 @@ export function Navbar() {
 
     return (
         <nav className="bg-black text-white inset-0 w-[250px] h-[100vh] pt-4 fixed">
-            <h2 className="text-2xl text-center">SENCRYPT</h2>
+            <img src="/public/logo.png" className="h-7 mx-auto"/>
             <ul className="flex flex-col text-xl mt-8">
                 <li>
                     <button onClick={changeFocus}
-                            className="bg-black-1 change-focus w-full text-start pl-8 py-3 hover:bg-black-1 transition">Accounts
+                            className="bg-black-1 change-focus w-full text-start pl-8 py-3 hover:bg-black-1 transition flex">
+                        <img src="/public/password-icon.png" className="w-7 h-7 mr-4"/>
+                        Accounts
                     </button>
                 </li>
                 <li>
                     <button onClick={changeFocus}
-                            className="change-focus w-full text-start pl-8 py-3 hover:bg-black-1 transition">Generator
+                            className="change-focus w-full text-start pl-8 py-3 hover:bg-black-1 transition flex">
+                        <img src="/public/generator-icon.png" className="w-7 h-7 mr-4"/>
+                        Generator
                     </button>
                 </li>
                 <li>
                     <button onClick={changeFocus}
-                            className="change-focus w-full text-start pl-8 py-3 hover:bg-black-1 transition">Settings
+                            className="change-focus w-full text-start pl-8 py-3 hover:bg-black-1 transition flex">
+                        <img src="/public/settings-icon.png" className="w-7 h-7 mr-4"/>
+                        Settings
                     </button>
                 </li>
             </ul>

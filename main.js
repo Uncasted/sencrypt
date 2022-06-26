@@ -31,14 +31,14 @@ const createMainWindow = async () => {
 
 // Create master password.
 ipcMain.on('login:create', async (e, password) => {
-   await auth.createMasterPassword(password);
+    await auth.createMasterPassword(password);
 })
 
 // Login already existing user.
 ipcMain.on('login:master', async (e, password) => {
     if (password.length !== 0) {
-       const result = await auth.validatePassword(password);
-       console.log(result);
+        const result = await auth.validatePassword(password);
+        console.log(result);
     }
 });
 

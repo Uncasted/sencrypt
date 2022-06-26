@@ -50,7 +50,7 @@ async function getDatabaseLength() {
         const {posts} = database.data;
 
         return Object.keys(posts).length;
-    } catch(error) {
+    } catch (error) {
         console.log("Error at getDatabaseLength (Model).");
         console.log(error);
     }

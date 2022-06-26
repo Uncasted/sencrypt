@@ -1,11 +1,9 @@
-:root {
-  font-family: 'Inter', 'sans-serif';
-}
-
-body {
-  background-color: white;
-}
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  font-family: 'Inter', 'sans-serif';
+  background-color: white;
+  color: black;
+}

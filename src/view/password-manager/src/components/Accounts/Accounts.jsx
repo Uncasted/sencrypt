@@ -1,11 +1,16 @@
 import {AccountModal, AddAccount} from "./AddAccount";
+import {AccountInfo} from "./AccountInfo";
 
 export function Accounts() {
     return (
         <div className="mt-8">
             <AddAccount/>
             <AccountModal/>
-            <EmptyPlaceholder/>
+            <div className="mt-8 space-y-1 px-2">
+                {/*This contains placeholder info.*/}
+                <AccountInfo/>
+            </div>
+            {/*<EmptyPlaceholder/>*/}
         </div>
     );
 }

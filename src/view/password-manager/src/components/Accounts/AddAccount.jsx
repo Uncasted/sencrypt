@@ -45,7 +45,7 @@ function Website() {
         <label htmlFor="website">
             <p className="text-lg">Website:</p>
             <input type="text" id="website" name="website"
-                   className="input bg-white border-gray-500 rounded-none h-10"/>
+                   className="border-[1px] pl-2 border-gray-500 rounded-none h-10"/>
         </label>
     )
 }
@@ -55,7 +55,7 @@ function Username() {
         <label htmlFor="username">
             <p className="text-lg">Username:</p>
             <input type="text" id="username" name="username"
-                   className="input bg-white border-gray-500 rounded-none h-10" required/>
+                   className="border-[1px] pl-2 border-gray-500 rounded-none h-10" required/>
         </label>
     );
 }
@@ -65,7 +65,7 @@ function Password() {
         <label htmlFor="password">
             <p className="text-lg">Password:</p>
             <input type="password" id="password" name="password"
-                   className="input bg-white border-gray-500 rounded-none h-10" required/>
+                   className="border-[1px] pl-2 border-gray-500 rounded-none h-10" required/>
         </label>
     );
 }

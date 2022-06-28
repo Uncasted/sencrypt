@@ -1,4 +1,4 @@
-export function AddAccount() {
+export function AddAccountButton() {
     return (
         <label htmlFor="add-modal"
                className="ml-4 modal-button bg-black px-6 py-3 text-white hover:bg-black-1 active:bg-black
@@ -8,14 +8,36 @@ export function AddAccount() {
     );
 }
 
-export function AccountModal() {
+export function AccountModal(props) {
+    const submitData = (event) => {
+        event.preventDefault();
+        const form = event.target.elements;
+
+        // Get each value from the form.
+        props.createAccount({
+            website: form["new-website"].value,
+            username: form["new-username"].value,
+            password: form["new-password"].value
+        });
+
+        // We need to click the label to close the modal.
+        const addModalLabel = document.querySelector("#add-modal-label");
+        addModalLabel.click();
+
+        // Clear the value of the elements after adding the account.
+        for (let element of form) {
+            element.value = "";
+        }
+
+    }
+
     return (
         <>
             <input type="checkbox" id="add-modal" className="modal-toggle"/>
             <div className="modal">
                 <div className="modal-box bg-white rounded-none px-0 py-0 w-[400px]">
                     <ModalHeader/>
-                    <form className="flex flex-col items-center space-y-4">
+                    <form className="flex flex-col items-center space-y-4" id="add-form" onSubmit={submitData}>
                         <Website/>
                         <Username/>
                         <Password/>
@@ -42,19 +64,19 @@ function ModalHeader() {
 
 function Website() {
     return (
-        <label htmlFor="newWebsite">
+        <label htmlFor="new-website">
             <p className="text-lg">Website:</p>
-            <input type="text" id="newWebsite" name="website"
-                   className="border-[1px] pl-2 border-gray-500 rounded-none h-10"/>
+            <input type="text" id="new-website" name="new-website"
+                   className="border-[1px] pl-2 border-gray-500 rounded-none h-10" required/>
         </label>
     )
 }
 
 function Username() {
     return (
-        <label htmlFor="newUsername">
+        <label htmlFor="new-username">
             <p className="text-lg">Username:</p>
-            <input type="text" id="newUsername" name="username"
+            <input type="text" id="new-username" name="new-username"
                    className="border-[1px] pl-2 border-gray-500 rounded-none h-10" required/>
         </label>
     );
@@ -62,9 +84,9 @@ function Username() {
 
 function Password() {
     return (
-        <label htmlFor="newPassword">
+        <label htmlFor="new-password">
             <p className="text-lg">Password:</p>
-            <input type="password" id="newPassword" name="password"
+            <input type="password" id="new-password" name="new-password"
                    className="border-[1px] pl-2 border-gray-500 rounded-none h-10" required/>
         </label>
     );
@@ -72,7 +94,11 @@ function Password() {
 
 function SubmitAccount() {
     return (
-        <label htmlFor="add-modal" className="bg-black px-6 py-3 text-white hover:bg-black-1
-            active:bg-black transition hover:cursor-pointer mb-4 mt-4">Add Account</label>
+        <label htmlFor="add-modal" id="add-modal-label">
+            <input className="bg-black px-6 py-3 text-white hover:bg-black-1 active:bg-black transition
+            hover:cursor-pointer mb-4 mt-4"
+                   type="submit"
+                   value="Add Account"/>
+        </label>
     );
 }

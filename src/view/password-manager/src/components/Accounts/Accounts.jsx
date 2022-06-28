@@ -19,6 +19,7 @@ export function Accounts() {
     const removeAccount = (index) => {
         // I have to make a copy of the array or the splice method won't work properly.
         const newState = [...myAccounts];
+        // Delete account on the specified index.
         newState.splice(index, 1);
         setMyAccounts(newState);
     };
@@ -34,7 +35,7 @@ export function Accounts() {
             <AddAccountButton/>
             <AccountModal createAccount={createAccount}/>
             <div className="mt-8 space-y-1 px-2" id="account-list">
-                {!myAccounts.length ? <EmptyPlaceholder/> : null}
+                {!myAccounts.length && <EmptyPlaceholder/>}
                 {myAccounts.map(account => {
                     return (
                         <AccountInfo key={`${account.username}-${account.website}`}

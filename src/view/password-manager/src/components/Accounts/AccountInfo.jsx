@@ -6,6 +6,7 @@ export function AccountInfo(props) {
     const websiteID = useId();
     const usernameID = useId();
     const passwordID = useId();
+    const editFormID = useId();
 
     // State.
     const [isEditable, setIsEditable] = useState(true);
@@ -18,7 +19,7 @@ export function AccountInfo(props) {
         password: props.password
     });
 
-    const handleAccountData = (data) => {
+    const saveAccountData = (data) => {
         setAccountData(data);
     }
 
@@ -30,7 +31,7 @@ export function AccountInfo(props) {
     }
 
     // Change clipboard text when the mouse stops hovering over it.
-    const tooltipOut = () => {
+    const onTooltipOut = () => {
         setTimeout(() => {
             setClipboardText("Copy to clipboard.");
             setTitleClipboard("Copy Password.");
@@ -51,19 +52,19 @@ export function AccountInfo(props) {
                 <CollapsibleTitle accountData={accountData}
                                   clipboardText={titleClipboard}
                                   addToClipboard={addToClipboard}
-                                  tooltipOut={tooltipOut}/>
-                {showInfo ?
-                    <CollapsibleInfo accountIndex={props.index}
-                                     accountData={accountData}
-                                     websiteID={websiteID}
-                                     usernameID={usernameID}
-                                     passwordID={passwordID}
-                                     clipboardText={clipboardText}
-                                     addToClipboard={addToClipboard}
-                                     tooltipOut={tooltipOut}
-                                     isEditable={isEditable}
-                                     setEditMode={setEditMode}
-                                     handleAccountData={handleAccountData}/> : null}
+                                  onTooltipOut={onTooltipOut}/>
+                {showInfo && <CollapsibleInfo accountIndex={props.index}
+                                              accountData={accountData}
+                                              websiteID={websiteID}
+                                              usernameID={usernameID}
+                                              passwordID={passwordID}
+                                              editFormID={editFormID}
+                                              clipboardText={clipboardText}
+                                              addToClipboard={addToClipboard}
+                                              onTooltipOut={onTooltipOut}
+                                              isEditable={isEditable}
+                                              setEditMode={setEditMode}
+                                              saveAccountData={saveAccountData}/>}
             </div>
             <DeleteAccountModal accountIndex={props.index}
                                 removeAccount={props.removeAccount}/>
@@ -72,7 +73,6 @@ export function AccountInfo(props) {
 }
 
 function CollapsibleTitle(props) {
-
     return (
         <div className="flex collapse-title py-0 px-0 items-center border-b-2" tabIndex="-1">
             <div className="ml-2 w-12 h-full flex items-center justify-center">
@@ -87,7 +87,7 @@ function CollapsibleTitle(props) {
                         onClick={() => {
                             props.addToClipboard(props.accountData.password)
                         }}
-                        onMouseOut={props.tooltipOut}
+                        onMouseOut={props.onTooltipOut}
                         data-tip={props.clipboardText}
                         tabIndex="-1"><img
                     src="/public/clipboard-icon.png"
@@ -98,9 +98,23 @@ function CollapsibleTitle(props) {
 }
 
 function CollapsibleInfo(props) {
+    const saveChanges = (event) => {
+        event.preventDefault();
+        // Get data from form.
+        const form = event.target.elements;
+
+        const data = {
+            website: form['website'].value,
+            username: form['username'].value,
+            password: form['password'].value
+        }
+
+        props.saveAccountData(data);
+    }
+
     return (
         <div className="collapse-content flex">
-            <div className="flex flex-col space-y-4 mt-2">
+            <form className="flex flex-col space-y-4 mt-2" id={props.editFormID} onSubmit={saveChanges}>
                 <Website website={props.accountData.website}
                          websiteID={props.websiteID}
                          isEditable={props.isEditable}/>
@@ -108,21 +122,18 @@ function CollapsibleInfo(props) {
                           usernameID={props.usernameID}
                           clipboardText={props.clipboardText}
                           addToClipboard={props.addToClipboard}
-                          tooltipOut={props.tooltipOut}
+                          onTooltipOut={props.onTooltipOut}
                           isEditable={props.isEditable}/>
                 <Password password={props.accountData.password}
                           passwordID={props.passwordID}
                           clipboardText={props.clipboardText}
                           addToClipboard={props.addToClipboard}
-                          tooltipOut={props.tooltipOut}
+                          onTooltipOut={props.onTooltipOut}
                           isEditable={props.isEditable}/>
-            </div>
+            </form>
             <div className="absolute right-4 mt-4 space-x-4">
                 <EditButton setEditMode={props.setEditMode}
-                            websiteID={props.websiteID}
-                            usernameID={props.usernameID}
-                            passwordID={props.passwordID}
-                            handleAccountData={props.handleAccountData}/>
+                            editFormId={props.editFormID}/>
                 <DeleteButton accountIndex={props.accountIndex}/>
             </div>
         </div>
@@ -133,7 +144,7 @@ function Website(props) {
     return (
         <label htmlFor={props.websiteID}>
             <p className="text-lg">Website:</p>
-            <input type="text" id={props.websiteID} defaultValue={props.website}
+            <input type="text" id={props.websiteID} defaultValue={props.website} name="website"
                    className="border-[1px] pl-2 border-gray-500 rounded-none h-8 disabled:bg-gray-300
                    disabled:text-gray-400 disabled:cursor-not-allowed transition"
                    disabled={props.isEditable}/>
@@ -147,7 +158,7 @@ function Username(props) {
         <label htmlFor={props.usernameID}>
             <p className="text-lg">Username:</p>
             <div className="flex space-x-2">
-                <input type="text" id={props.usernameID} defaultValue={props.username}
+                <input type="text" id={props.usernameID} defaultValue={props.username} name="username"
                        className="border-[1px] pl-2 border-gray-500 rounded-none h-8 disabled:bg-gray-300
                        disabled:text-gray-400 disabled:cursor-not-allowed transition"
                        disabled={props.isEditable} required/>
@@ -156,7 +167,7 @@ function Username(props) {
                         onClick={() => {
                             props.addToClipboard(props.username)
                         }}
-                        onMouseOut={props.tooltipOut}><img
+                        onMouseOut={props.onTooltipOut}><img
                     src="/public/clipboard-icon.png"
                 /></button>
             </div>
@@ -182,7 +193,7 @@ function Password(props) {
             <p className="text-lg">Password:</p>
             <div className="flex space-x-2">
                 <input type={showPassword} id={props.passwordID} defaultValue={props.password}
-                       disabled={props.isEditable}
+                       disabled={props.isEditable} name="password"
                        className="border-[1px] pl-2 border-gray-500 rounded-none h-8 disabled:bg-gray-300
                        disabled:text-gray-400 disabled:cursor-not-allowed transition" required/>
                 <button className="px-1 py-1" onClick={passwordVisibility} tabIndex="-1"><img
@@ -193,7 +204,7 @@ function Password(props) {
                         onClick={() => {
                             props.addToClipboard(props.password)
                         }}
-                        onMouseOut={props.tooltipOut}><img
+                        onMouseOut={props.onTooltipOut}><img
                     src="/public/clipboard-icon.png"
                 /></button>
             </div>
@@ -202,38 +213,23 @@ function Password(props) {
 }
 
 function EditButton(props) {
-    const editText = "Edit Account";
-    const saveText = "Save Changes";
+    const editLabel = "Edit Account";
+    const saveLabel = "Save Changes";
 
-    const [buttonText, setButtonText] = useState(editText);
+    const [buttonText, setButtonText] = useState(editLabel);
 
     const handleButtonText = () => {
-        setButtonText(buttonText === editText ? saveText : editText);
-    }
-
-    const saveChanges = () => {
-        const website = document.getElementById(props.websiteID).value;
-        const username = document.getElementById(props.usernameID).value;
-        const password = document.getElementById(props.passwordID).value;
-
-        const data = {
-            "website": website,
-            "username": username,
-            "password": password
-        }
-
-        props.handleAccountData(data);
+        setButtonText(buttonText === editLabel ? saveLabel : editLabel);
     }
 
     return (
-        <button
-            className="bg-green-500 text-white px-4 py-2 hover:bg-green-400 active:bg-green-600 shadow-lg
+        <button type="submit" form={props.editFormId}
+                className="bg-green-500 text-white px-4 py-2 hover:bg-green-400 active:bg-green-600 shadow-lg
                         transition"
-            onClick={() => {
-                props.setEditMode();
-                handleButtonText();
-                saveChanges();
-            }}>{buttonText}
+                onClick={() => {
+                    props.setEditMode();
+                    handleButtonText();
+                }}>{buttonText}
         </button>
     );
 }

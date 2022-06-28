@@ -1,6 +1,7 @@
 import {useState, useId} from "react";
+import {DeleteAccountModal} from "./DeleteAccount";
 
-export function AccountInfo() {
+export function AccountInfo(props) {
     // Unique identifiers for each account.
     const websiteID = useId();
     const usernameID = useId();
@@ -12,9 +13,9 @@ export function AccountInfo() {
     const [titleClipboard, setTitleClipboard] = useState("Copy Password.");
     const [clipboardText, setClipboardText] = useState("Copy to clipboard.");
     const [accountData, setAccountData] = useState({
-        website: "google.com",
-        username: "username@gmail.com",
-        password: "password123"
+        website: props.website,
+        username: props.username,
+        password: props.password
     });
 
     const handleAccountData = (data) => {
@@ -42,25 +43,30 @@ export function AccountInfo() {
     }
 
     return (
-        <div className="collapse collapse-plus shadow-total">
-            <input type="checkbox" onClick={() => {
-                setShowInfo(!showInfo)
-            }}/>
-            <CollapsibleTitle accountData={accountData}
-                              clipboardText={titleClipboard}
-                              addToClipboard={addToClipboard}
-                              tooltipOut={tooltipOut}/>
-            {showInfo ?
-                <CollapsibleInfo accountData={accountData}
-                                 websiteID={websiteID}
-                                 usernameID={usernameID}
-                                 passwordID={passwordID}
-                                 clipboardText={clipboardText}
-                                 addToClipboard={addToClipboard}
-                                 tooltipOut={tooltipOut}
-                                 isEditable={isEditable}
-                                 setEditMode={setEditMode}
-                                 handleAccountData={handleAccountData}/> : null}
+        <div>
+            <div className="collapse collapse-plus shadow-total">
+                <input type="checkbox" onClick={() => {
+                    setShowInfo(!showInfo)
+                }}/>
+                <CollapsibleTitle accountData={accountData}
+                                  clipboardText={titleClipboard}
+                                  addToClipboard={addToClipboard}
+                                  tooltipOut={tooltipOut}/>
+                {showInfo ?
+                    <CollapsibleInfo accountIndex={props.index}
+                                     accountData={accountData}
+                                     websiteID={websiteID}
+                                     usernameID={usernameID}
+                                     passwordID={passwordID}
+                                     clipboardText={clipboardText}
+                                     addToClipboard={addToClipboard}
+                                     tooltipOut={tooltipOut}
+                                     isEditable={isEditable}
+                                     setEditMode={setEditMode}
+                                     handleAccountData={handleAccountData}/> : null}
+            </div>
+            <DeleteAccountModal accountIndex={props.index}
+                                removeAccount={props.removeAccount}/>
         </div>
     );
 }
@@ -117,7 +123,7 @@ function CollapsibleInfo(props) {
                             usernameID={props.usernameID}
                             passwordID={props.passwordID}
                             handleAccountData={props.handleAccountData}/>
-                <DeleteButton/>
+                <DeleteButton accountIndex={props.accountIndex}/>
             </div>
         </div>
     );
@@ -232,11 +238,12 @@ function EditButton(props) {
     );
 }
 
-function DeleteButton() {
+function DeleteButton(props) {
     return (
-        <button
-            className="bg-red-500 text-white px-4 py-2 hover:bg-red-400 active:bg-red-600 shadow-lg
-                        transition">Delete Account
-        </button>
+        <label htmlFor={`delete-modal-${props.accountIndex}`}
+               className="bg-red-500 text-white px-4 py-2 hover:bg-red-400 active:bg-red-600 shadow-lg
+                        transition hover:cursor-pointer"
+        >Delete Account
+        </label>
     )
 }

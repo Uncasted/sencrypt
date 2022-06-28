@@ -224,7 +224,7 @@ function EditButton(props) {
 
     return (
         <button type="submit" form={props.editFormId}
-                className="bg-green-500 text-white px-4 py-2 hover:bg-green-400 active:bg-green-600 shadow-lg
+                className="bg-black text-white px-4 py-1.5 hover:bg-green-500 active:bg-green-700 shadow-lg
                         transition"
                 onClick={() => {
                     props.setEditMode();
@@ -237,7 +237,7 @@ function EditButton(props) {
 function DeleteButton(props) {
     return (
         <label htmlFor={`delete-modal-${props.accountIndex}`}
-               className="bg-red-500 text-white px-4 py-2 hover:bg-red-400 active:bg-red-600 shadow-lg
+               className="bg-black text-white px-4 py-2 hover:bg-red-500 active:bg-red-700 shadow-lg
                         transition hover:cursor-pointer"
         >Delete Account
         </label>

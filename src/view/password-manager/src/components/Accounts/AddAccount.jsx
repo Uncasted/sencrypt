@@ -1,6 +1,6 @@
 export function AddAccount() {
     return (
-        <label htmlFor="my-modal"
+        <label htmlFor="add-modal"
                className="ml-4 modal-button bg-black px-6 py-3 text-white hover:bg-black-1 active:bg-black
                transition hover:cursor-pointer shadow-lg">
             Add new account
@@ -11,7 +11,7 @@ export function AddAccount() {
 export function AccountModal() {
     return (
         <>
-            <input type="checkbox" id="my-modal" className="modal-toggle"/>
+            <input type="checkbox" id="add-modal" className="modal-toggle"/>
             <div className="modal">
                 <div className="modal-box bg-white rounded-none px-0 py-0 w-[400px]">
                     <ModalHeader/>
@@ -32,7 +32,7 @@ export function AccountModal() {
 function ModalHeader() {
     return (
         <div className="bg-black text-white w-full py-4 pl-4 mb-4">
-            <label htmlFor="my-modal"
+            <label htmlFor="add-modal"
                    className="btn bg-transparent border-none absolute right-2 top-1 text-white rounded-none
                            hover:bg-black">✕</label>
             <h1 className="text-xl">Add new Account:</h1>
@@ -72,7 +72,7 @@ function Password() {
 
 function SubmitAccount() {
     return (
-        <label htmlFor="my-modal" className="bg-black px-6 py-3 text-white hover:bg-black-1
+        <label htmlFor="add-modal" className="bg-black px-6 py-3 text-white hover:bg-black-1
             active:bg-black transition hover:cursor-pointer mb-4 mt-4">Add Account</label>
     );
 }

@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {AccountModal, AddAccount} from "./AddAccount";
+import {AccountModal, AddAccountButton} from "./AddAccount";
 import {AccountInfo} from "./AccountInfo";
 
 export function Accounts() {
@@ -23,10 +23,16 @@ export function Accounts() {
         setMyAccounts(newState);
     };
 
+    const createAccount = (data) => {
+        const newState = [...myAccounts];
+        newState.push(data);
+        setMyAccounts(newState);
+    }
+
     return (
         <div className="mt-8">
-            <AddAccount/>
-            <AccountModal/>
+            <AddAccountButton/>
+            <AccountModal createAccount={createAccount}/>
             <div className="mt-8 space-y-1 px-2" id="account-list">
                 {!myAccounts.length ? <EmptyPlaceholder/> : null}
                 {myAccounts.map(account => {

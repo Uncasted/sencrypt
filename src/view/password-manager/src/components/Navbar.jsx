@@ -1,9 +1,9 @@
 export function Navbar() {
 
-    const changeFocus = (e) => {
+    const changeFocus = (event) => {
         const buttons = document.querySelectorAll(".change-focus");
         buttons.forEach(element => element.classList.remove("bg-black-1"));
-        e.target.classList.add("bg-black-1");
+        event.target.classList.add("bg-black-1");
     }
 
     return (

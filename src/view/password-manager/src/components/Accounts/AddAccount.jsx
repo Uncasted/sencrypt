@@ -1,7 +1,7 @@
 export function AddAccountButton() {
     return (
         <label htmlFor="add-modal"
-               className="ml-4 modal-button bg-black px-6 py-3 text-white hover:bg-black-1 active:bg-black
+               className="ml-4 modal-button bg-black px-6 py-3 text-white hover:bg-blue-500 active:bg-blue-600
                transition hover:cursor-pointer shadow-lg">
             Add new account
         </label>
@@ -11,6 +11,7 @@ export function AddAccountButton() {
 export function AccountModal(props) {
     const submitData = (event) => {
         event.preventDefault();
+        // Get element array from form.
         const form = event.target.elements;
 
         // Get each value from the form.
@@ -28,7 +29,6 @@ export function AccountModal(props) {
         for (let element of form) {
             element.value = "";
         }
-
     }
 
     return (
@@ -95,7 +95,7 @@ function Password() {
 function SubmitAccount() {
     return (
         <label htmlFor="add-modal" id="add-modal-label">
-            <input className="bg-black px-6 py-3 text-white hover:bg-black-1 active:bg-black transition
+            <input className="bg-black px-6 py-3 text-white hover:bg-blue-500 active:bg-blue-600 transition
             hover:cursor-pointer mb-4 mt-4"
                    type="submit"
                    value="Add Account"/>

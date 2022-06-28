@@ -1,6 +1,7 @@
 import {useState} from "react";
 
 export function AccountInfo() {
+    const [isEditable, setIsEditable] = useState(true);
     const [showInfo, setShowInfo] = useState(false);
     const [titleClipboard, setTitleClipboard] = useState("Copy Password.");
     const [clipboardText, setClipboardText] = useState("Copy to clipboard.");
@@ -9,6 +10,10 @@ export function AccountInfo() {
         username: "username@gmail.com",
         password: "password123"
     });
+
+    const changeAccountData = (data) => {
+        setAccountData(data);
+    }
 
     const addToClipboard = (data) => {
         // By doing this we can set the state on either tooltip with one function.
@@ -25,6 +30,11 @@ export function AccountInfo() {
         }, 250);
     }
 
+    // Make fields editable.
+    const setEditMode = () => {
+        setIsEditable(!isEditable);
+    }
+
     return (
         <div className="collapse collapse-plus shadow-total">
             <input type="checkbox" onClick={() => {
@@ -38,7 +48,9 @@ export function AccountInfo() {
                 <CollapsibleInfo accountData={accountData}
                                  clipboardText={clipboardText}
                                  addToClipboard={addToClipboard}
-                                 tooltipOut={tooltipOut}/> : null}
+                                 tooltipOut={tooltipOut}
+                                 isEditable={isEditable}
+                                 setEditMode={setEditMode}/> : null}
         </div>
     );
 }
@@ -48,7 +60,7 @@ function CollapsibleTitle(props) {
     return (
         <div className="flex collapse-title py-0 px-0 items-center border-b-2" tabIndex="-1">
             <div className="ml-2 w-12 h-full flex items-center justify-center">
-                <img src="https://icon.horse/icon/mail.google.com" className="w-7 h-7"/>
+                <img src={`https://icon.horse/icon/${props.accountData.website}`} className="w-7 h-7"/>
             </div>
             <div className="ml-2">
                 <h1 className="text-md">{props.accountData.website}</h1>
@@ -73,18 +85,21 @@ function CollapsibleInfo(props) {
     return (
         <div className="collapse-content flex">
             <div className="flex flex-col space-y-4 mt-2">
-                <Website website={props.accountData.website}/>
+                <Website website={props.accountData.website}
+                         isEditable={props.isEditable}/>
                 <Username username={props.accountData.username}
                           clipboardText={props.clipboardText}
                           addToClipboard={props.addToClipboard}
-                          tooltipOut={props.tooltipOut}/>
+                          tooltipOut={props.tooltipOut}
+                          isEditable={props.isEditable}/>
                 <Password password={props.accountData.password}
                           clipboardText={props.clipboardText}
                           addToClipboard={props.addToClipboard}
-                          tooltipOut={props.tooltipOut}/>
+                          tooltipOut={props.tooltipOut}
+                          isEditable={props.isEditable}/>
             </div>
             <div className="absolute right-4 mt-4 space-x-4">
-                <EditButton/>
+                <EditButton setEditMode={props.setEditMode}/>
                 <DeleteButton/>
             </div>
         </div>
@@ -95,8 +110,10 @@ function Website(props) {
     return (
         <label htmlFor="website">
             <p className="text-lg">Website:</p>
-            <input type="text" id="website" value={props.website}
-                   className="border-[1px] pl-2 border-gray-500 rounded-none h-8"/>
+            <input type="text" id="website" defaultValue={props.website}
+                   className="border-[1px] pl-2 border-gray-500 rounded-none h-8 disabled:bg-gray-300
+                   disabled:text-gray-400 disabled:cursor-not-allowed transition"
+                   disabled={props.isEditable}/>
         </label>
     );
 }
@@ -107,8 +124,10 @@ function Username(props) {
         <label htmlFor="username">
             <p className="text-lg">Username:</p>
             <div className="flex space-x-2">
-                <input type="text" id="username" value={props.username}
-                       className="border-[1px] pl-2 border-gray-500 rounded-none h-8" required/>
+                <input type="text" id="username" defaultValue={props.username}
+                       className="border-[1px] pl-2 border-gray-500 rounded-none h-8 disabled:bg-gray-300
+                       disabled:text-gray-400 disabled:cursor-not-allowed transition"
+                       disabled={props.isEditable} required/>
                 <button className="px-1 py-1 tooltip tooltip-right" data-tip={props.clipboardText}
                         tabIndex="-1"
                         onClick={() => {
@@ -139,8 +158,9 @@ function Password(props) {
         <label htmlFor="password">
             <p className="text-lg">Password:</p>
             <div className="flex space-x-2">
-                <input type={showPassword} id="password" value={props.password}
-                       className="border-[1px] pl-2 border-gray-500 rounded-none h-8" required/>
+                <input type={showPassword} id="password" defaultValue={props.password} disabled={props.isEditable}
+                       className="border-[1px] pl-2 border-gray-500 rounded-none h-8 disabled:bg-gray-300
+                       disabled:text-gray-400 disabled:cursor-not-allowed transition" required/>
                 <button className="px-1 py-1" onClick={passwordVisibility} tabIndex="-1"><img
                     src={passwordIcon}
                 /></button>
@@ -157,11 +177,25 @@ function Password(props) {
     );
 }
 
-function EditButton() {
+function EditButton(props) {
+    const editText = "Edit Account";
+    const saveText = "Save Account";
+
+    const [buttonText, setButtonText] = useState(editText);
+
+    const handleButtonText = () => {
+        setButtonText(buttonText === editText ? saveText : editText);
+    }
+
+
     return (
         <button
             className="bg-green-500 text-white px-4 py-2 hover:bg-green-400 active:bg-green-600 shadow-lg
-                        transition">Edit Account
+                        transition"
+            onClick={() => {
+                props.setEditMode();
+                handleButtonText();
+            }}>{buttonText}
         </button>
     );
 }

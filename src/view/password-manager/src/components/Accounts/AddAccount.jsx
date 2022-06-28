@@ -3,7 +3,7 @@ export function AddAccountButton() {
         <label htmlFor="add-modal"
                className="ml-4 modal-button bg-black px-6 py-3 text-white hover:bg-blue-500 active:bg-blue-600
                transition hover:cursor-pointer shadow-lg">
-            Add new account
+            Add New Account
         </label>
     );
 }

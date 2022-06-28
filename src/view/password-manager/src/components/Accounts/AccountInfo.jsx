@@ -1,6 +1,12 @@
-import {useState} from "react";
+import {useState, useId} from "react";
 
 export function AccountInfo() {
+    // Unique identifiers for each account.
+    const websiteID = useId();
+    const usernameID = useId();
+    const passwordID = useId();
+
+    // State.
     const [isEditable, setIsEditable] = useState(true);
     const [showInfo, setShowInfo] = useState(false);
     const [titleClipboard, setTitleClipboard] = useState("Copy Password.");
@@ -11,7 +17,7 @@ export function AccountInfo() {
         password: "password123"
     });
 
-    const changeAccountData = (data) => {
+    const handleAccountData = (data) => {
         setAccountData(data);
     }
 
@@ -46,11 +52,15 @@ export function AccountInfo() {
                               tooltipOut={tooltipOut}/>
             {showInfo ?
                 <CollapsibleInfo accountData={accountData}
+                                 websiteID={websiteID}
+                                 usernameID={usernameID}
+                                 passwordID={passwordID}
                                  clipboardText={clipboardText}
                                  addToClipboard={addToClipboard}
                                  tooltipOut={tooltipOut}
                                  isEditable={isEditable}
-                                 setEditMode={setEditMode}/> : null}
+                                 setEditMode={setEditMode}
+                                 handleAccountData={handleAccountData}/> : null}
         </div>
     );
 }
@@ -86,20 +96,27 @@ function CollapsibleInfo(props) {
         <div className="collapse-content flex">
             <div className="flex flex-col space-y-4 mt-2">
                 <Website website={props.accountData.website}
+                         websiteID={props.websiteID}
                          isEditable={props.isEditable}/>
                 <Username username={props.accountData.username}
+                          usernameID={props.usernameID}
                           clipboardText={props.clipboardText}
                           addToClipboard={props.addToClipboard}
                           tooltipOut={props.tooltipOut}
                           isEditable={props.isEditable}/>
                 <Password password={props.accountData.password}
+                          passwordID={props.passwordID}
                           clipboardText={props.clipboardText}
                           addToClipboard={props.addToClipboard}
                           tooltipOut={props.tooltipOut}
                           isEditable={props.isEditable}/>
             </div>
             <div className="absolute right-4 mt-4 space-x-4">
-                <EditButton setEditMode={props.setEditMode}/>
+                <EditButton setEditMode={props.setEditMode}
+                            websiteID={props.websiteID}
+                            usernameID={props.usernameID}
+                            passwordID={props.passwordID}
+                            handleAccountData={props.handleAccountData}/>
                 <DeleteButton/>
             </div>
         </div>
@@ -108,9 +125,9 @@ function CollapsibleInfo(props) {
 
 function Website(props) {
     return (
-        <label htmlFor="website">
+        <label htmlFor={props.websiteID}>
             <p className="text-lg">Website:</p>
-            <input type="text" id="website" defaultValue={props.website}
+            <input type="text" id={props.websiteID} defaultValue={props.website}
                    className="border-[1px] pl-2 border-gray-500 rounded-none h-8 disabled:bg-gray-300
                    disabled:text-gray-400 disabled:cursor-not-allowed transition"
                    disabled={props.isEditable}/>
@@ -121,10 +138,10 @@ function Website(props) {
 function Username(props) {
 
     return (
-        <label htmlFor="username">
+        <label htmlFor={props.usernameID}>
             <p className="text-lg">Username:</p>
             <div className="flex space-x-2">
-                <input type="text" id="username" defaultValue={props.username}
+                <input type="text" id={props.usernameID} defaultValue={props.username}
                        className="border-[1px] pl-2 border-gray-500 rounded-none h-8 disabled:bg-gray-300
                        disabled:text-gray-400 disabled:cursor-not-allowed transition"
                        disabled={props.isEditable} required/>
@@ -155,10 +172,11 @@ function Password(props) {
     }
 
     return (
-        <label htmlFor="password">
+        <label htmlFor={props.passwordID}>
             <p className="text-lg">Password:</p>
             <div className="flex space-x-2">
-                <input type={showPassword} id="password" defaultValue={props.password} disabled={props.isEditable}
+                <input type={showPassword} id={props.passwordID} defaultValue={props.password}
+                       disabled={props.isEditable}
                        className="border-[1px] pl-2 border-gray-500 rounded-none h-8 disabled:bg-gray-300
                        disabled:text-gray-400 disabled:cursor-not-allowed transition" required/>
                 <button className="px-1 py-1" onClick={passwordVisibility} tabIndex="-1"><img
@@ -179,7 +197,7 @@ function Password(props) {
 
 function EditButton(props) {
     const editText = "Edit Account";
-    const saveText = "Save Account";
+    const saveText = "Save Changes";
 
     const [buttonText, setButtonText] = useState(editText);
 
@@ -187,6 +205,19 @@ function EditButton(props) {
         setButtonText(buttonText === editText ? saveText : editText);
     }
 
+    const saveChanges = () => {
+        const website = document.getElementById(props.websiteID).value;
+        const username = document.getElementById(props.usernameID).value;
+        const password = document.getElementById(props.passwordID).value;
+
+        const data = {
+            "website": website,
+            "username": username,
+            "password": password
+        }
+
+        props.handleAccountData(data);
+    }
 
     return (
         <button
@@ -195,6 +226,7 @@ function EditButton(props) {
             onClick={() => {
                 props.setEditMode();
                 handleButtonText();
+                saveChanges();
             }}>{buttonText}
         </button>
     );

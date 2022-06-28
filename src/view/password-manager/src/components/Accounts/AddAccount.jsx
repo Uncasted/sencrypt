@@ -42,9 +42,9 @@ function ModalHeader() {
 
 function Website() {
     return (
-        <label htmlFor="website">
+        <label htmlFor="newWebsite">
             <p className="text-lg">Website:</p>
-            <input type="text" id="website" name="website"
+            <input type="text" id="newWebsite" name="website"
                    className="border-[1px] pl-2 border-gray-500 rounded-none h-10"/>
         </label>
     )
@@ -52,9 +52,9 @@ function Website() {
 
 function Username() {
     return (
-        <label htmlFor="username">
+        <label htmlFor="newUsername">
             <p className="text-lg">Username:</p>
-            <input type="text" id="username" name="username"
+            <input type="text" id="newUsername" name="username"
                    className="border-[1px] pl-2 border-gray-500 rounded-none h-10" required/>
         </label>
     );
@@ -62,9 +62,9 @@ function Username() {
 
 function Password() {
     return (
-        <label htmlFor="password">
+        <label htmlFor="newPassword">
             <p className="text-lg">Password:</p>
-            <input type="password" id="password" name="password"
+            <input type="password" id="newPassword" name="password"
                    className="border-[1px] pl-2 border-gray-500 rounded-none h-10" required/>
         </label>
     );

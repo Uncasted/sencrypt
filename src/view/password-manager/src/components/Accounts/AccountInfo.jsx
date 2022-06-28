@@ -11,7 +11,7 @@ export function AccountInfo() {
         password: "password123"
     });
 
-    const changeAccountData = (data) => {
+    const handleAccountData = (data) => {
         setAccountData(data);
     }
 
@@ -50,7 +50,8 @@ export function AccountInfo() {
                                  addToClipboard={addToClipboard}
                                  tooltipOut={tooltipOut}
                                  isEditable={isEditable}
-                                 setEditMode={setEditMode}/> : null}
+                                 setEditMode={setEditMode}
+                                 handleAccountData={handleAccountData}/> : null}
         </div>
     );
 }
@@ -99,7 +100,8 @@ function CollapsibleInfo(props) {
                           isEditable={props.isEditable}/>
             </div>
             <div className="absolute right-4 mt-4 space-x-4">
-                <EditButton setEditMode={props.setEditMode}/>
+                <EditButton setEditMode={props.setEditMode}
+                            handleAccountData={props.handleAccountData}/>
                 <DeleteButton/>
             </div>
         </div>
@@ -179,7 +181,7 @@ function Password(props) {
 
 function EditButton(props) {
     const editText = "Edit Account";
-    const saveText = "Save Account";
+    const saveText = "Save Changes";
 
     const [buttonText, setButtonText] = useState(editText);
 
@@ -187,6 +189,19 @@ function EditButton(props) {
         setButtonText(buttonText === editText ? saveText : editText);
     }
 
+    const saveChanges = () => {
+        const website = document.querySelector("#website").value;
+        const username = document.querySelector("#username").value;
+        const password = document.querySelector("#password").value;
+
+        const data = {
+            "website": website,
+            "username": username,
+            "password": password
+        }
+
+        props.handleAccountData(data);
+    }
 
     return (
         <button
@@ -195,6 +210,7 @@ function EditButton(props) {
             onClick={() => {
                 props.setEditMode();
                 handleButtonText();
+                saveChanges();
             }}>{buttonText}
         </button>
     );

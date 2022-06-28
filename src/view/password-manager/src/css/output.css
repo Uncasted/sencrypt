@@ -2673,6 +2673,10 @@ body[dir="rtl"] .checkbox:checked,
   border-width: 2px;
 }
 
+.border-\[1px\] {
+  border-width: 1px;
+}
+
 .border-b-2 {
   border-bottom-width: 2px;
 }
@@ -2775,6 +2779,10 @@ body[dir="rtl"] .checkbox:checked,
 
 .pl-4 {
   padding-left: 1rem;
+}
+
+.pl-2 {
+  padding-left: 0.5rem;
 }
 
 .text-start {

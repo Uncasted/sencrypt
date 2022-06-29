@@ -1,5 +1,6 @@
 import {useState, useId} from "react";
 import {DeleteAccountModal} from "./DeleteAccount";
+import Collapsible from "react-collapsible";
 
 export function AccountInfo(props) {
     // Unique identifiers for each account.
@@ -10,7 +11,6 @@ export function AccountInfo(props) {
 
     // State.
     const [isEditable, setIsEditable] = useState(true);
-    const [showInfo, setShowInfo] = useState(false);
     const [titleClipboard, setTitleClipboard] = useState("Copy Password.");
     const [clipboardText, setClipboardText] = useState("Copy to clipboard.");
     const [accountData, setAccountData] = useState({
@@ -45,26 +45,36 @@ export function AccountInfo(props) {
 
     return (
         <div>
-            <div className="collapse collapse-arrow shadow-total">
-                <input type="checkbox" onClick={() => {
-                    setShowInfo(!showInfo)
-                }}/>
-                <CollapsibleTitle accountData={accountData}
-                                  clipboardText={titleClipboard}
-                                  addToClipboard={addToClipboard}
-                                  onTooltipOut={onTooltipOut}/>
-                {showInfo && <CollapsibleInfo accountIndex={props.index}
-                                              accountData={accountData}
-                                              websiteID={websiteID}
-                                              usernameID={usernameID}
-                                              passwordID={passwordID}
-                                              editFormID={editFormID}
-                                              clipboardText={clipboardText}
-                                              addToClipboard={addToClipboard}
-                                              onTooltipOut={onTooltipOut}
-                                              isEditable={isEditable}
-                                              setEditMode={setEditMode}
-                                              saveAccountData={saveAccountData}/>}
+            <div className="shadow-total">
+                <div className="absolute right-14 mt-1">
+                    <button className="px-1 py-1 tooltip tooltip-left tooltip-black"
+                            onClick={() => {
+                                addToClipboard(accountData.password)
+                            }}
+                            onMouseOut={onTooltipOut}
+                            data-tip={clipboardText}
+                            tabIndex="-1"><img
+                        src="/public/clipboard-icon.png"
+                    /></button>
+                </div>
+                <Collapsible trigger={<CollapsibleTitle accountData={accountData}
+                                                        clipboardText={titleClipboard}
+                                                        addToClipboard={addToClipboard}
+                                                        onTooltipOut={onTooltipOut}/>}
+                             transitionTime={100}>
+                    <CollapsibleInfo accountIndex={props.index}
+                                     accountData={accountData}
+                                     websiteID={websiteID}
+                                     usernameID={usernameID}
+                                     passwordID={passwordID}
+                                     editFormID={editFormID}
+                                     clipboardText={clipboardText}
+                                     addToClipboard={addToClipboard}
+                                     onTooltipOut={onTooltipOut}
+                                     isEditable={isEditable}
+                                     setEditMode={setEditMode}
+                                     saveAccountData={saveAccountData}/>
+                </Collapsible>
             </div>
             <DeleteAccountModal accountIndex={props.index}
                                 removeAccount={props.removeAccount}/>
@@ -73,8 +83,11 @@ export function AccountInfo(props) {
 }
 
 function CollapsibleTitle(props) {
+    const [isOpen, setIsOpen] = useState("▼");
+
     return (
-        <div className="flex collapse-title py-0 px-0 items-center border-b-2" tabIndex="-1">
+        <div className="flex py-0 px-0 items-center shadow-md pb-1"
+             onClick={() => setIsOpen(isOpen === "▼" ? "▲" : "▼")}>
             <div className="ml-2 w-12 h-full flex items-center justify-center">
                 <img src={`https://icon.horse/icon/${props.accountData.website}`} className="w-7 h-7"/>
             </div>
@@ -82,16 +95,8 @@ function CollapsibleTitle(props) {
                 <h1 className="text-md">{props.accountData.website}</h1>
                 <h2 className="text-xs text-gray-500">{props.accountData.username}</h2>
             </div>
-            <div className="absolute right-12">
-                <button className=" px-1 py-1 tooltip tooltip-left"
-                        onClick={() => {
-                            props.addToClipboard(props.accountData.password)
-                        }}
-                        onMouseOut={props.onTooltipOut}
-                        data-tip={props.clipboardText}
-                        tabIndex="-1"><img
-                    src="/public/clipboard-icon.png"
-                /></button>
+            <div className="absolute right-6">
+                <span className="font-bold">{isOpen}</span>
             </div>
         </div>
     );
@@ -113,8 +118,8 @@ function CollapsibleInfo(props) {
     }
 
     return (
-        <div className="collapse-content flex">
-            <form className="flex flex-col space-y-4 mt-2" id={props.editFormID} onSubmit={saveChanges}>
+        <div className="flex justify-between">
+            <form className="flex flex-col space-y-4 mt-2 ml-4 mb-4" id={props.editFormID} onSubmit={saveChanges}>
                 <Website website={props.accountData.website}
                          websiteID={props.websiteID}
                          isEditable={props.isEditable}/>
@@ -131,7 +136,7 @@ function CollapsibleInfo(props) {
                           onTooltipOut={props.onTooltipOut}
                           isEditable={props.isEditable}/>
             </form>
-            <div className="absolute right-4 mt-4 space-x-4">
+            <div className="mt-4 mr-4 space-x-4">
                 <EditButton setEditMode={props.setEditMode}
                             editFormId={props.editFormID}/>
                 <DeleteButton accountIndex={props.accountIndex}/>
@@ -162,7 +167,7 @@ function Username(props) {
                        className="border-[1px] pl-2 border-gray-500 rounded-none h-8 disabled:bg-gray-300
                        disabled:text-gray-400 disabled:cursor-not-allowed transition"
                        disabled={props.isEditable} required/>
-                <button className="px-1 py-1 tooltip tooltip-right" data-tip={props.clipboardText}
+                <button className="px-1 py-1 tooltip tooltip-right tooltip-black" data-tip={props.clipboardText}
                         tabIndex="-1"
                         onClick={() => {
                             props.addToClipboard(props.username)
@@ -199,7 +204,7 @@ function Password(props) {
                 <button className="px-1 py-1" onClick={passwordVisibility} tabIndex="-1"><img
                     src={passwordIcon}
                 /></button>
-                <button className=" px-1 py-1 tooltip tooltip-right" data-tip={props.clipboardText}
+                <button className=" px-1 py-1 tooltip tooltip-right tooltip-black" data-tip={props.clipboardText}
                         tabIndex="-1"
                         onClick={() => {
                             props.addToClipboard(props.password)

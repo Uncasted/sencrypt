@@ -86,7 +86,7 @@ function CollapsibleTitle(props) {
     const [isOpen, setIsOpen] = useState("▼");
 
     return (
-        <div className="flex py-0 px-0 items-center shadow-md pb-1"
+        <div className="flex py-0 px-0 items-center shadow-md pb-1 no-select"
              onClick={() => setIsOpen(isOpen === "▼" ? "▲" : "▼")}>
             <div className="ml-2 w-12 h-full flex items-center justify-center">
                 <img src={`https://icon.horse/icon/${props.accountData.website}`} className="w-7 h-7"/>

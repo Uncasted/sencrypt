@@ -2748,6 +2748,12 @@ body[dir="rtl"] .checkbox:checked,
   --tooltip-text-color: white;
 }
 
+.no-select {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+
 .hover\:cursor-pointer:hover {
   cursor: pointer;
 }

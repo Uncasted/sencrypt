@@ -2,13 +2,13 @@ export function DeleteAccountModal(props) {
     return (
         <div>
             <input type="checkbox" id={`delete-modal-${props.accountIndex}`} className="modal-toggle"/>
-            <div className="modal">
+            <label htmlFor={`delete-modal-${props.accountIndex}`} className="modal">
                 <div className="modal-box bg-white rounded-none px-0 py-0 w-[400px] h-[200px]">
                     <DeleteModalHeader accountIndex={props.accountIndex}/>
                     <DeleteModalWarning accountIndex={props.accountIndex}
                                         removeAccount={props.removeAccount}/>
                 </div>
-            </div>
+            </label>
         </div>
     )
 }
@@ -19,16 +19,16 @@ function DeleteModalHeader(props) {
             <label htmlFor={`delete-modal-${props.accountIndex}`}
                    className="btn bg-transparent border-none absolute right-2 top-1 text-white rounded-none
                            hover:bg-black">✕</label>
-            <h1 className="text-xl">Delete Account:</h1>
+            <h1 className="text-lg">Delete Account:</h1>
         </div>
     );
 }
 
 function DeleteModalWarning(props) {
     return (
-        <div className="flex flex-col space-y-4">
+        <div className="flex flex-col">
             <div>
-                <h1 className="text-lg ml-4">Are you sure you want to delete this account?</h1>
+                <h1 className="text-md ml-4">Are you sure you want to delete this account?</h1>
             </div>
             <div className="absolute right-4 bottom-4">
                 <label htmlFor={`delete-modal-${props.accountIndex}`}

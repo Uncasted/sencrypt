@@ -1,7 +1,7 @@
 export function AddAccountButton() {
     return (
         <label htmlFor="add-modal"
-               className="ml-4 modal-button bg-black px-6 py-3 text-white hover:bg-blue-500 active:bg-blue-600
+               className="ml-4 modal-button bg-black px-4 py-3 text-white hover:bg-blue-500 active:bg-blue-600
                transition hover:cursor-pointer shadow-lg">
             Add New Account
         </label>
@@ -34,8 +34,8 @@ export function AccountModal(props) {
     return (
         <>
             <input type="checkbox" id="add-modal" className="modal-toggle"/>
-            <div className="modal">
-                <div className="modal-box bg-white rounded-none px-0 py-0 w-[400px]">
+            <label htmlFor="add-modal" className="modal">
+                <div className="modal-box bg-white rounded-none px-0 py-0 w-[350px]">
                     <ModalHeader/>
                     <form className="flex flex-col items-center space-y-4" id="add-form" onSubmit={submitData}>
                         <Website/>
@@ -46,7 +46,7 @@ export function AccountModal(props) {
                         </div>
                     </form>
                 </div>
-            </div>
+            </label>
         </>
     )
 }
@@ -57,7 +57,7 @@ function ModalHeader() {
             <label htmlFor="add-modal"
                    className="btn bg-transparent border-none absolute right-2 top-1 text-white rounded-none
                            hover:bg-black">✕</label>
-            <h1 className="text-xl">Add new Account:</h1>
+            <h1 className="text-lg">Add new Account:</h1>
         </div>
     );
 }
@@ -65,9 +65,9 @@ function ModalHeader() {
 function Website() {
     return (
         <label htmlFor="new-website">
-            <p className="text-lg">Website:</p>
+            <p className="text-md">Website:</p>
             <input type="text" id="new-website" name="new-website"
-                   className="border-[1px] pl-2 border-gray-500 rounded-none h-10" required/>
+                   className="border-[1px] pl-2 border-gray-500 rounded-none h-8" required/>
         </label>
     )
 }
@@ -75,9 +75,9 @@ function Website() {
 function Username() {
     return (
         <label htmlFor="new-username">
-            <p className="text-lg">Username:</p>
+            <p className="text-md">Username:</p>
             <input type="text" id="new-username" name="new-username"
-                   className="border-[1px] pl-2 border-gray-500 rounded-none h-10" required/>
+                   className="border-[1px] pl-2 border-gray-500 rounded-none h-8" required/>
         </label>
     );
 }
@@ -85,9 +85,9 @@ function Username() {
 function Password() {
     return (
         <label htmlFor="new-password">
-            <p className="text-lg">Password:</p>
+            <p className="text-md">Password:</p>
             <input type="password" id="new-password" name="new-password"
-                   className="border-[1px] pl-2 border-gray-500 rounded-none h-10" required/>
+                   className="border-[1px] pl-2 border-gray-500 rounded-none h-8" required/>
         </label>
     );
 }
@@ -95,7 +95,7 @@ function Password() {
 function SubmitAccount() {
     return (
         <label htmlFor="add-modal" id="add-modal-label">
-            <input className="bg-black px-6 py-3 text-white hover:bg-blue-500 active:bg-blue-600 transition
+            <input className="bg-black px-4 py-2 text-white hover:bg-blue-500 active:bg-blue-600 transition
             hover:cursor-pointer mb-4 mt-4"
                    type="submit"
                    value="Add Account"/>

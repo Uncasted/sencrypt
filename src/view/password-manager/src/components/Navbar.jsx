@@ -9,7 +9,7 @@ export function Navbar() {
     return (
         <nav className="bg-black text-white inset-0 w-[250px] h-[100vh] pt-4 fixed">
             <img src="/public/logo.png" className="h-7 mx-auto"/>
-            <ul className="flex flex-col text-xl mt-8">
+            <ul className="flex flex-col text-lg mt-8">
                 <li>
                     <button onClick={changeFocus}
                             className="bg-black-1 change-focus w-full text-start pl-8 py-3 hover:bg-black-1 transition flex">

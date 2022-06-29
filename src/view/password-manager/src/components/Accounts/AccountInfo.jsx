@@ -45,7 +45,7 @@ export function AccountInfo(props) {
 
     return (
         <div>
-            <div className="collapse collapse-plus shadow-total">
+            <div className="collapse collapse-arrow shadow-total">
                 <input type="checkbox" onClick={() => {
                     setShowInfo(!showInfo)
                 }}/>
@@ -143,7 +143,7 @@ function CollapsibleInfo(props) {
 function Website(props) {
     return (
         <label htmlFor={props.websiteID}>
-            <p className="text-lg">Website:</p>
+            <p className="text-md">Website:</p>
             <input type="text" id={props.websiteID} defaultValue={props.website} name="website"
                    className="border-[1px] pl-2 border-gray-500 rounded-none h-8 disabled:bg-gray-300
                    disabled:text-gray-400 disabled:cursor-not-allowed transition"
@@ -156,7 +156,7 @@ function Username(props) {
 
     return (
         <label htmlFor={props.usernameID}>
-            <p className="text-lg">Username:</p>
+            <p className="text-md">Username:</p>
             <div className="flex space-x-2">
                 <input type="text" id={props.usernameID} defaultValue={props.username} name="username"
                        className="border-[1px] pl-2 border-gray-500 rounded-none h-8 disabled:bg-gray-300
@@ -190,7 +190,7 @@ function Password(props) {
 
     return (
         <label htmlFor={props.passwordID}>
-            <p className="text-lg">Password:</p>
+            <p className="text-md">Password:</p>
             <div className="flex space-x-2">
                 <input type={showPassword} id={props.passwordID} defaultValue={props.password}
                        disabled={props.isEditable} name="password"

@@ -1,91 +1,68 @@
-const encryption = require('../model/encryption');
-const crud = require('../model/crud');
+const Database = require('../model/database')
 
 class AccountController {
-    constructor(SK, encryptedMP) {
-        this.SK = SK;
-        this.encryptedMP = encryptedMP;
+    constructor() {
+        this.Model = new Database('./testing.json')
     }
 
-    async getUsernames() {
-        try {
-            const encryptedUsernames = await crud.getUsernames(this.encryptedMP);
-            const decryptedUsernames = [];
-            for (const username of encryptedUsernames) {
-                const decryptedUsername = encryption.decrypt(username, this.SK);
-                decryptedUsernames.push(decryptedUsername);
+    async checkIsNew(masterPassword) {
+        const dbLength = await this.Model.getDatabaseLength()
+        const isNew = dbLength === 0
+
+        if (isNew) {
+            console.log("New user. Initializing the database.")
+            await this.Model.init(masterPassword)
+        } else {
+            const isMasterPassword = await this.Model.verifyMasterPassword(masterPassword)
+            if (isMasterPassword) {
+                console.log("You have been verified.")
+                await this.Model.start(masterPassword)
+            } else {
+                console.log("Incorrect password")
             }
-
-            return decryptedUsernames;
-        } catch (error) {
-            console.log("Error at getUsernames (Controller).");
-            console.log(error);
         }
     }
 
-    async createAccount(username, password) {
+    async getAllAccounts() {
         try {
-            // Encrypt the account data.
-            const encryptedUsername = encryption.encrypt(username, this.SK);
-            const encryptedPassword = encryption.encrypt(password, this.SK);
-
-            // Insert it into the database.
-            await crud.createAccount(this.encryptedMP, encryptedUsername, encryptedPassword);
+            return await this.Model.getAllAccounts()
         } catch (error) {
-            console.log("Error at createAccount (Controller).");
-            console.log(error);
+            console.log("Error at getAllAccounts (Controller).")
+            console.log(error)
         }
     }
 
-    async getPassword(username) {
+    async createAccount(username, password, website) {
         try {
-            const encryptedUsername = encryption.encrypt(username, this.SK);
-            const encryptedPassword = await crud.getPassword(this.encryptedMP, encryptedUsername);
-
-            // Decrypt the account password.
-            const decryptedPassword = encryption.decrypt(encryptedPassword, this.SK);
-            return decryptedPassword;
+            await this.Model.createAccount(username, password, website)
         } catch (error) {
-            console.log("Error at getAccount (Controller).");
-            console.log(error);
+            console.log("Error at createAccount (Controller).")
+            console.log(error)
         }
     }
 
-    async updateUsername(oldUsername, newUsername) {
+    async updateAccount(oldUsername, oldWebsite, newAccount) {
         try {
-            const encryptedOldUsername = encryption.encrypt(oldUsername, this.SK);
-            const encryptedNewUsername = encryption.encrypt(newUsername, this.SK);
-
-            await crud.updateUsername(this.encryptedMP, encryptedOldUsername, encryptedNewUsername);
+            await this.Model.updateAccount(oldUsername, oldWebsite, newAccount)
         } catch (error) {
-            console.log("Error at updateUsername (Controller).");
-            console.log(error);
+            console.log("Error at updateAccount (Controller).")
+            console.log(error)
         }
     }
 
-    async updatePassword(username, newPassword) {
+    async deleteAccount(username, website) {
         try {
-            const encryptedUsername = encryption.encrypt(username, this.SK);
-            const encryptedNewPassword = encryption.encrypt(newPassword, this.SK);
-
-            await crud.updatePassword(this.encryptedMP, encryptedUsername, encryptedNewPassword);
+            await this.Model.deleteAccount(username, website)
         } catch (error) {
-            console.log("Error at updatePassword (Controller).");
-            console.log(error);
-        }
-    }
-
-    async deleteAccount(username) {
-        try {
-            const encryptedUsername = encryption.encrypt(username, this.SK);
-            await crud.deleteAccount(this.encryptedMP, encryptedUsername);
-        } catch (error) {
-            console.log("Error at deleteAccount (Controller).");
-            console.log(error);
+            console.log("Error at deleteAccount (Controller).")
+            console.log(error)
         }
     }
 }
 
 module.exports = {
     AccountController
-};
+}
+
+
+

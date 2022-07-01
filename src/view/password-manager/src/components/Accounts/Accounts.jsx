@@ -1,54 +1,30 @@
-import {useState} from "react";
-import {AccountModal, AddAccountButton} from "./AddAccount";
-import {AccountInfo} from "./AccountInfo";
+import {AccountModal, AddAccountButton} from "./AddAccount"
+import {AccountInfo} from "./AccountInfo"
+import AccountProvider from "./Context/AccountContext"
+import ClipboardProvider from "./Context/ClipboardContext"
+import {useAccountsContext} from "./Context/AccountsContext"
 
 export function Accounts() {
-    // Placeholder information
-    const accounts = [{
-        website: "steamcommunity.com",
-        username: "username",
-        password: "password"
-    }, {
-        website: "google.com",
-        username: "username@gmail.com",
-        password: "admin123"
-    }];
-
-    const [myAccounts, setMyAccounts] = useState(accounts);
-
-    const removeAccount = (index) => {
-        // I have to make a copy of the array or the splice method won't work properly.
-        const newState = [...myAccounts];
-        // Delete account on the specified index.
-        newState.splice(index, 1);
-        setMyAccounts(newState);
-    };
-
-    const createAccount = (data) => {
-        const newState = [...myAccounts];
-        newState.push(data);
-        setMyAccounts(newState);
-    }
+    const accounts = useAccountsContext()
 
     return (
         <div className="mt-8">
             <AddAccountButton/>
-            <AccountModal createAccount={createAccount}/>
+            <AccountModal/>
             <div className="mt-8 space-y-1 px-2" id="account-list">
-                {!myAccounts.length && <EmptyPlaceholder/>}
-                {myAccounts.map(account => {
+                {!accounts.length && <EmptyPlaceholder/>}
+                {accounts.map((account, index) => {
                     return (
-                        <AccountInfo key={`${account.username}-${account.website}`}
-                                     website={account.website}
-                                     username={account.username}
-                                     password={account.password}
-                                     index={myAccounts.indexOf(account)}
-                                     removeAccount={removeAccount}/>
-                    );
+                        <AccountProvider account={account} index={index} key={`${account.username}-${account.website}`}>
+                            <ClipboardProvider>
+                                <AccountInfo/>
+                            </ClipboardProvider>
+                        </AccountProvider>
+                    )
                 })}
             </div>
         </div>
-    );
+    )
 }
 
 // This gets rendered when there aren't any accounts in the app.
@@ -58,5 +34,5 @@ function EmptyPlaceholder() {
             <h1 className="text-2xl text-gray-500">There isn't any accounts to show.</h1>
             <h1 className="text-lg text-gray-500">Add a new account by clicking on the "Add new account" button.</h1>
         </div>
-    );
+    )
 }

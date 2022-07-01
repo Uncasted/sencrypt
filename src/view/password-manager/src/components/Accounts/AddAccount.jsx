@@ -1,3 +1,5 @@
+import {useAccountsContextUpdate} from "./Context/AccountsContext"
+
 export function AddAccountButton() {
     return (
         <label htmlFor="add-modal"
@@ -5,29 +7,31 @@ export function AddAccountButton() {
                transition hover:cursor-pointer shadow-lg">
             Add New Account
         </label>
-    );
+    )
 }
 
-export function AccountModal(props) {
+export function AccountModal() {
+    const createAccount = useAccountsContextUpdate().createAccount
+
     const submitData = (event) => {
-        event.preventDefault();
+        event.preventDefault()
         // Get element array from form.
-        const form = event.target.elements;
+        const form = event.target.elements
 
         // Get each value from the form.
-        props.createAccount({
+        createAccount({
             website: form["new-website"].value,
             username: form["new-username"].value,
             password: form["new-password"].value
-        });
+        })
 
         // We need to click the label to close the modal.
-        const addModalLabel = document.querySelector("#add-modal-label");
-        addModalLabel.click();
+        const addModalLabel = document.querySelector("#add-modal-label")
+        addModalLabel.click()
 
         // Clear the value of the elements after adding the account.
         for (let element of form) {
-            element.value = "";
+            element.value = ""
         }
     }
 
@@ -59,7 +63,7 @@ function ModalHeader() {
                            hover:bg-black">✕</label>
             <h1 className="text-lg">Add new Account:</h1>
         </div>
-    );
+    )
 }
 
 function Website() {
@@ -79,7 +83,7 @@ function Username() {
             <input type="text" id="new-username" name="new-username"
                    className="border-[1px] pl-2 border-gray-500 rounded-none h-8" required/>
         </label>
-    );
+    )
 }
 
 function Password() {
@@ -89,7 +93,7 @@ function Password() {
             <input type="password" id="new-password" name="new-password"
                    className="border-[1px] pl-2 border-gray-500 rounded-none h-8" required/>
         </label>
-    );
+    )
 }
 
 function SubmitAccount() {
@@ -100,5 +104,5 @@ function SubmitAccount() {
                    type="submit"
                    value="Add Account"/>
         </label>
-    );
+    )
 }

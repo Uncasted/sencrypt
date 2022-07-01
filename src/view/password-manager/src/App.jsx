@@ -1,15 +1,16 @@
-import {Navbar} from "./components/Navbar";
-import {Accounts} from "./components/Accounts/Accounts";
+import {Navbar} from "./components/Navbar"
+import {Accounts} from "./components/Accounts/Accounts"
+import AccountsProvider from "./components/Accounts/Context/AccountsContext"
 
-function App() {
+export default function App() {
     return (
         <>
             <Navbar/>
             <div className="ml-[250px]">
-                <Accounts/>
+                <AccountsProvider>
+                    <Accounts/>
+                </AccountsProvider>
             </div>
         </>
     )
 }
-
-export default App;

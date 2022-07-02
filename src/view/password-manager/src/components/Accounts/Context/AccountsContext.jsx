@@ -1,4 +1,4 @@
-import {createContext, useContext, useRef} from "react"
+import {createContext, useContext, useState} from "react"
 
 const AccountsContext = createContext()
 const AccountsContextUpdate = createContext()
@@ -23,24 +23,26 @@ export default function AccountsProvider(props) {
         password: "admin123"
     }]
 
-    const accounts = useRef(myAccounts)
+    const [accounts, setAccounts] = useState(myAccounts)
 
     // I have to make a copy otherwise It doesn't work.
     const createAccount = (data) => {
-        accounts.current.push(data)
-    }
-
-    const updateAccount = (index, data) => {
-        accounts.current[index] = data
+        setAccounts(accounts => {
+            return [...accounts, data]
+        })
     }
 
     const removeAccount = (index) => {
-        accounts.current.splice(index, 1)
+        setAccounts(accounts => {
+            const newAccounts = [...accounts]
+            newAccounts.splice(index, 1)
+            return newAccounts
+        })
     }
 
     return (
-        <AccountsContext.Provider value={accounts.current}>
-            <AccountsContextUpdate.Provider value={{createAccount, updateAccount, removeAccount}}>
+        <AccountsContext.Provider value={accounts}>
+            <AccountsContextUpdate.Provider value={{createAccount, removeAccount}}>
                 {props.children}
             </AccountsContextUpdate.Provider>
         </AccountsContext.Provider>

@@ -74,9 +74,7 @@ function CollapsibleTitle(props) {
 }
 
 function CollapsibleInfo() {
-    const index = useAccountContext().index
     const saveChanges = useAccountContextUpdate()
-    const updateAccount = useAccountsContextUpdate().updateAccount
 
     const editFormID = useIDContext().editFormID
 
@@ -93,8 +91,6 @@ function CollapsibleInfo() {
 
         // Save changes in local state.
         saveChanges(data)
-        // Update account in Accounts ref.
-        updateAccount(index, data)
     }
 
     return (

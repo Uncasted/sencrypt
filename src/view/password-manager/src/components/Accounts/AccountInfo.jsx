@@ -73,7 +73,8 @@ function CollapsibleTitle(props) {
 }
 
 function CollapsibleInfo() {
-    const updateAccount = useAccountContextUpdate()
+    const saveChanges = useAccountContextUpdate()
+
     const editFormID = useIDContext().editFormID
 
     const submitChanges = (event) => {
@@ -87,7 +88,8 @@ function CollapsibleInfo() {
             password: form['password'].value
         }
 
-        updateAccount(data)
+        // Save changes in local state.
+        saveChanges(data)
     }
 
     return (

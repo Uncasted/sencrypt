@@ -28,9 +28,7 @@ export default function AccountsProvider(props) {
     // I have to make a copy otherwise It doesn't work.
     const createAccount = (data) => {
         setAccounts(accounts => {
-            const newAccounts = [...accounts]
-            newAccounts.push(data)
-            return newAccounts
+            return [...accounts, data]
         })
     }
 

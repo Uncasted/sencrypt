@@ -4,6 +4,7 @@ import {useAccountContext, useAccountContextUpdate} from "./Context/AccountConte
 import IDProvider, {useIDContext} from "./Context/IDContext"
 import EditProvider, {useEditContext, useEditContextUpdate} from "./Context/EditContext"
 import {useClipboardContext, useClipboardContextUpdate} from "./Context/ClipboardContext"
+import {useAccountsContextUpdate} from "./Context/AccountsContext"
 
 export function AccountInfo() {
     // Collapsible state.
@@ -73,7 +74,10 @@ function CollapsibleTitle(props) {
 }
 
 function CollapsibleInfo() {
-    const updateAccount = useAccountContextUpdate()
+    const index = useAccountContext().index
+    const saveChanges = useAccountContextUpdate()
+    const updateAccount = useAccountsContextUpdate().updateAccount
+
     const editFormID = useIDContext().editFormID
 
     const submitChanges = (event) => {
@@ -87,7 +91,10 @@ function CollapsibleInfo() {
             password: form['password'].value
         }
 
-        updateAccount(data)
+        // Save changes in local state.
+        saveChanges(data)
+        // Update account in Accounts ref.
+        updateAccount(index, data)
     }
 
     return (

@@ -3,8 +3,8 @@ import {useAccountsContextUpdate} from "./Context/AccountsContext"
 export function AddAccountButton() {
     return (
         <label htmlFor="add-modal"
-               className="ml-4 modal-button bg-black px-4 py-3 text-white hover:bg-blue-500 active:bg-blue-600
-               transition hover:cursor-pointer shadow-lg">
+               className="ml-4 modal-button bg-blue-3 px-4 py-3 text-white hover:bg-blue-1 active:bg-blue-2
+               transition hover:cursor-pointer shadow-md ">
             Add New Account
         </label>
     )
@@ -41,7 +41,7 @@ export function AccountModal() {
         <>
             <input type="checkbox" id="add-modal" className="modal-toggle"/>
             <label htmlFor="add-modal" className="modal">
-                <div className="modal-box bg-white rounded-none px-0 py-0 w-[350px]">
+                <label className="modal-box bg-dark-blue-1 text-white rounded-none px-0 py-0 w-[350px] shadow-sm">
                     <ModalHeader/>
                     <form className="flex flex-col items-center space-y-4" id="add-form" onSubmit={submitData}>
                         <Website/>
@@ -51,7 +51,7 @@ export function AccountModal() {
                             <SubmitAccount/>
                         </div>
                     </form>
-                </div>
+                </label>
             </label>
         </>
     )
@@ -59,10 +59,10 @@ export function AccountModal() {
 
 function ModalHeader() {
     return (
-        <div className="bg-black text-white w-full py-4 pl-4 mb-4">
+        <div className="bg-blue-3 text-white w-full py-4 pl-4 mb-4">
             <label htmlFor="add-modal"
                    className="btn bg-transparent border-none absolute right-2 top-1 text-white rounded-none
-                           hover:bg-black">✕</label>
+                           hover:bg-transparent">✕</label>
             <h1 className="text-lg">Add new Account:</h1>
         </div>
     )
@@ -70,30 +70,30 @@ function ModalHeader() {
 
 function Website() {
     return (
-        <label htmlFor="new-website">
+        <label htmlFor="new-website" className="space-y-1">
             <p className="text-md">Website:</p>
             <input type="text" id="new-website" name="new-website"
-                   className="border-[1px] pl-2 border-gray-500 rounded-none h-8" required/>
+                   className=" pl-2 bg-[#0D2A3D]  rounded-sm h-8" required/>
         </label>
     )
 }
 
 function Username() {
     return (
-        <label htmlFor="new-username">
+        <label htmlFor="new-username" className="space-y-1">
             <p className="text-md">Username:</p>
             <input type="text" id="new-username" name="new-username"
-                   className="border-[1px] pl-2 border-gray-500 rounded-none h-8" required/>
+                   className=" pl-2 bg-[#0D2A3D]  rounded-sm h-8" required/>
         </label>
     )
 }
 
 function Password() {
     return (
-        <label htmlFor="new-password">
+        <label htmlFor="new-password" className="space-y-1">
             <p className="text-md">Password:</p>
             <input type="password" id="new-password" name="new-password"
-                   className="border-[1px] pl-2 border-gray-500 rounded-none h-8" required/>
+                   className=" pl-2 bg-[#0D2A3D]  rounded-sm h-8" required/>
         </label>
     )
 }
@@ -101,7 +101,7 @@ function Password() {
 function SubmitAccount() {
     return (
         <label htmlFor="add-modal" id="add-modal-label">
-            <input className="bg-black px-4 py-2 text-white hover:bg-blue-500 active:bg-blue-600 transition
+            <input className="bg-blue-3 px-4 py-2 text-white hover:bg-blue-1 active:bg-blue-2 transition
             hover:cursor-pointer mb-4 mt-4"
                    type="submit"
                    value="Add Account"/>

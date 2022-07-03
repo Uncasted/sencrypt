@@ -24,9 +24,9 @@ export function AccountInfo() {
     return (
         <div>
             <IDProvider>
-                <div className="shadow-total">
+                <div className="shadow-total bg-dark-blue-0 text-white">
                     <div className="absolute right-14 mt-1">
-                        <button className="px-1 py-1 tooltip tooltip-left tooltip-black"
+                        <button className="px-1 py-1 tooltip tooltip-left tooltip-bg"
                                 onClick={() => {
                                     addToClipboard(account.password)
                                 }}
@@ -63,7 +63,7 @@ function CollapsibleTitle(props) {
             </div>
             <div className="ml-2">
                 <h1 className="text-md">{account.website}</h1>
-                <h2 className="text-xs text-gray-500">{account.username}</h2>
+                <h2 className="text-xs text-[#0080CD]">{account.username}</h2>
             </div>
             <div className="absolute right-6">
                 <span>{props.isOpen ? "-" : "+"}</span>
@@ -113,11 +113,11 @@ function Website() {
     const isEditable = useEditContext()
 
     return (
-        <label htmlFor={websiteID}>
+        <label htmlFor={websiteID} className="space-y-1">
             <p className="text-md">Website:</p>
             <input type="text" id={websiteID} defaultValue={website} name="website"
-                   className="border-[1px] pl-2 border-gray-500 rounded-none h-8 disabled:bg-gray-300
-                   disabled:text-gray-400 disabled:cursor-not-allowed transition"
+                   className="pl-2 rounded-sm h-8 border-dark-blue-4
+                   disabled:text-[#123B56] disabled:cursor-not-allowed transition bg-[#0D2A3D] text-white"
                    disabled={isEditable}/>
         </label>
     )
@@ -132,14 +132,14 @@ function Username() {
     const onTooltipOut = useClipboardContextUpdate().onTooltipOut
 
     return (
-        <label htmlFor={usernameID}>
+        <label htmlFor={usernameID} className="space-y-1">
             <p className="text-md">Username:</p>
             <div className="flex space-x-2">
                 <input type="text" id={usernameID} defaultValue={username} name="username"
-                       className="border-[1px] pl-2 border-gray-500 rounded-none h-8 disabled:bg-gray-300
-                       disabled:text-gray-400 disabled:cursor-not-allowed transition"
+                       className="pl-2 rounded-sm h-8 border-dark-blue-4
+                   disabled:text-[#123B56] disabled:cursor-not-allowed transition bg-[#0D2A3D] text-white"
                        disabled={isEditable} required/>
-                <button className="px-1 py-1 tooltip tooltip-right tooltip-black" data-tip={clipboardText}
+                <button className="px-1 py-1 tooltip tooltip-right tooltip-bg" data-tip={clipboardText}
                         tabIndex="-1"
                         onClick={() => {
                             addToClipboard(username)
@@ -173,17 +173,18 @@ function Password() {
     }
 
     return (
-        <label htmlFor={passwordID}>
+        <label htmlFor={passwordID} className="space-y-1">
             <p className="text-md">Password:</p>
             <div className="flex space-x-2">
                 <input type={showPassword} id={passwordID} defaultValue={password}
                        disabled={isEditable} name="password"
-                       className="border-[1px] pl-2 border-gray-500 rounded-none h-8 disabled:bg-gray-300
-                       disabled:text-gray-400 disabled:cursor-not-allowed transition" required/>
+                       className="pl-2 rounded-sm h-8 border-dark-blue-4
+                   disabled:text-[#123B56] disabled:cursor-not-allowed transition bg-[#0D2A3D] text-white"
+                       required/>
                 <button className="px-1 py-1" onClick={passwordVisibility} tabIndex="-1"><img
                     src={passwordIcon}
                 /></button>
-                <button className=" px-1 py-1 tooltip tooltip-right tooltip-black" data-tip={clipboardText}
+                <button className=" px-1 py-1 tooltip tooltip-right tooltip-bg" data-tip={clipboardText}
                         tabIndex="-1"
                         onClick={() => {
                             addToClipboard(password)
@@ -211,7 +212,7 @@ function EditButton() {
 
     return (
         <button type="submit" form={editFormID}
-                className="bg-black text-white px-4 py-1.5 hover:bg-green-500 active:bg-green-700 shadow-lg
+                className="bg-blue-3 text-white px-4 py-2 hover:bg-green-500 active:bg-green-600 shadow-md
                         transition"
                 onClick={() => {
                     toggleEditing()
@@ -226,7 +227,7 @@ function DeleteButton() {
 
     return (
         <label htmlFor={`delete-modal-${index}`}
-               className="bg-black text-white px-4 py-2 hover:bg-red-500 active:bg-red-700 shadow-lg
+               className="bg-blue-3 text-white px-4 py-[0.65rem] hover:bg-red-500 active:bg-red-600 shadow-md
                         transition hover:cursor-pointer"
         >Delete Account
         </label>

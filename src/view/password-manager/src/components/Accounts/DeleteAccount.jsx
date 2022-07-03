@@ -8,10 +8,11 @@ export function DeleteAccountModal() {
         <div>
             <input type="checkbox" id={`delete-modal-${index}`} className="modal-toggle"/>
             <label htmlFor={`delete-modal-${index}`} className="modal">
-                <div className="modal-box bg-white rounded-none px-0 py-0 w-[400px] h-[200px]">
+                <label
+                    className="modal-box bg-dark-blue-1 rounded-none px-0 py-0 w-[400px] h-[200px] shadow-sm text-white">
                     <DeleteModalHeader/>
                     <DeleteModalWarning/>
-                </div>
+                </label>
             </label>
         </div>
     )
@@ -21,10 +22,10 @@ function DeleteModalHeader() {
     const index = useAccountContext().index
 
     return (
-        <div className="bg-black text-white w-full py-4 pl-4 mb-4">
+        <div className="bg-blue-3 text-white w-full py-4 pl-4 mb-4">
             <label htmlFor={`delete-modal-${index}`}
                    className="btn bg-transparent border-none absolute right-2 top-1 text-white rounded-none
-                           hover:bg-black">✕</label>
+                           hover:bg-transparent">✕</label>
             <h1 className="text-lg">Delete Account:</h1>
         </div>
     )

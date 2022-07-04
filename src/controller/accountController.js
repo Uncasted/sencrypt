@@ -5,14 +5,28 @@ class AccountController {
         this.Model = new Database('./testing.json')
     }
 
-    async checkIsNew(masterPassword) {
-        const dbLength = await this.Model.getDatabaseLength()
-        const isNew = dbLength === 0
+    async checkIsNew() {
+        try {
+            const dbLength = await this.Model.getDatabaseLength()
+            return dbLength === 0
+        } catch (error) {
+            console.log("Error at checkIsNew (Controller).")
+            console.log(error)
+        }
+    }
 
-        if (isNew) {
-            console.log("New user. Initializing the database.")
+    async createMasterPassword(masterPassword) {
+        try {
             await this.Model.init(masterPassword)
-        } else {
+            return true
+        } catch (error) {
+            console.log("Error at createMasterPassword (Controller).")
+            console.log(error)
+        }
+    }
+
+    async verifyMasterPassword(masterPassword) {
+        try {
             const isMasterPassword = await this.Model.verifyMasterPassword(masterPassword)
 
             if (isMasterPassword) {
@@ -20,6 +34,9 @@ class AccountController {
             }
 
             return isMasterPassword
+        } catch (error) {
+            console.log("Error at verifyMasterPassword (Controller).")
+            console.log(error)
         }
     }
 

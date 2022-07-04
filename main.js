@@ -12,7 +12,6 @@ const createMainWindow = async () => {
             preload: path.join(__dirname, "/src/controller/preload.js")
         }
     })
-
     await mainWin.loadFile(path.join(__dirname, "/src/view/password-manager/dist/index.html"))
 }
 
@@ -22,7 +21,7 @@ app.whenReady().then(() => {
 
     // Open a window if none are open.
     app.on('activate', () => {
-        if (BrowserWindow.getAllWindows().length === 0) createMainWindow()
+        if (BrowserWindow.getAllWindows().length === 0) createMainWindow().then()
     })
 })
 

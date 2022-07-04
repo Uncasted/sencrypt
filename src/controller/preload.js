@@ -1,5 +1,5 @@
 // Preload (Isolated World)
-const {contextBridge, ipcRenderer} = require('electron')
+const {contextBridge} = require('electron')
 const {AccountController} = require("./accountController")
 
 const Controller = new AccountController()

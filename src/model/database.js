@@ -3,14 +3,15 @@ const utility = require('./utility')
 const path = require('path')
 
 class Database {
-    constructor(filepath) {
-        this.jsonPath = path.join(__dirname, filepath)
+    constructor(filePath) {
+        this.jsonPath = path.join(__dirname, filePath)
         this.data = {posts: {}}
         this.SEC_KEY = ""
         this.SEC_KEY_2 = ""
         this.ENC_MP = ""
     }
 
+    // Initialize the database for the first time.
     async init(masterPassword) {
         try {
             await this.read()
@@ -35,6 +36,7 @@ class Database {
         }
     }
 
+    // Start the database.
     async start(masterPassword) {
         try {
             await this.read()
@@ -150,7 +152,7 @@ class Database {
                     username: utility.decrypt(username, this.SEC_KEY),
                     password: utility.decrypt(myAccounts[account], this.SEC_KEY)
                 }
-        
+
                 accountList.push(accountData)
             })
 

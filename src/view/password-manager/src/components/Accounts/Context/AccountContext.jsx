@@ -19,7 +19,10 @@ export default function AccountProvider(props) {
         password: props.account.password
     })
 
-    const updateAccount = (data) => {
+    const updateAccount = async (data) => {
+        // Updating the account in the database.
+        await window.controller.updateAccount(account.username, account.website, data)
+        // Setting the state locally.
         setAccount(data)
     }
 

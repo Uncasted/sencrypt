@@ -4,6 +4,7 @@ import {useAccountContext, useAccountContextUpdate} from "./Context/AccountConte
 import IDProvider, {useIDContext} from "./Context/IDContext"
 import EditProvider, {useEditContext, useEditContextUpdate} from "./Context/EditContext"
 import {useClipboardContext, useClipboardContextUpdate} from "./Context/ClipboardContext"
+import {images} from "../../App"
 
 export function AccountInfo() {
     // Collapsible state.
@@ -33,7 +34,7 @@ export function AccountInfo() {
                                 onMouseOut={onTooltipOut}
                                 data-tip={passClipboard}
                                 tabIndex="-1"><img
-                            src="/public/clipboard-icon.png"
+                            src={images.clipboardIcon}
                         /></button>
                     </div>
                     <div>
@@ -145,7 +146,7 @@ function Username() {
                             addToClipboard(username)
                         }}
                         onMouseOut={onTooltipOut}><img
-                    src="/public/clipboard-icon.png"
+                    src={images.clipboardIcon}
                 /></button>
             </div>
         </label>
@@ -161,15 +162,13 @@ function Password() {
     const onTooltipOut = useClipboardContextUpdate().onTooltipOut
 
     const [showPassword, setShowPassword] = useState("password")
-    const [passwordIcon, setPasswordIcon] = useState("/public/hide-password-icon.png")
+    const [passwordIcon, setPasswordIcon] = useState(images.hidePasswordIcon)
 
     const passwordVisibility = () => {
-        const showIcon = "/public/show-password-icon.png"
-        const hideIcon = "/public/hide-password-icon.png"
-
         // Change the password to type text so the user can see it.
         setShowPassword(showPassword === "password" ? "text" : "password")
-        setPasswordIcon(passwordIcon === hideIcon ? showIcon : hideIcon)
+        setPasswordIcon(passwordIcon === images.hidePasswordIcon ? images.showPasswordIcon
+            : images.hidePasswordIcon)
     }
 
     return (
@@ -190,7 +189,7 @@ function Password() {
                             addToClipboard(password)
                         }}
                         onMouseOut={onTooltipOut}><img
-                    src="/public/clipboard-icon.png"
+                    src={images.clipboardIcon}
                 /></button>
             </div>
         </label>

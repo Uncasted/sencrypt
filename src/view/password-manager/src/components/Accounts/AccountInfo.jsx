@@ -4,7 +4,7 @@ import {useAccountContext, useAccountContextUpdate} from "./Context/AccountConte
 import IDProvider, {useIDContext} from "./Context/IDContext"
 import EditProvider, {useEditContext, useEditContextUpdate} from "./Context/EditContext"
 import {useClipboardContext, useClipboardContextUpdate} from "./Context/ClipboardContext"
-import {images} from "../../App"
+import {HOSTNAME_REGEX, images} from "../../App"
 
 export function AccountInfo() {
     // Collapsible state.
@@ -83,8 +83,12 @@ function CollapsibleInfo() {
         // Get data from form.
         const form = event.target.elements
 
+        // Get only the hostname from the URL.
+        const url = form['website'].value
+        const [, website] = url.match(HOSTNAME_REGEX)
+
         const data = {
-            website: form['website'].value,
+            website: website,
             username: form['username'].value,
             password: form['password'].value
         }

@@ -14,12 +14,12 @@ class AccountController {
             await this.Model.init(masterPassword)
         } else {
             const isMasterPassword = await this.Model.verifyMasterPassword(masterPassword)
+
             if (isMasterPassword) {
-                console.log("You have been verified.")
                 await this.Model.start(masterPassword)
-            } else {
-                console.log("Incorrect password")
             }
+
+            return isMasterPassword
         }
     }
 
@@ -32,9 +32,9 @@ class AccountController {
         }
     }
 
-    async createAccount(username, password, website) {
+    async createAccount(account) {
         try {
-            await this.Model.createAccount(username, password, website)
+            await this.Model.createAccount(account.username, account.password, account.website)
         } catch (error) {
             console.log("Error at createAccount (Controller).")
             console.log(error)
@@ -63,6 +63,3 @@ class AccountController {
 module.exports = {
     AccountController
 }
-
-
-

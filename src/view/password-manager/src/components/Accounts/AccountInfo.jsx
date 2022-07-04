@@ -119,11 +119,11 @@ function Website() {
 
     return (
         <label htmlFor={websiteID} className="space-y-1">
-            <p className="text-md">Website:</p>
+            <p className="text-md">Website/Service:</p>
             <input type="text" id={websiteID} defaultValue={website} name="website"
                    className="pl-2 rounded-sm h-8 border-dark-blue-4
                    disabled:text-dark-blue-5 disabled:cursor-not-allowed transition bg-dark-blue-6 text-white"
-                   disabled={isEditable}/>
+                   disabled={isEditable} required/>
         </label>
     )
 }

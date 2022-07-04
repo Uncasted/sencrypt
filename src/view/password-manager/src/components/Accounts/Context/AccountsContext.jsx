@@ -1,4 +1,4 @@
-import {createContext, useContext, useState} from "react"
+import {createContext, useContext, useState, useEffect} from "react"
 
 const AccountsContext = createContext()
 const AccountsContextUpdate = createContext()
@@ -12,27 +12,27 @@ export function useAccountsContextUpdate() {
 }
 
 export default function AccountsProvider(props) {
-    // Placeholder information
-    const myAccounts = [{
-        website: "steamcommunity.com",
-        username: "username",
-        password: "password"
-    }, {
-        website: "google.com",
-        username: "username@gmail.com",
-        password: "admin123"
-    }]
+    const [accounts, setAccounts] = useState([])
 
-    const [accounts, setAccounts] = useState(myAccounts)
+    useEffect(() => {
+        window.controller.getAllAccounts().then(accounts => setAccounts(accounts))
+    }, [])
 
     // I have to make a copy otherwise It doesn't work.
-    const createAccount = (data) => {
+    const createAccount = async (data) => {
+        // Creating account in the database.
+        await window.controller.createAccount(data)
+
         setAccounts(accounts => {
             return [...accounts, data]
         })
     }
 
-    const removeAccount = (index) => {
+    const removeAccount = async (index) => {
+        const account = accounts[index]
+        // Deleting the account in the database.
+        await window.controller.deleteAccount(account.username, account.website)
+
         setAccounts(accounts => {
             const newAccounts = [...accounts]
             newAccounts.splice(index, 1)

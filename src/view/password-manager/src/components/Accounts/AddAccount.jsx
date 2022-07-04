@@ -19,13 +19,14 @@ export function AccountModal() {
         const form = event.target.elements
 
         // Get each value from the form.
-        const data = {
+        const accountData = {
             website: form["new-website"].value,
             username: form["new-username"].value,
             password: form["new-password"].value
         }
 
-        createAccount(data)
+        // Creating account in the local state.
+        createAccount(accountData)
 
         // We need to click the label to close the modal.
         const addModalLabel = document.querySelector("#add-modal-label")

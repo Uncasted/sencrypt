@@ -11,6 +11,7 @@ import clipboardIcon from '../images/clipboard-icon.png'
 import showPasswordIcon from '../images/show-password-icon.png'
 import hidePasswordIcon from '../images/hide-password-icon.png'
 
+export const HOSTNAME_REGEX = /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/?\n]+)/
 export const images = {
     logo: logo,
     managerIcon: managerIcon,
@@ -20,6 +21,7 @@ export const images = {
     showPasswordIcon: showPasswordIcon,
     hidePasswordIcon: hidePasswordIcon
 }
+
 
 export default function App() {
     return (

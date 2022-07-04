@@ -14,7 +14,10 @@
 }
 
 .no-select {
+    -moz-user-select: none;
+    -webkit-user-select: none;
     user-select: none;
+    pointer-events: none;
 }
 
 .content {

@@ -66,7 +66,7 @@ class Database {
                 // Compare encrypted input to encrypted master password.
                 return encryptedUserMP === posts["ENC_MP"]
             } else {
-                return false;
+                return false
             }
 
         } catch (error) {
@@ -136,6 +136,7 @@ class Database {
             const {posts} = this.data
 
             const myAccounts = {...posts[this.ENC_MP]}
+            const accountList = []
 
             // Decrypt the data
             Object.keys(myAccounts).map((account) => {
@@ -144,16 +145,16 @@ class Database {
                 const website = account.substring(account.indexOf("-") + 1)
 
                 // Decrypt the data
-                const decryptedUsername = utility.decrypt(username, this.SEC_KEY)
-                const decryptedWebsite = utility.decrypt(website, this.SEC_KEY)
-                myAccounts[`${decryptedUsername}-${decryptedWebsite}`] = utility.decrypt(myAccounts[account],
-                    this.SEC_KEY)
-
-                // Get rid of the encrypted key/value.
-                delete myAccounts[account]
+                const accountData = {
+                    website: utility.decrypt(website, this.SEC_KEY),
+                    username: utility.decrypt(username, this.SEC_KEY),
+                    password: utility.decrypt(myAccounts[account], this.SEC_KEY)
+                }
+        
+                accountList.push(accountData)
             })
 
-            return myAccounts
+            return accountList
         } catch (error) {
             console.log("Error at getAllAccounts (Database).")
             console.log(error)

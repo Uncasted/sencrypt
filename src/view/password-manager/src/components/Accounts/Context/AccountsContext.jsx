@@ -18,7 +18,7 @@ export default function AccountsProvider(props) {
         window.controller.getAllAccounts().then(accounts => setAccounts(accounts))
     }, [])
 
-    // I have to make a copy otherwise It doesn't work.
+    
     const createAccount = async (data) => {
         // Creating account in the database.
         await window.controller.createAccount(data)

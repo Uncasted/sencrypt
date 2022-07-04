@@ -8,7 +8,7 @@ export function useIDContext() {
 
 export default function IDProvider(props) {
     // Unique identifiers for each account.
-    const idData = {
+    const accountIDs = {
         websiteID: useId(),
         usernameID: useId(),
         passwordID: useId(),
@@ -16,7 +16,7 @@ export default function IDProvider(props) {
     }
 
     return (
-        <IDContext.Provider value={idData}>
+        <IDContext.Provider value={accountIDs}>
             {props.children}
         </IDContext.Provider>
     )

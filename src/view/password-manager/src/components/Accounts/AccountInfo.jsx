@@ -64,7 +64,7 @@ function CollapsibleTitle(props) {
             </div>
             <div className="ml-2">
                 <h1 className="text-md">{account.website}</h1>
-                <h2 className="text-xs text-[#0080CD]">{account.username}</h2>
+                <h2 className="text-xs text-blue-0">{account.username}</h2>
             </div>
             <div className="absolute right-6">
                 <span>{props.isOpen ? "-" : "+"}</span>
@@ -122,7 +122,7 @@ function Website() {
             <p className="text-md">Website:</p>
             <input type="text" id={websiteID} defaultValue={website} name="website"
                    className="pl-2 rounded-sm h-8 border-dark-blue-4
-                   disabled:text-[#123B56] disabled:cursor-not-allowed transition bg-[#0D2A3D] text-white"
+                   disabled:text-dark-blue-5 disabled:cursor-not-allowed transition bg-dark-blue-6 text-white"
                    disabled={isEditable}/>
         </label>
     )
@@ -142,7 +142,7 @@ function Username() {
             <div className="flex space-x-2">
                 <input type="text" id={usernameID} defaultValue={username} name="username"
                        className="pl-2 rounded-sm h-8 border-dark-blue-4
-                   disabled:text-[#123B56] disabled:cursor-not-allowed transition bg-[#0D2A3D] text-white"
+                   disabled:text-dark-blue-5 disabled:cursor-not-allowed transition bg-dark-blue-6 text-white"
                        disabled={isEditable} required/>
                 <button className="px-1 py-1 tooltip tooltip-right tooltip-bg" data-tip={clipboardText}
                         tabIndex="-1"
@@ -182,7 +182,7 @@ function Password() {
                 <input type={showPassword} id={passwordID} defaultValue={password}
                        disabled={isEditable} name="password"
                        className="pl-2 rounded-sm h-8 border-dark-blue-4
-                   disabled:text-[#123B56] disabled:cursor-not-allowed transition bg-[#0D2A3D] text-white"
+                   disabled:text-dark-blue-5 disabled:cursor-not-allowed transition bg-dark-blue-6 text-white"
                        required/>
                 <button className="px-1 py-1" onClick={passwordVisibility} tabIndex="-1"><img
                     src={passwordIcon}

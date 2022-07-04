@@ -79,7 +79,7 @@ function Website() {
         <label htmlFor="new-website" className="space-y-1">
             <p className="text-md">Website:</p>
             <input type="text" id="new-website" name="new-website"
-                   className=" pl-2 bg-[#0D2A3D]  rounded-sm h-8" required/>
+                   className=" pl-2 bg-dark-blue-6  rounded-sm h-8" required/>
         </label>
     )
 }
@@ -89,7 +89,7 @@ function Username() {
         <label htmlFor="new-username" className="space-y-1">
             <p className="text-md">Username:</p>
             <input type="text" id="new-username" name="new-username"
-                   className=" pl-2 bg-[#0D2A3D]  rounded-sm h-8" required/>
+                   className=" pl-2 bg-dark-blue-6  rounded-sm h-8" required/>
         </label>
     )
 }
@@ -99,7 +99,7 @@ function Password() {
         <label htmlFor="new-password" className="space-y-1">
             <p className="text-md">Password:</p>
             <input type="password" id="new-password" name="new-password"
-                   className=" pl-2 bg-[#0D2A3D]  rounded-sm h-8" required/>
+                   className=" pl-2 bg-dark-blue-6  rounded-sm h-8" required/>
         </label>
     )
 }

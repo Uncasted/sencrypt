@@ -1,50 +1,24 @@
-const {app, BrowserWindow, ipcMain} = require('electron')
+const {app, BrowserWindow} = require('electron')
 const path = require('path')
-const auth = require('./src/controller/authController')
 
 // Main Window.
 const createMainWindow = async () => {
-    let options = {
-        preload: "src/controller/authPreload.js",
-        view: "src/view/existingUser.html"
-    }
-
-    // First time opening the application.
-    if (await auth.isNewUser()) {
-        options = {
-            preload: "src/controller/firstTimePreload.js",
-            view: "src/view/firstTime.html"
-        }
-    }
 
     const mainWin = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 1280,
+        height: 720,
         autoHideMenuBar: true,
         webPreferences: {
-            preload: path.join(__dirname, options.preload)
+            preload: path.join(__dirname, "/src/controller/preload.js")
         }
     })
 
-    await mainWin.loadFile(path.join(__dirname, options.view))
+    await mainWin.loadFile(path.join(__dirname, "/src/view/password-manager/dist/index.html"))
 }
-
-// Create master password.
-ipcMain.on('login:create', async (e, password) => {
-    await auth.createMasterPassword(password)
-})
-
-// Login already existing user.
-ipcMain.on('login:master', async (e, password) => {
-    if (password.length !== 0) {
-        const result = await auth.validatePassword(password)
-        console.log(result)
-    }
-})
 
 // Starting the app.
 app.whenReady().then(() => {
-    createMainWindow()
+    createMainWindow().then()
 
     // Open a window if none are open.
     app.on('activate', () => {

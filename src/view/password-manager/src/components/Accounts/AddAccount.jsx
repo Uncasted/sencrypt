@@ -1,4 +1,5 @@
 import {useAccountsContextUpdate} from "./Context/AccountsContext"
+import {HOSTNAME_REGEX} from "../../App"
 
 export function AddAccountButton() {
     return (
@@ -18,9 +19,13 @@ export function AccountModal() {
         // Get element array from form.
         const form = event.target.elements
 
+        // Get only the hostname from the URL.
+        const url = form['new-website'].value
+        const [, website] = url.match(HOSTNAME_REGEX)
+
         // Get each value from the form.
         const accountData = {
-            website: form["new-website"].value,
+            website: website,
             username: form["new-username"].value,
             password: form["new-password"].value
         }

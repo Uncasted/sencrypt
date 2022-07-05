@@ -1,10 +1,11 @@
 const fs = require('fs')
 const utility = require('./utility')
 const path = require('path')
+const {getAppDataPath} = require('appdata-path')
 
 class Database {
-    constructor(filePath) {
-        this.jsonPath = path.join(__dirname, filePath)
+    constructor() {
+        this.jsonPath = path.join(getAppDataPath("sencrypt"), './database.json')
         this.data = {posts: {}}
         this.SEC_KEY = ""
         this.SEC_KEY_2 = ""
@@ -79,8 +80,17 @@ class Database {
 
     async read() {
         try {
-            const dataString = await fs.promises.readFile(this.jsonPath, 'utf-8')
-            this.data = JSON.parse(dataString)
+            if (fs.existsSync(this.jsonPath)) {
+                const dataString = await fs.promises.readFile(this.jsonPath, 'utf-8')
+                this.data = JSON.parse(dataString)
+            } else {
+                const initialData = JSON.stringify({posts: {}})
+                // Create the database file.
+                await fs.promises.writeFile(this.jsonPath, initialData, 'utf-8')
+
+                const dataString = await fs.promises.readFile(this.jsonPath, 'utf-8')
+                this.data = JSON.parse(dataString)
+            }
         } catch (error) {
             console.log("Error at read function (Database).")
             console.log(error)

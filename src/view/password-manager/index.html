@@ -2,9 +2,19 @@
 <html lang="en">
 <head>
     <title>Sencrypt</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+    <!-- I have to include the fonts here to be able to import it from the public dir. -->
+    <style>
+        @font-face {
+            font-family: Inter;
+            src: url("/assets/fonts/Inter.ttf")
+        }
+
+        :root {
+            font-family: Inter, 'sans-serif';
+            background-color: #003556;
+            color: black;
+        }
+    </style>
 </head>
 <body>
 <div id="root"></div>

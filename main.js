@@ -3,6 +3,8 @@ const path = require('path')
 
 // Main Window.
 const createMainWindow = async () => {
+    // Change the icon path depending on the platform."
+    const iconPath = process.platform !== "darwin" ? "./appIcon.png" : "./appIcon.icns"
 
     const mainWin = new BrowserWindow({
         width: 1280,
@@ -10,11 +12,12 @@ const createMainWindow = async () => {
         minWidth: 800,
         minHeight: 500,
         autoHideMenuBar: true,
+        icon: path.join(__dirname, iconPath),
         webPreferences: {
-            preload: path.join(__dirname, "/src/controller/preload.js")
+            preload: path.join(__dirname, "./src/controller/preload.js")
         }
     })
-    await mainWin.loadFile(path.join(__dirname, "/src/view/password-manager/dist/index.html"))
+    await mainWin.loadFile(path.join(__dirname, "./src/view/password-manager/dist/index.html"))
 }
 
 // Starting the app.

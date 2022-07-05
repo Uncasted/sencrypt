@@ -134,7 +134,7 @@ function CollapsibleInfo() {
                 <Username/>
                 <Password/>
             </form>
-            <div className="mt-4 mr-4 space-x-4">
+            <div className="mt-4 mr-4 flex flex-col space-y-4 lg:block lg:space-x-4">
                 <EditButton buttonText={buttonText}
                             switchMode={toggleMode}/>
                 <DeleteButton/>

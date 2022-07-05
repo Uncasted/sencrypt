@@ -1,14 +1,20 @@
 {
-  "name": "sencrypt",
-  "version": "1.0.0",
-  "description": "An open source password manager made in electron.",
-  "main": "main.js",
-  "scripts": {
-    "start": "electron ."
-  },
-  "author": "Uncasted",
-  "license": "MIT",
-  "devDependencies": {
-    "electron": "^19.0.6"
-  }
+    "name": "sencrypt",
+    "version": "1.0.0",
+    "description": "An open source password manager made in electron.",
+    "main": "main.js",
+    "scripts": {
+        "start": "electron .",
+        "dist": "electron-builder",
+        "pack": "electron-builder --dir"
+    },
+    "author": "Uncasted",
+    "license": "MIT",
+    "devDependencies": {
+        "electron": "^19.0.6",
+        "electron-builder": "^23.1.0"
+    },
+    "dependencies": {
+        "appdata-path": "^1.0.0"
+    }
 }

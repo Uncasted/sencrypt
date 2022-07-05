@@ -1,5 +1,6 @@
 import {useAccountsContextUpdate} from "./Context/AccountsContext"
 import {HOSTNAME_REGEX} from "../../App"
+import {useAccountContext} from "./Context/AccountContext"
 
 export function AddAccountButton() {
     return (
@@ -25,22 +26,30 @@ export function AccountModal() {
 
         // Get each value from the form.
         const accountData = {
-            website: website,
+            password: form["new-password"].value,
             username: form["new-username"].value,
-            password: form["new-password"].value
+            website: website
         }
 
-        // Creating account in the local state.
-        createAccount(accountData)
+        window.controller.getAllAccounts().then(accounts => {
+            const isNotDuplicate = accounts.every(account => {
+                return account.username !== accountData.username || account.website !== accountData.website
+            })
 
-        // We need to click the label to close the modal.
-        const addModalLabel = document.querySelector("#add-modal-label")
-        addModalLabel.click()
+            // If there isn't a duplicate. Create the account.
+            if (isNotDuplicate) {
+                // Creating account in the local state.
+                createAccount(accountData)
+                // We need to click the label to close the modal.
+                const addModalLabel = document.querySelector("#add-modal-label")
+                addModalLabel.click()
 
-        // Clear the value of the elements after adding the account.
-        for (let element of form) {
-            element.value = ""
-        }
+                // Clear the value of the elements after adding the account.
+                for (let element of form) {
+                    element.value = ""
+                }
+            }
+        })
     }
 
     return (

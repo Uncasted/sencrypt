@@ -35,6 +35,10 @@ function DeleteModalWarning() {
     const index = useAccountContext().index
     const removeAccount = useAccountsContextUpdate().removeAccount
 
+    const deleteAccount = () => {
+        removeAccount(index)
+    }
+
     return (
         <div className="flex flex-col">
             <div>
@@ -44,7 +48,7 @@ function DeleteModalWarning() {
                 <label htmlFor={`delete-modal-${index}`}
                        className="bg-red-600 text-white px-4 py-2 hover:bg-red-500 active:bg-red-700
                                    shadow-lg transition hover:cursor-pointer"
-                       onClick={() => removeAccount(index)}
+                       onClick={deleteAccount}
                 >Delete Account
                 </label>
             </div>

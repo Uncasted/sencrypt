@@ -74,38 +74,69 @@ function CollapsibleTitle(props) {
 }
 
 function CollapsibleInfo() {
+    const accountIndex = useAccountContext().index
+    const editLabel = "Edit Account"
+    const saveLabel = "Save Changes"
+    const [buttonText, setButtonText] = useState(editLabel)
     const saveChanges = useAccountContextUpdate()
+    const accountIDs = useIDContext()
+    const toggleEditing = useEditContextUpdate()
 
-    const editFormID = useIDContext().editFormID
-
-    const submitChanges = (event) => {
+    const toggleMode = (event) => {
         event.preventDefault()
-        // Get data from form.
-        const form = event.target.elements
 
+        if (buttonText === saveLabel) {
+            submitChanges()
+        } else {
+            toggleEditing()
+            setButtonText(saveLabel)
+        }
+    }
+
+    const submitChanges = () => {
+
+        // I have to use getElementByID because for some reason I can't get the form values through their names.
         // Get only the hostname from the URL.
-        const url = form['website'].value
+        const url = document.getElementById(accountIDs.websiteID).value
         const [, website] = url.match(HOSTNAME_REGEX)
 
-        const data = {
-            website: website,
-            username: form['username'].value,
-            password: form['password'].value
+        const accountData = {
+            password: document.getElementById(accountIDs.passwordID).value,
+            username: document.getElementById(accountIDs.usernameID).value,
+            website: website
         }
 
-        // Save changes in local state.
-        saveChanges(data)
+        window.controller.getAllAccounts().then(accounts => {
+            // Prevent account duplication.
+            const isNotDuplicate = accounts.every((account, index) => {
+                // If the account index is the same then we can assume it's not a duplicate because it is
+                // the same account and not another account.
+                if (accountIndex === index) {
+                    return true
+                }
+                return account.username !== accountData.username || account.website !== accountData.website
+            })
+
+            if (isNotDuplicate) {
+                // Save changes in local state.
+                saveChanges(accountData)
+                toggleEditing()
+                setButtonText(editLabel)
+            }
+        })
     }
+
 
     return (
         <div className="flex justify-between">
-            <form className="flex flex-col space-y-4 mt-2 ml-4 mb-4" id={editFormID} onSubmit={submitChanges}>
+            <form className="flex flex-col space-y-4 mt-2 ml-4 mb-4" id={accountIDs.editFormID} onSubmit={toggleMode}>
                 <Website/>
                 <Username/>
                 <Password/>
             </form>
             <div className="mt-4 mr-4 space-x-4">
-                <EditButton/>
+                <EditButton buttonText={buttonText}
+                            switchMode={toggleMode}/>
                 <DeleteButton/>
             </div>
         </div>
@@ -200,27 +231,14 @@ function Password() {
     )
 }
 
-function EditButton() {
-    const editLabel = "Edit Account"
-    const saveLabel = "Save Changes"
-
-    const [buttonText, setButtonText] = useState(editLabel)
+function EditButton(props) {
     const editFormID = useIDContext().editFormID
-    const toggleEditing = useEditContextUpdate()
-
-
-    const handleButtonText = () => {
-        setButtonText(buttonText === editLabel ? saveLabel : editLabel)
-    }
 
     return (
         <button type="submit" form={editFormID}
                 className="bg-blue-3 text-white px-4 py-2 hover:bg-green-500 active:bg-green-600 shadow-md
                         transition"
-                onClick={() => {
-                    toggleEditing()
-                    handleButtonText()
-                }}>{buttonText}
+                onClick={props.switchMode}>{props.buttonText}
         </button>
     )
 }

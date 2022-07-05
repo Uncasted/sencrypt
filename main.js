@@ -7,6 +7,8 @@ const createMainWindow = async () => {
     const mainWin = new BrowserWindow({
         width: 1280,
         height: 720,
+        minWidth: 800,
+        minHeight: 500,
         autoHideMenuBar: true,
         webPreferences: {
             preload: path.join(__dirname, "/src/controller/preload.js")

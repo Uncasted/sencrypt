@@ -2819,12 +2819,6 @@ body[dir="rtl"] .checkbox:checked,
   margin-bottom: calc(1rem * var(--tw-space-y-reverse));
 }
 
-.space-x-4 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-x-reverse: 0;
-  margin-right: calc(1rem * var(--tw-space-x-reverse));
-  margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
-}
-
 .space-y-1 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
   margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));
@@ -3059,6 +3053,12 @@ body[dir="rtl"] .checkbox:checked,
   transition: all 0.25s cubic-bezier(1, 0, 1, 0);
 }
 
+/* Hide scrollbar in electron. */
+
+::-webkit-scrollbar {
+  display: none;
+}
+
 .hover\:cursor-pointer:hover {
   cursor: pointer;
 }
@@ -3119,4 +3119,16 @@ body[dir="rtl"] .checkbox:checked,
 .disabled\:text-dark-blue-5:disabled {
   --tw-text-opacity: 1;
   color: rgb(18 59 86 / var(--tw-text-opacity));
+}
+
+@media (min-width: 1024px) {
+  .lg\:block {
+    display: block;
+  }
+
+  .lg\:space-x-4 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 0;
+    margin-right: calc(1rem * var(--tw-space-x-reverse));
+    margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
+  }
 }

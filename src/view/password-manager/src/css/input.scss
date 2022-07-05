@@ -31,3 +31,8 @@
     max-height: 9999px;
     transition: all 0.25s cubic-bezier(1, 0, 1, 0);
 }
+
+/* Hide scrollbar in electron. */
+::-webkit-scrollbar {
+    display: none;
+}

@@ -38,7 +38,7 @@ function LoginForm(props) {
                     <label htmlFor="masterPassword" className="space-y-2 text-white">
                         <p>Enter your Master Password:</p>
                         <input id="masterPassword" name="masterPassword" type="password" className="pl-2 rounded-sm h-8
-                    transition bg-dark-blue-4 "/>
+                    transition bg-dark-blue-4" minLength="1" maxLength="32"/>
                     </label>
                     <button type="submit"
                             className="bg-blue-3 hover:bg-blue-1 transition text-white px-4 py-2 shadow-md">
@@ -75,12 +75,12 @@ function NewUserForm(props) {
                     <label htmlFor="masterPassword" className="space-y-2 text-white">
                         <p>Create your Master Password:</p>
                         <input id="masterPassword" name="masterPassword" type="password" className="pl-2 rounded-sm h-8
-                    transition bg-dark-blue-4"/>
+                    transition bg-dark-blue-4" minLength="1" maxLength="32"/>
                     </label>
                     <label htmlFor="confirmMasterPassword" className="space-y-2 text-white">
                         <p>Confirm your Master Password:</p>
                         <input id="confirmPassword" name="confirmPassword" type="password" className="pl-2 rounded-sm h-8
-                    transition bg-dark-blue-4"/>
+                    transition bg-dark-blue-4" minLength="1" maxLength="32"/>
                     </label>
                     <button type="submit"
                             className="bg-blue-3 hover:bg-blue-1 transition text-white px-4 py-2 shadow-md">

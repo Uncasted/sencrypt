@@ -3023,8 +3023,14 @@ body[dir="rtl"] .checkbox:checked,
   transition-duration: 150ms;
 }
 
+@font-face {
+  font-family: Inter;
+
+  src: url("./fonts/Inter.ttf")
+}
+
 :root {
-  font-family: 'Inter', 'sans-serif';
+  font-family: Inter, 'sans-serif';
   background-color: #003556;
   color: black;
 }
@@ -3130,5 +3136,15 @@ body[dir="rtl"] .checkbox:checked,
     --tw-space-x-reverse: 0;
     margin-right: calc(1rem * var(--tw-space-x-reverse));
     margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
+  }
+
+  .lg\:text-2xl {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
+  .lg\:text-lg {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
   }
 }

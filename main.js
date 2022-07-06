@@ -4,7 +4,7 @@ const path = require('path')
 // Main Window.
 const createMainWindow = async () => {
     // Change the icon path depending on the platform."
-    const iconPath = process.platform !== "darwin" ? "./icon.png" : "./icon.icns"
+    const iconPath = process.platform !== "darwin" ? "./build/icon.png" : "./build/icon.icns"
 
     const mainWin = new BrowserWindow({
         width: 1280,

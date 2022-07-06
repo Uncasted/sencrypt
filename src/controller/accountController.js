@@ -1,9 +1,8 @@
 const Database = require('../model/database')
-const path = require("path")
 
 class AccountController {
     constructor() {
-        this.Model = new Database(path.join(__dirname, './database.json'))
+        this.Model = new Database()
     }
 
     async checkIsNew() {

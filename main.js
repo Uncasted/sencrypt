@@ -1,10 +1,10 @@
-const {app, BrowserWindow} = require('electron')
+const { app, BrowserWindow } = require('electron')
 const path = require('path')
 
 // Main Window.
 const createMainWindow = async () => {
     // Change the icon path depending on the platform."
-    const iconPath = process.platform !== "darwin" ? "./appIcon.png" : "./appIcon.icns"
+    const iconPath = process.platform !== "darwin" ? "./icon.png" : "./icon.icns"
 
     const mainWin = new BrowserWindow({
         width: 1280,

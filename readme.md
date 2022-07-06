@@ -6,7 +6,7 @@
 
 # Installation
 
-<b> WARNING: This Application is currently in an alpha stage. Avoid using your real accounts.</b>
+<b> WARNING: This Application is currently in an alpha stage. Be cautious.</b>
     
 <p>
     Download the current <a href="https://github.com/Uncasted/sencrypt/releases">release</a> and follow the installation steps of your operating system.

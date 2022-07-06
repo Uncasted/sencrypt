@@ -186,11 +186,21 @@ class Database {
                 newAccount[element] = utility.encrypt(newAccount[element], this.SEC_KEY)
             })
 
-            // Give the password to the new username.
-            posts[this.ENC_MP][`${newAccount.username}-${newAccount.website}`] = newAccount.password
-            delete posts[this.ENC_MP][`${encryptedOldUsername}-${encryptedOldWebsite}`]
+            // Check if the account is the same.
+            const encryptedPassword = posts[this.ENC_MP][`${encryptedOldUsername}-${encryptedOldWebsite}`]
+            const isNotTheSame = encryptedOldUsername !== newAccount.username && encryptedOldWebsite !==
+                newAccount.website && encryptedPassword !== newAccount.password
 
-            await this.write()
+            // If the account is not the same, then we can continue.
+            // If we don't do this check and the account is the same, it will get deleted.
+
+            if (isNotTheSame) {
+                // Give the password to the new username.
+                posts[this.ENC_MP][`${newAccount.username}-${newAccount.website}`] = newAccount.password
+                delete posts[this.ENC_MP][`${encryptedOldUsername}-${encryptedOldWebsite}`]
+
+                await this.write()
+            }
         } catch (error) {
             console.log("Error at updateAccount (Database).")
             console.log(error)

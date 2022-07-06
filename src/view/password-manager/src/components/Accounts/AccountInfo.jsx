@@ -18,9 +18,9 @@ export function AccountInfo() {
 
     // Context
     const account = useAccountContext().account
-    const passClipboard = useClipboardContext().pass
-    const addToClipboard = useClipboardContextUpdate().addToClipboard
-    const onTooltipOut = useClipboardContextUpdate().onTooltipOut
+    const titleClipboard = useClipboardContext().title
+    const addToClipboard = useClipboardContextUpdate()
+
 
     return (
         <div>
@@ -29,10 +29,10 @@ export function AccountInfo() {
                     <div className="absolute right-14 mt-1">
                         <button className="px-1 py-1 tooltip tooltip-left tooltip-bg"
                                 onClick={() => {
-                                    addToClipboard(account.password)
+                                    addToClipboard('title', account.password)
                                 }}
-                                onMouseOut={onTooltipOut}
-                                data-tip={passClipboard}
+                                onMouseOut=""
+                                data-tip={titleClipboard}
                                 tabIndex="-1"><img
                             src={images.clipboardIcon}
                         /></button>
@@ -163,9 +163,9 @@ function Username() {
     const username = useAccountContext().account.username
     const usernameID = useIDContext().usernameID
     const isEditable = useEditContext()
-    const clipboardText = useClipboardContext().any
-    const addToClipboard = useClipboardContextUpdate().addToClipboard
-    const onTooltipOut = useClipboardContextUpdate().onTooltipOut
+    const userClipboard = useClipboardContext().username
+    const addToClipboard = useClipboardContextUpdate()
+
 
     return (
         <label htmlFor={usernameID} className="space-y-1">
@@ -175,12 +175,12 @@ function Username() {
                        className="pl-2 rounded-sm h-8 border-dark-blue-4
                    disabled:text-dark-blue-5 disabled:cursor-not-allowed transition bg-dark-blue-6 text-white"
                        disabled={isEditable} required/>
-                <button type="button" className="px-1 py-1 tooltip tooltip-right tooltip-bg" data-tip={clipboardText}
+                <button type="button" className="px-1 py-1 tooltip tooltip-right tooltip-bg" data-tip={userClipboard}
                         tabIndex="-1"
                         onClick={() => {
-                            addToClipboard(username)
+                            addToClipboard('username', username)
                         }}
-                        onMouseOut={onTooltipOut}><img
+                        onMouseOut=""><img
                     src={images.clipboardIcon}
                 /></button>
             </div>
@@ -192,9 +192,9 @@ function Password() {
     const password = useAccountContext().account.password
     const passwordID = useIDContext().passwordID
     const isEditable = useEditContext()
-    const clipboardText = useClipboardContext().any
-    const addToClipboard = useClipboardContextUpdate().addToClipboard
-    const onTooltipOut = useClipboardContextUpdate().onTooltipOut
+    const passClipboard = useClipboardContext().password
+    const addToClipboard = useClipboardContextUpdate()
+
 
     const [showPassword, setShowPassword] = useState("password")
     const [passwordIcon, setPasswordIcon] = useState(images.hidePasswordIcon)
@@ -218,12 +218,12 @@ function Password() {
                 <button type="button" className="px-1 py-1" onClick={passwordVisibility} tabIndex="-1"><img
                     src={passwordIcon}
                 /></button>
-                <button type="button" className=" px-1 py-1 tooltip tooltip-right tooltip-bg" data-tip={clipboardText}
+                <button type="button" className=" px-1 py-1 tooltip tooltip-right tooltip-bg" data-tip={passClipboard}
                         tabIndex="-1"
                         onClick={() => {
-                            addToClipboard(password)
+                            addToClipboard('password', password)
                         }}
-                        onMouseOut={onTooltipOut}><img
+                        onMouseOut=""><img
                     src={images.clipboardIcon}
                 /></button>
             </div>

@@ -136,7 +136,7 @@ function CollapsibleInfo() {
             </form>
             <div className="mt-4 mr-4 flex flex-col space-y-4 lg:block lg:space-x-4">
                 <EditButton buttonText={buttonText}
-                            switchMode={toggleMode}/>
+                            toggleMode={toggleMode}/>
                 <DeleteButton/>
             </div>
         </div>
@@ -175,7 +175,7 @@ function Username() {
                        className="pl-2 rounded-sm h-8 border-dark-blue-4
                    disabled:text-dark-blue-5 disabled:cursor-not-allowed transition bg-dark-blue-6 text-white"
                        disabled={isEditable} required/>
-                <button className="px-1 py-1 tooltip tooltip-right tooltip-bg" data-tip={clipboardText}
+                <button type="button" className="px-1 py-1 tooltip tooltip-right tooltip-bg" data-tip={clipboardText}
                         tabIndex="-1"
                         onClick={() => {
                             addToClipboard(username)
@@ -215,10 +215,10 @@ function Password() {
                        className="pl-2 rounded-sm h-8 border-dark-blue-4
                    disabled:text-dark-blue-5 disabled:cursor-not-allowed transition bg-dark-blue-6 text-white"
                        required/>
-                <button className="px-1 py-1" onClick={passwordVisibility} tabIndex="-1"><img
+                <button type="button" className="px-1 py-1" onClick={passwordVisibility} tabIndex="-1"><img
                     src={passwordIcon}
                 /></button>
-                <button className=" px-1 py-1 tooltip tooltip-right tooltip-bg" data-tip={clipboardText}
+                <button type="button" className=" px-1 py-1 tooltip tooltip-right tooltip-bg" data-tip={clipboardText}
                         tabIndex="-1"
                         onClick={() => {
                             addToClipboard(password)
@@ -238,7 +238,7 @@ function EditButton(props) {
         <button type="submit" form={editFormID}
                 className="bg-blue-3 text-white px-4 py-2 hover:bg-green-500 active:bg-green-600 shadow-md
                         transition"
-                onClick={props.switchMode}>{props.buttonText}
+                onClick={props.toggleMode}>{props.buttonText}
         </button>
     )
 }

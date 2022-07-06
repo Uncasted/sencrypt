@@ -24,7 +24,23 @@ function LoginForm(props) {
         const password = form['masterPassword'].value
 
         const isMasterPassword = await window.controller.verifyMasterPassword(password)
-        setIsMP(isMasterPassword)
+        if (isMasterPassword) {
+            setIsMP(isMasterPassword)
+        } else {
+            // Invalid master password warning.
+            const warning = document.getElementById("invalid-mp")
+            const masterPass = document.getElementById("masterPassword")
+
+            // Show warning and make outline of input red.
+            warning.classList.remove("invisible")
+            masterPass.classList.add("outline")
+        }
+    }
+
+    const removeOutline = () => {
+        // Remove the red outline when you click on the password.
+        const masterPass = document.getElementById("masterPassword")
+        masterPass.classList.remove("outline")
     }
 
     return (
@@ -38,7 +54,9 @@ function LoginForm(props) {
                     <label htmlFor="masterPassword" className="space-y-2 text-white">
                         <p>Enter your Master Password:</p>
                         <input id="masterPassword" name="masterPassword" type="password" className="pl-2 rounded-sm h-8
-                    transition bg-dark-blue-4" minLength="1" maxLength="32"/>
+                    transition bg-dark-blue-4 outline-2 outline-red-500 focus:outline-none" minLength="1"
+                               maxLength="32" onClick={removeOutline}/>
+                        <p id="invalid-mp" className="invisible text-red-500">Invalid Master Password.</p>
                     </label>
                     <button type="submit"
                             className="bg-blue-3 hover:bg-blue-1 transition text-white px-4 py-2 shadow-md">
@@ -61,7 +79,26 @@ function NewUserForm(props) {
             const password = form['masterPassword'].value
             const isCreated = await window.controller.createMasterPassword(password)
             setIsCreatedMP(isCreated)
+        } else {
+            // If the passwords are not the same, warn the user.
+            const masterPass = document.getElementById("masterPassword")
+            const confirmPass = document.getElementById("confirmPassword")
+            const warning = document.getElementById("no-match-mp")
+            // Display warning.
+            warning.classList.remove("invisible")
+            // Add red outlines to inputs.
+            masterPass.classList.add("outline")
+            confirmPass.classList.add("outline")
         }
+    }
+
+    const removeOutline = () => {
+        // Remove the outline when one of the input elements is clicked.
+        const masterPass = document.getElementById("masterPassword")
+        const confirmPass = document.getElementById("confirmPassword")
+
+        masterPass.classList.remove("outline")
+        confirmPass.classList.remove("outline")
     }
 
     return (
@@ -75,12 +112,15 @@ function NewUserForm(props) {
                     <label htmlFor="masterPassword" className="space-y-2 text-white">
                         <p>Create your Master Password:</p>
                         <input id="masterPassword" name="masterPassword" type="password" className="pl-2 rounded-sm h-8
-                    transition bg-dark-blue-4" minLength="1" maxLength="32"/>
+                    transition bg-dark-blue-4 outline-2 outline-red-500 focus:outline-none" minLength="1"
+                               maxLength="32" onClick={removeOutline}/>
                     </label>
                     <label htmlFor="confirmMasterPassword" className="space-y-2 text-white">
                         <p>Confirm your Master Password:</p>
                         <input id="confirmPassword" name="confirmPassword" type="password" className="pl-2 rounded-sm h-8
-                    transition bg-dark-blue-4" minLength="1" maxLength="32"/>
+                    transition bg-dark-blue-4 outline-2 outline-red-500 focus:outline-none" minLength="1"
+                               maxLength="32" onClick={removeOutline}/>
+                        <p id="no-match-mp" className="invisible text-red-500">The passwords do not match.</p>
                     </label>
                     <button type="submit"
                             className="bg-blue-3 hover:bg-blue-1 transition text-white px-4 py-2 shadow-md">

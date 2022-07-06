@@ -6,7 +6,7 @@
 
 # Installation
 
-<b> WARNING: This Application is currently in an alpha stage. Avoid using your real accounts.</b>
+<b> WARNING: This Application is currently in an alpha stage. Be cautious.</b>
     
 <p>
     Download the current <a href="https://github.com/Uncasted/sencrypt/releases">release</a> and follow the installation steps of your operating system.
@@ -70,4 +70,4 @@ $ npm run dist
 
 If you want to contribute, you can create a pull request with this <a href="https://pastebin.com/24A7VErV">template</a>.
 
-If you find a bug, try to reproduce it and create an issue that outlines the steps necessary to reproduce the bug, along with a screenshot of the output of the developer console.
+If you find a bug, you can create an issue using this <a href="https://pastebin.com/zMc45xBY">template</a>.

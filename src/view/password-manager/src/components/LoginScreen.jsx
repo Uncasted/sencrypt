@@ -126,13 +126,12 @@ function NewUserForm(props) {
 
     const removeOutline = () => {
         // Remove the outline when one of the input elements is clicked.
-        const masterPass = document.getElementById("masterPassword")
-        const confirmPass = document.getElementById("confirmPassword")
+        const fields = document.querySelectorAll(`[data-outline="new-user"]`)
 
-        masterPass.classList.remove("outline")
-        confirmPass.classList.remove("outline")
-        masterPass.classList.add("focus:ring", "focus:ring-blue-1")
-        confirmPass.classList.add("focus:ring", "focus:ring-blue-1")
+        for (const field of fields) {
+            field.classList.remove("outline")
+            field.classList.add("focus:ring", "focus:ring-blue-1")
+        }
     }
 
     return (

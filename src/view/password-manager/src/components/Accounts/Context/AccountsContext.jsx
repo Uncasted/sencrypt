@@ -27,6 +27,14 @@ export default function AccountsProvider(props) {
         })
     }
 
+    const updateAccount = (index, data) => {
+        setAccounts(accounts => {
+            const newAccounts = [...accounts]
+            newAccounts[index] = data
+            return newAccounts
+        })
+    }
+
     const removeAccount = async (index) => {
         const account = accounts[index]
         // Deleting the account in the database.
@@ -41,7 +49,7 @@ export default function AccountsProvider(props) {
 
     return (
         <AccountsContext.Provider value={accounts}>
-            <AccountsContextUpdate.Provider value={{createAccount, removeAccount}}>
+            <AccountsContextUpdate.Provider value={{createAccount, updateAccount, removeAccount}}>
                 {props.children}
             </AccountsContextUpdate.Provider>
         </AccountsContext.Provider>

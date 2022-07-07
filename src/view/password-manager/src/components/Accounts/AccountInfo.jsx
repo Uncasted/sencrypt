@@ -6,6 +6,7 @@ import EditProvider, {useEditContext, useEditContextUpdate} from "./Context/Edit
 import {useClipboardContext, useClipboardContextUpdate} from "./Context/ClipboardContext"
 import {HOSTNAME_REGEX, images} from "../../App"
 import InputProvider, {useInputContext, useInputContextUpdate} from "./Context/InputContext"
+import {useAccountsContextUpdate} from "./Context/AccountsContext"
 
 export function AccountInfo() {
     // Collapsible state.
@@ -94,6 +95,7 @@ function CollapsibleInfo() {
     const [buttonText, setButtonText] = useState(editLabel)
 
     // Context
+    const updateAccount = useAccountsContextUpdate().updateAccount
     const accountIndex = useAccountContext().index
     const saveChanges = useAccountContextUpdate()
     const toggleEditing = useEditContextUpdate()
@@ -151,9 +153,11 @@ function CollapsibleInfo() {
 
             if (isNotDuplicate) {
                 // Save changes in local state.
-                saveChanges(accountData)
-                toggleEditing()
-                setButtonText(editLabel)
+                saveChanges(accountData).then(() => {
+                    updateAccount(accountIndex, accountData)
+                    toggleEditing()
+                    setButtonText(editLabel)
+                })
             } else {
                 // Warn the user that the account already exists.
                 const warning = document.getElementById(`warning-${accountIDs.usernameID}`)

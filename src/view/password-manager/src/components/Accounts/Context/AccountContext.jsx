@@ -12,12 +12,12 @@ export function useAccountContextUpdate() {
 }
 
 export default function AccountProvider(props) {
-    const index = props.index
     const [account, setAccount] = useState({
         website: props.account.website,
         username: props.account.username,
         password: props.account.password
     })
+    const index = props.index
 
     const updateAccount = async (data) => {
         // Updating the account in the database.

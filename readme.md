@@ -9,7 +9,7 @@
 <b> WARNING: This Application is currently in an alpha stage. Be cautious.</b>
     
 <p>
-    Download the current <a href="https://github.com/Uncasted/sencrypt/releases">release</a> and follow the installation steps of your operating system.
+    You can download either the installer or the no-installer version for your desired operating system in the <a href="https://github.com/Uncasted/sencrypt/releases">release</a> section.
 </p>
 
 # How can I build from source?
@@ -41,10 +41,10 @@ $ cd src/view/password-manager/
 $ npm install
 ```
 
-<b>5. Also in the same directory, run `npm run build` to build the view.</b>
+<b>5. Also in the same directory, run these commands to build the view.</b>
 
 ```
-$ npm run build
+$ npx tailwindcss -i ./src/css/input.scss -o ./src/css/output.css; npm run build
 ```
 
 <b>6. Change back to the sencrypt directory.</b>

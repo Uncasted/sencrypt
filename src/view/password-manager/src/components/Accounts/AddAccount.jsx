@@ -19,20 +19,39 @@ export function AccountModal() {
 
     const createAccount = useAccountsContextUpdate().createAccount
 
+    const changeOutline = () => {
+        // Change the outline back.
+        const newUsername = document.getElementById("new-username")
+        const newPassword = document.getElementById("new-password")
+        const newWebsite = document.getElementById("new-website")
+        const warning = document.getElementById("warn-add-modal")
+
+        newUsername.classList.remove("outline")
+        newPassword.classList.remove("outline")
+        newWebsite.classList.remove("outline")
+
+        warning.classList.add("invisible")
+        newUsername.classList.add("focus:ring", "focus:ring-blue-1")
+        newPassword.classList.add("focus:ring", "focus:ring-blue-1")
+        newWebsite.classList.add("focus:ring", "focus:ring-blue-1")
+    }
+
     const submitData = (event) => {
         event.preventDefault()
-        // Get element array from form.
-        const form = event.target.elements
+
+        const newUsername = document.getElementById("new-username")
+        const newPassword = document.getElementById("new-password")
+        const newWebsite = document.getElementById("new-website")
 
         // Get only the hostname from the URL.
-        const url = form['new-website'].value
+        const url = newWebsite.value
         const [, website] = url.match(HOSTNAME_REGEX)
 
         // Get each value from the form.
         const accountData = {
-            password: form["new-password"].value,
-            username: form["new-username"].value,
-            website: website
+            website: website,
+            username: newUsername.value,
+            password: newPassword.value
         }
 
         window.controller.getAllAccounts().then(accounts => {
@@ -49,9 +68,24 @@ export function AccountModal() {
                 addModalLabel.click()
 
                 // Clear the value of the elements after adding the account.
-                for (let element of form) {
-                    element.value = ""
-                }
+                setNewUsername("")
+                setNewPassword("")
+                setNewWebsite("")
+
+
+            } else {
+                // Warn the user.
+                const warning = document.getElementById("warn-add-modal")
+
+                warning.classList.remove("invisible")
+                newUsername.classList.remove("focus:ring", "focus:ring-blue-1")
+                newPassword.classList.remove("focus:ring", "focus:ring-blue-1")
+                newWebsite.classList.remove("focus:ring", "focus:ring-blue-1")
+
+
+                newUsername.classList.add("outline")
+                newPassword.classList.add("outline")
+                newWebsite.classList.add("outline")
             }
         })
     }
@@ -64,11 +98,15 @@ export function AccountModal() {
                     <ModalHeader/>
                     <form className="flex flex-col items-center space-y-4" id="add-form" onSubmit={submitData}>
                         <Website website={newWebsite}
-                                 setWebsite={setNewWebsite}/>
+                                 setWebsite={setNewWebsite}
+                                 changeOutline={changeOutline}/>
                         <Username username={newUsername}
-                                  setUsername={setNewUsername}/>
+                                  setUsername={setNewUsername}
+                                  changeOutline={changeOutline}/>
                         <Password password={newPassword}
-                                  setPassword={setNewPassword}/>
+                                  setPassword={setNewPassword}
+                                  changeOutline={changeOutline}/>
+                        <p id="warn-add-modal" className="invisible text-red-500">This account already exists.</p>
                         <div className="modal-action">
                             <SubmitAccount
                                 account={{username: newUsername, password: newPassword, website: newWebsite}}/>
@@ -98,7 +136,9 @@ function Website(props) {
             <input type="text" id="new-website" name="new-website" value={props.website} onChange={e => {
                 props.setWebsite(e.target.value)
             }}
-                   className="pl-2 bg-dark-blue-6 rounded-sm h-8 focus:outline-none focus:ring focus:ring-blue-1 transition"
+                   onClick={props.changeOutline}
+                   className="pl-2 bg-dark-blue-6 rounded-sm h-8 focus:outline-none focus:ring focus:ring-blue-1
+                   outline-2 outline-red-500 transition"
             />
         </label>
     )
@@ -111,7 +151,9 @@ function Username(props) {
             <input type="text" id="new-username" name="new-username" value={props.username} onChange={e => {
                 props.setUsername(e.target.value)
             }}
-                   className="pl-2 bg-dark-blue-6 rounded-sm h-8 focus:outline-none focus:ring focus:ring-blue-1 transition"
+                   onClick={props.changeOutline}
+                   className="pl-2 bg-dark-blue-6 rounded-sm h-8 focus:outline-none focus:ring focus:ring-blue-1
+                   outline-2 outline-red-500 transition"
             />
         </label>
     )
@@ -124,7 +166,9 @@ function Password(props) {
             <input type="password" id="new-password" name="new-password" value={props.password} onChange={e => {
                 props.setPassword(e.target.value)
             }}
-                   className="pl-2 bg-dark-blue-6 rounded-sm h-8 focus:outline-none focus:ring focus:ring-blue-1 transition"
+                   onClick={props.changeOutline}
+                   className="pl-2 bg-dark-blue-6 rounded-sm h-8 focus:outline-none focus:ring focus:ring-blue-1
+                   outline-2 outline-red-500 transition"
             />
         </label>
     )
@@ -137,7 +181,7 @@ function SubmitAccount(props) {
                    type="submit"
                    value="Add Account"
                    className="bg-blue-3 px-4 py-2 text-white hover:bg-blue-1 active:bg-blue-2 transition
-            hover:cursor-pointer mb-4 mt-4 disabled:text-gray-300 disabled:bg-dark-blue-4 disabled:cursor-not-allowed"/>
+            hover:cursor-pointer mb-4 disabled:text-gray-300 disabled:bg-dark-blue-4 disabled:cursor-not-allowed"/>
         </label>
     )
 }

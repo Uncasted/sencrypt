@@ -98,7 +98,7 @@ function CollapsibleInfo() {
         }
     }
 
-    const removeOutline = () => {
+    const changeOutline = () => {
         // Remove the outline after the user warning.
         const username = document.getElementById(accountIDs.usernameID)
         const website = document.getElementById(accountIDs.websiteID)
@@ -109,6 +109,10 @@ function CollapsibleInfo() {
         password.classList.remove("outline")
         website.classList.remove("outline")
         warning.classList.add("hidden")
+
+        username.classList.add("focus:ring", "focus:ring-blue-1")
+        password.classList.add("focus:ring", "focus:ring-blue-1")
+        website.classList.add("focus:ring", "focus:ring-blue-1")
     }
 
     const submitChanges = () => {
@@ -149,6 +153,10 @@ function CollapsibleInfo() {
                 username.classList.add("outline")
                 password.classList.add("outline")
                 website.classList.add("outline")
+
+                username.classList.remove("focus:ring", "focus:ring-blue-1")
+                password.classList.remove("focus:ring", "focus:ring-blue-1")
+                website.classList.remove("focus:ring", "focus:ring-blue-1")
             }
         })
     }
@@ -157,9 +165,9 @@ function CollapsibleInfo() {
     return (
         <div className="flex justify-between">
             <form className="flex flex-col space-y-4 mt-2 ml-4 mb-4" id={accountIDs.editFormID} onSubmit={toggleMode}>
-                <Website removeOutline={removeOutline}/>
-                <Username removeOutline={removeOutline}/>
-                <Password removeOutline={removeOutline}/>
+                <Website changeOutline={changeOutline}/>
+                <Username changeOutline={changeOutline}/>
+                <Password changeOutline={changeOutline}/>
                 <p id={`warning-${accountIDs.usernameID}`} className="hidden text-red-500">
                     This account already exists.
                 </p>
@@ -188,8 +196,8 @@ function Website(props) {
                    }}
                    className="pl-2 rounded-sm h-8 border-dark-blue-4 disabled:text-dark-blue-5
                    disabled:cursor-not-allowed transition bg-dark-blue-6 text-white focus:outline-none outline-2
-                   outline-red-500"
-                   disabled={isEditable} onClick={props.removeOutline} required/>
+                   outline-red-500 focus:ring focus:ring-blue-1"
+                   disabled={isEditable} onClick={props.changeOutline} required/>
         </label>
     )
 }
@@ -213,8 +221,8 @@ function Username(props) {
                        }}
                        className="pl-2 rounded-sm h-8 border-dark-blue-4 disabled:text-dark-blue-5
                        disabled:cursor-not-allowed transition bg-dark-blue-6 text-white focus:outline-none outline-2
-                       outline-red-500"
-                       disabled={isEditable} onClick={props.removeOutline} required/>
+                       outline-red-500 focus:ring focus:ring-blue-1"
+                       disabled={isEditable} onClick={props.changeOutline} required/>
                 <button type="button" className="px-1 py-1 tooltip tooltip-right tooltip-bg" data-tip={userClipboard}
                         tabIndex="-1"
                         onClick={() => {
@@ -252,13 +260,13 @@ function Password(props) {
             <p className="text-md">Password:</p>
             <div className="flex space-x-2">
                 <input type={showPassword} id={passwordID}
-                       disabled={isEditable} onClick={props.removeOutline} name="password" value={input}
+                       disabled={isEditable} onClick={props.changeOutline} name="password" value={input}
                        onChange={e => {
                            setInput(e.target.value)
                        }}
                        className="pl-2 rounded-sm h-8 border-dark-blue-4 disabled:text-dark-blue-5
                        disabled:cursor-not-allowed transition bg-dark-blue-6 text-white focus:outline-none outline-2
-                       outline-red-500"
+                       outline-red-500 focus:ring focus:ring-blue-1"
                        required/>
                 <button type="button" className="px-1 py-1" onClick={passwordVisibility} tabIndex="-1"><img
                     src={passwordIcon}

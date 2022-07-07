@@ -48,6 +48,7 @@ function LoginForm(props) {
 
             // Show warning and make outline of input red.
             warning.classList.remove("invisible")
+            masterPass.classList.remove("focus:ring", "focus:ring-blue-1")
             masterPass.classList.add("outline")
         }
     }
@@ -56,6 +57,7 @@ function LoginForm(props) {
         // Remove the red outline when you click on the password.
         const masterPass = document.getElementById("masterPassword")
         masterPass.classList.remove("outline")
+        masterPass.classList.add("focus:ring", "focus:ring-blue-1")
     }
 
     return (
@@ -69,7 +71,8 @@ function LoginForm(props) {
                     <label htmlFor="masterPassword" className="space-y-2 text-white">
                         <p>Enter your Master Password:</p>
                         <input id="masterPassword" name="masterPassword" type="password" className="pl-2 rounded-sm h-8
-                    transition bg-dark-blue-4 outline-2 outline-red-500 focus:outline-none" minLength="1" title=""
+                    transition bg-dark-blue-4 outline-2 outline-red-500 focus:outline-none focus:ring focus:ring-blue-1"
+                               minLength="1" title=""
                                maxLength="32" onClick={removeOutline} value={masterPassword}
                                onChange={(e) => {
                                    setMasterPassword(e.target.value)
@@ -110,6 +113,8 @@ function NewUserForm(props) {
             // Add red outlines to inputs.
             masterPass.classList.add("outline")
             confirmPass.classList.add("outline")
+            masterPass.classList.remove("focus:ring", "focus:ring-blue-1")
+            confirmPass.classList.remove("focus:ring", "focus:ring-blue-1")
         }
     }
 
@@ -120,6 +125,8 @@ function NewUserForm(props) {
 
         masterPass.classList.remove("outline")
         confirmPass.classList.remove("outline")
+        masterPass.classList.add("focus:ring", "focus:ring-blue-1")
+        confirmPass.classList.add("focus:ring", "focus:ring-blue-1")
     }
 
     return (
@@ -133,7 +140,8 @@ function NewUserForm(props) {
                     <label htmlFor="masterPassword" className="space-y-2 text-white">
                         <p>Create your Master Password:</p>
                         <input id="masterPassword" name="masterPassword" type="password" className="pl-2 rounded-sm h-8
-                    transition bg-dark-blue-4 outline-2 outline-red-500 focus:outline-none" minLength="1"
+                    transition bg-dark-blue-4 outline-2 outline-red-500 focus:outline-none focus:ring focus:ring-blue-1"
+                               minLength="1"
                                maxLength="32" onClick={removeOutline} value={password} onChange={e => {
                             setPassword(e.target.value)
                         }}/>
@@ -141,7 +149,8 @@ function NewUserForm(props) {
                     <label htmlFor="confirmMasterPassword" className="space-y-2 text-white">
                         <p>Confirm your Master Password:</p>
                         <input id="confirmPassword" name="confirmPassword" type="password" className="pl-2 rounded-sm h-8
-                    transition bg-dark-blue-4 outline-2 outline-red-500 focus:outline-none" minLength="1"
+                    transition bg-dark-blue-4 outline-2 outline-red-500 focus:outline-none focus:ring focus:ring-blue-1"
+                               minLength="1"
                                maxLength="32" onClick={removeOutline} value={confirmPass} onChange={e => {
                             setConfirmPass(e.target.value)
                         }}/>

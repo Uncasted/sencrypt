@@ -17,13 +17,28 @@ export default function LoginScreen(props) {
 
 function LoginForm(props) {
     const [isMP, setIsMP] = useState(false)
+    const [masterPassword, setMasterPassword] = useState("")
+
+    useEffect(() => {
+        const masterPass = document.getElementById("masterPassword")
+        masterPass.addEventListener("invalid", (event) => {
+            event.preventDefault()
+            // Warn the user that the password is required.
+            const warning = document.getElementById("required-mp")
+            warning.classList.remove("invisible")
+        })
+
+        return () => {
+            masterPass.removeEventListener("invalid", () => {
+            })
+        }
+    }, [])
 
     const verifyMasterPassword = async (event) => {
         event.preventDefault()
-        const form = event.target.elements
-        const password = form['masterPassword'].value
+        // Verify the master password in the database.
+        const isMasterPassword = await window.controller.verifyMasterPassword(masterPassword)
 
-        const isMasterPassword = await window.controller.verifyMasterPassword(password)
         if (isMasterPassword) {
             setIsMP(isMasterPassword)
         } else {
@@ -54,12 +69,17 @@ function LoginForm(props) {
                     <label htmlFor="masterPassword" className="space-y-2 text-white">
                         <p>Enter your Master Password:</p>
                         <input id="masterPassword" name="masterPassword" type="password" className="pl-2 rounded-sm h-8
-                    transition bg-dark-blue-4 outline-2 outline-red-500 focus:outline-none" minLength="1"
-                               maxLength="32" onClick={removeOutline}/>
+                    transition bg-dark-blue-4 outline-2 outline-red-500 focus:outline-none" minLength="1" title=""
+                               maxLength="32" onClick={removeOutline} value={masterPassword}
+                               onChange={(e) => {
+                                   setMasterPassword(e.target.value)
+                               }}/>
                         <p id="invalid-mp" className="invisible text-red-500">Invalid Master Password.</p>
                     </label>
                     <button type="submit"
-                            className="bg-blue-3 hover:bg-blue-1 transition text-white px-4 py-2 shadow-md">
+                            disabled={!masterPassword}
+                            className="bg-blue-3 hover:bg-blue-1 transition text-white px-6 py-2 shadow-md
+                            disabled:text-gray-300 disabled:bg-dark-blue-4 disabled:cursor-not-allowed">
                         Log in
                     </button>
                 </form>
@@ -70,13 +90,14 @@ function LoginForm(props) {
 
 function NewUserForm(props) {
     const [isCreatedMP, setIsCreatedMP] = useState(false)
+    const [password, setPassword] = useState("")
+    const [confirmPass, setConfirmPass] = useState("")
 
     const createPassword = async (event) => {
         event.preventDefault()
-        const form = event.target.elements
 
-        if (form['masterPassword'].value === form['confirmPassword'].value) {
-            const password = form['masterPassword'].value
+        if (password === confirmPass) {
+            // Initialize the database with the new password.
             const isCreated = await window.controller.createMasterPassword(password)
             setIsCreatedMP(isCreated)
         } else {
@@ -113,18 +134,24 @@ function NewUserForm(props) {
                         <p>Create your Master Password:</p>
                         <input id="masterPassword" name="masterPassword" type="password" className="pl-2 rounded-sm h-8
                     transition bg-dark-blue-4 outline-2 outline-red-500 focus:outline-none" minLength="1"
-                               maxLength="32" onClick={removeOutline}/>
+                               maxLength="32" onClick={removeOutline} value={password} onChange={e => {
+                            setPassword(e.target.value)
+                        }}/>
                     </label>
                     <label htmlFor="confirmMasterPassword" className="space-y-2 text-white">
                         <p>Confirm your Master Password:</p>
                         <input id="confirmPassword" name="confirmPassword" type="password" className="pl-2 rounded-sm h-8
                     transition bg-dark-blue-4 outline-2 outline-red-500 focus:outline-none" minLength="1"
-                               maxLength="32" onClick={removeOutline}/>
+                               maxLength="32" onClick={removeOutline} value={confirmPass} onChange={e => {
+                            setConfirmPass(e.target.value)
+                        }}/>
                         <p id="no-match-mp" className="invisible text-red-500">The passwords do not match.</p>
                     </label>
                     <button type="submit"
-                            className="bg-blue-3 hover:bg-blue-1 transition text-white px-4 py-2 shadow-md">
-                        Start
+                            disabled={!password || !confirmPass}
+                            className="bg-blue-3 hover:bg-blue-1 transition text-white px-4 py-2 shadow-md
+                            disabled:text-gray-300 disabled:bg-dark-blue-4 disabled:cursor-not-allowed">
+                        Sign up
                     </button>
                 </form>
             </div> : props.children}

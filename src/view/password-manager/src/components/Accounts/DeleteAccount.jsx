@@ -47,7 +47,7 @@ function DeleteModalWarning() {
     const removeAccount = useAccountsContextUpdate().removeAccount
 
     const deleteAccount = () => {
-        removeAccount(index)
+        removeAccount(index).then()
     }
 
     return (

@@ -56,17 +56,16 @@ export function AccountModal() {
             // If there isn't a duplicate. Create the account.
             if (isNotDuplicate) {
                 // Creating account in the local state.
-                createAccount(accountData)
-                // We need to click the label to close the modal.
-                const addModalLabel = document.querySelector("#add-modal-label")
-                addModalLabel.click()
+                createAccount(accountData).then(() => {
+                    // We need to click the label to close the modal.
+                    const addModalLabel = document.querySelector("#add-modal-label")
+                    addModalLabel.click()
 
-                // Clear the value of the elements after adding the account.
-                setNewUsername("")
-                setNewPassword("")
-                setNewWebsite("")
-
-
+                    // Clear the value of the elements after adding the account.
+                    setNewUsername("")
+                    setNewPassword("")
+                    setNewWebsite("")
+                })
             } else {
                 // Warn the user.
                 const fields = document.querySelectorAll(`[data-outline="add-modal-outline"]`)

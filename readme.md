@@ -41,10 +41,10 @@ $ cd src/view/password-manager/
 $ npm install
 ```
 
-<b>5. Also in the same directory, run `npm run build` to build the view.</b>
+<b>5. Also in the same directory, run these commands to build the view.</b>
 
 ```
-$ npm run build
+$ npx tailwindcss -i ./src/css/input.scss -o ./src/css/output.css; npm run build
 ```
 
 <b>6. Change back to the sencrypt directory.</b>

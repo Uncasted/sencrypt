@@ -5,6 +5,7 @@ import IDProvider, {useIDContext} from "./Context/IDContext"
 import EditProvider, {useEditContext, useEditContextUpdate} from "./Context/EditContext"
 import {useClipboardContext, useClipboardContextUpdate} from "./Context/ClipboardContext"
 import {HOSTNAME_REGEX, images} from "../../App"
+import InputProvider, {useInputContext, useInputContextUpdate} from "./Context/InputContext"
 
 export function AccountInfo() {
     // Collapsible state.
@@ -42,9 +43,13 @@ export function AccountInfo() {
                             <CollapsibleTitle isOpen={open}/>
                         </div>
                         <div className={showContent ? "content show" : "content"}>
-                            <EditProvider>
-                                <CollapsibleInfo/>
-                            </EditProvider>
+                            <InputProvider username={account.username}
+                                           password={account.password}
+                                           website={account.website}>
+                                <EditProvider>
+                                    <CollapsibleInfo/>
+                                </EditProvider>
+                            </InputProvider>
                         </div>
                     </div>
                 </div>
@@ -74,13 +79,13 @@ function CollapsibleTitle(props) {
 }
 
 function CollapsibleInfo() {
-    const accountIndex = useAccountContext().index
     const editLabel = "Edit Account"
     const saveLabel = "Save Changes"
     const [buttonText, setButtonText] = useState(editLabel)
+    const accountIndex = useAccountContext().index
     const saveChanges = useAccountContextUpdate()
-    const accountIDs = useIDContext()
     const toggleEditing = useEditContextUpdate()
+    const accountIDs = useIDContext()
 
     const toggleMode = (event) => {
         event.preventDefault()
@@ -111,7 +116,6 @@ function CollapsibleInfo() {
         const website = document.getElementById(accountIDs.websiteID)
         const password = document.getElementById(accountIDs.passwordID)
 
-        // I have to use getElementByID because for some reason I can't get the form values through their names.
         // Get only the hostname from the URL.
         const url = website.value
         const [, hostname] = url.match(HOSTNAME_REGEX)
@@ -170,14 +174,18 @@ function CollapsibleInfo() {
 }
 
 function Website(props) {
-    const website = useAccountContext().account.website
     const websiteID = useIDContext().websiteID
     const isEditable = useEditContext()
+    const input = useInputContext().website
+    const setInput = useInputContextUpdate().setWebsite
 
     return (
         <label htmlFor={websiteID} className="space-y-1">
             <p className="text-md">Website/Service:</p>
-            <input type="text" id={websiteID} defaultValue={website} name="website"
+            <input type="text" id={websiteID} name="website" value={input}
+                   onChange={e => {
+                       setInput(e.target.value)
+                   }}
                    className="pl-2 rounded-sm h-8 border-dark-blue-4 disabled:text-dark-blue-5
                    disabled:cursor-not-allowed transition bg-dark-blue-6 text-white focus:outline-none outline-2
                    outline-red-500"
@@ -187,18 +195,22 @@ function Website(props) {
 }
 
 function Username(props) {
-    const username = useAccountContext().account.username
     const usernameID = useIDContext().usernameID
     const isEditable = useEditContext()
     const userClipboard = useClipboardContext().username
     const addToClipboard = useClipboardContextUpdate()
+    const input = useInputContext().username
+    const setInput = useInputContextUpdate().setUsername
 
 
     return (
         <label htmlFor={usernameID} className="space-y-1">
             <p className="text-md">Username:</p>
             <div className="flex space-x-2">
-                <input type="text" id={usernameID} defaultValue={username} name="username"
+                <input type="text" id={usernameID} name="username" value={input}
+                       onChange={e => {
+                           setInput(e.target.value)
+                       }}
                        className="pl-2 rounded-sm h-8 border-dark-blue-4 disabled:text-dark-blue-5
                        disabled:cursor-not-allowed transition bg-dark-blue-6 text-white focus:outline-none outline-2
                        outline-red-500"
@@ -206,7 +218,7 @@ function Username(props) {
                 <button type="button" className="px-1 py-1 tooltip tooltip-right tooltip-bg" data-tip={userClipboard}
                         tabIndex="-1"
                         onClick={() => {
-                            addToClipboard('username', username)
+                            addToClipboard('username', input)
                         }}
                         onMouseOut=""><img
                     src={images.clipboardIcon}
@@ -217,11 +229,12 @@ function Username(props) {
 }
 
 function Password(props) {
-    const password = useAccountContext().account.password
     const passwordID = useIDContext().passwordID
     const isEditable = useEditContext()
     const passClipboard = useClipboardContext().password
     const addToClipboard = useClipboardContextUpdate()
+    const input = useInputContext().password
+    const setInput = useInputContextUpdate().setPassword
 
 
     const [showPassword, setShowPassword] = useState("password")
@@ -238,8 +251,11 @@ function Password(props) {
         <label htmlFor={passwordID} className="space-y-1">
             <p className="text-md">Password:</p>
             <div className="flex space-x-2">
-                <input type={showPassword} id={passwordID} defaultValue={password}
-                       disabled={isEditable} onClick={props.removeOutline} name="password"
+                <input type={showPassword} id={passwordID}
+                       disabled={isEditable} onClick={props.removeOutline} name="password" value={input}
+                       onChange={e => {
+                           setInput(e.target.value)
+                       }}
                        className="pl-2 rounded-sm h-8 border-dark-blue-4 disabled:text-dark-blue-5
                        disabled:cursor-not-allowed transition bg-dark-blue-6 text-white focus:outline-none outline-2
                        outline-red-500"
@@ -250,7 +266,7 @@ function Password(props) {
                 <button type="button" className=" px-1 py-1 tooltip tooltip-right tooltip-bg" data-tip={passClipboard}
                         tabIndex="-1"
                         onClick={() => {
-                            addToClipboard('password', password)
+                            addToClipboard('password', input)
                         }}
                         onMouseOut=""><img
                     src={images.clipboardIcon}
@@ -262,12 +278,15 @@ function Password(props) {
 
 function EditButton(props) {
     const editFormID = useIDContext().editFormID
+    const input = useInputContext()
 
     return (
         <button type="submit" form={editFormID}
-                className="bg-blue-3 text-white px-4 py-2 hover:bg-green-500 active:bg-green-600 shadow-md
-                        transition"
-                onClick={props.toggleMode}>{props.buttonText}
+                onClick={props.toggleMode}
+                disabled={!input.username || !input.password || !input.website}
+                className="bg-blue-3 text-white px-4 py-2 hover:bg-green-500 active:bg-green-600 shadow-md transition
+                disabled:text-gray-300 disabled:bg-dark-blue-4 disabled:cursor-not-allowed">
+            {props.buttonText}
         </button>
     )
 }

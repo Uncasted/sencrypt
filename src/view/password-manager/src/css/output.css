@@ -2815,6 +2815,10 @@ body[dir="rtl"] .checkbox:checked,
   margin-top: 1rem;
 }
 
+.inline {
+  display: inline;
+}
+
 .flex {
   display: flex;
 }
@@ -2841,6 +2845,10 @@ body[dir="rtl"] .checkbox:checked,
 
 .h-full {
   height: 100%;
+}
+
+.h-10 {
+  height: 2.5rem;
 }
 
 .h-\[200px\] {
@@ -2977,13 +2985,13 @@ body[dir="rtl"] .checkbox:checked,
   background-color: rgb(0 31 51 / var(--tw-bg-opacity));
 }
 
+.bg-transparent {
+  background-color: transparent;
+}
+
 .bg-dark-blue-6 {
   --tw-bg-opacity: 1;
   background-color: rgb(13 42 61 / var(--tw-bg-opacity));
-}
-
-.bg-transparent {
-  background-color: transparent;
 }
 
 .bg-red-600 {
@@ -3205,6 +3213,10 @@ body[dir="rtl"] .checkbox:checked,
   background-color: rgb(0 39 62 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-transparent:hover {
+  background-color: transparent;
+}
+
 .hover\:bg-green-500:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(34 197 94 / var(--tw-bg-opacity));
@@ -3213,10 +3225,6 @@ body[dir="rtl"] .checkbox:checked,
 .hover\:bg-red-500:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(239 68 68 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-transparent:hover {
-  background-color: transparent;
 }
 
 .btn-outline .badge.focus\:outline:focus {
@@ -3287,6 +3295,11 @@ body[dir="rtl"] .checkbox:checked,
   --tw-ring-color: rgb(9 156 234 / var(--tw-ring-opacity));
 }
 
+.active\:bg-blue-2:active {
+  --tw-bg-opacity: 1;
+  background-color: rgb(8 141 212 / var(--tw-bg-opacity));
+}
+
 .active\:bg-green-600:active {
   --tw-bg-opacity: 1;
   background-color: rgb(22 163 74 / var(--tw-bg-opacity));
@@ -3295,11 +3308,6 @@ body[dir="rtl"] .checkbox:checked,
 .active\:bg-red-600:active {
   --tw-bg-opacity: 1;
   background-color: rgb(220 38 38 / var(--tw-bg-opacity));
-}
-
-.active\:bg-blue-2:active {
-  --tw-bg-opacity: 1;
-  background-color: rgb(8 141 212 / var(--tw-bg-opacity));
 }
 
 .active\:bg-red-700:active {
@@ -3327,8 +3335,8 @@ body[dir="rtl"] .checkbox:checked,
 }
 
 @media (min-width: 1024px) {
-  .lg\:block {
-    display: block;
+  .lg\:flex-row {
+    flex-direction: row;
   }
 
   .lg\:space-x-4 > :not([hidden]) ~ :not([hidden]) {

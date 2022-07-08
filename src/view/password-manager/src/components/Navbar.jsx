@@ -1,6 +1,20 @@
+import {useEffect} from "react"
 import {images} from "../App"
 
 export function Navbar(props) {
+
+    useEffect(() => {
+        const sectionList = document.getElementById("section-list")
+        sectionList.addEventListener('focusout', (event) => {
+            event.stopPropagation()
+
+            if (sectionList.contains(event.relatedTarget)) {
+                return
+            }
+
+            sectionList.focus()
+        })
+    }, [])
 
     const changeFocus = (event, name) => {
         // Switch the menu
@@ -22,13 +36,14 @@ export function Navbar(props) {
                  alt="Sencrypt"
                  tabIndex="-1"
                  className="h-7 mx-auto"/>
-            <ul className="flex flex-col text-lg mt-8">
+            <ul id="section-list"
+                className="flex flex-col text-lg mt-8">
                 <li>
                     <button onClick={(e) => {
                         changeFocus(e, "Accounts")
                     }}
                             className="bg-blue-1 change-focus w-full text-start pl-8 py-3 hover:bg-blue-2 transition
-                            flex">
+                            flex focus:outline-gray-200">
                         <img src={images.managerIcon}
                              alt="Accounts section"
                              className="w-7 h-7 mr-4 no-select"/>
@@ -40,7 +55,7 @@ export function Navbar(props) {
                         changeFocus(e, "Generator")
                     }}
                             className="change-focus w-full text-start pl-8 py-3 hover:bg-dark-blue-2
-                            transition flex">
+                            transition flex focus:outline-gray-200">
                         <img src={images.generatorIcon}
                              alt="Password generator section."
                              className="w-7 h-7 mr-4 no-select"/>
@@ -52,7 +67,7 @@ export function Navbar(props) {
                         changeFocus(e, "Settings")
                     }}
                             className="change-focus w-full text-start pl-8 py-3 hover:bg-dark-blue-2
-                            transition flex">
+                            transition flex focus:outline-gray-200">
                         <img src={images.settingsIcon}
                              alt="Settings section."
                              className="w-7 h-7 mr-4 no-select"/>

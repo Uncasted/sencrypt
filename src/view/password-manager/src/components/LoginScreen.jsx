@@ -67,7 +67,8 @@ function LoginForm(props) {
                             <p>
                                 Enter your Master Password:
                             </p>
-                            <input id="masterPassword"
+                            <input autoFocus
+                                   id="masterPassword"
                                    name="masterPassword"
                                    type="password"
                                    minLength="1"
@@ -86,7 +87,8 @@ function LoginForm(props) {
                         <button type="submit"
                                 disabled={!masterPassword}
                                 className="bg-blue-3 hover:bg-blue-1 transition text-white px-6 py-2 shadow-md
-                            disabled:text-gray-300 disabled:bg-dark-blue-4 disabled:cursor-not-allowed">
+                            disabled:text-gray-300 disabled:bg-dark-blue-4 disabled:cursor-not-allowed
+                            focus:outline-gray-200">
                             Log in
                         </button>
                     </form>
@@ -151,7 +153,8 @@ function NewUserForm(props) {
                             <p>
                                 Create your Master Password:
                             </p>
-                            <input id="masterPassword"
+                            <input autoFocus
+                                   id="masterPassword"
                                    name="masterPassword"
                                    type="password"
                                    minLength="1"
@@ -191,7 +194,8 @@ function NewUserForm(props) {
                         <button type="submit"
                                 disabled={!password || !confirmPass}
                                 className="bg-blue-3 hover:bg-blue-1 transition text-white px-4 py-2 shadow-md
-                            disabled:text-gray-300 disabled:bg-dark-blue-4 disabled:cursor-not-allowed">
+                            disabled:text-gray-300 disabled:bg-dark-blue-4 disabled:cursor-not-allowed
+                            focus:outline-gray-200">
                             Sign up
                         </button>
                     </form>

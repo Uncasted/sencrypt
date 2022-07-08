@@ -29,11 +29,17 @@ export function AccountInfo() {
                 <div className="shadow-total bg-dark-blue-0 text-white">
                     <div className="absolute right-14 mt-1">
                         <button data-tip={titleClipboard}
-                                tabIndex="-1"
+                                tabIndex="1"
+                                onFocus={(event) => {
+                                    event.target.classList.add("tooltip-open")
+                                }}
+                                onBlur={(event) => {
+                                    event.target.classList.remove("tooltip-open")
+                                }}
                                 onClick={() => {
                                     addToClipboard('title', account.password)
                                 }}
-                                className="px-1 py-1 tooltip tooltip-left tooltip-bg">
+                                className="px-1 py-1 tooltip tooltip-left tooltip-bg focus:outline-gray-200">
                             <img src={images.clipboardIcon}
                                  alt="Copy password to clipboard."/>
                         </button>
@@ -41,14 +47,15 @@ export function AccountInfo() {
                     <div>
                         <div onClick={toggleCollapsible}
                              className="title cursor-pointer">
-                            <CollapsibleTitle isOpen={open}/>
+                            <CollapsibleTitle isOpen={open}
+                                              toggleCollapsible={toggleCollapsible}/>
                         </div>
                         <div className={showContent ? "content show" : "content"}>
                             <InputProvider username={account.username}
                                            password={account.password}
                                            website={account.website}>
                                 <EditProvider>
-                                    <CollapsibleInfo/>
+                                    <CollapsibleInfo showContent={showContent}/>
                                 </EditProvider>
                             </InputProvider>
                         </div>
@@ -65,11 +72,17 @@ function CollapsibleTitle(props) {
     const account = useAccountContext().account
 
     return (
-        <div className="flex py-0 px-0 items-center shadow-md pb-1 no-select">
+        <div tabIndex="0"
+             onKeyDown={(event) => {
+                 if (event.key === "Enter") {
+                     props.toggleCollapsible()
+                 }
+             }}
+             className="flex py-0 px-0 items-center shadow-md pb-1 focus:outline-gray-200">
             <div className="ml-2 w-12 h-full flex items-center justify-center">
                 <img src={`https://icon.horse/icon/${account.website}`}
                      alt="Account icon"
-                     className="w-7 h-7"/>
+                     className="w-7 h-7 no-select"/>
             </div>
             <div className="ml-2">
                 <h1 className="text-md">
@@ -88,7 +101,7 @@ function CollapsibleTitle(props) {
     )
 }
 
-function CollapsibleInfo() {
+function CollapsibleInfo(props) {
     // State
     const editLabel = "Edit Account"
     const saveLabel = "Save Changes"
@@ -178,9 +191,12 @@ function CollapsibleInfo() {
             <form id={accountIDs.editFormID}
                   onSubmit={toggleMode}
                   className="flex flex-col space-y-4 mt-2 ml-4 mb-4">
-                <Website changeOutline={changeOutline}/>
-                <Username changeOutline={changeOutline}/>
-                <Password changeOutline={changeOutline}/>
+                <Website changeOutline={changeOutline}
+                         showContent={props.showContent}/>
+                <Username changeOutline={changeOutline}
+                          showContent={props.showContent}/>
+                <Password changeOutline={changeOutline}
+                          showContent={props.showContent}/>
                 <p id={`warning-${accountIDs.usernameID}`}
                    className="hidden text-red-500">
                     This account already exists.
@@ -188,8 +204,9 @@ function CollapsibleInfo() {
             </form>
             <div className="mt-4 mr-4 flex flex-col space-y-4 lg:block lg:space-x-4">
                 <EditButton buttonText={buttonText}
+                            showContent={props.showContent}
                             toggleMode={toggleMode}/>
-                <DeleteButton/>
+                <DeleteButton showContent={props.showContent}/>
             </div>
         </div>
     )
@@ -213,10 +230,11 @@ function Website(props) {
                    id={websiteID}
                    name="website"
                    value={input}
+                   tabIndex={props.showContent ? 20 : -1}
                    disabled={isEditable}
                    data-outline={`account-${index}`}
-                   onChange={e => {
-                       setInput(e.target.value)
+                   onChange={event => {
+                       setInput(event.target.value)
                    }}
                    onClick={props.changeOutline}
                    className="pl-2 rounded-sm h-8 border-dark-blue-4 disabled:text-dark-blue-5
@@ -249,10 +267,11 @@ function Username(props) {
                        id={usernameID}
                        name="username"
                        value={input}
+                       tabIndex={props.showContent ? 21 : -1}
                        disabled={isEditable}
                        data-outline={`account-${index}`}
-                       onChange={e => {
-                           setInput(e.target.value)
+                       onChange={event => {
+                           setInput(event.target.value)
                        }}
                        onClick={props.changeOutline}
                        className="pl-2 rounded-sm h-8 border-dark-blue-4 disabled:text-dark-blue-5
@@ -261,11 +280,17 @@ function Username(props) {
                 />
                 <button type="button"
                         data-tip={userClipboard}
-                        tabIndex="-1"
+                        tabIndex={props.showContent ? 24 : -1}
+                        onFocus={(event) => {
+                            event.target.classList.add("tooltip-open")
+                        }}
+                        onBlur={(event) => {
+                            event.target.classList.remove("tooltip-open")
+                        }}
                         onClick={() => {
                             addToClipboard('username', input)
                         }}
-                        className="px-1 py-1 tooltip tooltip-right tooltip-bg">
+                        className="px-1 py-1 tooltip tooltip-right tooltip-bg focus:outline-gray-200">
                     <img src={images.clipboardIcon}
                          alt="Copy username to clipboard."/>
                 </button>
@@ -306,10 +331,11 @@ function Password(props) {
                        id={passwordID}
                        name="password"
                        value={input}
+                       tabIndex={props.showContent ? 22 : -1}
                        disabled={isEditable}
                        data-outline={`account-${index}`}
-                       onChange={e => {
-                           setInput(e.target.value)
+                       onChange={event => {
+                           setInput(event.target.value)
                        }}
                        onClick={props.changeOutline}
                        className="pl-2 rounded-sm h-8 border-dark-blue-4 disabled:text-dark-blue-5
@@ -317,19 +343,25 @@ function Password(props) {
                        outline-red-500 focus:ring focus:ring-blue-1"
                        required/>
                 <button type="button"
-                        tabIndex="-1"
+                        tabIndex={props.showContent ? 25 : -1}
                         onClick={passwordVisibility}
-                        className="px-1 py-1">
+                        className="px-1 py-1 focus:outline-gray-200">
                     <img src={passwordIcon}
                          alt="Show/hide password."/>
                 </button>
                 <button type="button"
                         data-tip={passClipboard}
-                        tabIndex="-1"
+                        tabIndex={props.showContent ? 26 : -1}
+                        onFocus={(event) => {
+                            event.target.classList.add("tooltip-open")
+                        }}
+                        onBlur={(event) => {
+                            event.target.classList.remove("tooltip-open")
+                        }}
                         onClick={() => {
                             addToClipboard('password', input)
                         }}
-                        className=" px-1 py-1 tooltip tooltip-right tooltip-bg">
+                        className=" px-1 py-1 tooltip tooltip-right tooltip-bg focus:outline-gray-200">
                     <img src={images.clipboardIcon}
                          alt="Copy password to clipboard."/>
                 </button>
@@ -346,25 +378,38 @@ function EditButton(props) {
     return (
         <button type="submit"
                 form={editFormID}
+                tabIndex={props.showContent ? 27 : -1}
                 disabled={!input.username || !input.password || !input.website}
                 onClick={props.toggleMode}
                 className="bg-blue-3 text-white px-4 py-2 hover:bg-green-500 active:bg-green-600 shadow-md transition
-                disabled:text-gray-300 disabled:bg-dark-blue-4 disabled:cursor-not-allowed">
+                disabled:text-gray-300 disabled:bg-dark-blue-4 disabled:cursor-not-allowed focus:outline-gray-200">
             {props.buttonText}
         </button>
     )
 }
 
-function DeleteButton() {
+function DeleteButton(props) {
     // Context
     const index = useAccountContext().index
 
+    const deleteWarning = () => {
+        // Click on the label to show the warning.
+        const warning = document.getElementById(`delete-warn-${index}`)
+        warning.click()
+        // Focus the "delete modal".
+        const delModal = document.getElementById(`delete-box-${index}`)
+        delModal.focus()
+    }
+
     return (
         <label htmlFor={`delete-modal-${index}`}
-               className="bg-blue-3 text-white px-4 py-[0.65rem] hover:bg-red-500 active:bg-red-600 shadow-md
-                        transition hover:cursor-pointer"
-        >
-            Delete Account
+               id={`delete-warn-${index}`}>
+            <button tabIndex={props.showContent ? 28 : -1}
+                    onClick={deleteWarning}
+                    className="bg-blue-3 text-white px-4 py-2 hover:bg-red-500 active:bg-red-600 shadow-md
+                    transition hover:cursor-pointer focus:outline-gray-200">
+                Delete Account
+            </button>
         </label>
     )
 }

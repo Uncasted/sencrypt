@@ -1,13 +1,27 @@
 import {useAccountsContextUpdate} from "./Context/AccountsContext"
 import {HOSTNAME_REGEX} from "../../App"
-import {useState} from "react"
+import {useEffect, useState} from "react"
 
 export function AddAccountButton() {
+
+    const addAccount = () => {
+        // Click on the label to show the add account modal.
+        const addModal = document.getElementById(`open-add-account`)
+        addModal.click()
+        // Focus on the form.
+        const newWebsite = document.getElementById("new-website")
+        newWebsite.focus()
+    }
+
     return (
         <label htmlFor="add-modal"
-               className="ml-4 modal-button bg-blue-3 px-4 py-3 text-white hover:bg-blue-1 active:bg-blue-2
-               transition hover:cursor-pointer shadow-md ">
-            Add New Account
+               id="open-add-account">
+            <button tabIndex="0"
+                    onClick={addAccount}
+                    className="ml-4 modal-button bg-blue-3 px-4 py-3 text-white hover:bg-blue-1 active:bg-blue-2
+               transition hover:cursor-pointer shadow-md focus:outline-gray-200">
+                Add New Account
+            </button>
         </label>
     )
 }
@@ -87,9 +101,9 @@ export function AccountModal() {
         <>
             <input type="checkbox"
                    id="add-modal"
+                   tabIndex="-1"
                    className="modal-toggle"/>
-            <label htmlFor="add-modal"
-                   className="modal">
+            <div className="modal">
                 <label className="modal-box bg-dark-blue-1 text-white rounded-none px-0 py-0 w-[350px] shadow-sm">
                     <ModalHeader/>
                     <form id="add-form"
@@ -114,18 +128,28 @@ export function AccountModal() {
                         </div>
                     </form>
                 </label>
-            </label>
+            </div>
         </>
     )
 }
 
 function ModalHeader() {
+    const closeModal = () => {
+        // Close the modal when the "x" button is clicked.
+        const addModal = document.getElementById("add-modal")
+        addModal.click()
+    }
+
     return (
         <div className="bg-blue-3 text-white w-full py-4 pl-4 mb-4">
-            <label htmlFor="add-modal"
-                   className="btn bg-transparent border-none absolute right-2 top-1 text-white rounded-none
-                           hover:bg-transparent">
-                ✕
+            <label htmlFor="add-modal">
+                <button type="button"
+                        tabIndex="14"
+                        onClick={closeModal}
+                        className="btn bg-transparent border-none absolute right-2 top-1 text-white rounded-none
+                           hover:bg-transparent focus:outline-gray-200">
+                    ✕
+                </button>
             </label>
             <h1 className="text-lg">
                 Add new Account:
@@ -145,6 +169,7 @@ function Website(props) {
                    id="new-website"
                    name="new-website"
                    value={props.website}
+                   tabIndex="10"
                    data-outline="add-modal-outline"
                    onChange={e => {
                        props.setWebsite(e.target.value)
@@ -168,6 +193,7 @@ function Username(props) {
                    id="new-username"
                    name="new-username"
                    value={props.username}
+                   tabIndex="11"
                    data-outline="add-modal-outline"
                    onChange={e => {
                        props.setUsername(e.target.value)
@@ -191,6 +217,7 @@ function Password(props) {
                    id="new-password"
                    name="new-password"
                    value={props.password}
+                   tabIndex="12"
                    data-outline="add-modal-outline"
                    onChange={e => {
                        props.setPassword(e.target.value)
@@ -209,9 +236,11 @@ function SubmitAccount(props) {
                id="add-modal-label">
             <input type="submit"
                    value="Add Account"
+                   tabIndex="13"
                    disabled={!props.account.username || !props.account.password || !props.account.website}
                    className="bg-blue-3 px-4 py-2 text-white hover:bg-blue-1 active:bg-blue-2 transition
-            hover:cursor-pointer mb-4 disabled:text-gray-300 disabled:bg-dark-blue-4 disabled:cursor-not-allowed"/>
+            hover:cursor-pointer mb-4 disabled:text-gray-300 disabled:bg-dark-blue-4 disabled:cursor-not-allowed
+            focus:outline-gray-200"/>
         </label>
     )
 }

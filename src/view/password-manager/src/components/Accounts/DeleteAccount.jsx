@@ -9,16 +9,18 @@ export function DeleteAccountModal() {
         <div>
             <input type="checkbox"
                    id={`delete-modal-${index}`}
+                   tabIndex="-1"
                    className="modal-toggle"/>
-            <label htmlFor={`delete-modal-${index}`}
-                   className="modal">
-                <label
-                    className="modal-box bg-dark-blue-1 rounded-none px-0 py-0 w-[400px] h-[200px] shadow-sm text-white"
+            <div className="modal">
+                <label id={`delete-box-${index}`}
+                       tabIndex="30"
+                       className="modal-box bg-dark-blue-1 rounded-none px-0 py-0 w-[400px] h-[200px] shadow-sm
+                       text-white focus:outline-none"
                 >
                     <DeleteModalHeader/>
                     <DeleteModalWarning/>
                 </label>
-            </label>
+            </div>
         </div>
     )
 }
@@ -27,12 +29,21 @@ function DeleteModalHeader() {
     // Context
     const index = useAccountContext().index
 
+    const closeModal = () => {
+        const delModal = document.getElementById(`delete-modal-${index}`)
+        delModal.click()
+    }
+
     return (
         <div className="bg-blue-3 text-white w-full py-4 pl-4 mb-4">
-            <label htmlFor={`delete-modal-${index}`}
-                   className="btn bg-transparent border-none absolute right-2 top-1 text-white rounded-none
-                           hover:bg-transparent">
-                ✕
+            <label htmlFor={`delete-modal-${index}`}>
+                <button type="button"
+                        tabIndex="32"
+                        onClick={closeModal}
+                        className="btn bg-transparent border-none absolute right-2 top-1 text-white rounded-none
+                           hover:bg-transparent focus:outline-gray-200">
+                    ✕
+                </button>
             </label>
             <h1 className="text-lg">
                 Delete Account:
@@ -58,11 +69,13 @@ function DeleteModalWarning() {
                 </h1>
             </div>
             <div className="absolute right-4 bottom-4">
-                <label htmlFor={`delete-modal-${index}`}
-                       onClick={deleteAccount}
-                       className="bg-red-600 text-white px-4 py-2 hover:bg-red-500 active:bg-red-700
-                                   shadow-lg transition hover:cursor-pointer">
-                    Delete Account
+                <label htmlFor={`delete-modal-${index}`}>
+                    <button tabIndex="31"
+                            onClick={deleteAccount}
+                            className="bg-red-600 text-white px-4 py-2 hover:bg-red-500 active:bg-red-700
+                                   shadow-lg transition hover:cursor-pointer focus:outline-gray-200">
+                        Delete Account
+                    </button>
                 </label>
             </div>
         </div>

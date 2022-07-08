@@ -39,14 +39,17 @@ function LoginForm(props) {
             // Show warning and make outline of input red.
             warning.classList.remove("invisible")
             masterPass.classList.remove("focus:ring", "focus:ring-blue-1")
-            masterPass.classList.add("outline")
+            masterPass.classList.add("outline", "focus:outline", "focus:outline-red-500")
         }
     }
 
-    const removeOutline = () => {
-        // Remove the red outline when you click on the password.
+    const removeWarning = () => {
+        // Remove the red warning for the login form.
         const masterPass = document.getElementById("masterPassword")
-        masterPass.classList.remove("outline")
+        const warning = document.getElementById("invalid-mp")
+
+        warning.classList.add("invisible")
+        masterPass.classList.remove("outline", "focus:outline", "focus:outline-red-500")
         masterPass.classList.add("focus:ring", "focus:ring-blue-1")
     }
 
@@ -74,9 +77,10 @@ function LoginForm(props) {
                                    minLength="1"
                                    maxLength="32"
                                    onChange={(e) => {
+                                       removeWarning()
                                        setMasterPassword(e.target.value)
                                    }}
-                                   onClick={removeOutline} value={masterPassword}
+                                   onClick={removeWarning} value={masterPassword}
                                    className="pl-2 rounded-sm h-8 transition bg-dark-blue-4 outline-2 outline-red-500
                                    focus:outline-none focus:ring focus:ring-blue-1"/>
                             <p id="invalid-mp"
@@ -121,17 +125,20 @@ function NewUserForm(props) {
 
             for (const field of fields) {
                 field.classList.remove("focus:ring", "focus:ring-blue-1")
-                field.classList.add("outline")
+                field.classList.add("outline", "focus:outline", "focus:outline-red-500")
             }
         }
     }
 
-    const removeOutline = () => {
-        // Remove the outline when one of the input elements is clicked.
+    const removeWarning = () => {
+        // Remove the warning for invalid form.
+        const warning = document.getElementById("no-match-mp")
+        warning.classList.add("invisible")
+
         const fields = document.querySelectorAll(`[data-outline="new-user"]`)
 
         for (const field of fields) {
-            field.classList.remove("outline")
+            field.classList.remove("outline", "focus:outline", "focus:outline-red-500")
             field.classList.add("focus:ring", "focus:ring-blue-1")
         }
     }
@@ -162,9 +169,10 @@ function NewUserForm(props) {
                                    data-outline="new-user"
                                    value={password}
                                    onChange={e => {
+                                       removeWarning()
                                        setPassword(e.target.value)
                                    }}
-                                   onClick={removeOutline}
+                                   onClick={removeWarning}
                                    className="pl-2 rounded-sm h-8 transition bg-dark-blue-4 outline-2 outline-red-500
                                    focus:outline-none focus:ring focus:ring-blue-1"/>
                         </label>
@@ -181,9 +189,10 @@ function NewUserForm(props) {
                                    data-outline="new-user"
                                    value={confirmPass}
                                    onChange={e => {
+                                       removeWarning()
                                        setConfirmPass(e.target.value)
                                    }}
-                                   onClick={removeOutline}
+                                   onClick={removeWarning}
                                    className="pl-2 rounded-sm h-8 transition bg-dark-blue-4 outline-2 outline-red-500
                                    focus:outline-none focus:ring focus:ring-blue-1"/>
                             <p id="no-match-mp"

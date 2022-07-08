@@ -126,12 +126,12 @@ function CollapsibleInfo(props) {
         }
     }
 
-    const changeOutline = () => {
-        // Remove the red outline after the user warning.
+    const removeWarning = () => {
+        // Remove the warning for already existing account.
         const fields = document.querySelectorAll(`[data-outline="account-${accountIndex}"]`)
 
         for (const field of fields) {
-            field.classList.remove("outline")
+            field.classList.remove("outline", "focus:outline", "focus:outline-red-500")
             field.classList.add("focus:ring", "focus:ring-blue-1")
         }
 
@@ -179,7 +179,7 @@ function CollapsibleInfo(props) {
                 // Add red outline to the fields.
                 for (const field of fields) {
                     field.classList.remove("focus:ring", "focus:ring-blue-1")
-                    field.classList.add("outline")
+                    field.classList.add("outline", "focus:outline", "focus:outline-red-500")
                 }
             }
         })
@@ -191,11 +191,11 @@ function CollapsibleInfo(props) {
             <form id={accountIDs.editFormID}
                   onSubmit={toggleMode}
                   className="flex flex-col space-y-4 mt-2 ml-4 mb-4">
-                <Website changeOutline={changeOutline}
+                <Website removeWarning={removeWarning}
                          showContent={props.showContent}/>
-                <Username changeOutline={changeOutline}
+                <Username removeWarning={removeWarning}
                           showContent={props.showContent}/>
-                <Password changeOutline={changeOutline}
+                <Password removeWarning={removeWarning}
                           showContent={props.showContent}/>
                 <p id={`warning-${accountIDs.usernameID}`}
                    className="hidden text-red-500">
@@ -234,9 +234,10 @@ function Website(props) {
                    disabled={isEditable}
                    data-outline={`account-${index}`}
                    onChange={event => {
+                       props.removeWarning()
                        setInput(event.target.value)
                    }}
-                   onClick={props.changeOutline}
+                   onClick={props.removeWarning}
                    className="pl-2 rounded-sm h-8 border-dark-blue-4 disabled:text-dark-blue-5
                    disabled:cursor-not-allowed transition bg-dark-blue-6 text-white focus:outline-none outline-2
                    outline-red-500 focus:ring focus:ring-blue-1"
@@ -271,9 +272,10 @@ function Username(props) {
                        disabled={isEditable}
                        data-outline={`account-${index}`}
                        onChange={event => {
+                           props.removeWarning()
                            setInput(event.target.value)
                        }}
-                       onClick={props.changeOutline}
+                       onClick={props.removeWarning}
                        className="pl-2 rounded-sm h-8 border-dark-blue-4 disabled:text-dark-blue-5
                        disabled:cursor-not-allowed transition bg-dark-blue-6 text-white focus:outline-none outline-2
                        outline-red-500 focus:ring focus:ring-blue-1"
@@ -335,9 +337,10 @@ function Password(props) {
                        disabled={isEditable}
                        data-outline={`account-${index}`}
                        onChange={event => {
+                           props.removeWarning()
                            setInput(event.target.value)
                        }}
-                       onClick={props.changeOutline}
+                       onClick={props.removeWarning}
                        className="pl-2 rounded-sm h-8 border-dark-blue-4 disabled:text-dark-blue-5
                        disabled:cursor-not-allowed transition bg-dark-blue-6 text-white focus:outline-none outline-2
                        outline-red-500 focus:ring focus:ring-blue-1"

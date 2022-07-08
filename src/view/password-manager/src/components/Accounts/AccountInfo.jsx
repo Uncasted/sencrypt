@@ -2,11 +2,12 @@ import {useState} from "react"
 import {DeleteAccountModal} from "./DeleteAccount"
 import {useAccountContext, useAccountContextUpdate} from "./Context/AccountContext"
 import IDProvider, {useIDContext} from "./Context/IDContext"
-import EditProvider, {useEditContext, useEditContextUpdate} from "./Context/EditContext"
+import EditProvider, {useEditContextUpdate} from "./Context/EditContext"
 import {useClipboardContext, useClipboardContextUpdate} from "./Context/ClipboardContext"
 import {HOSTNAME_REGEX, images} from "../../App"
 import InputProvider, {useInputContext, useInputContextUpdate} from "./Context/InputContext"
 import {useAccountsContextUpdate} from "./Context/AccountsContext"
+import {Website, Username, Password, EditButton, DeleteButton, SaveButton} from "./CollapsibleItems"
 
 export function AccountInfo() {
     // Collapsible state.
@@ -55,7 +56,7 @@ export function AccountInfo() {
                                            password={account.password}
                                            website={account.website}>
                                 <EditProvider>
-                                    <CollapsibleInfo showContent={showContent}/>
+                                    <CollapsibleMenu showContent={showContent}/>
                                 </EditProvider>
                             </InputProvider>
                         </div>
@@ -101,29 +102,30 @@ function CollapsibleTitle(props) {
     )
 }
 
-function CollapsibleInfo(props) {
+function CollapsibleMenu(props) {
     // State
     const editLabel = "Edit Account"
-    const saveLabel = "Save Changes"
+    const cancelLabel = "Cancel Changes"
     const [buttonText, setButtonText] = useState(editLabel)
 
     // Context
+    const account = useAccountContext().account
     const updateAccount = useAccountsContextUpdate().updateAccount
     const accountIndex = useAccountContext().index
     const saveChanges = useAccountContextUpdate()
     const toggleEditing = useEditContextUpdate()
     const accountIDs = useIDContext()
-    const account = useInputContext()
+    const accountInput = useInputContext()
+    const setAccountInput = useInputContextUpdate()
 
-    const toggleMode = (event) => {
-        event.preventDefault()
-
-        if (buttonText === saveLabel) {
-            submitChanges()
-        } else {
-            toggleEditing()
-            setButtonText(saveLabel)
-        }
+    const toggleMode = () => {
+        // Cancelling the changes made to the fields.
+        setAccountInput.setUsername(account.username)
+        setAccountInput.setPassword(account.password)
+        setAccountInput.setWebsite(account.website)
+        // Toggle Editing
+        toggleEditing()
+        setButtonText(buttonText === editLabel ? cancelLabel : editLabel)
     }
 
     const removeWarning = () => {
@@ -140,17 +142,19 @@ function CollapsibleInfo(props) {
         warning.classList.add("hidden")
     }
 
-    const submitChanges = () => {
+    const submitChanges = (event) => {
+        event.preventDefault()
+
         const fields = document.querySelectorAll(`[data-outline="account-${accountIndex}"]`)
 
         // Get only the hostname from the URL.
-        const url = account.website
+        const url = accountInput.website
         const [, hostname] = url.match(HOSTNAME_REGEX)
 
         const accountData = {
             website: hostname,
-            username: account.username,
-            password: account.password
+            username: accountInput.username,
+            password: accountInput.password
         }
 
         window.controller.getAllAccounts().then(accounts => {
@@ -168,8 +172,7 @@ function CollapsibleInfo(props) {
                 // Save changes in local state.
                 saveChanges(accountData).then(() => {
                     updateAccount(accountIndex, accountData)
-                    toggleEditing()
-                    setButtonText(editLabel)
+                    toggleMode()
                 })
             } else {
                 // Warn the user that the account already exists.
@@ -189,7 +192,7 @@ function CollapsibleInfo(props) {
     return (
         <div className="flex justify-between">
             <form id={accountIDs.editFormID}
-                  onSubmit={toggleMode}
+                  onSubmit={submitChanges}
                   className="flex flex-col space-y-4 mt-2 ml-4 mb-4">
                 <Website removeWarning={removeWarning}
                          showContent={props.showContent}/>
@@ -202,217 +205,17 @@ function CollapsibleInfo(props) {
                     This account already exists.
                 </p>
             </form>
-            <div className="mt-4 mr-4 flex flex-col space-y-4 lg:block lg:space-x-4">
+            <div className="mt-4 mr-4 flex flex-col space-y-4 lg:flex-row lg:space-x-4">
                 <EditButton buttonText={buttonText}
                             showContent={props.showContent}
                             toggleMode={toggleMode}/>
-                <DeleteButton showContent={props.showContent}/>
+                {/*We have to use inline styles here, otherwise it doesn't work.*/}
+                <div style={{marginTop: '0px'}}
+                     className="flex flex-col space-y-4">
+                    <SaveButton showContent={props.showContent}/>
+                    <DeleteButton showContent={props.showContent}/>
+                </div>
             </div>
         </div>
-    )
-}
-
-function Website(props) {
-    // Context
-    const websiteID = useIDContext().websiteID
-    const isEditable = useEditContext()
-    const input = useInputContext().website
-    const setInput = useInputContextUpdate().setWebsite
-    const index = useAccountContext().index
-
-    return (
-        <label htmlFor={websiteID}
-               className="space-y-1">
-            <p className="text-md">
-                Website/Service:
-            </p>
-            <input type="text"
-                   id={websiteID}
-                   name="website"
-                   value={input}
-                   tabIndex={props.showContent ? 20 : -1}
-                   disabled={isEditable}
-                   data-outline={`account-${index}`}
-                   onChange={event => {
-                       props.removeWarning()
-                       setInput(event.target.value)
-                   }}
-                   onClick={props.removeWarning}
-                   className="pl-2 rounded-sm h-8 border-dark-blue-4 disabled:text-dark-blue-5
-                   disabled:cursor-not-allowed transition bg-dark-blue-6 text-white focus:outline-none outline-2
-                   outline-red-500 focus:ring focus:ring-blue-1"
-            />
-        </label>
-    )
-}
-
-function Username(props) {
-    // Context
-    const usernameID = useIDContext().usernameID
-    const isEditable = useEditContext()
-    const userClipboard = useClipboardContext().username
-    const addToClipboard = useClipboardContextUpdate()
-    const input = useInputContext().username
-    const setInput = useInputContextUpdate().setUsername
-    const index = useAccountContext().index
-
-
-    return (
-        <label htmlFor={usernameID}
-               className="space-y-1">
-            <p className="text-md">
-                Username:
-            </p>
-            <div className="flex space-x-2">
-                <input type="text"
-                       id={usernameID}
-                       name="username"
-                       value={input}
-                       tabIndex={props.showContent ? 21 : -1}
-                       disabled={isEditable}
-                       data-outline={`account-${index}`}
-                       onChange={event => {
-                           props.removeWarning()
-                           setInput(event.target.value)
-                       }}
-                       onClick={props.removeWarning}
-                       className="pl-2 rounded-sm h-8 border-dark-blue-4 disabled:text-dark-blue-5
-                       disabled:cursor-not-allowed transition bg-dark-blue-6 text-white focus:outline-none outline-2
-                       outline-red-500 focus:ring focus:ring-blue-1"
-                />
-                <button type="button"
-                        data-tip={userClipboard}
-                        tabIndex={props.showContent ? 24 : -1}
-                        onFocus={(event) => {
-                            event.target.classList.add("tooltip-open")
-                        }}
-                        onBlur={(event) => {
-                            event.target.classList.remove("tooltip-open")
-                        }}
-                        onClick={() => {
-                            addToClipboard('username', input)
-                        }}
-                        className="px-1 py-1 tooltip tooltip-right tooltip-bg focus:outline-gray-200">
-                    <img src={images.clipboardIcon}
-                         alt="Copy username to clipboard."/>
-                </button>
-            </div>
-        </label>
-    )
-}
-
-function Password(props) {
-    // Context
-    const passwordID = useIDContext().passwordID
-    const isEditable = useEditContext()
-    const passClipboard = useClipboardContext().password
-    const addToClipboard = useClipboardContextUpdate()
-    const input = useInputContext().password
-    const setInput = useInputContextUpdate().setPassword
-    const index = useAccountContext().index
-
-    // State
-    const [showPassword, setShowPassword] = useState("password")
-    const [passwordIcon, setPasswordIcon] = useState(images.hidePasswordIcon)
-
-    const passwordVisibility = () => {
-        // Change the password to type text so the user can see it.
-        setShowPassword(showPassword === "password" ? "text" : "password")
-        setPasswordIcon(passwordIcon === images.hidePasswordIcon ? images.showPasswordIcon
-            : images.hidePasswordIcon)
-    }
-
-    return (
-        <label htmlFor={passwordID}
-               className="space-y-1">
-            <p className="text-md">
-                Password:
-            </p>
-            <div className="flex space-x-2">
-                <input type={showPassword}
-                       id={passwordID}
-                       name="password"
-                       value={input}
-                       tabIndex={props.showContent ? 22 : -1}
-                       disabled={isEditable}
-                       data-outline={`account-${index}`}
-                       onChange={event => {
-                           props.removeWarning()
-                           setInput(event.target.value)
-                       }}
-                       onClick={props.removeWarning}
-                       className="pl-2 rounded-sm h-8 border-dark-blue-4 disabled:text-dark-blue-5
-                       disabled:cursor-not-allowed transition bg-dark-blue-6 text-white focus:outline-none outline-2
-                       outline-red-500 focus:ring focus:ring-blue-1"
-                       required/>
-                <button type="button"
-                        tabIndex={props.showContent ? 25 : -1}
-                        onClick={passwordVisibility}
-                        className="px-1 py-1 focus:outline-gray-200">
-                    <img src={passwordIcon}
-                         alt="Show/hide password."/>
-                </button>
-                <button type="button"
-                        data-tip={passClipboard}
-                        tabIndex={props.showContent ? 26 : -1}
-                        onFocus={(event) => {
-                            event.target.classList.add("tooltip-open")
-                        }}
-                        onBlur={(event) => {
-                            event.target.classList.remove("tooltip-open")
-                        }}
-                        onClick={() => {
-                            addToClipboard('password', input)
-                        }}
-                        className=" px-1 py-1 tooltip tooltip-right tooltip-bg focus:outline-gray-200">
-                    <img src={images.clipboardIcon}
-                         alt="Copy password to clipboard."/>
-                </button>
-            </div>
-        </label>
-    )
-}
-
-function EditButton(props) {
-    // Context
-    const editFormID = useIDContext().editFormID
-    const input = useInputContext()
-
-    return (
-        <button type="submit"
-                form={editFormID}
-                tabIndex={props.showContent ? 27 : -1}
-                disabled={!input.username || !input.password || !input.website}
-                onClick={props.toggleMode}
-                className="bg-blue-3 text-white px-4 py-2 hover:bg-green-500 active:bg-green-600 shadow-md transition
-                disabled:text-gray-300 disabled:bg-dark-blue-4 disabled:cursor-not-allowed focus:outline-gray-200">
-            {props.buttonText}
-        </button>
-    )
-}
-
-function DeleteButton(props) {
-    // Context
-    const index = useAccountContext().index
-
-    const deleteWarning = () => {
-        // Click on the label to show the warning.
-        const warning = document.getElementById(`delete-warn-${index}`)
-        warning.click()
-        // Focus the "delete modal".
-        const delModal = document.getElementById(`delete-box-${index}`)
-        delModal.focus()
-    }
-
-    return (
-        <label htmlFor={`delete-modal-${index}`}
-               id={`delete-warn-${index}`}>
-            <button tabIndex={props.showContent ? 28 : -1}
-                    onClick={deleteWarning}
-                    className="bg-blue-3 text-white px-4 py-2 hover:bg-red-500 active:bg-red-600 shadow-md
-                    transition hover:cursor-pointer focus:outline-gray-200">
-                Delete Account
-            </button>
-        </label>
     )
 }

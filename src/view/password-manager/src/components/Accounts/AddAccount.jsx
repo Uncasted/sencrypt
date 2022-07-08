@@ -35,12 +35,12 @@ export function AccountModal() {
     // Context
     const createAccount = useAccountsContextUpdate().createAccount
 
-    const changeOutline = () => {
-        // Remove the red outline.
+    const removeWarning = () => {
+        // Remove the warning for already existing account.
         const fields = document.querySelectorAll(`[data-outline="add-modal-outline"]`)
 
         for (const field of fields) {
-            field.classList.remove("outline")
+            field.classList.remove("outline", "focus:outline", "focus:outline-red-500")
             field.classList.add("focus:ring", "focus:ring-blue-1")
         }
 
@@ -87,7 +87,7 @@ export function AccountModal() {
                 // Make the outline of the fields red.
                 for (const field of fields) {
                     field.classList.remove("focus:ring", "focus:ring-blue-1")
-                    field.classList.add("outline")
+                    field.classList.add("outline", "focus:outline", "focus:outline-red-500")
                 }
 
                 // Show the user the warning.
@@ -111,13 +111,13 @@ export function AccountModal() {
                           className="flex flex-col items-center space-y-4">
                         <Website website={newWebsite}
                                  setWebsite={setNewWebsite}
-                                 changeOutline={changeOutline}/>
+                                 removeWarning={removeWarning}/>
                         <Username username={newUsername}
                                   setUsername={setNewUsername}
-                                  changeOutline={changeOutline}/>
+                                  removeWarning={removeWarning}/>
                         <Password password={newPassword}
                                   setPassword={setNewPassword}
-                                  changeOutline={changeOutline}/>
+                                  removeWarning={removeWarning}/>
                         <p id="warn-add-modal"
                            className="invisible text-red-500">
                             This account already exists.
@@ -172,9 +172,10 @@ function Website(props) {
                    tabIndex="10"
                    data-outline="add-modal-outline"
                    onChange={e => {
+                       props.removeWarning()
                        props.setWebsite(e.target.value)
                    }}
-                   onClick={props.changeOutline}
+                   onClick={props.removeWarning}
                    className="pl-2 bg-dark-blue-6 rounded-sm h-8 focus:outline-none focus:ring focus:ring-blue-1
                    outline-2 outline-red-500 transition"
             />
@@ -196,9 +197,10 @@ function Username(props) {
                    tabIndex="11"
                    data-outline="add-modal-outline"
                    onChange={e => {
+                       props.removeWarning()
                        props.setUsername(e.target.value)
                    }}
-                   onClick={props.changeOutline}
+                   onClick={props.removeWarning}
                    className="pl-2 bg-dark-blue-6 rounded-sm h-8 focus:outline-none focus:ring focus:ring-blue-1
                    outline-2 outline-red-500 transition"
             />
@@ -220,9 +222,10 @@ function Password(props) {
                    tabIndex="12"
                    data-outline="add-modal-outline"
                    onChange={e => {
+                       props.removeWarning()
                        props.setPassword(e.target.value)
                    }}
-                   onClick={props.changeOutline}
+                   onClick={props.removeWarning}
                    className="pl-2 bg-dark-blue-6 rounded-sm h-8 focus:outline-none focus:ring focus:ring-blue-1
                    outline-2 outline-red-500 transition"
             />

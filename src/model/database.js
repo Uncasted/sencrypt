@@ -188,8 +188,8 @@ class Database {
 
             // Check if the account is the same.
             const encryptedPassword = posts[this.ENC_MP][`${encryptedOldUsername}-${encryptedOldWebsite}`]
-            const isNotTheSame = encryptedOldUsername !== newAccount.username && encryptedOldWebsite !==
-                newAccount.website && encryptedPassword !== newAccount.password
+            const isNotTheSame = encryptedOldUsername !== newAccount.username || encryptedOldWebsite !==
+                newAccount.website || encryptedPassword !== newAccount.password
 
             // If the account is not the same, then we can continue.
             // If we don't do this check and the account is the same, it will get deleted.

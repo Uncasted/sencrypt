@@ -3031,11 +3031,6 @@ body[dir="rtl"] .checkbox:checked,
   padding-right: 0px;
 }
 
-.py-\[0\.65rem\] {
-  padding-top: 0.65rem;
-  padding-bottom: 0.65rem;
-}
-
 .px-2 {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
@@ -3227,6 +3222,10 @@ body[dir="rtl"] .checkbox:checked,
 .focus\:outline-none:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
+}
+
+.focus\:outline-gray-200:focus {
+  outline-color: #e5e7eb;
 }
 
 .focus\:ring:focus {

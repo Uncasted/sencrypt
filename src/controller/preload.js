@@ -7,17 +7,17 @@ const Controller = new AccountController()
 contextBridge.exposeInMainWorld('controller',
     {
         checkIsNew: async () => await Controller.checkIsNew(),
-        createMasterPassword: async (input) => await Controller.createMasterPassword(input),
-        verifyMasterPassword: async (input) => await Controller.verifyMasterPassword(input),
+        createMasterPassword: async (masterPassword) => await Controller.createMasterPassword(masterPassword),
+        verifyMasterPassword: async (masterPassword) => await Controller.verifyMasterPassword(masterPassword),
         getAllAccounts: async () => await Controller.getAllAccounts(),
         createAccount: async (account) => {
             await Controller.createAccount(account)
         },
-        updateAccount: async (oldUsername, oldWebsite, newAccount) => {
-            await Controller.updateAccount(oldUsername, oldWebsite, newAccount)
+        updateAccount: async (index, newAccount) => {
+            await Controller.updateAccount(index, newAccount)
         },
-        deleteAccount: async (username, website) => {
-            await Controller.deleteAccount(username, website)
+        deleteAccount: async (index) => {
+            await Controller.deleteAccount(index)
         }
     }
 )

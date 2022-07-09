@@ -58,18 +58,18 @@ class AccountController {
         }
     }
 
-    async updateAccount(oldUsername, oldWebsite, newAccount) {
+    async updateAccount(index, newAccount) {
         try {
-            await this.Model.updateAccount(oldUsername, oldWebsite, newAccount)
+            await this.Model.updateAccount(index, newAccount)
         } catch (error) {
             console.log("Error at updateAccount (Controller).")
             console.log(error)
         }
     }
 
-    async deleteAccount(username, website) {
+    async deleteAccount(index) {
         try {
-            await this.Model.deleteAccount(username, website)
+            await this.Model.deleteAccount(index)
         } catch (error) {
             console.log("Error at deleteAccount (Controller).")
             console.log(error)

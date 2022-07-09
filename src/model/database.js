@@ -27,8 +27,8 @@ class Database {
             this.ENC_MP = utility.encrypt(masterPassword, this.SEC_KEY)
             // This is done to extract the ENC_MP easily.
             posts["ENC_MP"] = this.ENC_MP
-            // This will handle the object that contains the usernames and passwords.
-            posts[this.ENC_MP] = {}
+            // This will handle the objects that contain the accounts.
+            posts[this.ENC_MP] = []
 
             await this.write()
         } catch (error) {
@@ -128,12 +128,14 @@ class Database {
             const {posts} = this.data
 
             // Encrypt the data
-            const encryptedUsername = utility.encrypt(username, this.SEC_KEY)
-            const encryptedPassword = utility.encrypt(password, this.SEC_KEY)
-            const encryptedWebsite = utility.encrypt(website, this.SEC_KEY)
+            const encryptedAccount = {
+                website: utility.encrypt(website, this.SEC_KEY),
+                username: utility.encrypt(username, this.SEC_KEY),
+                password: utility.encrypt(password, this.SEC_KEY)
+            }
 
-            // key : value | username-website : password
-            posts[this.ENC_MP][`${encryptedUsername}-${encryptedWebsite}`] = encryptedPassword
+            // Pushing the account into the database.
+            posts[this.ENC_MP].push(encryptedAccount)
             await this.write()
         } catch (error) {
             console.log("Error at createAccount (Database).")
@@ -147,58 +149,49 @@ class Database {
             await this.read()
             const {posts} = this.data
 
-            const myAccounts = {...posts[this.ENC_MP]}
-            const accountList = []
+            let accounts = [...posts[this.ENC_MP]]
 
             // Decrypt the data
-            Object.keys(myAccounts).map((account) => {
-                // Separate the username and the website.
-                const username = account.substring(0, account.indexOf("-"))
-                const website = account.substring(account.indexOf("-") + 1)
-
+            accounts = accounts.map((account) => {
                 // Decrypt the data
-                const accountData = {
-                    website: utility.decrypt(website, this.SEC_KEY),
-                    username: utility.decrypt(username, this.SEC_KEY),
-                    password: utility.decrypt(myAccounts[account], this.SEC_KEY)
+                return {
+                    website: utility.decrypt(account.website, this.SEC_KEY),
+                    username: utility.decrypt(account.username, this.SEC_KEY),
+                    password: utility.decrypt(account.password, this.SEC_KEY)
                 }
-
-                accountList.push(accountData)
             })
 
-            return accountList
+            return accounts
         } catch (error) {
             console.log("Error at getAllAccounts (Database).")
             console.log(error)
         }
     }
 
-    async updateAccount(oldUsername, oldWebsite, newAccount) {
+    async updateAccount(index, newAccount) {
         try {
             await this.read()
             const {posts} = this.data
 
-            // Encrypt the data.
-            const encryptedOldUsername = utility.encrypt(oldUsername, this.SEC_KEY)
-            const encryptedOldWebsite = utility.encrypt(oldWebsite, this.SEC_KEY)
+            // Encrypt the account.
+            newAccount = {
+                website: utility.encrypt(newAccount.website, this.SEC_KEY),
+                username: utility.encrypt(newAccount.username, this.SEC_KEY),
+                password: utility.encrypt(newAccount.password, this.SEC_KEY)
+            }
 
-            Object.keys(newAccount).map((element) => {
-                newAccount[element] = utility.encrypt(newAccount[element], this.SEC_KEY)
-            })
+            // Compare all the fields of the accounts to check if they are not the same.
+            const oldAccount = posts[this.ENC_MP][index]
 
-            // Check if the account is the same.
-            const encryptedPassword = posts[this.ENC_MP][`${encryptedOldUsername}-${encryptedOldWebsite}`]
-            const isNotTheSame = encryptedOldUsername !== newAccount.username || encryptedOldWebsite !==
-                newAccount.website || encryptedPassword !== newAccount.password
+            const isNotTheSame = oldAccount.username !== newAccount.username || oldAccount.website !==
+                newAccount.website || oldAccount.password !== newAccount.password
 
             // If the account is not the same, then we can continue.
             // If we don't do this check and the account is the same, it will get deleted.
 
             if (isNotTheSame) {
-                // Give the password to the new username.
-                posts[this.ENC_MP][`${newAccount.username}-${newAccount.website}`] = newAccount.password
-                delete posts[this.ENC_MP][`${encryptedOldUsername}-${encryptedOldWebsite}`]
-
+                // Update the account.
+                posts[this.ENC_MP][index] = newAccount
                 await this.write()
             }
         } catch (error) {
@@ -207,15 +200,13 @@ class Database {
         }
     }
 
-    async deleteAccount(username, website) {
+    async deleteAccount(index) {
         try {
             await this.read()
             const {posts} = this.data
 
-            // Encrypt the data.
-            const encryptedUsername = utility.encrypt(username, this.SEC_KEY)
-            const encryptedWebsite = utility.encrypt(website, this.SEC_KEY)
-            delete posts[this.ENC_MP][`${encryptedUsername}-${encryptedWebsite}`]
+            // Delete the account at the specified index.
+            posts[this.ENC_MP].splice(index, 1)
 
             await this.write()
         } catch (error) {

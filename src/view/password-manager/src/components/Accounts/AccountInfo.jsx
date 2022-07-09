@@ -170,7 +170,7 @@ function CollapsibleMenu(props) {
 
             if (isNotDuplicate) {
                 // Save changes in local state.
-                saveChanges(accountData).then(() => {
+                saveChanges(accountIndex, accountData).then(() => {
                     updateAccount(accountIndex, accountData)
                     toggleMode()
                 })

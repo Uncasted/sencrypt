@@ -14,6 +14,7 @@ export function useAccountsContextUpdate() {
 export default function AccountsProvider(props) {
     const [accounts, setAccounts] = useState([])
 
+    // Get the accounts from the database.
     useEffect(() => {
         window.controller.getAllAccounts().then(accounts => setAccounts(accounts))
     }, [])
@@ -36,9 +37,8 @@ export default function AccountsProvider(props) {
     }
 
     const removeAccount = async (index) => {
-        const account = accounts[index]
         // Deleting the account in the database.
-        await window.controller.deleteAccount(account.username, account.website)
+        await window.controller.deleteAccount(index)
 
         setAccounts(accounts => {
             const newAccounts = [...accounts]

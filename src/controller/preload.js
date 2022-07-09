@@ -1,9 +1,11 @@
 // Preload (Isolated World)
 const {contextBridge} = require('electron')
 const {AccountController} = require("./accountController")
+const utility = require('../model/utility')
 
 const Controller = new AccountController()
 
+// Controller
 contextBridge.exposeInMainWorld('controller',
     {
         checkIsNew: async () => await Controller.checkIsNew(),
@@ -22,3 +24,7 @@ contextBridge.exposeInMainWorld('controller',
     }
 )
 
+// Utility functions.
+contextBridge.exposeInMainWorld('utility', {
+    generateRandomPassword: (parameters, length) => utility.generateRandomPassword(parameters, length)
+})

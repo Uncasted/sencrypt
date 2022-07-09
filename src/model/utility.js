@@ -1,14 +1,22 @@
 // Utility functions.
 const crypto = require('crypto')
 
+// Constants for chars
+const CHARS = {
+    NUMBERS: "012346789",
+    UPPERCASE_CHARS: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+    LOWERCASE_CHARS: "abcdefghijklmnopqrstuvwxyz",
+    SPECIAL_SYMBOLS: "~`! @#$%^&*()_-+={[}]|\\:;\"'<,>.?/"
+}
+
 // Generate random chars.
 function randomChars(length) {
-    const alphabet = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    const alphaNumChars = CHARS.NUMBERS + CHARS.UPPERCASE_CHARS + CHARS.LOWERCASE_CHARS
     let chars = ""
 
     for (let i = 0; i < length; i++) {
         // Take random char from alphabet.
-        chars += alphabet[Math.floor(Math.random() * alphabet.length)]
+        chars += alphaNumChars[Math.floor(Math.random() * alphaNumChars.length)]
     }
 
     return chars
@@ -25,6 +33,22 @@ function generateRandomKey(length) {
     // Initialization vector
     const INIT_VEC = randomChars(16)
     return SEC_KEY_2 + "-" + INIT_VEC
+}
+
+// Generate a random password.
+function generateRandomPassword(parameters, length) {
+    let charList = ""
+    let password = ""
+    // Add the chars to the list of chars (depending on the parameters) to be used to create the password.
+    for (let parameter of parameters) {
+        charList += CHARS[parameter]
+    }
+    // Generate a password of the desired length.
+    for (let i = 0; i < length; i++) {
+        password += charList[Math.floor(Math.random() * charList.length)]
+    }
+
+    return password
 }
 
 function encrypt(text, SEC_KEY) {
@@ -45,6 +69,7 @@ function decrypt(encryptedText, SEC_KEY) {
 }
 
 module.exports = {
+    generateRandomPassword,
     generateRandomKey,
     encrypt,
     decrypt

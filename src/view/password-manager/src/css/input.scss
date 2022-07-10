@@ -11,6 +11,7 @@
     font-family: Inter, 'sans-serif';
     background-color: #003556;
     color: black;
+    --pc: 202 100% 12%
 }
 
 .tooltip-bg {
@@ -40,4 +41,44 @@
 /* Hide scrollbar in electron. */
 ::-webkit-scrollbar {
     display: none;
+}
+
+/* Slider styles. */
+/* Thank you https://github.com/toughengineer! */
+/*generated with Input range slider CSS style generator (version 20211225)
+https://toughengineer.github.io/demo/slider-styler*/
+input[type=range].custom-slider {
+    height: 2.2em;
+    background: none;
+    -webkit-appearance: none;
+}
+
+/*progress support*/
+input[type=range].custom-slider.slider-progress {
+    --range: calc(var(--max) - var(--min));
+    --ratio: calc((var(--value) - var(--min)) / var(--range));
+    --sx: calc(0.5 * 1em + var(--ratio) * (100% - 1em));
+}
+
+/*webkit*/
+input[type=range].custom-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 1em;
+    height: 1em;
+    border-radius: 1em;
+    background: #FFF;
+    border: none;
+    margin-top: calc(0.2em * 0.5 - 1em * 0.5);
+}
+
+input[type=range].custom-slider::-webkit-slider-runnable-track {
+    height: 0.2em;
+    border: none;
+    border-radius: 0.5em;
+    background: #fff;
+    box-shadow: none;
+}
+
+input[type=range].custom-slider.slider-progress::-webkit-slider-runnable-track {
+    background: linear-gradient(#FFF, #FFF) 0/var(--sx) 100% no-repeat, hsla(0, 0%, 100%, .2);
 }

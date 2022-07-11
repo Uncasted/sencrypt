@@ -37,14 +37,14 @@ function PasswordGenerator() {
     const [password, setPassword] = useState("")
 
     // Context
-    // Length needs to be converted to a number for the password generator.
+    // Length needs to be converted to a number for the password generator function.
     const length = Number(useParameterContext().length)
     const parameters = useParameterContext().parameters
 
     // Run generatePassword when the component gets mounted for the first time.
-    // Otherwise, get the last generated password.
+    // Otherwise, get the last generated password from localStorage.
     useEffect(() => {
-        const localGeneratedPass = window.localStorage.getItem("generatedPass")
+        const localGeneratedPass = window.localStorage.getItem("generatedPass") || ""
         if (localGeneratedPass) {
             setPassword(localGeneratedPass)
         } else {
@@ -55,7 +55,7 @@ function PasswordGenerator() {
     const generatePassword = () => {
         const generatedPass = window.utility.generateRandomPassword(parameters, length)
         setPassword(generatedPass)
-        // Save the last generated password in local storage.
+        // Save the last generated password in localStorage.
         window.localStorage.setItem("generatedPass", generatedPass)
     }
 
@@ -94,6 +94,30 @@ function GeneratorParameters() {
     const length = useParameterContext().length
     const update = useParameterContextUpdate()
 
+    // Load parameter settings from localStorage.
+    useEffect(() => {
+        // Checkboxes
+        const localLower = window.localStorage.getItem("useLower")
+        const localUpper = window.localStorage.getItem("useUpper")
+        const localNumbers = window.localStorage.getItem("useNumbers")
+        const localSymbols = window.localStorage.getItem("useSymbols")
+
+        // If the values exist in localStorage, use them, otherwise, use the default state.
+        if (localLower !== null) {
+            setUseLower(Boolean(localLower))
+        }
+        if (localUpper !== null) {
+            setUseUpper(Boolean(localUpper))
+        }
+        if (localNumbers !== null) {
+            setUseNumbers(Boolean(localNumbers))
+        }
+        if (localSymbols !== null) {
+            setUseSymbols(Boolean(localSymbols))
+        }
+
+    }, [])
+
     return (
         <div>
             <div className="my-4 pr-4">
@@ -103,9 +127,10 @@ function GeneratorParameters() {
                 <input type="range"
                        min="4"
                        max="48"
-                       defaultValue={length}
+                       value={length}
                        onChange={(e) => {
                            update.updateLength(e.target.value)
+                           window.localStorage.setItem("passLength", e.target.value)
                        }}
                        className="custom-slider slider-progress w-full cursor-pointer focus:outline-gray-200"/>
             </div>
@@ -116,8 +141,11 @@ function GeneratorParameters() {
                            onClick={() => {
                                if (!useLower) {
                                    update.addParameter("LOWERCASE")
+                                   // Save setting on local storage.
+                                   window.localStorage.setItem("useLower", "true")
                                } else {
                                    update.delParameter("LOWERCASE")
+                                   window.localStorage.setItem("useLower", "")
                                }
                                setUseLower(!useLower)
                            }}
@@ -132,8 +160,10 @@ function GeneratorParameters() {
                            onClick={() => {
                                if (!useUpper) {
                                    update.addParameter("UPPERCASE")
+                                   window.localStorage.setItem("useUpper", "true")
                                } else {
                                    update.delParameter("UPPERCASE")
+                                   window.localStorage.setItem("useUpper", "")
                                }
                                setUseUpper(!useUpper)
                            }}
@@ -148,8 +178,10 @@ function GeneratorParameters() {
                            onClick={() => {
                                if (!useNumbers) {
                                    update.addParameter("NUMBERS")
+                                   window.localStorage.setItem("useNumbers", "true")
                                } else {
                                    update.delParameter("NUMBERS")
+                                   window.localStorage.setItem("useNumbers", "")
                                }
                                setUseNumbers(!useNumbers)
                            }}
@@ -164,8 +196,10 @@ function GeneratorParameters() {
                            onClick={() => {
                                if (!useSymbols) {
                                    update.addParameter("SYMBOLS")
+                                   window.localStorage.setItem("useSymbols", "true")
                                } else {
                                    update.delParameter("SYMBOLS")
+                                   window.localStorage.setItem("useSymbols", "")
                                }
                                setUseSymbols(!useSymbols)
                            }}

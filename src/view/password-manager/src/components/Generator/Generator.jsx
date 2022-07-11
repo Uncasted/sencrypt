@@ -42,13 +42,21 @@ function PasswordGenerator() {
     const parameters = useParameterContext().parameters
 
     // Run generatePassword when the component gets mounted for the first time.
+    // Otherwise, get the last generated password.
     useEffect(() => {
-        generatePassword()
+        const localGeneratedPass = window.localStorage.getItem("generatedPass")
+        if (localGeneratedPass) {
+            setPassword(localGeneratedPass)
+        } else {
+            generatePassword()
+        }
     }, [])
 
     const generatePassword = () => {
         const generatedPass = window.utility.generateRandomPassword(parameters, length)
         setPassword(generatedPass)
+        // Save the last generated password in local storage.
+        window.localStorage.setItem("generatedPass", generatedPass)
     }
 
     return (

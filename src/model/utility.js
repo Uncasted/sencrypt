@@ -1,17 +1,17 @@
 // Utility functions.
 const crypto = require('crypto')
 
-// Constants for chars
+// Constants
 const CHARS = {
     NUMBERS: "012346789",
-    UPPERCASE_CHARS: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-    LOWERCASE_CHARS: "abcdefghijklmnopqrstuvwxyz",
-    SPECIAL_SYMBOLS: "~`! @#$%^&*()_-+={[}]|\\:;\"'<,>.?/"
+    UPPERCASE: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+    LOWERCASE: "abcdefghijklmnopqrstuvwxyz",
+    SYMBOLS: "~`! @#$%^&*()_-+={[}]|\\:;\"'<,>.?/"
 }
 
 // Generate random chars.
 function randomChars(length) {
-    const alphaNumChars = CHARS.NUMBERS + CHARS.UPPERCASE_CHARS + CHARS.LOWERCASE_CHARS
+    const alphaNumChars = CHARS.NUMBERS + CHARS.UPPERCASE + CHARS.LOWERCASE
     let chars = ""
 
     for (let i = 0; i < length; i++) {

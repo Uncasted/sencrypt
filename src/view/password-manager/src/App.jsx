@@ -45,7 +45,7 @@ export default function App() {
                 setSelected(<AccountSection/>)
                 break
             case 'Generator':
-                setSelected(<Generator/>)
+                setSelected(<GeneratorSection/>)
                 break
             case 'Settings':
                 setSelected(<MenuPlaceholder/>)
@@ -68,6 +68,14 @@ function AccountSection() {
             <AccountsProvider>
                 <Accounts/>
             </AccountsProvider>
+        </div>
+    )
+}
+
+function GeneratorSection() {
+    return (
+        <div className="ml-[250px]">
+            <Generator/>
         </div>
     )
 }

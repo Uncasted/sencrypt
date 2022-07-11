@@ -12,8 +12,8 @@ export function useParameterContextUpdate() {
 }
 
 export default function ParameterProvider(props) {
-    const [parameters, setParameters] = useState([])
-    const [length, setLength] = useState("4")
+    const [parameters, setParameters] = useState(["UPPERCASE", "LOWERCASE", "NUMBERS"])
+    const [length, setLength] = useState("16")
 
     const addParameter = (newParameter) => {
         setParameters(parameters => {

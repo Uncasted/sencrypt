@@ -1,6 +1,6 @@
 // Sketching
 import {images} from "../../App"
-import {useState} from "react"
+import {useEffect, useState} from "react"
 import ParameterProvider, {useParameterContext, useParameterContextUpdate} from "./Context/ParameterContext"
 
 export function Generator() {
@@ -37,11 +37,16 @@ function PasswordGenerator() {
     const [password, setPassword] = useState("")
 
     // Context
-    const length = useParameterContext().length
+    // Length needs to be converted to a number for the password generator.
+    const length = Number(useParameterContext().length)
     const parameters = useParameterContext().parameters
 
-    const generatePassword = () => {
+    // Run generatePassword when the component gets mounted for the first time.
+    useEffect(() => {
+        generatePassword()
+    }, [])
 
+    const generatePassword = () => {
         const generatedPass = window.utility.generateRandomPassword(parameters, length)
         setPassword(generatedPass)
     }
@@ -71,10 +76,10 @@ function PasswordGenerator() {
 }
 
 function GeneratorParameters() {
-    // State
-    const [useLower, setUseLower] = useState(false)
-    const [useUpper, setUseUpper] = useState(false)
-    const [useNumbers, setUseNumbers] = useState(false)
+    // State (Default parameters
+    const [useLower, setUseLower] = useState(true)
+    const [useUpper, setUseUpper] = useState(true)
+    const [useNumbers, setUseNumbers] = useState(true)
     const [useSymbols, setUseSymbols] = useState(false)
 
     // Context

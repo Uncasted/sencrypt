@@ -84,39 +84,15 @@ function PasswordGenerator() {
 }
 
 function GeneratorParameters() {
-    // State (Default parameters
-    const [useLower, setUseLower] = useState(true)
-    const [useUpper, setUseUpper] = useState(true)
-    const [useNumbers, setUseNumbers] = useState(true)
-    const [useSymbols, setUseSymbols] = useState(false)
-
     // Context
-    const length = useParameterContext().length
+    const {length, parameters} = useParameterContext()
     const update = useParameterContextUpdate()
 
-    // Load parameter settings from localStorage.
-    useEffect(() => {
-        // Checkboxes
-        const localLower = window.localStorage.getItem("useLower")
-        const localUpper = window.localStorage.getItem("useUpper")
-        const localNumbers = window.localStorage.getItem("useNumbers")
-        const localSymbols = window.localStorage.getItem("useSymbols")
-
-        // If the values exist in localStorage, use them, otherwise, use the default state.
-        if (localLower !== null) {
-            setUseLower(Boolean(localLower))
-        }
-        if (localUpper !== null) {
-            setUseUpper(Boolean(localUpper))
-        }
-        if (localNumbers !== null) {
-            setUseNumbers(Boolean(localNumbers))
-        }
-        if (localSymbols !== null) {
-            setUseSymbols(Boolean(localSymbols))
-        }
-
-    }, [])
+    // State
+    const [useLower, setUseLower] = useState(parameters.includes("LOWERCASE"))
+    const [useUpper, setUseUpper] = useState(parameters.includes("UPPERCASE"))
+    const [useNumbers, setUseNumbers] = useState(parameters.includes("NUMBERS"))
+    const [useSymbols, setUseSymbols] = useState(parameters.includes("SYMBOLS"))
 
     return (
         <div>

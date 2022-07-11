@@ -11,58 +11,24 @@ export function useParameterContextUpdate() {
     return useContext(ParameterContextUpdate)
 }
 
+const getLocalParameters = () => {
+    return localStorage.getItem('generator') ? JSON.parse(localStorage.getItem('generator')) : {}
+}
+
 export default function ParameterProvider(props) {
-    const [parameters, setParameters] = useState(["UPPERCASE", "LOWERCASE", "NUMBERS"])
-    const [length, setLength] = useState("16")
-
-    useEffect(() => {
-        // Checkboxes
-        const localLower = window.localStorage.getItem("useLower")
-        const localUpper = window.localStorage.getItem("useUpper")
-        const localNumbers = window.localStorage.getItem("useNumbers")
-        const localSymbols = window.localStorage.getItem("useSymbols")
-
-        // Length.
-        const localLength = window.localStorage.getItem("passLength")
-        // Use the default value if there's no length in localStorage.
-        if (localLength !== null) {
-            updateLength(localLength)
-        }
-
-        // Using values for the parameters from localStorage if they exist.
-        if (localLower !== null) {
-            if (localLower) {
-                addParameter("LOWERCASE")
-            } else {
-                delParameter("LOWERCASE")
-            }
-        }
-        if (localUpper !== null) {
-            if (localUpper) {
-                addParameter("UPPERCASE")
-            } else {
-                delParameter("UPPERCASE")
-            }
-        }
-        if (localNumbers !== null) {
-            if (localNumbers) {
-                addParameter("NUMBERS")
-            } else {
-                delParameter("NUMBERS")
-            }
-        }
-        if (localSymbols !== null) {
-            if (localSymbols) {
-                addParameter("SYMBOLS")
-            } else {
-                delParameter("SYMBOLS")
-            }
-        }
-
-    }, [])
+    const savedParameters = getLocalParameters()
+    const [parameters, setParameters] = useState(savedParameters?.parameters || ["LOWERCASE", "UPPERCASE", "NUMBERS"])
+    const [length, setLength] = useState(savedParameters?.length || "16")
 
     const addParameter = (newParameter) => {
         setParameters(parameters => {
+            const oldParameters = getLocalParameters()
+            console.log(oldParameters)
+            localStorage.setItem('generator', JSON.stringify({
+                ...oldParameters,
+                parameters: [...(oldParameters.parameters ?? []), newParameter]
+            }))
+
             return [...parameters, newParameter]
         })
     }
@@ -73,12 +39,24 @@ export default function ParameterProvider(props) {
             // Deleting the parameter from the array.
             const parameterIndex = newParameters.indexOf(parameter)
             newParameters.splice(parameterIndex, 1)
+
+            const oldParameters = getLocalParameters()
+            localStorage.setItem('generator', JSON.stringify({
+                ...oldParameters,
+                parameters: [...newParameters]
+            }))
+            
             return newParameters
         })
     }
 
     const updateLength = (newLength) => {
         setLength(newLength)
+        const oldParameters = getLocalParameters()
+        localStorage.setItem('generator', JSON.stringify({
+            ...oldParameters,
+            length: newLength
+        }))
     }
 
     return (

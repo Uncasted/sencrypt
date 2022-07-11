@@ -70,6 +70,17 @@ function PasswordGenerator() {
         window.localStorage.setItem("generatedPass", generatedPass)
     }
 
+    const selectToClipboard = () => {
+        // Copy to clipboard.
+        navigator.clipboard.writeText(password).then()
+        // Show the tooltip.
+        const tooltip = document.getElementById("gen-pass-tooltip")
+        tooltip.classList.add("tooltip", "tooltip-open")
+        setTimeout(() => {
+            tooltip.classList.remove("tooltip", "tooltip-open")
+        }, 2000)
+    }
+
     return (
         <div className="flex space-x-4 items-center">
             <div data-tip="Copied!"
@@ -78,15 +89,11 @@ function PasswordGenerator() {
                 <input readOnly
                        type="text"
                        value={password}
-                       onClick={(event) => {
-                           // Copy to clipboard.
-                           navigator.clipboard.writeText(event.target.value).then()
-                           // Show the tooltip.
-                           const tooltip = document.getElementById("gen-pass-tooltip")
-                           tooltip.classList.add("tooltip", "tooltip-open")
-                           setTimeout(() => {
-                               tooltip.classList.remove("tooltip", "tooltip-open")
-                           }, 2000)
+                       onClick={selectToClipboard}
+                       onKeyDown={(event) => {
+                           if (event.key === "Enter") {
+                               selectToClipboard()
+                           }
                        }}
                        className="text-black pl-2 w-[32rem] py-1.5 text-lg focus:outline-none focus:ring
                        focus:ring-blue-1 transition"/>
@@ -133,6 +140,42 @@ function GeneratorParameters() {
     const [useNumbers, setUseNumbers] = useState(parameters.includes("NUMBERS"))
     const [useSymbols, setUseSymbols] = useState(parameters.includes("SYMBOLS"))
 
+    const updateParameter = (type) => {
+        switch (type) {
+            case "LOWERCASE":
+                if (!useLower) {
+                    update.addParameter("LOWERCASE")
+                } else {
+                    update.delParameter("LOWERCASE")
+                }
+                setUseLower(!useLower)
+                break
+            case "UPPERCASE":
+                if (!useUpper) {
+                    update.addParameter("UPPERCASE")
+                } else {
+                    update.delParameter("UPPERCASE")
+                }
+                setUseUpper(!useUpper)
+                break
+            case "NUMBERS":
+                if (!useNumbers) {
+                    update.addParameter("NUMBERS")
+                } else {
+                    update.delParameter("NUMBERS")
+                }
+                setUseNumbers(!useNumbers)
+                break
+            case "SYMBOLS":
+                if (!useSymbols) {
+                    update.addParameter("SYMBOLS")
+                } else {
+                    update.delParameter("SYMBOLS")
+                }
+                setUseSymbols(!useSymbols)
+        }
+    }
+
     return (
         <div>
             <div className="mb-4 pr-4">
@@ -145,7 +188,6 @@ function GeneratorParameters() {
                        value={length}
                        onChange={(e) => {
                            update.updateLength(e.target.value)
-                           window.localStorage.setItem("passLength", e.target.value)
                        }}
                        className="custom-slider slider-progress w-full cursor-pointer focus:outline-gray-200"/>
             </div>
@@ -154,15 +196,12 @@ function GeneratorParameters() {
                     <input type="checkbox"
                            checked={useLower}
                            onClick={() => {
-                               if (!useLower) {
-                                   update.addParameter("LOWERCASE")
-                                   // Save setting on local storage.
-                                   window.localStorage.setItem("useLower", "true")
-                               } else {
-                                   update.delParameter("LOWERCASE")
-                                   window.localStorage.setItem("useLower", "")
+                               updateParameter("LOWERCASE")
+                           }}
+                           onKeyDown={(event) => {
+                               if (event.key === "Enter") {
+                                   updateParameter("LOWERCASE")
                                }
-                               setUseLower(!useLower)
                            }}
                            className="checkbox checkbox-sm checkbox-primary rounded-none border-2"/>
                     <span className="no-select">
@@ -173,14 +212,12 @@ function GeneratorParameters() {
                     <input type="checkbox"
                            checked={useUpper}
                            onClick={() => {
-                               if (!useUpper) {
-                                   update.addParameter("UPPERCASE")
-                                   window.localStorage.setItem("useUpper", "true")
-                               } else {
-                                   update.delParameter("UPPERCASE")
-                                   window.localStorage.setItem("useUpper", "")
+                               updateParameter("UPPERCASE")
+                           }}
+                           onKeyDown={(event) => {
+                               if (event.key === "Enter") {
+                                   updateParameter("UPPERCASE")
                                }
-                               setUseUpper(!useUpper)
                            }}
                            className="checkbox checkbox-sm checkbox-primary rounded-none border-2"/>
                     <span className="no-select">
@@ -191,14 +228,12 @@ function GeneratorParameters() {
                     <input type="checkbox"
                            checked={useNumbers}
                            onClick={() => {
-                               if (!useNumbers) {
-                                   update.addParameter("NUMBERS")
-                                   window.localStorage.setItem("useNumbers", "true")
-                               } else {
-                                   update.delParameter("NUMBERS")
-                                   window.localStorage.setItem("useNumbers", "")
+                               updateParameter("NUMBERS")
+                           }}
+                           onKeyDown={(event) => {
+                               if (event.key === "Enter") {
+                                   updateParameter("NUMBERS")
                                }
-                               setUseNumbers(!useNumbers)
                            }}
                            className="checkbox checkbox-sm checkbox-primary rounded-none border-2"/>
                     <span className="no-select">
@@ -209,14 +244,12 @@ function GeneratorParameters() {
                     <input type="checkbox"
                            checked={useSymbols}
                            onClick={() => {
-                               if (!useSymbols) {
-                                   update.addParameter("SYMBOLS")
-                                   window.localStorage.setItem("useSymbols", "true")
-                               } else {
-                                   update.delParameter("SYMBOLS")
-                                   window.localStorage.setItem("useSymbols", "")
+                               updateParameter("SYMBOLS")
+                           }}
+                           onKeyDown={(event) => {
+                               if (event.key === "Enter") {
+                                   updateParameter("SYMBOLS")
                                }
-                               setUseSymbols(!useSymbols)
                            }}
                            className="checkbox checkbox-sm checkbox-primary rounded-none border-2"/>
                     <span className="no-select">

@@ -4,7 +4,7 @@
   <img src="https://i.imgur.com/KD72zNX.png" alt="Sencrypt application screenshot" />
 </p>
 
-# Installation
+## Installation
 
 <b> WARNING: This Application is currently in an alpha stage. Be cautious.</b>
     
@@ -12,7 +12,7 @@
     You can download either the installer or the no-installer version for your desired operating system in the <a href="https://github.com/Uncasted/sencrypt/releases">release</a> section.
 </p>
 
-# How can I build from source?
+## How can I build from source?
 <b>You will need <a href="https://nodejs.org/en/download/">Node.js</a> to be able to build from source.</b>
 
 <b>1. Open the source code directory in a terminal.</b>
@@ -64,7 +64,7 @@ $ npm run dist
 
 <b>This will generate a dist folder that will contain the application for your operating system.</b>
 
-# How can I contribute?
+## How can I contribute?
 
 <b>The dev tools are enabled (for now) so you can open them to monitor the application.</b>
 

@@ -6,17 +6,23 @@ import ClipboardProvider, {useClipboardContext, useClipboardContextUpdate} from 
 
 export function Generator() {
     return (
-        <div className="ml-6 mt-6 flex flex-col text-white">
-            <GeneratorHeader/>
-            <ParameterProvider>
-                <ClipboardProvider>
-                    <PasswordGenerator/>
-                </ClipboardProvider>
-                <div className="mt-8 pl-4 pb-4 bg-dark-blue-2 w-[32rem] shadow-md">
-                    <GeneratorParameters/>
+        <>
+            <div className="pl-6 pt-6 bg-dark-blue-2 text-white">
+                <GeneratorHeader/>
+            </div>
+            <div className="ml-6 mt-6 flex flex-col text-white">
+                <div className="mt-6 mx-auto">
+                    <ParameterProvider>
+                        <ClipboardProvider>
+                            <PasswordGenerator/>
+                        </ClipboardProvider>
+                        <div className="mt-8 px-6 py-6 bg-dark-blue-2 w-[32rem] shadow-md">
+                            <GeneratorParameters/>
+                        </div>
+                    </ParameterProvider>
                 </div>
-            </ParameterProvider>
-        </div>
+            </div>
+        </>
     )
 }
 
@@ -82,7 +88,8 @@ function PasswordGenerator() {
                                tooltip.classList.remove("tooltip", "tooltip-open")
                            }, 2000)
                        }}
-                       className="text-black pl-2 w-[32rem] py-1.5 text-lg focus:outline-gray-200"/>
+                       className="text-black pl-2 w-[32rem] py-1.5 text-lg focus:outline-none focus:ring
+                       focus:ring-blue-1 transition"/>
             </div>
             <div>
                 <button disabled={parameters.length === 0}
@@ -128,7 +135,7 @@ function GeneratorParameters() {
 
     return (
         <div>
-            <div className="my-4 pr-4">
+            <div className="mb-4 pr-4">
                 <p className="text-sm no-select">
                     Length ({length})
                 </p>

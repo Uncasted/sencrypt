@@ -83,6 +83,9 @@ export function Username(props) {
                         onBlur={(event) => {
                             event.target.classList.remove("tooltip-open")
                         }}
+                        onMouseOut={(event) => {
+                            event.target.classList.remove("tooltip-open")
+                        }}
                         onClick={() => {
                             addToClipboard('username', input)
                         }}
@@ -153,6 +156,9 @@ export function Password(props) {
                             event.target.classList.add("tooltip-open")
                         }}
                         onBlur={(event) => {
+                            event.target.classList.remove("tooltip-open")
+                        }}
+                        onMouseOut={(event) => {
                             event.target.classList.remove("tooltip-open")
                         }}
                         onClick={() => {

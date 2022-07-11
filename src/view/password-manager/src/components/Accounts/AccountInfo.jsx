@@ -37,6 +37,9 @@ export function AccountInfo() {
                                 onBlur={(event) => {
                                     event.target.classList.remove("tooltip-open")
                                 }}
+                                onMouseOut={(event) => {
+                                    event.target.classList.remove("tooltip-open")
+                                }}
                                 onClick={() => {
                                     addToClipboard('title', account.password)
                                 }}

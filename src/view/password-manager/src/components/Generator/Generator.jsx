@@ -92,6 +92,9 @@ function PasswordGenerator() {
                         onBlur={(event) => {
                             event.target.classList.remove("tooltip-open")
                         }}
+                        onMouseOut={(event) => {
+                            event.target.classList.remove("tooltip-open")
+                        }}
                         onClick={() => {
                             addToClipboard('title', password)
                         }}

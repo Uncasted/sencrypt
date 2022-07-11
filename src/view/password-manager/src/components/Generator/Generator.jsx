@@ -66,13 +66,21 @@ function PasswordGenerator() {
 
     return (
         <div className="flex space-x-4 items-center">
-            <div>
+            <div data-tip="Copied!"
+                 id="gen-pass-tooltip"
+                 className="tooltip-bg">
                 <input readOnly
                        type="text"
                        value={password}
                        onClick={(event) => {
                            // Copy to clipboard.
                            navigator.clipboard.writeText(event.target.value).then()
+                           // Show the tooltip.
+                           const tooltip = document.getElementById("gen-pass-tooltip")
+                           tooltip.classList.add("tooltip", "tooltip-open")
+                           setTimeout(() => {
+                               tooltip.classList.remove("tooltip", "tooltip-open")
+                           }, 2000)
                        }}
                        className="text-black pl-2 w-[32rem] py-1.5 text-lg focus:outline-gray-200"/>
             </div>

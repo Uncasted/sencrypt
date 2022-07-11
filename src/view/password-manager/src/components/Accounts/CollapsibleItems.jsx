@@ -3,7 +3,7 @@ import {useIDContext} from "./Context/IDContext"
 import {useEditContext} from "./Context/EditContext"
 import {useInputContext, useInputContextUpdate} from "./Context/InputContext"
 import {useAccountContext} from "./Context/AccountContext"
-import {useClipboardContext, useClipboardContextUpdate} from "./Context/ClipboardContext"
+import {useClipboardContext, useClipboardContextUpdate} from "../Global Context/ClipboardContext"
 import {images} from "../../App"
 
 export function Website(props) {

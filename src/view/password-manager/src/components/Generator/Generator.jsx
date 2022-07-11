@@ -2,13 +2,16 @@
 import {images} from "../../App"
 import {useEffect, useState} from "react"
 import ParameterProvider, {useParameterContext, useParameterContextUpdate} from "./Context/ParameterContext"
+import ClipboardProvider, {useClipboardContext, useClipboardContextUpdate} from "../Global Context/ClipboardContext"
 
 export function Generator() {
     return (
         <div className="ml-6 mt-6 flex flex-col text-white">
             <GeneratorHeader/>
             <ParameterProvider>
-                <PasswordGenerator/>
+                <ClipboardProvider>
+                    <PasswordGenerator/>
+                </ClipboardProvider>
                 <div className="mt-8 pl-4 pb-4 bg-dark-blue-2 w-[32rem] shadow-md">
                     <GeneratorParameters/>
                 </div>
@@ -40,11 +43,13 @@ function PasswordGenerator() {
     // Length needs to be converted to a number for the password generator function.
     const length = Number(useParameterContext().length)
     const parameters = useParameterContext().parameters
+    const clipboard = useClipboardContext().title
+    const addToClipboard = useClipboardContextUpdate()
 
     // Run generatePassword when the component gets mounted for the first time.
     // Otherwise, get the last generated password from localStorage.
     useEffect(() => {
-        const localGeneratedPass = window.localStorage.getItem("generatedPass") || ""
+        const localGeneratedPass = window.localStorage.getItem("generatedPass") ?? ""
         if (localGeneratedPass) {
             setPassword(localGeneratedPass)
         } else {
@@ -60,7 +65,7 @@ function PasswordGenerator() {
     }
 
     return (
-        <div className="flex space-x-4">
+        <div className="flex space-x-4 items-center">
             <div>
                 <input readOnly
                        type="text"
@@ -77,6 +82,22 @@ function PasswordGenerator() {
                         className="bg-dark-blue-1 px-8 py-2 shadow-md hover:bg-blue-1 transition active:bg-blue-2
                         focus:outline-gray-200">
                     Generate
+                </button>
+            </div>
+            <div>
+                <button data-tip={clipboard}
+                        onFocus={(event) => {
+                            event.target.classList.add("tooltip-open")
+                        }}
+                        onBlur={(event) => {
+                            event.target.classList.remove("tooltip-open")
+                        }}
+                        onClick={() => {
+                            addToClipboard('title', password)
+                        }}
+                        className="px-1 py-1 tooltip tooltip-right tooltip-bg focus:outline-gray-200">
+                    <img src={images.clipboardIcon}
+                         alt="Copy password to clipboard."/>
                 </button>
             </div>
         </div>

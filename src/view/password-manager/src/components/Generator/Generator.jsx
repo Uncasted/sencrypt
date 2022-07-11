@@ -1,6 +1,6 @@
 // Sketching
 import {images} from "../../App"
-import {useState} from "react"
+import {useEffect, useState} from "react"
 import ParameterProvider, {useParameterContext, useParameterContextUpdate} from "./Context/ParameterContext"
 
 export function Generator() {
@@ -37,13 +37,26 @@ function PasswordGenerator() {
     const [password, setPassword] = useState("")
 
     // Context
-    const length = useParameterContext().length
+    // Length needs to be converted to a number for the password generator function.
+    const length = Number(useParameterContext().length)
     const parameters = useParameterContext().parameters
 
-    const generatePassword = () => {
+    // Run generatePassword when the component gets mounted for the first time.
+    // Otherwise, get the last generated password from localStorage.
+    useEffect(() => {
+        const localGeneratedPass = window.localStorage.getItem("generatedPass") || ""
+        if (localGeneratedPass) {
+            setPassword(localGeneratedPass)
+        } else {
+            generatePassword()
+        }
+    }, [])
 
+    const generatePassword = () => {
         const generatedPass = window.utility.generateRandomPassword(parameters, length)
         setPassword(generatedPass)
+        // Save the last generated password in localStorage.
+        window.localStorage.setItem("generatedPass", generatedPass)
     }
 
     return (
@@ -90,9 +103,10 @@ function GeneratorParameters() {
                 <input type="range"
                        min="4"
                        max="48"
-                       defaultValue={length}
+                       value={length}
                        onChange={(e) => {
                            update.updateLength(e.target.value)
+                           window.localStorage.setItem("passLength", e.target.value)
                        }}
                        className="custom-slider slider-progress w-full cursor-pointer focus:outline-gray-200"/>
             </div>
@@ -103,8 +117,11 @@ function GeneratorParameters() {
                            onClick={() => {
                                if (!useLower) {
                                    update.addParameter("LOWERCASE")
+                                   // Save setting on local storage.
+                                   window.localStorage.setItem("useLower", "true")
                                } else {
                                    update.delParameter("LOWERCASE")
+                                   window.localStorage.setItem("useLower", "")
                                }
                                setUseLower(!useLower)
                            }}
@@ -119,8 +136,10 @@ function GeneratorParameters() {
                            onClick={() => {
                                if (!useUpper) {
                                    update.addParameter("UPPERCASE")
+                                   window.localStorage.setItem("useUpper", "true")
                                } else {
                                    update.delParameter("UPPERCASE")
+                                   window.localStorage.setItem("useUpper", "")
                                }
                                setUseUpper(!useUpper)
                            }}
@@ -135,8 +154,10 @@ function GeneratorParameters() {
                            onClick={() => {
                                if (!useNumbers) {
                                    update.addParameter("NUMBERS")
+                                   window.localStorage.setItem("useNumbers", "true")
                                } else {
                                    update.delParameter("NUMBERS")
+                                   window.localStorage.setItem("useNumbers", "")
                                }
                                setUseNumbers(!useNumbers)
                            }}
@@ -151,8 +172,10 @@ function GeneratorParameters() {
                            onClick={() => {
                                if (!useSymbols) {
                                    update.addParameter("SYMBOLS")
+                                   window.localStorage.setItem("useSymbols", "true")
                                } else {
                                    update.delParameter("SYMBOLS")
+                                   window.localStorage.setItem("useSymbols", "")
                                }
                                setUseSymbols(!useSymbols)
                            }}

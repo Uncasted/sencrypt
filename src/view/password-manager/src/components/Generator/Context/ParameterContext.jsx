@@ -1,4 +1,4 @@
-import {createContext, useState, useContext} from "react"
+import {createContext, useState, useContext, useEffect} from "react"
 
 const ParameterContext = createContext()
 const ParameterContextUpdate = createContext()
@@ -17,8 +17,8 @@ const getLocalParameters = () => {
 
 export default function ParameterProvider(props) {
     const savedParameters = getLocalParameters()
-    const [parameters, setParameters] = useState(savedParameters?.parameters || [])
-    const [length, setLength] = useState(savedParameters?.length || "4")
+    const [parameters, setParameters] = useState(savedParameters?.parameters || ["LOWERCASE", "UPPERCASE", "NUMBERS"])
+    const [length, setLength] = useState(savedParameters?.length || "16")
 
     const addParameter = (newParameter) => {
         setParameters(parameters => {

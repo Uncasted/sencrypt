@@ -23,7 +23,6 @@ export default function ParameterProvider(props) {
     const addParameter = (newParameter) => {
         setParameters(parameters => {
             const oldParameters = getLocalParameters()
-            console.log(oldParameters)
             localStorage.setItem('generator', JSON.stringify({
                 ...oldParameters,
                 parameters: [...(oldParameters.parameters ?? []), newParameter]
@@ -45,7 +44,7 @@ export default function ParameterProvider(props) {
                 ...oldParameters,
                 parameters: [...newParameters]
             }))
-            
+
             return newParameters
         })
     }

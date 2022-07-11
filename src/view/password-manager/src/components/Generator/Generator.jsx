@@ -71,15 +71,15 @@ function PasswordGenerator() {
 }
 
 function GeneratorParameters() {
-    // State
-    const [useLower, setUseLower] = useState(false)
-    const [useUpper, setUseUpper] = useState(false)
-    const [useNumbers, setUseNumbers] = useState(false)
-    const [useSymbols, setUseSymbols] = useState(false)
-
     // Context
-    const length = useParameterContext().length
+    const {length, parameters} = useParameterContext()
     const update = useParameterContextUpdate()
+
+    // State
+    const [useLower, setUseLower] = useState(parameters.includes("LOWERCASE"))
+    const [useUpper, setUseUpper] = useState(parameters.includes("UPPERCASE"))
+    const [useNumbers, setUseNumbers] = useState(parameters.includes("NUMBERS"))
+    const [useSymbols, setUseSymbols] = useState(parameters.includes("SYMBOLS"))
 
     return (
         <div>

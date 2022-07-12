@@ -43,6 +43,14 @@
     display: none;
 }
 
+/* Remove Input number arrow controls. */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
 /* Slider styles. */
 /* Thank you https://github.com/toughengineer! */
 /*generated with Input range slider CSS style generator (version 20211225)

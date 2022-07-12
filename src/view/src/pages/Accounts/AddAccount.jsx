@@ -1,4 +1,4 @@
-import {useAccountsContextUpdate} from "./Context/AccountsContext"
+import {useAccountsContextUpdate} from "../../context/Accounts/AccountsContext"
 import {HOSTNAME_REGEX} from "../../App"
 import {useState} from "react"
 

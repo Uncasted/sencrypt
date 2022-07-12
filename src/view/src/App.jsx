@@ -1,8 +1,8 @@
-import {Navbar} from "./components/Navbar"
-import {Accounts} from "./components/Accounts/Accounts"
-import AccountsProvider from "./components/Accounts/Context/AccountsContext"
-import {Generator} from "./components/Generator/Generator"
-import LoginScreen from "./components/LoginScreen"
+import {Navbar} from "./components/Navbar/Navbar"
+import {Accounts} from "./pages/Accounts/Accounts"
+import AccountsProvider from "./context/Accounts/AccountsContext"
+import {Generator} from "./pages/Generator/Generator"
+import LoginScreen from "./pages/Login/LoginScreen"
 import {useState} from "react"
 
 import logo from '/assets/images/logo.png'

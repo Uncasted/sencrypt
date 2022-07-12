@@ -1,5 +1,5 @@
 import {useState, useEffect} from "react"
-import {images} from "../App"
+import {images} from "../../App"
 
 export default function LoginScreen(props) {
     // State

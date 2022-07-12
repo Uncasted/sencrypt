@@ -3,6 +3,7 @@ import {images} from "../../App"
 import {useEffect, useState} from "react"
 import ParameterProvider, {useParameterContext, useParameterContextUpdate} from "./Context/ParameterContext"
 import ClipboardProvider, {useClipboardContext, useClipboardContextUpdate} from "../Global Context/ClipboardContext"
+import PasswordProvider, {usePasswordContext, usePasswordContextUpdate} from "./Context/PasswordContext"
 
 export function Generator() {
     return (
@@ -10,15 +11,18 @@ export function Generator() {
             <div className="pl-6 pt-6 bg-dark-blue-2 text-white">
                 <GeneratorHeader/>
             </div>
-            <div className="ml-6 mt-6 flex flex-col text-white">
+            <div className="ml-6 mt-6 flex flex-col text-white justify-center h-[60vh]">
                 <div className="mt-6 mx-auto">
                     <ParameterProvider>
-                        <ClipboardProvider>
-                            <PasswordGenerator/>
-                        </ClipboardProvider>
-                        <div className="mt-8 px-6 py-6 bg-dark-blue-2 w-[32rem] shadow-md">
-                            <GeneratorParameters/>
-                        </div>
+                        <PasswordProvider>
+                            <ClipboardProvider>
+                                <PasswordGenerator/>
+                            </ClipboardProvider>
+                            <div className="relative mt-8 px-6 py-6 bg-dark-blue-0 w-[36rem] xl:w-[48rem] xl:py-12
+                            shadow-md">
+                                <GeneratorParameters/>
+                            </div>
+                        </PasswordProvider>
                     </ParameterProvider>
                 </div>
             </div>
@@ -42,33 +46,10 @@ function GeneratorHeader() {
 }
 
 function PasswordGenerator() {
-    // State
-    const [password, setPassword] = useState("")
-
     // Context
-    // Length needs to be converted to a number for the password generator function.
-    const length = Number(useParameterContext().length)
-    const parameters = useParameterContext().parameters
     const clipboard = useClipboardContext().title
     const addToClipboard = useClipboardContextUpdate()
-
-    // Run generatePassword when the component gets mounted for the first time.
-    // Otherwise, get the last generated password from localStorage.
-    useEffect(() => {
-        const localGeneratedPass = window.localStorage.getItem("generatedPass") ?? ""
-        if (localGeneratedPass) {
-            setPassword(localGeneratedPass)
-        } else {
-            generatePassword()
-        }
-    }, [])
-
-    const generatePassword = () => {
-        const generatedPass = window.utility.generateRandomPassword(parameters, length)
-        setPassword(generatedPass)
-        // Save the last generated password in localStorage.
-        window.localStorage.setItem("generatedPass", generatedPass)
-    }
+    const password = usePasswordContext()
 
     const selectToClipboard = () => {
         // Copy to clipboard.
@@ -82,7 +63,7 @@ function PasswordGenerator() {
     }
 
     return (
-        <div className="flex space-x-4 items-center">
+        <div className="flex space-x-2 items-center">
             <div data-tip="Copied!"
                  id="gen-pass-tooltip"
                  className="tooltip-bg">
@@ -95,17 +76,8 @@ function PasswordGenerator() {
                                selectToClipboard()
                            }
                        }}
-                       className="text-black pl-2 w-[32rem] py-1.5 text-lg focus:outline-none focus:ring
+                       className="text-black pl-2 w-[36rem] xl:w-[48rem] py-1.5 text-lg focus:outline-none focus:ring
                        focus:ring-blue-1 transition"/>
-            </div>
-            <div>
-                <button disabled={parameters.length === 0 || length === 0}
-                        onClick={generatePassword}
-                        className="bg-dark-blue-1 px-8 py-2 shadow-md hover:bg-blue-1 transition active:bg-blue-2
-                        focus:outline-gray-200 disabled:text-gray-300 disabled:bg-[#001826]
-                        disabled:cursor-not-allowed">
-                    Generate
-                </button>
             </div>
             <div>
                 <button data-tip={clipboard}
@@ -134,6 +106,7 @@ function GeneratorParameters() {
     // Context
     const {length, parameters} = useParameterContext()
     const update = useParameterContextUpdate()
+    const updatePassword = usePasswordContextUpdate()
 
     // State
     const [useLower, setUseLower] = useState(parameters.includes("LOWERCASE"))
@@ -204,6 +177,7 @@ function GeneratorParameters() {
                 setUseSymbols(!useSymbols)
         }
     }
+
 
     return (
         <div>
@@ -299,6 +273,17 @@ function GeneratorParameters() {
                         Symbols
                     </span>
                 </div>
+            </div>
+            <div className="absolute bottom-4 right-4">
+                <button disabled={parameters.length === 0 || length === 0}
+                        onClick={() => {
+                            updatePassword(parameters, length)
+                        }}
+                        className="bg-blue-3 px-8 py-2 shadow-md hover:bg-blue-1 transition active:bg-blue-2
+                        focus:outline-gray-200 disabled:text-gray-300 disabled:bg-dark-blue-4
+                        disabled:cursor-not-allowed">
+                    Generate
+                </button>
             </div>
         </div>
     )

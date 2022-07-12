@@ -17,7 +17,7 @@ const createMainWindow = async () => {
             preload: path.join(__dirname, "./src/controller/preload.js")
         }
     })
-    await mainWin.loadFile(path.join(__dirname, "./src/view/password-manager/dist/index.html"))
+    await mainWin.loadFile(path.join(__dirname, "./src/view/dist/index.html"))
 }
 
 // Starting the app.

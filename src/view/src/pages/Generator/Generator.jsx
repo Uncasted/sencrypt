@@ -1,9 +1,12 @@
 // Sketching
 import {images} from "../../App"
 import {useEffect, useState} from "react"
-import ParameterProvider, {useParameterContext, useParameterContextUpdate} from "./Context/ParameterContext"
-import ClipboardProvider, {useClipboardContext, useClipboardContextUpdate} from "../Global Context/ClipboardContext"
-import PasswordProvider, {usePasswordContext, usePasswordContextUpdate} from "./Context/PasswordContext"
+import ParameterProvider, {
+    useParameterContext,
+    useParameterContextUpdate
+} from "../../context/Generator/ParameterContext"
+import ClipboardProvider, {useClipboardContext, useClipboardContextUpdate} from "../../context/ClipboardContext"
+import PasswordProvider, {usePasswordContext, usePasswordContextUpdate} from "../../context/Generator/PasswordContext"
 
 export function Generator() {
     return (

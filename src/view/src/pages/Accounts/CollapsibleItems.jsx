@@ -1,9 +1,9 @@
 import {useState} from "react"
-import {useIDContext} from "./Context/IDContext"
-import {useEditContext} from "./Context/EditContext"
-import {useInputContext, useInputContextUpdate} from "./Context/InputContext"
-import {useAccountContext} from "./Context/AccountContext"
-import {useClipboardContext, useClipboardContextUpdate} from "../Global Context/ClipboardContext"
+import {useIDContext} from "../../context/Accounts/IDContext"
+import {useEditContext} from "../../context/Accounts/EditContext"
+import {useInputContext, useInputContextUpdate} from "../../context/Accounts/InputContext"
+import {useAccountContext} from "../../context/Accounts/AccountContext"
+import {useClipboardContext, useClipboardContextUpdate} from "../../context/ClipboardContext"
 import {images} from "../../App"
 
 export function Website(props) {

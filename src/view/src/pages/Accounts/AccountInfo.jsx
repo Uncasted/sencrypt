@@ -1,12 +1,12 @@
 import {useState} from "react"
 import {DeleteAccountModal} from "./DeleteAccount"
-import {useAccountContext, useAccountContextUpdate} from "./Context/AccountContext"
-import IDProvider, {useIDContext} from "./Context/IDContext"
-import EditProvider, {useEditContextUpdate} from "./Context/EditContext"
-import {useClipboardContext, useClipboardContextUpdate} from "../Global Context/ClipboardContext"
+import {useAccountContext, useAccountContextUpdate} from "../../context/Accounts/AccountContext"
+import IDProvider, {useIDContext} from "../../context/Accounts/IDContext"
+import EditProvider, {useEditContextUpdate} from "../../context/Accounts/EditContext"
+import {useClipboardContext, useClipboardContextUpdate} from "../../context/ClipboardContext"
 import {HOSTNAME_REGEX, images} from "../../App"
-import InputProvider, {useInputContext, useInputContextUpdate} from "./Context/InputContext"
-import {useAccountsContextUpdate} from "./Context/AccountsContext"
+import InputProvider, {useInputContext, useInputContextUpdate} from "../../context/Accounts/InputContext"
+import {useAccountsContextUpdate} from "../../context/Accounts/AccountsContext"
 import {Website, Username, Password, EditButton, DeleteButton, SaveButton} from "./CollapsibleItems"
 
 export function AccountInfo() {

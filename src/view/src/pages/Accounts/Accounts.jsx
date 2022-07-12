@@ -1,8 +1,8 @@
 import {AccountModal, AddAccountButton} from "./AddAccount"
 import {AccountInfo} from "./AccountInfo"
-import AccountProvider from "./Context/AccountContext"
-import ClipboardProvider from "../Global Context/ClipboardContext"
-import {useAccountsContext} from "./Context/AccountsContext"
+import AccountProvider from "../../context/Accounts/AccountContext"
+import ClipboardProvider from "../../context/ClipboardContext"
+import {useAccountsContext} from "../../context/Accounts/AccountsContext"
 
 export function Accounts() {
     // Context

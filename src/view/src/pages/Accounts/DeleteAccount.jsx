@@ -1,5 +1,5 @@
-import {useAccountContext} from "./Context/AccountContext"
-import {useAccountsContextUpdate} from "./Context/AccountsContext"
+import {useAccountContext} from "../../context/Accounts/AccountContext"
+import {useAccountsContextUpdate} from "../../context/Accounts/AccountsContext"
 
 export function DeleteAccountModal() {
     // Context

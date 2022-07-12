@@ -1,5 +1,5 @@
 import {useEffect} from "react"
-import {images} from "../App"
+import {images} from "../../App"
 
 export function Navbar(props) {
 

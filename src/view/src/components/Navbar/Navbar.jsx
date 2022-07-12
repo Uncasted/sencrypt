@@ -1,5 +1,5 @@
 import {useEffect} from "react"
-import {images} from "../../App"
+import {IMAGES} from "../../data/constants"
 
 export function Navbar(props) {
 
@@ -32,7 +32,7 @@ export function Navbar(props) {
 
     return (
         <nav className="bg-dark-blue-1 text-white inset-0 w-[250px] h-[100vh] pt-4 fixed">
-            <img src={images.logo}
+            <img src={IMAGES.LOGO}
                  alt="Sencrypt"
                  tabIndex="-1"
                  className="h-7 mx-auto"/>
@@ -44,7 +44,7 @@ export function Navbar(props) {
                     }}
                             className="bg-blue-1 change-focus w-full text-start pl-8 py-3 hover:bg-blue-2 transition
                             flex focus:outline-gray-200">
-                        <img src={images.managerIcon}
+                        <img src={IMAGES.MANAGER_ICON}
                              alt="Accounts section"
                              className="w-7 h-7 mr-4 no-select"/>
                         Accounts
@@ -56,7 +56,7 @@ export function Navbar(props) {
                     }}
                             className="change-focus w-full text-start pl-8 py-3 hover:bg-dark-blue-2
                             transition flex focus:outline-gray-200">
-                        <img src={images.generatorIcon}
+                        <img src={IMAGES.GENERATOR_ICON}
                              alt="Password generator section."
                              className="w-7 h-7 mr-4 no-select"/>
                         Generator
@@ -68,7 +68,7 @@ export function Navbar(props) {
                     }}
                             className="change-focus w-full text-start pl-8 py-3 hover:bg-dark-blue-2
                             transition flex focus:outline-gray-200">
-                        <img src={images.settingsIcon}
+                        <img src={IMAGES.SETTINGS_ICON}
                              alt="Settings section."
                              className="w-7 h-7 mr-4 no-select"/>
                         Settings

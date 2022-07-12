@@ -1,8 +1,5 @@
 import {createContext, useState, useContext} from "react"
-
-const COPY_CLIPBOARD = "Copy to clipboard."
-const COPY_PASSWORD = "Copy Password."
-const COPIED = "Copied!"
+import {COPY_PASSWORD, COPY_CLIPBOARD, COPIED, TITLE, USERNAME, PASSWORD} from "../data/constants"
 
 const ClipboardContext = createContext()
 const ClipboardContextUpdate = createContext()
@@ -25,19 +22,19 @@ export default function ClipboardProvider(props) {
         // By doing this we can set the state on either tooltip with one function.
         navigator.clipboard.writeText(data).then()
         switch (type) {
-            case 'title':
+            case TITLE:
                 setTitleClipboard(COPIED)
                 setTimeout(() => {
                     setTitleClipboard(COPY_PASSWORD)
                 }, 2000)
                 break
-            case 'username':
+            case USERNAME:
                 setUserClipboard(COPIED)
                 setTimeout(() => {
                     setUserClipboard(COPY_CLIPBOARD)
                 }, 2000)
                 break
-            case 'password':
+            case PASSWORD:
                 setPassClipboard(COPIED)
                 setTimeout(() => {
                     setPassClipboard(COPY_CLIPBOARD)

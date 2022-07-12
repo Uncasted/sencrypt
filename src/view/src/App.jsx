@@ -5,25 +5,6 @@ import {Generator} from "./pages/Generator/Generator"
 import LoginScreen from "./pages/Login/LoginScreen"
 import {useState} from "react"
 
-import logo from '/assets/images/logo.png'
-import managerIcon from '/assets/images/manager-icon.png'
-import generatorIcon from '/assets/images/generator-icon.png'
-import settingsIcon from '/assets/images/settings-icon.png'
-import clipboardIcon from '/assets/images/clipboard-icon.png'
-import showPasswordIcon from '/assets/images/show-password-icon.png'
-import hidePasswordIcon from '/assets/images/hide-password-icon.png'
-
-export const HOSTNAME_REGEX = /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/?\n]+)/
-export const images = {
-    logo: logo,
-    managerIcon: managerIcon,
-    generatorIcon: generatorIcon,
-    settingsIcon: settingsIcon,
-    clipboardIcon: clipboardIcon,
-    showPasswordIcon: showPasswordIcon,
-    hidePasswordIcon: hidePasswordIcon
-}
-
 
 export default function App() {
     const [selected, setSelected] = useState(<AccountSection/>)

@@ -1,5 +1,4 @@
-// Sketching
-import {images} from "../../App"
+import {IMAGES, LOWERCASE, NUMBERS, SYMBOLS, UPPERCASE} from "../../data/constants"
 import {useEffect, useState} from "react"
 import ParameterProvider, {
     useParameterContext,
@@ -38,7 +37,7 @@ function GeneratorHeader() {
         <div className="mb-8 no-select">
             <h1 tabIndex="-1"
                 className="text-3xl font-semibold pb-2 flex items-center">
-                <img src={images.generatorIcon}
+                <img src={IMAGES.GENERATOR_ICON}
                      alt="Generator icon"
                      className="mr-1"/>
                 Generator
@@ -97,7 +96,7 @@ function PasswordGenerator() {
                             addToClipboard('title', password)
                         }}
                         className="px-1 py-1 tooltip tooltip-right tooltip-bg focus:outline-gray-200">
-                    <img src={images.clipboardIcon}
+                    <img src={IMAGES.CLIPBOARD_ICON}
                          alt="Copy password to clipboard."/>
                 </button>
             </div>
@@ -112,10 +111,10 @@ function GeneratorParameters() {
     const updatePassword = usePasswordContextUpdate()
 
     // State
-    const [useLower, setUseLower] = useState(parameters.includes("LOWERCASE"))
-    const [useUpper, setUseUpper] = useState(parameters.includes("UPPERCASE"))
-    const [useNumbers, setUseNumbers] = useState(parameters.includes("NUMBERS"))
-    const [useSymbols, setUseSymbols] = useState(parameters.includes("SYMBOLS"))
+    const [useLower, setUseLower] = useState(parameters.includes(LOWERCASE))
+    const [useUpper, setUseUpper] = useState(parameters.includes(UPPERCASE))
+    const [useNumbers, setUseNumbers] = useState(parameters.includes(NUMBERS))
+    const [useSymbols, setUseSymbols] = useState(parameters.includes(SYMBOLS))
 
     // Slider progress bar.
     useEffect(() => {
@@ -147,35 +146,35 @@ function GeneratorParameters() {
 
     const updateParameter = (type) => {
         switch (type) {
-            case "LOWERCASE":
+            case LOWERCASE:
                 if (!useLower) {
-                    update.addParameter("LOWERCASE")
+                    update.addParameter(LOWERCASE)
                 } else {
-                    update.delParameter("LOWERCASE")
+                    update.delParameter(LOWERCASE)
                 }
                 setUseLower(!useLower)
                 break
-            case "UPPERCASE":
+            case UPPERCASE:
                 if (!useUpper) {
-                    update.addParameter("UPPERCASE")
+                    update.addParameter(UPPERCASE)
                 } else {
-                    update.delParameter("UPPERCASE")
+                    update.delParameter(UPPERCASE)
                 }
                 setUseUpper(!useUpper)
                 break
-            case "NUMBERS":
+            case NUMBERS:
                 if (!useNumbers) {
-                    update.addParameter("NUMBERS")
+                    update.addParameter(NUMBERS)
                 } else {
-                    update.delParameter("NUMBERS")
+                    update.delParameter(NUMBERS)
                 }
                 setUseNumbers(!useNumbers)
                 break
-            case "SYMBOLS":
+            case SYMBOLS:
                 if (!useSymbols) {
-                    update.addParameter("SYMBOLS")
+                    update.addParameter(SYMBOLS)
                 } else {
-                    update.delParameter("SYMBOLS")
+                    update.delParameter(SYMBOLS)
                 }
                 setUseSymbols(!useSymbols)
         }
@@ -216,11 +215,11 @@ function GeneratorParameters() {
                     <input type="checkbox"
                            checked={useLower}
                            onClick={() => {
-                               updateParameter("LOWERCASE")
+                               updateParameter(LOWERCASE)
                            }}
                            onKeyDown={(event) => {
                                if (event.key === "Enter") {
-                                   updateParameter("LOWERCASE")
+                                   updateParameter(LOWERCASE)
                                }
                            }}
                            className="checkbox checkbox-sm checkbox-primary rounded-none border-2"/>
@@ -232,11 +231,11 @@ function GeneratorParameters() {
                     <input type="checkbox"
                            checked={useUpper}
                            onClick={() => {
-                               updateParameter("UPPERCASE")
+                               updateParameter(UPPERCASE)
                            }}
                            onKeyDown={(event) => {
                                if (event.key === "Enter") {
-                                   updateParameter("UPPERCASE")
+                                   updateParameter(UPPERCASE)
                                }
                            }}
                            className="checkbox checkbox-sm checkbox-primary rounded-none border-2"/>
@@ -248,11 +247,11 @@ function GeneratorParameters() {
                     <input type="checkbox"
                            checked={useNumbers}
                            onClick={() => {
-                               updateParameter("NUMBERS")
+                               updateParameter(NUMBERS)
                            }}
                            onKeyDown={(event) => {
                                if (event.key === "Enter") {
-                                   updateParameter("NUMBERS")
+                                   updateParameter(NUMBERS)
                                }
                            }}
                            className="checkbox checkbox-sm checkbox-primary rounded-none border-2"/>
@@ -264,11 +263,11 @@ function GeneratorParameters() {
                     <input type="checkbox"
                            checked={useSymbols}
                            onClick={() => {
-                               updateParameter("SYMBOLS")
+                               updateParameter(SYMBOLS)
                            }}
                            onKeyDown={(event) => {
                                if (event.key === "Enter") {
-                                   updateParameter("SYMBOLS")
+                                   updateParameter(SYMBOLS)
                                }
                            }}
                            className="checkbox checkbox-sm checkbox-primary rounded-none border-2"/>

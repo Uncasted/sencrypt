@@ -1,5 +1,5 @@
 import {useState, useEffect} from "react"
-import {images} from "../../App"
+import {IMAGES} from "../../data/constants"
 
 export default function LoginScreen(props) {
     // State
@@ -59,7 +59,7 @@ function LoginForm(props) {
                 <div className="bg-dark-blue-1 w-[100vw] h-[100vh] flex flex-col items-center justify-center space-y-10"
                 >
                     <div>
-                        <img src={images.logo}
+                        <img src={IMAGES.LOGO}
                              alt="Sencrypt"
                              className="w-72"/>
                     </div>
@@ -149,7 +149,7 @@ function NewUserForm(props) {
                 <div className="bg-dark-blue-1 w-[100vw] h-[100vh] flex flex-col items-center justify-center space-y-10"
                 >
                     <div>
-                        <img src={images.logo}
+                        <img src={IMAGES.LOGO}
                              alt="Sencrypt"
                              className="w-72"/>
                     </div>

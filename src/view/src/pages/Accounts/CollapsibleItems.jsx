@@ -4,7 +4,7 @@ import {useEditContext} from "../../context/Accounts/EditContext"
 import {useInputContext, useInputContextUpdate} from "../../context/Accounts/InputContext"
 import {useAccountContext} from "../../context/Accounts/AccountContext"
 import {useClipboardContext, useClipboardContextUpdate} from "../../context/ClipboardContext"
-import {images} from "../../App"
+import {IMAGES} from "../../data/constants"
 
 export function Website(props) {
     // Context
@@ -90,7 +90,7 @@ export function Username(props) {
                             addToClipboard('username', input)
                         }}
                         className="px-1 py-1 tooltip tooltip-right tooltip-bg focus:outline-gray-200">
-                    <img src={images.clipboardIcon}
+                    <img src={IMAGES.CLIPBOARD_ICON}
                          alt="Copy username to clipboard."/>
                 </button>
             </div>
@@ -110,13 +110,13 @@ export function Password(props) {
 
     // State
     const [showPassword, setShowPassword] = useState("password")
-    const [passwordIcon, setPasswordIcon] = useState(images.hidePasswordIcon)
+    const [passwordIcon, setPasswordIcon] = useState(IMAGES.HIDE_PASSWORD)
 
     const passwordVisibility = () => {
         // Change the password to type text so the user can see it.
         setShowPassword(showPassword === "password" ? "text" : "password")
-        setPasswordIcon(passwordIcon === images.hidePasswordIcon ? images.showPasswordIcon
-            : images.hidePasswordIcon)
+        setPasswordIcon(passwordIcon === IMAGES.HIDE_PASSWORD ? IMAGES.SHOW_PASSWORD
+            : IMAGES.HIDE_PASSWORD)
     }
 
     return (
@@ -165,7 +165,7 @@ export function Password(props) {
                             addToClipboard('password', input)
                         }}
                         className=" px-1 py-1 tooltip tooltip-right tooltip-bg focus:outline-gray-200">
-                    <img src={images.clipboardIcon}
+                    <img src={IMAGES.CLIPBOARD_ICON}
                          alt="Copy password to clipboard."/>
                 </button>
             </div>

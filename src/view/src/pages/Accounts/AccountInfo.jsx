@@ -4,10 +4,11 @@ import {useAccountContext, useAccountContextUpdate} from "../../context/Accounts
 import IDProvider, {useIDContext} from "../../context/Accounts/IDContext"
 import EditProvider, {useEditContextUpdate} from "../../context/Accounts/EditContext"
 import {useClipboardContext, useClipboardContextUpdate} from "../../context/ClipboardContext"
-import {HOSTNAME_REGEX, images} from "../../App"
+import {HOSTNAME_REGEX, IMAGES} from "../../data/constants"
 import InputProvider, {useInputContext, useInputContextUpdate} from "../../context/Accounts/InputContext"
 import {useAccountsContextUpdate} from "../../context/Accounts/AccountsContext"
 import {Website, Username, Password, EditButton, DeleteButton, SaveButton} from "./CollapsibleItems"
+import {CANCEL_LABEL, EDIT_LABEL} from "../../data/constants"
 
 export function AccountInfo() {
     // Collapsible state.
@@ -44,7 +45,7 @@ export function AccountInfo() {
                                     addToClipboard('title', account.password)
                                 }}
                                 className="px-1 py-1 tooltip tooltip-left tooltip-bg focus:outline-gray-200">
-                            <img src={images.clipboardIcon}
+                            <img src={IMAGES.CLIPBOARD_ICON}
                                  alt="Copy password to clipboard."/>
                         </button>
                     </div>
@@ -107,9 +108,7 @@ function CollapsibleTitle(props) {
 
 function CollapsibleMenu(props) {
     // State
-    const editLabel = "Edit Account"
-    const cancelLabel = "Cancel Changes"
-    const [buttonText, setButtonText] = useState(editLabel)
+    const [buttonText, setButtonText] = useState(EDIT_LABEL)
 
     // Context
     const account = useAccountContext().account
@@ -128,7 +127,7 @@ function CollapsibleMenu(props) {
         setAccountInput.setWebsite(account.website)
         // Toggle Editing
         toggleEditing()
-        setButtonText(buttonText === editLabel ? cancelLabel : editLabel)
+        setButtonText(buttonText === EDIT_LABEL ? CANCEL_LABEL : EDIT_LABEL)
     }
 
     const removeWarning = () => {

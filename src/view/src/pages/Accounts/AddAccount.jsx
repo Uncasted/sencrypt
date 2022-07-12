@@ -1,5 +1,5 @@
 import {useAccountsContextUpdate} from "../../context/Accounts/AccountsContext"
-import {HOSTNAME_REGEX} from "../../App"
+import {HOSTNAME_REGEX} from "../../data/constants"
 import {useState} from "react"
 
 export function AddAccountButton() {

@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron')
+const {app, BrowserWindow} = require('electron')
 const path = require('path')
 
 // Main Window.
@@ -9,8 +9,8 @@ const createMainWindow = async () => {
     const mainWin = new BrowserWindow({
         width: 1280,
         height: 720,
-        minWidth: 800,
-        minHeight: 500,
+        minWidth: 900,
+        minHeight: 600,
         autoHideMenuBar: true,
         icon: path.join(__dirname, iconPath),
         webPreferences: {

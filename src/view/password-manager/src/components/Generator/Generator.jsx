@@ -99,10 +99,11 @@ function PasswordGenerator() {
                        focus:ring-blue-1 transition"/>
             </div>
             <div>
-                <button disabled={parameters.length === 0}
+                <button disabled={parameters.length === 0 || length === 0}
                         onClick={generatePassword}
                         className="bg-dark-blue-1 px-8 py-2 shadow-md hover:bg-blue-1 transition active:bg-blue-2
-                        focus:outline-gray-200">
+                        focus:outline-gray-200 disabled:text-gray-300 disabled:bg-[#001826]
+                        disabled:cursor-not-allowed">
                     Generate
                 </button>
             </div>
@@ -139,6 +140,34 @@ function GeneratorParameters() {
     const [useUpper, setUseUpper] = useState(parameters.includes("UPPERCASE"))
     const [useNumbers, setUseNumbers] = useState(parameters.includes("NUMBERS"))
     const [useSymbols, setUseSymbols] = useState(parameters.includes("SYMBOLS"))
+
+    // Slider progress bar.
+    useEffect(() => {
+        const parameters = JSON.parse(localStorage.getItem('generator')) ?? {}
+        // Progress bar for the password generator length.
+        // Thank you https://github.com/toughengineer!
+        const slider = document.querySelector('input[type="range"].slider-progress')
+        // Get the length from local storage or use the default value.
+        slider.style.setProperty('--value', parameters.length ?? slider.value)
+        slider.style.setProperty('--min', slider.min === '' ? '0' : slider.min)
+        slider.style.setProperty('--max', slider.max === '' ? '100' : slider.max)
+        slider.addEventListener('input', () => slider.style.setProperty('--value', slider.value))
+
+        return () => {
+            slider.removeEventListener('input', () => {
+                slider.style.setProperty('--value', slider.value)
+            })
+        }
+    }, [length])
+
+    const handleLength = (event) => {
+        const min = 0
+        const max = 48
+
+        // Make sure that the input is between the range.
+        const inputLength = Math.max(min, Math.min(max, Number(event.target.value)))
+        update.updateLength(String(inputLength))
+    }
 
     const updateParameter = (type) => {
         switch (type) {
@@ -179,15 +208,29 @@ function GeneratorParameters() {
     return (
         <div>
             <div className="mb-4 pr-4">
-                <p className="text-sm no-select">
-                    Length ({length})
-                </p>
+                <div>
+                <span className="text-sm no-select">
+                    Length:
+                </span>
+                    <input type="number"
+                           min="4"
+                           max="48"
+                           value={length}
+                           onChange={handleLength}
+                           onKeyDown={(event) => {
+                               // Prevent user from creating decimal numbers.
+                               if (event.key === ".") {
+                                   event.preventDefault()
+                               }
+                           }}
+                           className="bg-dark-blue-4 ml-2 w-10 text-center rounded-sm focus:outline-gray-200"/>
+                </div>
                 <input type="range"
                        min="4"
                        max="48"
                        value={length}
-                       onChange={(e) => {
-                           update.updateLength(e.target.value)
+                       onChange={(event) => {
+                           update.updateLength(event.target.value)
                        }}
                        className="custom-slider slider-progress w-full cursor-pointer focus:outline-gray-200"/>
             </div>

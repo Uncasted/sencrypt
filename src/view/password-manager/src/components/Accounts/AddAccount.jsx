@@ -1,6 +1,6 @@
 import {useAccountsContextUpdate} from "./Context/AccountsContext"
 import {HOSTNAME_REGEX} from "../../App"
-import {useEffect, useState} from "react"
+import {useState} from "react"
 
 export function AddAccountButton() {
 
@@ -18,7 +18,7 @@ export function AddAccountButton() {
                id="open-add-account">
             <button tabIndex="0"
                     onClick={addAccount}
-                    className="ml-4 modal-button bg-blue-3 px-4 py-3 text-white hover:bg-blue-1 active:bg-blue-2
+                    className="ml-4 modal-button bg-dark-blue-1 px-4 py-3 text-white hover:bg-blue-1 active:bg-blue-2
                transition hover:cursor-pointer shadow-md focus:outline-gray-200">
                 Add New Account
             </button>

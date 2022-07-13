@@ -1,4 +1,4 @@
-import {IMAGES, LOWERCASE, NUMBERS, SYMBOLS, UPPERCASE} from "../../data/constants"
+import {GENERATOR_INPUTS, IMAGES, LOWERCASE, NUMBERS, SYMBOLS, UPPERCASE} from "../../data/constants"
 import {useEffect, useState} from "react"
 import ParameterProvider, {
     useParameterContext,
@@ -211,70 +211,25 @@ function GeneratorParameters() {
                        className="custom-slider slider-progress w-full cursor-pointer focus:outline-gray-200"/>
             </div>
             <div className="flex flex-col space-y-4">
-                <div className="space-x-2 flex items-center">
-                    <input type="checkbox"
-                           checked={useLower}
-                           onClick={() => {
-                               updateParameter(LOWERCASE)
-                           }}
-                           onKeyDown={(event) => {
-                               if (event.key === "Enter") {
-                                   updateParameter(LOWERCASE)
-                               }
-                           }}
-                           className="checkbox checkbox-sm checkbox-primary rounded-none border-2"/>
-                    <span className="no-select">
-                        Lowercase
-                    </span>
-                </div>
-                <div className="space-x-2 flex items-center">
-                    <input type="checkbox"
-                           checked={useUpper}
-                           onClick={() => {
-                               updateParameter(UPPERCASE)
-                           }}
-                           onKeyDown={(event) => {
-                               if (event.key === "Enter") {
-                                   updateParameter(UPPERCASE)
-                               }
-                           }}
-                           className="checkbox checkbox-sm checkbox-primary rounded-none border-2"/>
-                    <span className="no-select">
-                        Uppercase
-                    </span>
-                </div>
-                <div className="space-x-2 flex items-center">
-                    <input type="checkbox"
-                           checked={useNumbers}
-                           onClick={() => {
-                               updateParameter(NUMBERS)
-                           }}
-                           onKeyDown={(event) => {
-                               if (event.key === "Enter") {
-                                   updateParameter(NUMBERS)
-                               }
-                           }}
-                           className="checkbox checkbox-sm checkbox-primary rounded-none border-2"/>
-                    <span className="no-select">
-                        Numbers
-                    </span>
-                </div>
-                <div className="space-x-2 flex items-center">
-                    <input type="checkbox"
-                           checked={useSymbols}
-                           onClick={() => {
-                               updateParameter(SYMBOLS)
-                           }}
-                           onKeyDown={(event) => {
-                               if (event.key === "Enter") {
-                                   updateParameter(SYMBOLS)
-                               }
-                           }}
-                           className="checkbox checkbox-sm checkbox-primary rounded-none border-2"/>
-                    <span className="no-select">
-                        Symbols
-                    </span>
-                </div>
+                {GENERATOR_INPUTS.map(({ label, value }) => {
+                    return (<div className="space-x-2 flex items-center">
+                        <input type="checkbox"
+                            checked={parameters.includes(value)}
+                            onClick={() => {
+                                updateParameter(value)
+                            }}
+                            onKeyDown={(event) => {
+                                if (event.key === "Enter") {
+                                    updateParameter(value)
+                                }
+                            }}
+                            className="checkbox checkbox-sm checkbox-primary rounded-none border-2"/>
+                        <span className="no-select">
+                            {label}
+                        </span>
+                    </div>
+                    )
+                })}
             </div>
             <div className="absolute bottom-4 right-4">
                 <button disabled={parameters.length === 0 || length === 0}

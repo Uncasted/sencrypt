@@ -36,6 +36,25 @@ export const GENERATOR_KEY = "generator"
 export const DEFAULT_PARAMETERS = [LOWERCASE, UPPERCASE, NUMBERS]
 export const DEFAULT_LENGTH = "16"
 
+export const GENERATOR_INPUTS = [
+    {
+        label: "Lowercase",
+        value: LOWERCASE,
+    },
+    {
+        label: "Uppercase",
+        value: UPPERCASE,
+    },
+    {
+        label: "Numbers",
+        value: NUMBERS,
+    },
+    {
+        label: "Symbols",
+        value: SYMBOLS,
+    }
+]
+
 // Password Context
 export const LAST_GEN_PASS_KEY = "lastGenPass"
 

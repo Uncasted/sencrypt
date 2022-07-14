@@ -6,13 +6,15 @@
     "scripts": {
         "start": "electron .",
         "dist": "electron-builder",
-        "pack": "electron-builder --dir"
+        "pack": "electron-builder --dir",
+        "lint:fix": "standard --fix"
     },
     "author": "Uncasted",
     "license": "MIT",
     "devDependencies": {
         "electron": "^19.0.6",
-        "electron-builder": "^23.1.0"
+        "electron-builder": "^23.1.0",
+        "standard": "^17.0.0"
     },
     "dependencies": {
         "appdata-path": "^1.0.0"

@@ -1,6 +1,6 @@
 import {useState, useEffect} from "react"
-import NewUserForm from "../../components/login/NewUserForm"
-import LoginForm from "../../components/login/LoginForm"
+import NewUserForm from "./NewUserForm"
+import LoginForm from "./LoginForm"
 
 export default function LoginScreen(props) {
     // State

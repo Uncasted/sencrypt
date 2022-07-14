@@ -1,11 +1,8 @@
 import ClipboardButton from "../buttons/ClipboardButton"
-import ToggleVisibility from "../buttons/TogglePassVisibility"
+import ToggleVisibility from "../buttons/ToggleVisibility"
 import {useState} from "react"
 
 export default function InputField(props) {
-    // Making show content true if there's no value provided.
-    const showContent = props.showContent || true
-
     // Changing the tabIndex depending on the buttons shown.
     const toggleIndex = props.tabIndex + 1
     const clipboardIndex = props.hasToggleVisibility ? toggleIndex + 1 : props.tabIndex + 1
@@ -22,17 +19,22 @@ export default function InputField(props) {
         <label htmlFor={props.fieldId}
                className="space-y-1"
         >
-            <p className="text-md">
-                {props.title}:
-            </p>
+            {props.title &&
+                <p className="text-md">
+                    {props.title}
+                </p>
+            }
             <div className="flex space-x-2">
                 <input type={type}
                        id={props.fieldId}
                        name={props.name}
                        value={input}
-                       tabIndex={showContent ? props.tabIndex : -1}
+                       minLength={props.minLength || null}
+                       maxLength={props.maxLength || null}
+                       tabIndex={props.tabIndex}
                        disabled={isEditable}
-                       data-outline={props.dataOutline}
+                       data-outline={props.dataOutline || null}
+                       autoFocus={props.autoFocus || false}
                        onChange={event => {
                            props.removeWarning()
                            setInput(event.target.value)
@@ -46,7 +48,7 @@ export default function InputField(props) {
                 {props.hasToggleVisibility &&
                     <ToggleVisibility type={type}
                                       setType={setType}
-                                      tabIndex={showContent ? toggleIndex : -1}
+                                      tabIndex={toggleIndex}
                     />
                 }
                 {/*Clipboard button (If it's enabled)*/}
@@ -54,7 +56,7 @@ export default function InputField(props) {
                     <ClipboardButton input={input}
                                      tooltip={props.clipboardTooltip}
                                      tooltipDirection={props.tooltipDirection}
-                                     tabIndex={showContent ? clipboardIndex : -1}
+                                     tabIndex={clipboardIndex}
                     />
                 }
             </div>

@@ -1,5 +1,6 @@
-import {useIndexContext} from "../../context/accounts/IndexContext"
-import {useAccountsContextUpdate} from "../../context/accounts/AccountsContext"
+import {useIndexContext} from "../../../context/accounts/IndexContext"
+import {useAccountsContextUpdate} from "../../../context/accounts/AccountsContext"
+import SecondaryButton from "../../../components/buttons/SecondaryButton"
 
 export default function DeleteModalWarning() {
     // Context
@@ -17,14 +18,16 @@ export default function DeleteModalWarning() {
                     Are you sure you want to delete this account?
                 </h1>
             </div>
+            {/*Delete account button*/}
             <div className="absolute right-4 bottom-4">
                 <label htmlFor={`delete-modal-${index}`}>
-                    <button tabIndex="31"
-                            onClick={deleteAccount}
-                            className="bg-red-600 text-white px-4 py-2 hover:bg-red-500 active:bg-red-700
-                                   shadow-lg transition hover:cursor-pointer focus:outline-gray-200">
+                    <SecondaryButton type="button"
+                                     tabIndex={31}
+                                     hoverColor="red-500"
+                                     activeColor="red-600"
+                                     onClick={deleteAccount}>
                         Delete Account
-                    </button>
+                    </SecondaryButton>
                 </label>
             </div>
         </div>

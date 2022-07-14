@@ -1,8 +1,8 @@
+import React from "react"
 import {useState} from "react"
 import CollapsibleTitle from "./CollapsibleTitle"
-import CollapsibleMenu from "./CollapsibleMenu"
 
-export default function Collapsible() {
+export default function Collapsible(props) {
     // State.
     const [open, setOpen] = useState(false)
     const [showContent, setShowContent] = useState(false)
@@ -19,10 +19,12 @@ export default function Collapsible() {
             >
                 <CollapsibleTitle isOpen={open}
                                   toggleCollapsible={toggleCollapsible}
-                />
+                >
+                    {props.title}
+                </CollapsibleTitle>
             </div>
             <div className={showContent ? "content show" : "content"}>
-                <CollapsibleMenu showContent={showContent}/>
+                {props.children}
             </div>
         </>
     )

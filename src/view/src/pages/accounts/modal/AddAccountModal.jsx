@@ -1,9 +1,9 @@
-import {useAccountsContext, useAccountsContextUpdate} from "../../context/accounts/AccountsContext"
-import {HOSTNAME_REGEX} from "../../data/constants"
+import {useAccountsContext, useAccountsContextUpdate} from "../../../context/accounts/AccountsContext"
+import {HOSTNAME_REGEX} from "../../../data/constants"
 import {useState} from "react"
-import InputField from "../forms/InputField"
-import AddModalHeader from "../headers/AddModalHeader"
-import SubmitAccount from "../buttons/accounts/adding/SubmitAccount"
+import InputField from "../../../components/forms/InputField"
+import SecondaryButton from "../../../components/buttons/SecondaryButton"
+import ModalHeader from "../../../components/headers/ModalHeader"
 
 
 export function AddAccountModal() {
@@ -84,24 +84,29 @@ export function AddAccountModal() {
                    className="modal-toggle"/>
             <div className="modal">
                 <label className="modal-box bg-dark-blue-1 text-white rounded-none px-0 py-0 w-[350px] shadow-sm">
-                    <AddModalHeader/>
+                    <ModalHeader htmlFor="add-modal"
+                                 tabIndex={14}
+                    >
+                        Add New Account:
+                    </ModalHeader>
                     <form id="add-form"
                           onSubmit={submitData}
                           className="flex flex-col items-center space-y-4">
                         <InputField type="text"
                                     name="new-website"
                                     fieldId="new-website"
-                                    title="Website/Service"
+                                    title="Website/Service:"
                                     tabIndex={10}
                                     dataOutline="add-modal-outline"
                                     input={newWebsite}
                                     setInput={setNewWebsite}
                                     removeWarning={removeWarning}
+                                    autoFocus={true}
                         />
                         <InputField type="text"
                                     name="new-username"
                                     fieldId="new-username"
-                                    title="Username"
+                                    title="Username:"
                                     tabIndex={11}
                                     dataOutline="add-modal-outline"
                                     input={newUsername}
@@ -111,7 +116,7 @@ export function AddAccountModal() {
                         <InputField type="password"
                                     name="new-password"
                                     fieldId="new-password"
-                                    title="Password"
+                                    title="Password:"
                                     tabIndex={12}
                                     dataOutline="add-modal-outline"
                                     input={newPassword}
@@ -122,9 +127,22 @@ export function AddAccountModal() {
                            className="invisible text-red-500">
                             This account already exists.
                         </p>
+                        {/*Add account button.*/}
                         <div className="modal-action">
-                            <SubmitAccount
-                                account={{username: newUsername, password: newPassword, website: newWebsite}}/>
+                            <label htmlFor="add-modal"
+                                   id="add-modal-label"
+                                   className="mb-4 mt-[-1rem]"
+                            >
+                                <SecondaryButton type="submit"
+                                                 form="add-form"
+                                                 tabIndex={13}
+                                                 disabled={!newUsername || !newPassword || !newWebsite}
+                                                 hoverColor="blue-1"
+                                                 activeColor="blue-2"
+                                >
+                                    Add Account
+                                </SecondaryButton>
+                            </label>
                         </div>
                     </form>
                 </label>

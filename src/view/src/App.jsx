@@ -1,8 +1,8 @@
-import {Navbar} from "./components/Navbar/Navbar"
-import {Accounts} from "./pages/Accounts/Accounts"
-import AccountsProvider from "./context/Accounts/AccountsContext"
-import {Generator} from "./pages/Generator/Generator"
-import LoginScreen from "./pages/Login/LoginScreen"
+import {Navbar} from "./pages/navbar/Navbar"
+import {Accounts} from "./pages/accounts/Accounts"
+import AccountsProvider from "./context/accounts/AccountsContext"
+import {Generator} from "./pages/generator/Generator"
+import LoginScreen from "./pages/login/LoginScreen"
 import {useState} from "react"
 
 

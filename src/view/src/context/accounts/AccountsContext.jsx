@@ -14,7 +14,7 @@ export function useAccountsContextUpdate() {
 export default function AccountsProvider(props) {
     const [accounts, setAccounts] = useState([])
 
-    // Get the accounts from the database.
+    // Get the buttons from the database.
     useEffect(() => {
         window.controller.getAllAccounts().then(accounts => setAccounts(accounts))
     }, [])

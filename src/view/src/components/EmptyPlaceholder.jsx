@@ -1,4 +1,4 @@
-// This gets rendered when there aren't any accounts in the app.
+// This gets rendered when there aren't any buttons in the app.
 export default function EmptyPlaceholder() {
     return (
         <div className="w-full h-[85vh] flex flex-col items-center justify-center">

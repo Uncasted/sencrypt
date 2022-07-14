@@ -1,7 +1,8 @@
-import {useIndexContext} from "../../../../context/accounts/IndexContext"
+import {useIndexContext} from "../../../context/accounts/IndexContext"
+import SecondaryButton from "../../../components/buttons/SecondaryButton"
 
 
-export function DeleteButton(props) {
+export function DeleteButton() {
     // Context
     const index = useIndexContext()
 
@@ -20,12 +21,14 @@ export function DeleteButton(props) {
                    id={`delete-warn-${index}`}
                    className="hidden">
             </label>
-            <button tabIndex={props.showContent ? 29 : -1}
-                    onClick={deleteWarning}
-                    className="bg-blue-3 text-white px-4 py-2 hover:bg-red-500 active:bg-red-600 shadow-md
-                    transition hover:cursor-pointer focus:outline-gray-200">
+            <SecondaryButton type="button"
+                             tabIndex={29}
+                             hoverColor="red-500"
+                             activeColor="red-600"
+                             onClick={deleteWarning}
+            >
                 Delete Account
-            </button>
+            </SecondaryButton>
         </>
     )
 }

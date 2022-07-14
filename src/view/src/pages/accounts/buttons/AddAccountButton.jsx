@@ -1,3 +1,5 @@
+import PrimaryButton from "../../../components/buttons/PrimaryButton"
+
 export function AddAccountButton() {
 
     const addAccount = () => {
@@ -12,12 +14,14 @@ export function AddAccountButton() {
     return (
         <label htmlFor="add-modal"
                id="open-add-account">
-            <button tabIndex="0"
-                    onClick={addAccount}
-                    className="ml-4 modal-button bg-dark-blue-1 px-4 py-3 text-white hover:bg-blue-1 active:bg-blue-2
-               transition hover:cursor-pointer shadow-md focus:outline-gray-200">
+            <PrimaryButton type="button"
+                           tabIndex={0}
+                           hoverColor="blue-1"
+                           activeColor="blue-2"
+                           onClick={addAccount}
+            >
                 Add New Account
-            </button>
+            </PrimaryButton>
         </label>
     )
 }

@@ -1,5 +1,7 @@
 import {useState} from "react"
 import {IMAGES} from "../../data/constants"
+import InputField from "../../components/forms/InputField"
+import SecondaryButton from "../../components/buttons/SecondaryButton"
 
 export default function LoginForm(props) {
     // State
@@ -48,37 +50,33 @@ export default function LoginForm(props) {
                     <form onSubmit={verifyMasterPassword}
                           className="flex flex-col space-y-6 items-center">
                         <label htmlFor="masterPassword"
-                               className="space-y-2 text-white">
-                            <p>
-                                Enter your Master Password:
-                            </p>
-                            <input autoFocus
-                                   id="masterPassword"
-                                   name="masterPassword"
-                                   type="password"
-                                   minLength="1"
-                                   maxLength="32"
-                                   onChange={(e) => {
-                                       removeWarning()
-                                       setMasterPassword(e.target.value)
-                                   }}
-                                   onClick={removeWarning} value={masterPassword}
-                                   className="pl-2 rounded-sm h-8 transition bg-dark-blue-4 outline-2 outline-red-500
-                                   focus:outline-none focus:ring focus:ring-blue-1"/>
+                               className="gap-y-2 text-white">
+                            <InputField autoFocus={true}
+                                        title="Enter your Master Password:"
+                                        type="password"
+                                        fieldId="masterPassword"
+                                        name="masterPassword"
+                                        minLength={1}
+                                        maxLength={32}
+                                        removeWarning={removeWarning}
+                                        input={masterPassword}
+                                        setInput={setMasterPassword}
+                            />
                             <p id="invalid-mp"
                                className="invisible text-red-500">
                                 Invalid Master Password.
                             </p>
                         </label>
-                        <button type="submit"
-                                disabled={!masterPassword}
-                                className="bg-blue-3 hover:bg-blue-1 transition text-white px-6 py-2 shadow-md
-                            disabled:text-gray-300 disabled:bg-dark-blue-4 disabled:cursor-not-allowed
-                            focus:outline-gray-200">
+                        <SecondaryButton type="submit"
+                                         disabled={!masterPassword}
+                                         hoverColor="blue-1"
+                                         activeColor="blue-2"
+                        >
                             Log in
-                        </button>
+                        </SecondaryButton>
                     </form>
                 </div>
+                // If the master password is valid render the rest of the app.
                 : props.children
             }
         </>

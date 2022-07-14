@@ -20,19 +20,20 @@
 }
 
 .no-select {
-    -moz-user-select: none;
     -webkit-user-select: none;
     user-select: none;
     pointer-events: none;
 }
 
 .content {
+    visibility: hidden;
     max-height: 0;
     overflow: hidden;
     transition: all 0.25s cubic-bezier(0, 1, 0, 1);
 }
 
 .content.show {
+    visibility: visible;
     height: auto;
     max-height: 9999px;
     transition: all 0.25s cubic-bezier(1, 0, 1, 0);

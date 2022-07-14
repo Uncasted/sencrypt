@@ -1,6 +1,12 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     content: ["./src/*.jsx", "./src/**/*.jsx"],
+    safelist: [
+        'hover:bg-green-500',
+        'active:bg-green-600',
+        'hover:bg-red-500',
+        'active:bg-red-600'
+    ],
     theme: {
         extend: {
             colors: {
@@ -15,6 +21,7 @@ module.exports = {
                 "dark-blue-4": "#003455",
                 "dark-blue-5": "#123B56",
                 "dark-blue-6": "#0D2A3D",
+                "dark-blue-7": "#00111C",
                 "blue-0": "#0080CD",
                 "blue-1": "#099cea",
                 "blue-2": "#088dd4",

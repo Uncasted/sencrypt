@@ -1,6 +1,6 @@
-import {useIndexContext} from "../../context/accounts/IndexContext"
-import DeleteModalHeader from "../headers/DeleteModalHeader"
+import {useIndexContext} from "../../../context/accounts/IndexContext"
 import DeleteModalWarning from "./DeleteModalWarning"
+import ModalHeader from "../../../components/headers/ModalHeader"
 
 export function DeleteAccountModal() {
     // Context
@@ -18,7 +18,10 @@ export function DeleteAccountModal() {
                        className="modal-box bg-dark-blue-1 rounded-none px-0 py-0 w-[400px] h-[200px] shadow-sm
                        text-white focus:outline-none"
                 >
-                    <DeleteModalHeader/>
+                    <ModalHeader htmlFor={`delete-modal-${index}`}
+                                 tabIndex={32}>
+                        Delete Account:
+                    </ModalHeader>
                     <DeleteModalWarning/>
                 </label>
             </div>

@@ -1,14 +1,12 @@
-import {IMAGES} from "../../data/constants"
-
-export default function GeneratorHeader() {
+export default function SectionHeader(props) {
     return (
         <div className="mb-8 no-select">
             <h1 tabIndex="-1"
                 className="text-3xl font-semibold pb-2 flex items-center">
-                <img src={IMAGES.GENERATOR_ICON}
+                <img src={props.icon}
                      alt="Generator icon"
                      className="mr-1"/>
-                Generator
+                {props.children}
             </h1>
             <div className="shadow-md ml-[-1.5rem] h-4"></div>
         </div>

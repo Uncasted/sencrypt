@@ -1,9 +1,9 @@
-import {AddAccountModal} from "../../components/modal/AddAccountModal"
-import {AccountInfo} from "./AccountInfo"
+import {AddAccountModal} from "./modal/AddAccountModal"
+import {Account} from "./Account"
 import IndexProvider from "../../context/accounts/IndexContext"
 import {useAccountsContext} from "../../context/accounts/AccountsContext"
 import EmptyPlaceholder from "../../components/EmptyPlaceholder"
-import {AddAccountButton} from "../../components/buttons/accounts/adding/AddAccountButton"
+import {AddAccountButton} from "./buttons/AddAccountButton"
 
 export function Accounts() {
     // Context
@@ -20,7 +20,7 @@ export function Accounts() {
                     return (
                         <IndexProvider index={index}
                                        key={`${account.username}-${account.website}`}>
-                            <AccountInfo account={account}/>
+                            <Account account={account}/>
                         </IndexProvider>
                     )
                 })}

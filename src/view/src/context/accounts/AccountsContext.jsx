@@ -28,7 +28,10 @@ export default function AccountsProvider(props) {
         })
     }
 
-    const updateAccount = (index, data) => {
+    const updateAccount = async (index, data) => {
+        // Updating the account in the database.
+        await window.controller.updateAccount(index, data)
+
         setAccounts(accounts => {
             const newAccounts = [...accounts]
             newAccounts[index] = data

@@ -19,13 +19,10 @@ export const IMAGES = {
     HIDE_PASSWORD: hidePasswordIcon
 }
 
-// Clipboard Context
+// Clipboard text.
 export const COPY_CLIPBOARD = "Copy to clipboard."
 export const COPY_PASSWORD = "Copy Password."
 export const COPIED = "Copied!"
-export const TITLE = "title"
-export const USERNAME = "username"
-export const PASSWORD = "password"
 
 // Parameter Context
 export const LOWERCASE = "LOWERCASE"
@@ -39,6 +36,6 @@ export const DEFAULT_LENGTH = "16"
 // Password Context
 export const LAST_GEN_PASS_KEY = "lastGenPass"
 
-// Collapsible menu.
+// collapsible menu.
 export const EDIT_LABEL = "Edit Account"
 export const CANCEL_LABEL = "Cancel Changes"

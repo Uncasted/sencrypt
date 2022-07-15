@@ -1,4 +1,5 @@
 import {createContext, useState, useContext} from "react"
+import PropTypes from "prop-types"
 
 const EditContext = createContext()
 const EditContextUpdate = createContext()
@@ -27,4 +28,8 @@ export default function EditProvider(props) {
             </EditContextUpdate.Provider>
         </EditContext.Provider>
     )
+}
+
+EditProvider.propTypes = {
+    children: PropTypes.node
 }

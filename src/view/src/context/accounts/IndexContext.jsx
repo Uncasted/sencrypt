@@ -1,4 +1,5 @@
 import {createContext, useContext} from "react"
+import PropTypes from "prop-types"
 
 const IndexContext = createContext()
 
@@ -15,4 +16,9 @@ export default function IndexProvider(props) {
             {props.children}
         </IndexContext.Provider>
     )
+}
+
+IndexProvider.propTypes = {
+    index: PropTypes.number,
+    children: PropTypes.node
 }

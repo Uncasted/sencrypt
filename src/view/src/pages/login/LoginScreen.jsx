@@ -1,6 +1,7 @@
 import {useState, useEffect} from "react"
 import NewUserForm from "./NewUserForm"
 import LoginForm from "./LoginForm"
+import PropTypes from "prop-types"
 
 export default function LoginScreen(props) {
     // State
@@ -20,4 +21,6 @@ export default function LoginScreen(props) {
     )
 }
 
-
+LoginScreen.propTypes = {
+    children: PropTypes.node
+}

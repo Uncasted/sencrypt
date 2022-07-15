@@ -1,6 +1,7 @@
 import {createContext, useState, useContext, useLayoutEffect} from "react"
 import {useAccountsContext} from "./AccountsContext"
 import {useIndexContext} from "./IndexContext"
+import PropTypes from "prop-types"
 
 const InputContext = createContext()
 const InputContextUpdate = createContext()
@@ -48,4 +49,11 @@ export default function InputProvider(props) {
             </InputContextUpdate.Provider>
         </InputContext.Provider>
     )
+}
+
+InputProvider.propTypes = {
+    username: PropTypes.string,
+    website: PropTypes.string,
+    password: PropTypes.string,
+    children: PropTypes.node
 }

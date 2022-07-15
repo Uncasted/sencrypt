@@ -1,5 +1,6 @@
 import {useIndexContext} from "../../context/accounts/IndexContext"
 import {useAccountsContext} from "../../context/accounts/AccountsContext"
+import PropTypes from "prop-types"
 
 export default function AccountTitle(props) {
     // Context
@@ -30,4 +31,8 @@ export default function AccountTitle(props) {
             </div>
         </>
     )
+}
+
+AccountTitle.propTypes = {
+    isOpen: PropTypes.bool
 }

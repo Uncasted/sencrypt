@@ -1,3 +1,5 @@
+import PropTypes from "prop-types"
+
 export default function CollapsibleTitle(props) {
     return (
         <div tabIndex={props.tabIndex || -1}
@@ -11,4 +13,10 @@ export default function CollapsibleTitle(props) {
             {props.children}
         </div>
     )
+}
+
+CollapsibleTitle.propTypes = {
+    tabIndex: PropTypes.number,
+    toggleCollapsible: PropTypes.func,
+    children: PropTypes.node
 }

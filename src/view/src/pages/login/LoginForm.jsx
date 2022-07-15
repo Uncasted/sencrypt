@@ -2,6 +2,7 @@ import {useRef, useState} from "react"
 import {BLUE_OUTLINE, IMAGES, RED_OUTLINE} from "../../data/constants"
 import InputField from "../../components/forms/InputField"
 import SecondaryButton from "../../components/buttons/SecondaryButton"
+import PropTypes from "prop-types"
 
 export default function LoginForm(props) {
     // State
@@ -88,4 +89,8 @@ export default function LoginForm(props) {
             }
         </>
     )
+}
+
+LoginForm.propTypes = {
+    children: PropTypes.node
 }

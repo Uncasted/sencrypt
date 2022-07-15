@@ -1,5 +1,6 @@
 import {useState, cloneElement} from "react"
 import CollapsibleTitle from "./CollapsibleTitle"
+import PropTypes from "prop-types"
 
 export default function Collapsible(props) {
     // State.
@@ -26,4 +27,10 @@ export default function Collapsible(props) {
             </div>
         </>
     )
+}
+
+Collapsible.propTypes = {
+    tabIndex: PropTypes.number,
+    title: PropTypes.node,
+    children: PropTypes.node
 }

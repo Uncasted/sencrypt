@@ -1,5 +1,6 @@
 import {useState} from "react"
 import {IMAGES} from "../../data/constants"
+import PropTypes from "prop-types"
 
 export default function ToggleVisibility(props) {
     // State
@@ -23,4 +24,9 @@ export default function ToggleVisibility(props) {
             />
         </button>
     )
+}
+
+ToggleVisibility.propTypes = {
+    setType: PropTypes.func,
+    tabIndex: PropTypes.number,
 }

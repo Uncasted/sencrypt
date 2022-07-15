@@ -5,7 +5,12 @@ module.exports = {
         'hover:bg-green-500',
         'active:bg-green-600',
         'hover:bg-red-500',
-        'active:bg-red-600'
+        'active:bg-red-600',
+        'tooltip-right',
+        'tooltip-left',
+        'focus:outline',
+        'focus:outline-red-500',
+        'focus:outline-2'
     ],
     theme: {
         extend: {

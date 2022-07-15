@@ -1,5 +1,5 @@
 import {DeleteAccountModal} from "./modal/DeleteAccountModal"
-import IDProvider from "../../context/accounts/IDContext"
+import IdProvider from "../../context/accounts/IdContext"
 import EditProvider from "../../context/accounts/EditContext"
 import InputProvider from "../../context/accounts/InputContext"
 import Collapsible from "../../components/collapsible/Collapsible"
@@ -13,13 +13,14 @@ export function Account(props) {
 
     return (
         <div>
-            <IDProvider>
+            <IdProvider>
                 <div className="shadow-total bg-dark-blue-0 text-white">
                     <div className="absolute right-14 mt-1">
-                        <ClipboardButton input={account.password}
+                        {/*We need to have the clipboard button outside, or it will open the menu when clicked.*/}
+                        <ClipboardButton value={account.password}
                                          tooltip={COPY_PASSWORD}
-                                         tooltipDirection="tooltip-left"
-                                         tabIndex={1}
+                                         tooltipDirection="left"
+                                         tabIndex={2}
                         />
                     </div>
                     <div>
@@ -28,7 +29,9 @@ export function Account(props) {
                                        website={account.website}
                         >
                             <EditProvider>
-                                <Collapsible title={<AccountTitle/>}>
+                                <Collapsible title={<AccountTitle/>}
+                                             tabIndex={1}
+                                >
                                     <AccountInfo/>
                                 </Collapsible>
                             </EditProvider>
@@ -36,7 +39,7 @@ export function Account(props) {
                     </div>
                 </div>
                 <DeleteAccountModal/>
-            </IDProvider>
+            </IdProvider>
         </div>
     )
 }

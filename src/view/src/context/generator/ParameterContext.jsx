@@ -1,5 +1,6 @@
 import {createContext, useState, useContext} from "react"
 import {DEFAULT_LENGTH, DEFAULT_PARAMETERS, GENERATOR_KEY} from "../../data/constants"
+import {getLocalParameters} from "../../utils/utility"
 
 const ParameterContext = createContext()
 const ParameterContextUpdate = createContext()
@@ -12,18 +13,15 @@ export function useParameterContextUpdate() {
     return useContext(ParameterContextUpdate)
 }
 
-const getLocalParameters = () => {
-    return localStorage.getItem(GENERATOR_KEY) ? JSON.parse(localStorage.getItem(GENERATOR_KEY)) : {}
-}
-
 export default function ParameterProvider(props) {
     const savedParameters = getLocalParameters()
-    const [parameters, setParameters] = useState(savedParameters?.parameters || DEFAULT_PARAMETERS)
-    const [length, setLength] = useState(savedParameters?.length || DEFAULT_LENGTH)
+    const [parameters, setParameters] = useState(savedParameters.parameters || DEFAULT_PARAMETERS)
+    const [length, setLength] = useState(savedParameters.length || DEFAULT_LENGTH)
 
     const addParameter = (newParameter) => {
         setParameters(parameters => {
             const oldParameters = getLocalParameters()
+            // Saving the parameter in localStorage.
             localStorage.setItem(GENERATOR_KEY, JSON.stringify({
                 ...oldParameters,
                 parameters: [...(oldParameters.parameters ?? []), newParameter]
@@ -39,7 +37,7 @@ export default function ParameterProvider(props) {
             // Deleting the parameter from the array.
             const parameterIndex = newParameters.indexOf(parameter)
             newParameters.splice(parameterIndex, 1)
-
+            // Deleting the parameter from localStorage.
             const oldParameters = getLocalParameters()
             localStorage.setItem(GENERATOR_KEY, JSON.stringify({
                 ...oldParameters,
@@ -51,7 +49,9 @@ export default function ParameterProvider(props) {
     }
 
     const updateLength = (newLength) => {
-        setLength(newLength)
+        // Update length.
+        setLength(() => newLength)
+        // Update length in local storage.
         const oldParameters = getLocalParameters()
         localStorage.setItem(GENERATOR_KEY, JSON.stringify({
             ...oldParameters,

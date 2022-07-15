@@ -18,7 +18,8 @@ export default function ModalHeader(props) {
                         tabIndex={props.tabIndex || 0}
                         onClick={closeModal}
                         className="btn bg-transparent border-none absolute right-2 top-1 text-white rounded-none
-                           hover:bg-transparent focus:outline-gray-200">
+                           hover:bg-transparent focus:outline-gray-200"
+                >
                     ✕
                 </button>
             </label>

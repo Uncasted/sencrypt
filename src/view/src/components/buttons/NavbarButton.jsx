@@ -3,9 +3,9 @@ import {useEffect, useRef} from "react"
 export default function NavbarButton(props) {
     const buttonRef = useRef(null)
 
-    // Select the Account section by default.
+    // Select the default section (Accounts).
     useEffect(() => {
-        if (props?.defaultSelected) {
+        if (props.defaultSelected) {
             const button = buttonRef.current
             button.classList.remove("hover:bg-dark-blue-2")
             button.classList.add("bg-blue-1", "hover:bg-blue-2")
@@ -34,10 +34,12 @@ export default function NavbarButton(props) {
                     changeFocus(props.section)
                 }}
                 data-focus="change-focus"
-                className="w-full text-start pl-8 py-3 hover:bg-dark-blue-2 transition flex focus:outline-gray-200">
+                className="w-full text-start pl-8 py-3 hover:bg-dark-blue-2 transition flex focus:outline-gray-200"
+        >
             <img src={props.icon}
                  alt="Accounts section"
-                 className="w-7 h-7 mr-4 no-select"/>
+                 className="w-7 h-7 mr-4 no-select"
+            />
             {props.title}
         </button>
     )

@@ -1,14 +1,18 @@
 import {useIndexContext} from "../../../context/accounts/IndexContext"
 import SecondaryButton from "../../../components/buttons/SecondaryButton"
+import {useRef} from "react"
 
 
 export function DeleteButton() {
+    // Ref
+    const warningRef = useRef(null)
+
     // Context
     const index = useIndexContext()
 
     const deleteWarning = () => {
         // Click on the label to show the warning.
-        const warning = document.getElementById(`delete-warn-${index}`)
+        const warning = warningRef.current
         warning.click()
         // Focus the "delete modal".
         const delModal = document.getElementById(`delete-box-${index}`)
@@ -18,11 +22,12 @@ export function DeleteButton() {
     return (
         <>
             <label htmlFor={`delete-modal-${index}`}
-                   id={`delete-warn-${index}`}
-                   className="hidden">
+                   className="hidden"
+                   ref={warningRef}
+            >
             </label>
             <SecondaryButton type="button"
-                             tabIndex={29}
+                             tabIndex={30}
                              hoverColor="red-500"
                              activeColor="red-600"
                              onClick={deleteWarning}

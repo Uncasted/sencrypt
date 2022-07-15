@@ -3,13 +3,14 @@ import {useState} from "react"
 
 export default function ClipboardButton(props) {
     const [tooltip, setTooltip] = useState(props.tooltip)
+    const tooltipDirection = `tooltip-${props.tooltipDirection}`
 
     const addToClipboard = (input) => {
         // Copy to clipboard and tell the user.
         navigator.clipboard.writeText(input).then(() => {
-            setTooltip(COPIED)
+            setTooltip(() => COPIED)
             setTimeout(() => {
-                setTooltip(props.tooltip)
+                setTooltip(() => props.tooltip)
             }, 2000)
         })
     }
@@ -28,11 +29,13 @@ export default function ClipboardButton(props) {
                     event.target.classList.remove("tooltip-open")
                 }}
                 onClick={() => {
-                    addToClipboard(props.input)
+                    addToClipboard(props.value)
                 }}
-                className={`tooltip ${props.tooltipDirection} tooltip-bg px-1 py-1 focus:outline-gray-200`}>
+                className={`tooltip ${tooltipDirection} tooltip-bg px-1 py-1 focus:outline-gray-200`}
+        >
             <img src={IMAGES.CLIPBOARD_ICON}
-                 alt="Copy username to clipboard."/>
+                 alt="Copy username to clipboard."
+            />
         </button>
     )
 }

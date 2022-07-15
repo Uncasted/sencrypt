@@ -1,19 +1,23 @@
 import PrimaryButton from "../../../components/buttons/PrimaryButton"
+import {useRef} from "react"
 
 export function AddAccountButton() {
+    // Ref
+    const addModalRef = useRef(null)
 
     const addAccount = () => {
         // Click on the label to show the add account modal.
-        const addModal = document.getElementById(`open-add-account`)
+        const addModal = addModalRef.current
         addModal.click()
-        // Focus on the form.
+        // Focus on the form. (If I don't do this it doesn't work).
         const newWebsite = document.getElementById("new-website")
         newWebsite.focus()
     }
 
     return (
         <label htmlFor="add-modal"
-               id="open-add-account">
+               ref={addModalRef}
+        >
             <PrimaryButton type="button"
                            tabIndex={0}
                            hoverColor="blue-1"

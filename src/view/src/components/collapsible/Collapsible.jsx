@@ -1,15 +1,12 @@
-import React from "react"
-import {useState} from "react"
+import {useState, cloneElement} from "react"
 import CollapsibleTitle from "./CollapsibleTitle"
 
 export default function Collapsible(props) {
     // State.
     const [open, setOpen] = useState(false)
-    const [showContent, setShowContent] = useState(false)
 
     const toggleCollapsible = () => {
-        setOpen(!open)
-        setShowContent(!showContent)
+        setOpen(prevOpen => !prevOpen)
     }
 
     return (
@@ -17,13 +14,14 @@ export default function Collapsible(props) {
             <div onClick={toggleCollapsible}
                  className="title cursor-pointer"
             >
-                <CollapsibleTitle isOpen={open}
-                                  toggleCollapsible={toggleCollapsible}
-                >
-                    {props.title}
+                <CollapsibleTitle toggleCollapsible={toggleCollapsible}
+                                  tabIndex={props.tabIndex}>
+                    {/*We need to clone the title to pass props to it.*/}
+                    {cloneElement(props.title, {isOpen: open})}
                 </CollapsibleTitle>
             </div>
-            <div className={showContent ? "content show" : "content"}>
+            {/*Display the children if showContent is true.*/}
+            <div className={open ? "content show" : "content"}>
                 {props.children}
             </div>
         </>

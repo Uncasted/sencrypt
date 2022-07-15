@@ -14,12 +14,14 @@ export function Accounts() {
             <AddAccountButton/>
             <AddAccountModal/>
             <div id="account-list"
-                 className="mt-8 space-y-1 px-2">
+                 className="mt-8 space-y-1 px-2"
+            >
                 {!accounts.length && <EmptyPlaceholder/>}
                 {accounts.map((account, index) => {
                     return (
                         <IndexProvider index={index}
-                                       key={`${account.username}-${account.website}`}>
+                                       key={`${account.username}-${account.website}`}
+                        >
                             <Account account={account}/>
                         </IndexProvider>
                     )

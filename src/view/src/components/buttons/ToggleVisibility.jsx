@@ -7,8 +7,8 @@ export default function ToggleVisibility(props) {
 
     const toggleVisibility = () => {
         // Toggle the input visibility and the icon.
-        props.setType(props.type === "password" ? "text" : "password")
-        setIcon(icon === IMAGES.HIDE_PASSWORD ? IMAGES.SHOW_PASSWORD
+        props.setType(prevType => prevType === "password" ? "text" : "password")
+        setIcon(prevIcon => prevIcon === IMAGES.HIDE_PASSWORD ? IMAGES.SHOW_PASSWORD
             : IMAGES.HIDE_PASSWORD)
     }
 
@@ -16,9 +16,11 @@ export default function ToggleVisibility(props) {
         <button type="button"
                 tabIndex={props.tabIndex}
                 onClick={toggleVisibility}
-                className="px-1 py-1 focus:outline-gray-200">
+                className="px-1 py-1 focus:outline-gray-200"
+        >
             <img src={icon}
-                 alt="Show/hide password."/>
+                 alt="Show/hide password."
+            />
         </button>
     )
 }

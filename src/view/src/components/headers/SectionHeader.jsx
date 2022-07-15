@@ -1,3 +1,5 @@
+import PropTypes from "prop-types"
+
 export default function SectionHeader(props) {
     return (
         <div className="mb-8 no-select">
@@ -14,4 +16,9 @@ export default function SectionHeader(props) {
             <div className="shadow-md ml-[-1.5rem] h-4"></div>
         </div>
     )
+}
+
+SectionHeader.propTypes = {
+    icon: PropTypes.string,
+    children: PropTypes.node
 }

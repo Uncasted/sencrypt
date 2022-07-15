@@ -1,3 +1,5 @@
+import PropTypes from "prop-types"
+
 export default function SecondaryButton(props) {
     const hoverColor = `hover:bg-${props.hoverColor}`
     const activeColor = `active:bg-${props.activeColor}`
@@ -14,4 +16,15 @@ export default function SecondaryButton(props) {
             {props.children}
         </button>
     )
+}
+
+SecondaryButton.propTypes = {
+    hoverColor: PropTypes.string,
+    activeColor: PropTypes.string,
+    type: PropTypes.any,
+    form: PropTypes.string,
+    tabIndex: PropTypes.number,
+    disabled: PropTypes.bool,
+    onClick: PropTypes.func,
+    children: PropTypes.node
 }

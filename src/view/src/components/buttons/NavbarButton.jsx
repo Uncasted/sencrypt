@@ -1,4 +1,5 @@
 import {useEffect, useRef} from "react"
+import PropTypes from "prop-types"
 
 export default function NavbarButton(props) {
     const buttonRef = useRef(null)
@@ -43,4 +44,12 @@ export default function NavbarButton(props) {
             {props.title}
         </button>
     )
+}
+
+NavbarButton.propTypes = {
+    changeSelected: PropTypes.func,
+    defaultSelected: PropTypes.bool,
+    title: PropTypes.string,
+    section: PropTypes.string,
+    icon: PropTypes.string
 }

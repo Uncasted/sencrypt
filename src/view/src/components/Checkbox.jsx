@@ -1,3 +1,5 @@
+import PropTypes from "prop-types"
+
 export default function Checkbox(props) {
     return (
         <div className="space-x-2 flex items-center">
@@ -14,4 +16,11 @@ export default function Checkbox(props) {
             }
         </div>
     )
+}
+
+Checkbox.propTypes = {
+    checked: PropTypes.bool,
+    onClick: PropTypes.func,
+    onKeyDown: PropTypes.func,
+    title: PropTypes.string,
 }

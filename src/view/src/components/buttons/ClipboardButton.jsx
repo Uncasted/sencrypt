@@ -1,5 +1,6 @@
 import {COPIED, IMAGES} from "../../data/constants"
 import {useState} from "react"
+import PropTypes from 'prop-types'
 
 export default function ClipboardButton(props) {
     const [tooltip, setTooltip] = useState(props.tooltip)
@@ -38,4 +39,11 @@ export default function ClipboardButton(props) {
             />
         </button>
     )
+}
+
+ClipboardButton.propTypes = {
+    value: PropTypes.string,
+    tabIndex: PropTypes.number,
+    tooltip: PropTypes.string,
+    tooltipDirection: PropTypes.string
 }

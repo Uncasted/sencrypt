@@ -7,6 +7,7 @@ import ClipboardButton from "../../components/buttons/ClipboardButton"
 import {COPY_PASSWORD} from "../../data/constants"
 import AccountInfo from "./AccountInfo"
 import AccountTitle from "./AccountTitle"
+import PropTypes from "prop-types"
 
 export function Account(props) {
     const account = props.account
@@ -42,4 +43,8 @@ export function Account(props) {
             </IdProvider>
         </div>
     )
+}
+
+Account.propTypes = {
+    account: PropTypes.object
 }

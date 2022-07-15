@@ -1,4 +1,5 @@
 import {useRef} from "react"
+import PropTypes from "prop-types"
 
 export default function ModalHeader(props) {
     const headerRef = useRef(null)
@@ -28,4 +29,10 @@ export default function ModalHeader(props) {
             </h1>
         </div>
     )
+}
+
+ModalHeader.propTypes = {
+    htmlFor: PropTypes.string,
+    tabIndex: PropTypes.number,
+    children: PropTypes.node
 }

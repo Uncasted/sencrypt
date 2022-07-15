@@ -1,5 +1,6 @@
 import {createContext, useState, useEffect, useContext} from "react"
 import {DEFAULT_LENGTH, DEFAULT_PARAMETERS, LAST_GEN_PASS_KEY} from "../../data/constants"
+import PropTypes from "prop-types"
 
 const PasswordContext = createContext()
 const PasswordContextUpdate = createContext()
@@ -41,4 +42,8 @@ export default function PasswordProvider(props) {
             </PasswordContextUpdate.Provider>
         </PasswordContext.Provider>
     )
+}
+
+PasswordProvider.propTypes = {
+    children: PropTypes.node
 }

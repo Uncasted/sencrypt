@@ -1,3 +1,5 @@
+import PropTypes from "prop-types"
+
 export default function Slider(props) {
     return (
         <>
@@ -25,4 +27,15 @@ export default function Slider(props) {
             />
         </>
     )
+}
+
+Slider.propTypes = {
+    title: PropTypes.string,
+    enableInput: PropTypes.bool,
+    min: PropTypes.number,
+    max: PropTypes.number,
+    defaultLength: PropTypes.string,
+    inputOnChange: PropTypes.func,
+    inputOnKeyDown: PropTypes.func,
+    onChange: PropTypes.func
 }

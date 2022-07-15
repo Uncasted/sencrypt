@@ -1,4 +1,5 @@
 import {createContext, useContext, useState, useEffect} from "react"
+import PropTypes from "prop-types"
 
 const AccountsContext = createContext()
 const AccountsContextUpdate = createContext()
@@ -57,4 +58,8 @@ export default function AccountsProvider(props) {
             </AccountsContextUpdate.Provider>
         </AccountsContext.Provider>
     )
+}
+
+AccountsProvider.propTypes = {
+    children: PropTypes.node
 }

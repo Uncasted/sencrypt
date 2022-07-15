@@ -29,10 +29,10 @@ It should look like this:
  $ npm install
 ```
 
-<b>3. change directory into "src/view/password-manager"</b>
+<b>3. change directory into the view folder.</b>
 
 ```
-$ cd src/view/password-manager/
+$ cd src/view/
 ```
 
 4. <b> run `npm install` again to install all the packages for the view.</b>
@@ -44,15 +44,14 @@ $ npm install
 <b>5. Also in the same directory, run these commands to build the view.</b>
 
 ```
-$ npx tailwindcss -i ./src/css/input.scss -o ./src/css/output.css; npm run build
+$ npx tailwindcss -i ./src/styles/input.scss -o ./src/styles/output.css; npm run build
 ```
 
 <b>6. Change back to the sencrypt directory.</b>
 
 ```
-[user@host sencrypt/src/view/password-manager]$ cd ..
 [user@host sencrypt/src/view]$ cd ..
-[user@host sencrypt/src/]$ cd ..
+[user@host sencrypt/src]$ cd ..
 [user@host sencrypt]$
 ```
 

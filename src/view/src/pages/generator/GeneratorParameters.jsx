@@ -1,7 +1,7 @@
 import {useParameterContext, useParameterContextUpdate} from "../../context/generator/ParameterContext"
 import {usePasswordContextUpdate} from "../../context/generator/PasswordContext"
 import {useEffect, useState} from "react"
-import {LOWERCASE, NUMBERS, SYMBOLS, UPPERCASE} from "../../data/constants"
+import {GENERATOR_INPUTS, LOWERCASE, NUMBERS, SYMBOLS, UPPERCASE} from "../../data/constants"
 import Slider from "../../components/Slider"
 import Checkbox from "../../components/Checkbox"
 import SecondaryButton from "../../components/buttons/SecondaryButton"
@@ -104,50 +104,21 @@ export default function GeneratorParameters() {
                 />
             </div>
             <div className="flex flex-col space-y-4">
-                <Checkbox title="Lowercase"
-                          checked={useLower}
+                {GENERATOR_INPUTS.map(({ label, value }) => {
+                    return (
+                        <Checkbox title={label}
+                          checked={parameters.includes(value)}
                           onClick={() => {
-                              updateParameter(LOWERCASE)
+                              updateParameter(value)
                           }}
                           onKeyDown={(event) => {
                               if (event.key === "Enter") {
-                                  updateParameter(LOWERCASE)
+                                  updateParameter(value)
                               }
                           }}
-                />
-                <Checkbox title="Uppercase"
-                          checked={useUpper}
-                          onClick={() => {
-                              updateParameter(UPPERCASE)
-                          }}
-                          onKeyDown={(event) => {
-                              if (event.key === "Enter") {
-                                  updateParameter(UPPERCASE)
-                              }
-                          }}
-                />
-                <Checkbox title="Numbers"
-                          checked={useNumbers}
-                          onClick={() => {
-                              updateParameter(NUMBERS)
-                          }}
-                          onKeyDown={(event) => {
-                              if (event.key === "Enter") {
-                                  updateParameter(NUMBERS)
-                              }
-                          }}
-                />
-                <Checkbox title="Symbols"
-                          checked={useSymbols}
-                          onClick={() => {
-                              updateParameter(SYMBOLS)
-                          }}
-                          onKeyDown={(event) => {
-                              if (event.key === "Enter") {
-                                  updateParameter(SYMBOLS)
-                              }
-                          }}
-                />
+                        />
+                    )
+                })}
             </div>
             <div className="absolute bottom-4 right-4">
                 {/*Generate password button.*/}

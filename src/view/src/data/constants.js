@@ -52,18 +52,22 @@ export const SHOW_TOOLTIP = ["tooltip", "tooltip-open"]
 export const GENERATOR_INPUTS = [
     {
         label: "Lowercase",
+        type: "useLower",
         value: LOWERCASE,
     },
     {
         label: "Uppercase",
+        type: "useUpper",
         value: UPPERCASE,
     },
     {
         label: "Numbers",
+        type: "useNumbers",
         value: NUMBERS,
     },
     {
         label: "Symbols",
+        type: "useSymbols",
         value: SYMBOLS,
     }
 ]

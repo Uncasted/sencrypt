@@ -1,6 +1,7 @@
 import {useEffect} from "react"
-import {IMAGES} from "../../data/constants"
+import {IMAGES, NAVBAR_BUTTONS} from "../../data/constants"
 import NavbarButton from "../../components/buttons/NavbarButton"
+import PropTypes from "prop-types"
 
 export function Navbar(props) {
     useEffect(() => {
@@ -26,29 +27,23 @@ export function Navbar(props) {
             <ul id="section-list"
                 className="flex flex-col text-lg mt-8"
             >
-                <li>
-                    <NavbarButton title="Accounts"
-                                  section="Accounts"
-                                  icon={IMAGES.MANAGER_ICON}
-                                  changeSelected={props.changeSelected}
-                                  defaultSelected={true}
-                    />
-                </li>
-                <li>
-                    <NavbarButton title="Generator"
-                                  section="Generator"
-                                  icon={IMAGES.GENERATOR_ICON}
-                                  changeSelected={props.changeSelected}
-                    />
-                </li>
-                <li>
-                    <NavbarButton title="Settings"
-                                  section="Settings"
-                                  icon={IMAGES.SETTINGS_ICON}
-                                  changeSelected={props.changeSelected}
-                    />
-                </li>
+                {NAVBAR_BUTTONS.map(button => {
+                    return (
+                        <li>
+                            <NavbarButton title={button.title}
+                                          section={button.section}
+                                          icon={button.icon}
+                                          changeSelected={props.changeSelected}
+                                          defaultSelected={button.defaultSelected}
+                            />
+                        </li>
+                    )
+                })}
             </ul>
         </nav>
     )
+}
+
+Navbar.propTypes = {
+    changeSelected: PropTypes.func
 }

@@ -144,3 +144,25 @@ export const LOGIN_FIELDS = [
         value: "confirmPass"
     }
 ]
+
+// Navbar buttons
+export const NAVBAR_BUTTONS = [
+    {
+        title: "Accounts",
+        section: "Accounts",
+        icon: IMAGES.MANAGER_ICON,
+        defaultSelected: true,
+    },
+    {
+        title: "Generator",
+        section: "Generator",
+        icon: IMAGES.GENERATOR_ICON,
+        defaultSelected: false,
+    },
+    {
+        title: "Settings",
+        section: "Settings",
+        icon: IMAGES.SETTINGS_ICON,
+        defaultSelected: false,
+    },
+]

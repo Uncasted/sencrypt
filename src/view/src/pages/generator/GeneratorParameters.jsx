@@ -5,6 +5,7 @@ import {GENERATOR_INPUTS, LOWERCASE, NUMBERS, SYMBOLS, UPPERCASE} from "../../da
 import Slider from "../../components/Slider"
 import Checkbox from "../../components/Checkbox"
 import SecondaryButton from "../../components/buttons/SecondaryButton"
+import {sliderProgress} from "../../utils/utility"
 
 export default function GeneratorParameters() {
     // Context
@@ -13,29 +14,15 @@ export default function GeneratorParameters() {
     const updatePassword = usePasswordContextUpdate()
 
     // State
-    const [useLower, setUseLower] = useState(parameters.includes(LOWERCASE))
-    const [useUpper, setUseUpper] = useState(parameters.includes(UPPERCASE))
-    const [useNumbers, setUseNumbers] = useState(parameters.includes(NUMBERS))
-    const [useSymbols, setUseSymbols] = useState(parameters.includes(SYMBOLS))
+    const [useParams, setUseParams] = useState({
+        useLower: parameters.includes(LOWERCASE),
+        useUpper: parameters.includes(UPPERCASE),
+        useNumbers: parameters.includes(NUMBERS),
+        useSymbols: parameters.includes(SYMBOLS)
+    })
 
     // Slider progress bar.
-    useEffect(() => {
-        const parameters = JSON.parse(localStorage.getItem('generator')) ?? {}
-        // Progress bar for the password generator length.
-        // Thank you https://github.com/toughengineer!
-        const slider = document.querySelector('input[type="range"].slider-progress')
-        // Get the length from local storage or use the default value.
-        slider.style.setProperty('--value', parameters.length ?? slider.value)
-        slider.style.setProperty('--min', slider.min === '' ? '0' : slider.min)
-        slider.style.setProperty('--max', slider.max === '' ? '100' : slider.max)
-        slider.addEventListener('input', () => slider.style.setProperty('--value', slider.value))
-
-        return () => {
-            slider.removeEventListener('input', () => {
-                slider.style.setProperty('--value', slider.value)
-            })
-        }
-    }, [length])
+    useEffect(sliderProgress, [length])
 
     const handleLength = (event) => {
         const min = 0
@@ -46,42 +33,18 @@ export default function GeneratorParameters() {
         update.updateLength(String(inputLength))
     }
 
-    const updateParameter = (type) => {
-        switch (type) {
-            case LOWERCASE:
-                if (!useLower) {
-                    update.addParameter(LOWERCASE)
-                } else {
-                    update.delParameter(LOWERCASE)
-                }
-                setUseLower(!useLower)
-                break
-            case UPPERCASE:
-                if (!useUpper) {
-                    update.addParameter(UPPERCASE)
-                } else {
-                    update.delParameter(UPPERCASE)
-                }
-                setUseUpper(!useUpper)
-                break
-            case NUMBERS:
-                if (!useNumbers) {
-                    update.addParameter(NUMBERS)
-                } else {
-                    update.delParameter(NUMBERS)
-                }
-                setUseNumbers(!useNumbers)
-                break
-            case SYMBOLS:
-                if (!useSymbols) {
-                    update.addParameter(SYMBOLS)
-                } else {
-                    update.delParameter(SYMBOLS)
-                }
-                setUseSymbols(!useSymbols)
+    const updateParameter = (type, parameter) => {
+        if (!useParams[type]) {
+            update.addParameter(parameter)
+        } else {
+            update.delParameter(parameter)
         }
+        setUseParams(oldUseParams => {
+            const newUseParams = {...oldUseParams}
+            newUseParams[type] = !newUseParams[type]
+            return newUseParams
+        })
     }
-
 
     return (
         <div>
@@ -104,18 +67,18 @@ export default function GeneratorParameters() {
                 />
             </div>
             <div className="flex flex-col space-y-4">
-                {GENERATOR_INPUTS.map(({ label, value }) => {
+                {GENERATOR_INPUTS.map(({label, type, value}) => {
                     return (
                         <Checkbox title={label}
-                          checked={parameters.includes(value)}
-                          onClick={() => {
-                              updateParameter(value)
-                          }}
-                          onKeyDown={(event) => {
-                              if (event.key === "Enter") {
-                                  updateParameter(value)
-                              }
-                          }}
+                                  checked={parameters.includes(value)}
+                                  onClick={() => {
+                                      updateParameter(type, value)
+                                  }}
+                                  onKeyDown={(event) => {
+                                      if (event.key === "Enter") {
+                                          updateParameter(type, value)
+                                      }
+                                  }}
                         />
                     )
                 })}

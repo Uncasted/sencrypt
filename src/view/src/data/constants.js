@@ -49,6 +49,25 @@ export const BLUE_OUTLINE = ["focus:ring", "focus:ring-blue-1"]
 // Password generator
 export const SHOW_TOOLTIP = ["tooltip", "tooltip-open"]
 
+export const GENERATOR_INPUTS = [
+    {
+        label: "Lowercase",
+        value: LOWERCASE,
+    },
+    {
+        label: "Uppercase",
+        value: UPPERCASE,
+    },
+    {
+        label: "Numbers",
+        value: NUMBERS,
+    },
+    {
+        label: "Symbols",
+        value: SYMBOLS,
+    }
+]
+
 // Add Account Modal.
 export const ADD_MODAL_FIELDS = [
     {

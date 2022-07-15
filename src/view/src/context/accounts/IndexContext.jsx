@@ -7,6 +7,7 @@ export function useIndexContext() {
 }
 
 export default function IndexProvider(props) {
+    // Context for the account index.
     const index = props.index
 
     return (

@@ -7,9 +7,11 @@ export default function Checkbox(props) {
                    onKeyDown={props.onKeyDown || null}
                    className="checkbox checkbox-sm checkbox-primary rounded-none border-2"
             />
-            <span className="no-select">
-                        {props.title}
-            </span>
+            {props.title &&
+                <span className="no-select">
+                            {props.title}
+                </span>
+            }
         </div>
     )
 }

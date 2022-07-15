@@ -1,5 +1,5 @@
-import {useState} from "react"
-import {IMAGES} from "../../data/constants"
+import {useRef, useState} from "react"
+import {BLUE_OUTLINE, IMAGES, RED_OUTLINE} from "../../data/constants"
 import InputField from "../../components/forms/InputField"
 import SecondaryButton from "../../components/buttons/SecondaryButton"
 
@@ -7,6 +7,10 @@ export default function LoginForm(props) {
     // State
     const [isMP, setIsMP] = useState(false)
     const [masterPassword, setMasterPassword] = useState("")
+
+    // Ref
+    const warningRef = useRef(null)
+    const masterPassRef = useRef(null)
 
     const verifyMasterPassword = async (event) => {
         event.preventDefault()
@@ -17,24 +21,24 @@ export default function LoginForm(props) {
             setIsMP(isMasterPassword)
         } else {
             // Invalid master password warning.
-            const warning = document.getElementById("invalid-mp")
-            const masterPass = document.getElementById("masterPassword")
+            const warning = warningRef.current
+            const masterPass = masterPassRef.current
 
             // Show warning and make outline of input red.
             warning.classList.remove("invisible")
-            masterPass.classList.remove("focus:ring", "focus:ring-blue-1")
-            masterPass.classList.add("outline", "focus:outline", "focus:outline-red-500")
+            masterPass.classList.remove(...BLUE_OUTLINE)
+            masterPass.classList.add(...RED_OUTLINE)
         }
     }
 
     const removeWarning = () => {
         // Remove the red warning for the login form.
-        const masterPass = document.getElementById("masterPassword")
-        const warning = document.getElementById("invalid-mp")
+        const warning = warningRef.current
+        const masterPass = masterPassRef.current
 
         warning.classList.add("invisible")
-        masterPass.classList.remove("outline", "focus:outline", "focus:outline-red-500")
-        masterPass.classList.add("focus:ring", "focus:ring-blue-1")
+        masterPass.classList.remove(...RED_OUTLINE)
+        masterPass.classList.add(...BLUE_OUTLINE)
     }
 
     return (
@@ -45,28 +49,31 @@ export default function LoginForm(props) {
                     <div>
                         <img src={IMAGES.LOGO}
                              alt="Sencrypt"
-                             className="w-72"/>
+                             className="w-72"
+                        />
                     </div>
                     <form onSubmit={verifyMasterPassword}
-                          className="flex flex-col space-y-6 items-center">
-                        <label htmlFor="masterPassword"
-                               className="gap-y-2 text-white">
-                            <InputField autoFocus={true}
-                                        title="Enter your Master Password:"
-                                        type="password"
-                                        fieldId="masterPassword"
-                                        name="masterPassword"
-                                        minLength={1}
-                                        maxLength={32}
-                                        removeWarning={removeWarning}
-                                        input={masterPassword}
-                                        setInput={setMasterPassword}
-                            />
-                            <p id="invalid-mp"
-                               className="invisible text-red-500">
-                                Invalid Master Password.
-                            </p>
-                        </label>
+                          className="flex flex-col space-y-6 items-center"
+                    >
+                        <InputField autoFocus={true}
+                                    title="Enter your Master Password:"
+                                    type="password"
+                                    fieldId="masterPassword"
+                                    ref={masterPassRef}
+                                    name="masterPassword"
+                                    minLength={1}
+                                    maxLength={32}
+                                    value={masterPassword}
+                                    removeWarning={removeWarning}
+                                    onChange={(input) => {
+                                        setMasterPassword(input)
+                                    }}
+                        />
+                        <p ref={warningRef}
+                           className="invisible text-red-500"
+                        >
+                            Invalid Master Password.
+                        </p>
                         <SecondaryButton type="submit"
                                          disabled={!masterPassword}
                                          hoverColor="blue-1"

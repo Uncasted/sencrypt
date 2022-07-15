@@ -1963,26 +1963,28 @@ body[dir="rtl"] .checkbox:checked,
   row-gap: 1rem;
 }
 
-.gap-y-2 {
-  row-gap: 0.5rem;
-}
-
 .space-x-2 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
   margin-right: calc(0.5rem * var(--tw-space-x-reverse));
   margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
-.space-y-1 > :not([hidden]) ~ :not([hidden]) {
+.space-y-2 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
-  margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(0.25rem * var(--tw-space-y-reverse));
+  margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
 }
 
 .space-y-4 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
   margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(1rem * var(--tw-space-y-reverse));
+}
+
+.space-y-1 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.25rem * var(--tw-space-y-reverse));
 }
 
 .space-y-10 > :not([hidden]) ~ :not([hidden]) {
@@ -2009,13 +2011,12 @@ body[dir="rtl"] .checkbox:checked,
   border-width: 2px;
 }
 
-.border-none {
-  border-style: none;
+.border {
+  border-width: 1px;
 }
 
-.border-dark-blue-4 {
-  --tw-border-opacity: 1;
-  border-color: rgb(0 52 85 / var(--tw-border-opacity));
+.border-none {
+  border-style: none;
 }
 
 .bg-dark-blue-4 {
@@ -2161,14 +2162,14 @@ body[dir="rtl"] .checkbox:checked,
   text-align: start;
 }
 
-.text-2xl {
-  font-size: 1.5rem;
-  line-height: 2rem;
-}
-
 .text-lg {
   font-size: 1.125rem;
   line-height: 1.75rem;
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
 }
 
 .text-sm {
@@ -2210,9 +2211,9 @@ body[dir="rtl"] .checkbox:checked,
   color: rgb(0 128 205 / var(--tw-text-opacity));
 }
 
-.text-black {
+.text-dark-blue-0 {
   --tw-text-opacity: 1;
-  color: rgb(0 0 0 / var(--tw-text-opacity));
+  color: rgb(0 31 51 / var(--tw-text-opacity));
 }
 
 .shadow-md {
@@ -2428,6 +2429,10 @@ input[type=range].custom-slider.slider-progress::-webkit-slider-runnable-track {
 
 .focus\:outline:focus {
   outline-style: solid;
+}
+
+.focus\:outline-2:focus {
+  outline-width: 2px;
 }
 
 .focus\:outline-gray-200:focus {

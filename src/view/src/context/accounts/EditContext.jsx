@@ -16,7 +16,8 @@ export default function EditProvider(props) {
     const [isEditable, setIsEditable] = useState(true)
 
     const toggleEditing = () => {
-        setIsEditable(!isEditable)
+        // Toggle the edit mode.
+        setIsEditable(prevIsEditable => !prevIsEditable)
     }
 
     return (

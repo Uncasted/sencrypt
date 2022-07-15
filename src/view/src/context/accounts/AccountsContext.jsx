@@ -16,25 +16,25 @@ export default function AccountsProvider(props) {
 
     // Get the buttons from the database.
     useEffect(() => {
-        window.controller.getAllAccounts().then(accounts => setAccounts(accounts))
+        window.controller.getAllAccounts().then(accounts => {
+            setAccounts(accounts)
+        })
     }, [])
 
-    const createAccount = async (data) => {
+    const createAccount = async (newAccount) => {
         // Creating account in the database.
-        await window.controller.createAccount(data)
-
-        setAccounts(accounts => {
-            return [...accounts, data]
-        })
+        await window.controller.createAccount(newAccount)
+        // Setting the account in the state.
+        setAccounts(accounts => [...accounts, newAccount])
     }
 
-    const updateAccount = async (index, data) => {
+    const updateAccount = async (index, account) => {
         // Updating the account in the database.
-        await window.controller.updateAccount(index, data)
-
+        await window.controller.updateAccount(index, account)
+        // Updating the account in the state.
         setAccounts(accounts => {
             const newAccounts = [...accounts]
-            newAccounts[index] = data
+            newAccounts[index] = account
             return newAccounts
         })
     }
@@ -42,7 +42,7 @@ export default function AccountsProvider(props) {
     const removeAccount = async (index) => {
         // Deleting the account in the database.
         await window.controller.deleteAccount(index)
-
+        // Deleting the account in the state.
         setAccounts(accounts => {
             const newAccounts = [...accounts]
             newAccounts.splice(index, 1)

@@ -19,9 +19,9 @@ export default function PasswordProvider(props) {
     // Run generatePassword when the component gets mounted for the first time.
     // Otherwise, get the last generated password from localStorage.
     useEffect(() => {
-        const localGeneratedPass = window.localStorage.getItem(LAST_GEN_PASS_KEY) ?? ""
+        const localGeneratedPass = window.localStorage.getItem(LAST_GEN_PASS_KEY) || ""
         if (localGeneratedPass) {
-            setPassword(localGeneratedPass)
+            setPassword(() => localGeneratedPass)
         } else {
             updatePassword(DEFAULT_PARAMETERS, DEFAULT_LENGTH)
         }
@@ -29,7 +29,7 @@ export default function PasswordProvider(props) {
 
     const updatePassword = (parameters, length) => {
         const generatedPass = window.utility.generateRandomPassword(parameters, length)
-        setPassword(generatedPass)
+        setPassword(() => generatedPass)
         // Save the last generated password in localStorage.
         window.localStorage.setItem(LAST_GEN_PASS_KEY, generatedPass)
     }

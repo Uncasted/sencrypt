@@ -15,9 +15,11 @@ export function useInputContextUpdate() {
 
 export default function InputProvider(props) {
     // State
-    const [username, setUsername] = useState(props.username)
-    const [password, setPassword] = useState(props.password)
-    const [website, setWebsite] = useState(props.website)
+    const [inputs, setInputs] = useState(({
+        username: props.username,
+        website: props.website,
+        password: props.password
+    }))
 
     // Context
     const index = useIndexContext()
@@ -28,14 +30,20 @@ export default function InputProvider(props) {
     // We need to use layout effect to make sure it updates before toggling the editing.
     // This is because this is synchronous as opposed to useEffect which is asynchronous.
     useLayoutEffect(() => {
-        setUsername(account.username)
-        setWebsite(account.website)
-        setPassword(account.password)
+        setInputs(() => account)
     }, [accounts])
 
+    const updateInput = (field, text) => {
+        setInputs(prevInputs => {
+            const newInputs = {...prevInputs}
+            newInputs[field] = text
+            return newInputs
+        })
+    }
+
     return (
-        <InputContext.Provider value={{username: username, password: password, website: website}}>
-            <InputContextUpdate.Provider value={{setUsername, setPassword, setWebsite}}>
+        <InputContext.Provider value={inputs}>
+            <InputContextUpdate.Provider value={{setInputs, updateInput}}>
                 {props.children}
             </InputContextUpdate.Provider>
         </InputContext.Provider>

@@ -1,6 +1,11 @@
 import {usePasswordContext} from "../../context/generator/PasswordContext"
+import {SHOW_TOOLTIP} from "../../data/constants"
+import {useRef} from "react"
 
 export default function PasswordGenerator() {
+    // Ref
+    const tooltipRef = useRef(null)
+
     // Context
     const password = usePasswordContext()
 
@@ -8,18 +13,19 @@ export default function PasswordGenerator() {
         // Copy to clipboard.
         navigator.clipboard.writeText(password).then()
         // Show the tooltip.
-        const tooltip = document.getElementById("gen-pass-tooltip")
-        tooltip.classList.add("tooltip", "tooltip-open")
+        const tooltip = tooltipRef.current
+        tooltip.classList.add(...SHOW_TOOLTIP)
         setTimeout(() => {
-            tooltip.classList.remove("tooltip", "tooltip-open")
+            tooltip.classList.remove(...SHOW_TOOLTIP)
         }, 2000)
     }
 
     return (
         <div className="flex space-x-2 items-center">
             <div data-tip="Copied!"
-                 id="gen-pass-tooltip"
-                 className="tooltip-bg">
+                 ref={tooltipRef}
+                 className="tooltip-bg"
+            >
                 <input readOnly
                        type="text"
                        value={password}
@@ -29,8 +35,9 @@ export default function PasswordGenerator() {
                                selectToClipboard()
                            }
                        }}
-                       className="text-black pl-2 w-[36rem] xl:w-[48rem] py-1.5 text-lg focus:outline-none focus:ring
-                       focus:ring-blue-1 transition"/>
+                       className="text-dark-blue-0 pl-2 w-[36rem] xl:w-[48rem] py-1.5 text-lg focus:outline-none
+                       focus:ring focus:ring-blue-1 transition"
+                />
             </div>
         </div>
     )

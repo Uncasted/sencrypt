@@ -9,6 +9,7 @@ export default function AccountTitle(props) {
     return (
         <>
             <div className="ml-2 w-12 h-full flex items-center justify-center">
+                {/*Get a different icon depending on the website.*/}
                 <img src={`https://icon.horse/icon/${account.website}`}
                      alt="Account icon"
                      className="w-7 h-7 no-select"

@@ -1,45 +1,58 @@
-import {useState} from "react"
-import {IMAGES} from "../../data/constants"
+import {useRef, useState} from "react"
+import {BLUE_OUTLINE, IMAGES, LOGIN_FIELDS, RED_OUTLINE} from "../../data/constants"
 import InputField from "../../components/forms/InputField"
 import SecondaryButton from "../../components/buttons/SecondaryButton"
 
 export default function NewUserForm(props) {
     // State
     const [isCreatedMP, setIsCreatedMP] = useState(false)
-    const [password, setPassword] = useState("")
-    const [confirmPass, setConfirmPass] = useState("")
+    const [passwords, setPasswords] = useState({
+        pass: "",
+        confirmPass: ""
+    })
+
+    // Ref
+    const warningRef = useRef(null)
+
+    const updatePassword = (field, input) => {
+        setPasswords((prevPasswords) => {
+            const newPasswords = {...prevPasswords}
+            newPasswords[field] = input
+            return newPasswords
+        })
+    }
 
     const createPassword = async (event) => {
         event.preventDefault()
 
-        if (password === confirmPass) {
+        if (passwords.pass === passwords.confirmPass) {
             // Initialize the database with the new password.
-            const isCreated = await window.controller.createMasterPassword(password)
+            const isCreated = await window.controller.createMasterPassword(passwords.pass)
             setIsCreatedMP(isCreated)
         } else {
             // Display warning.
-            const warning = document.getElementById("no-match-mp")
+            const warning = warningRef.current
             warning.classList.remove("invisible")
             // Add red outlines to inputs.
             const fields = document.querySelectorAll(`[data-outline="new-user"]`)
 
             for (const field of fields) {
-                field.classList.remove("focus:ring", "focus:ring-blue-1")
-                field.classList.add("outline", "focus:outline", "focus:outline-red-500")
+                field.classList.remove(...BLUE_OUTLINE)
+                field.classList.add(...RED_OUTLINE)
             }
         }
     }
 
     const removeWarning = () => {
         // Remove the warning for invalid form.
-        const warning = document.getElementById("no-match-mp")
+        const warning = warningRef.current
         warning.classList.add("invisible")
 
         const fields = document.querySelectorAll(`[data-outline="new-user"]`)
-
+        // Remove the red outline.
         for (const field of fields) {
-            field.classList.remove("outline", "focus:outline", "focus:outline-red-500")
-            field.classList.add("focus:ring", "focus:ring-blue-1")
+            field.classList.remove(...RED_OUTLINE)
+            field.classList.add(...BLUE_OUTLINE)
         }
     }
 
@@ -51,46 +64,36 @@ export default function NewUserForm(props) {
                     <div>
                         <img src={IMAGES.LOGO}
                              alt="Sencrypt"
-                             className="w-72"/>
+                             className="w-72"
+                        />
                     </div>
                     <form onSubmit={createPassword}
                           className="flex flex-col space-y-6 items-center">
-                        <label htmlFor="masterPassword"
-                               className="gap-y-2 text-white">
-                            <InputField autoFocus={true}
-                                        title="Create your Master Password:"
-                                        type="password"
-                                        fieldId="masterPassword"
-                                        name="masterPassword"
-                                        dataOutline="new-user"
-                                        minLength={1}
-                                        maxLength={32}
-                                        input={password}
-                                        setInput={setPassword}
-                                        removeWarning={removeWarning}
-                            />
-                        </label>
-                        <label htmlFor="confirmMasterPassword"
-                               className="gap-y-2 text-white"
+                        {LOGIN_FIELDS.map(field => {
+                            return (
+                                <InputField autoFocus={field.autofocus}
+                                            title={field.title}
+                                            type={field.type}
+                                            fieldId={field.fieldId}
+                                            name={field.name}
+                                            dataOutline={field.dataOutline}
+                                            minLength={field.minLength}
+                                            maxLength={field.maxLength}
+                                            value={passwords[field.value]}
+                                            onChange={(input) => {
+                                                updatePassword(field.value, input)
+                                            }}
+                                            removeWarning={removeWarning}
+                                />
+                            )
+                        })}
+                        <p ref={warningRef}
+                           className="invisible text-red-500 mt-2"
                         >
-                            <InputField title="Confirm your Master Password:"
-                                        type="password"
-                                        fieldId="confirmPassword"
-                                        name="confirmPassword"
-                                        dataOutline="new-user"
-                                        minLength={1}
-                                        maxLength={32}
-                                        input={confirmPass}
-                                        setInput={setConfirmPass}
-                                        removeWarning={removeWarning}
-                            />
-                            <p id="no-match-mp"
-                               className="invisible text-red-500 mt-2">
-                                The passwords do not match.
-                            </p>
-                        </label>
+                            The passwords do not match.
+                        </p>
                         <SecondaryButton type="submit"
-                                         disabled={!password || !confirmPass}
+                                         disabled={!passwords.pass || !passwords.confirmPass}
                                          hoverColor="blue-1"
                                          activeColor="blue-2"
                         >

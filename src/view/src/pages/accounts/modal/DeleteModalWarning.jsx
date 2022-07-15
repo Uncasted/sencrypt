@@ -22,10 +22,11 @@ export default function DeleteModalWarning() {
             <div className="absolute right-4 bottom-4">
                 <label htmlFor={`delete-modal-${index}`}>
                     <SecondaryButton type="button"
-                                     tabIndex={31}
+                                     tabIndex={32}
                                      hoverColor="red-500"
                                      activeColor="red-600"
-                                     onClick={deleteAccount}>
+                                     onClick={deleteAccount}
+                    >
                         Delete Account
                     </SecondaryButton>
                 </label>

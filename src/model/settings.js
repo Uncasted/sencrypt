@@ -77,7 +77,7 @@ class Settings {
         }
     }
 
-    async updateSettings(option, value) {
+    async updateSetting(option, value) {
         try {
             // Read the settings.
             await this.read()
@@ -89,7 +89,7 @@ class Settings {
             // Write into the settings.
             await this.write()
         } catch (error) {
-            console.log("Error at updateSettings (Settings).")
+            console.log("Error at updateSetting (Settings).")
             console.log(error)
         }
     }

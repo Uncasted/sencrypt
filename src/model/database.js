@@ -174,6 +174,23 @@ class Database {
         }
     }
 
+    // Clear the database (Deletes all the accounts).
+    async clearDatabase() {
+        try {
+            await this.read()
+            const {posts} = this.data
+
+            // Delete all the accounts.
+            const MASTER_KEY = posts["ENC_MP"]
+            posts[MASTER_KEY] = []
+
+            await this.write()
+        } catch (error) {
+            console.log("Error at clearDatabase (Database).")
+            console.log(error)
+        }
+    }
+
 
     // Basic CRUD Operations.
     async createAccount(username, password, website) {

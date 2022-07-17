@@ -206,6 +206,32 @@ class Database {
         }
     }
 
+    // Verify database backup.
+    async verifyBackup(backupPath) {
+        try {
+            // Read the backup file (Or use an empty object).
+            const backup = JSON.parse(await fs.promises.readFile(backupPath, 'utf-8') || "{}")
+
+            // Check if the database has, and only has a posts key.
+            if (Object.keys(backup).length === 1 && backup.hasOwnProperty("posts")) {
+                // Check if the database has a SEC_KEY_2 and an ENC_MP key.
+                const {posts} = backup
+                if (posts.hasOwnProperty("SEC_KEY_2") && posts.hasOwnProperty("ENC_MP")) {
+                    // Check if the ENC_MP key value and encrypted master password key are the same.
+                    const ENC_MP = posts["ENC_MP"]
+                    // If it does then the scheme is valid, and it returns true.
+                    return posts.hasOwnProperty(ENC_MP)
+                }
+            }
+
+            // Otherwise, the scheme is invalid.
+            return false
+        } catch (error) {
+            console.log("Error at verifyBackup (Database).")
+            console.log(error)
+        }
+    }
+
     // Basic CRUD Operations.
     async createAccount(username, password, website) {
         try {

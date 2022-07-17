@@ -191,6 +191,20 @@ class Database {
         }
     }
 
+    // Create database backup.
+    async createBackup(backupPath) {
+        try {
+            // Make a copy of the database.
+            await this.read()
+            const databaseCopy = JSON.stringify(this.data)
+
+            // Make a copy of the database in the specified path.
+            await fs.promises.writeFile(backupPath, databaseCopy, "utf-8")
+        } catch (error) {
+            console.log("Error at createBackup (Database).")
+            console.log(error)
+        }
+    }
 
     // Basic CRUD Operations.
     async createAccount(username, password, website) {

@@ -1,4 +1,4 @@
-const {app, BrowserWindow} = require('electron')
+const {app, BrowserWindow, dialog, ipcMain} = require('electron')
 const path = require('path')
 
 // Main Window.
@@ -34,3 +34,26 @@ app.whenReady().then(() => {
 app.on('window-all-closed', () => {
     if (process.platform !== "darwin") app.quit()
 })
+
+// File Manager functions.
+async function handleFileOpen(options) {
+    const {canceled, filePaths} = await dialog.showOpenDialog(options)
+    // If the user cancels the operation then just cancel.
+    if (canceled) {
+        return ""
+    } else {
+        // Otherwise return the filepath.
+        return filePaths[0]
+    }
+}
+
+async function handleFileSave(options) {
+    const {canceled, filePath} = await dialog.showSaveDialog(options)
+    // If the user cancels the operation then just cancel.
+    if (canceled) {
+        return ""
+    } else {
+        // Otherwise return the filepath.
+        return filePath
+    }
+}

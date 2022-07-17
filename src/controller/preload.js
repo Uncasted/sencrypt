@@ -1,25 +1,40 @@
 // Preload (Isolated World)
+const DatabaseController = require("./databaseController")
+const SettingsController = require("./settingsController")
 const {contextBridge} = require('electron')
-const {AccountController} = require("./accountController")
 const utility = require('../model/utility')
 
-const Controller = new AccountController()
+const database = new DatabaseController()
+const settings = new SettingsController()
 
-// Controller
-contextBridge.exposeInMainWorld('controller',
+// Database Controller.
+contextBridge.exposeInMainWorld('database',
     {
-        checkIsNew: async () => await Controller.checkIsNew(),
-        createMasterPassword: async (masterPassword) => await Controller.createMasterPassword(masterPassword),
-        verifyMasterPassword: async (masterPassword) => await Controller.verifyMasterPassword(masterPassword),
-        getAllAccounts: async () => await Controller.getAllAccounts(),
+        checkIsNew: async () => await database.checkIsNew(),
+        createMasterPassword: async (masterPassword) => await database.createMasterPassword(masterPassword),
+        verifyMasterPassword: async (masterPassword) => await database.verifyMasterPassword(masterPassword),
+        getAllAccounts: async () => await database.getAllAccounts(),
         createAccount: async (account) => {
-            await Controller.createAccount(account)
+            await database.createAccount(account)
         },
         updateAccount: async (index, newAccount) => {
-            await Controller.updateAccount(index, newAccount)
+            await database.updateAccount(index, newAccount)
         },
         deleteAccount: async (index) => {
-            await Controller.deleteAccount(index)
+            await database.deleteAccount(index)
+        }
+    }
+)
+
+// Settings controller.
+contextBridge.exposeInMainWorld("settings",
+    {
+        getSettings: async () => await settings.getSettings(),
+        init: async () => {
+            await settings.init()
+        },
+        updateSetting: async (option, value) => {
+            await settings.updateSetting(option, value)
         }
     }
 )

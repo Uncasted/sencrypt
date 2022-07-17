@@ -1,6 +1,6 @@
 const Database = require('../model/database')
 
-class AccountController {
+class DatabaseController {
     constructor() {
         this.Model = new Database()
     }
@@ -77,6 +77,4 @@ class AccountController {
     }
 }
 
-module.exports = {
-    AccountController
-}
+module.exports = DatabaseController

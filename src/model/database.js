@@ -232,6 +232,19 @@ class Database {
         }
     }
 
+    // Load database backup.
+    async loadBackup(backupPath) {
+        try {
+            // Get the backup data.
+            this.data = JSON.parse(await fs.promises.readFile(backupPath, 'utf-8'))
+            // Replace the current data.
+            await this.write()
+        } catch (error) {
+            console.log("Error at loadBackup (Database).")
+            console.log(error)
+        }
+    }
+
     // Basic CRUD Operations.
     async createAccount(username, password, website) {
         try {

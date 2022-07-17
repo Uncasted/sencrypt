@@ -1,12 +1,20 @@
 const {app, BrowserWindow, dialog, ipcMain} = require('electron')
 const path = require('path')
+const SettingsController = require('./src/controller/settingsController')
+
+// Time to wait for re-login.
+const reloadTime = getReloadTime() || 0
+// Current time.
+let currentReloadTime = reloadTime
 
 // Main Window.
+let mainWin
+// Create the main window.
 const createMainWindow = async () => {
     // Change the icon path depending on the platform."
     const iconPath = process.platform !== "darwin" ? "./build/icon.png" : "./build/icon.icns"
 
-    const mainWin = new BrowserWindow({
+    mainWin = new BrowserWindow({
         width: 1280,
         height: 720,
         minWidth: 900,
@@ -35,9 +43,48 @@ app.on('window-all-closed', () => {
     if (process.platform !== "darwin") app.quit()
 })
 
+// Timeout for re-login.
+app.on("browser-window-blur", () => {
+    // If the main window is not focused and reload time is bigger than 0.
+    if (!mainWin.isFocused() && reloadTime) {
+        // Start the timeout.
+        checkForReload()
+    }
+})
+
+// Get the path to create the backup.
+ipcMain.handle("backup:create", async () => {
+    // Options for creating a backup.
+    const options = {
+        title: "Create A Database Backup",
+        buttonLabel: "Create Backup",
+        defaultPath: "backup.json",
+        filters: [
+            {name: "Database File", extensions: ["json"]}
+        ]
+    }
+    // Getting the path.
+    return await handleFileSave(mainWin, options)
+})
+
+// Get the path to load the backup.
+ipcMain.handle("backup:load", async () => {
+    // Options for loading a backup.
+    const options = {
+        title: "Load A Database Backup",
+        buttonLabel: "Load Backup",
+        properties: ["openFile"],
+        filters: [
+            {name: "Database File (JSON)", extensions: ["json"]}
+        ]
+    }
+    // Getting the path.
+    return await handleFileOpen(mainWin, options)
+})
+
 // File Manager functions.
-async function handleFileOpen(options) {
-    const {canceled, filePaths} = await dialog.showOpenDialog(options)
+async function handleFileOpen(window, options) {
+    const {canceled, filePaths} = await dialog.showOpenDialog(window, options)
     // If the user cancels the operation then just cancel.
     if (canceled) {
         return ""
@@ -47,8 +94,8 @@ async function handleFileOpen(options) {
     }
 }
 
-async function handleFileSave(options) {
-    const {canceled, filePath} = await dialog.showSaveDialog(options)
+async function handleFileSave(window, options) {
+    const {canceled, filePath} = await dialog.showSaveDialog(window, options)
     // If the user cancels the operation then just cancel.
     if (canceled) {
         return ""
@@ -56,4 +103,38 @@ async function handleFileSave(options) {
         // Otherwise return the filepath.
         return filePath
     }
+}
+
+// Function to get reload time.
+function getReloadTime() {
+    const Controller = new SettingsController()
+    const settings = Controller.getSettings()
+    // If the login timeout is enabled. get the time.
+    if (settings.loginTimeout) {
+        return settings.loginTimeoutTime
+    }
+}
+
+// Function to check for re-login.
+function checkForReload() {
+    const checkInterval = setInterval(() => {
+        // Reduce count by one.
+        currentReloadTime--
+
+        // Clear the interval if the window is focused.
+        if (mainWin.isFocused()) {
+            // Reset the timer.
+            currentReloadTime = reloadTime
+            clearInterval(checkInterval)
+        }
+
+        // Reload the window to ask for re-login if the count reaches 0.
+        if (!currentReloadTime) {
+            // Reset the timer.
+            currentReloadTime = reloadTime
+            // Reload the window.
+            mainWin.webContents.reloadIgnoringCache()
+            clearInterval(checkInterval)
+        }
+    }, 1000)
 }

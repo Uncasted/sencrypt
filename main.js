@@ -1,8 +1,15 @@
 const {app, BrowserWindow, dialog, ipcMain} = require('electron')
 const path = require('path')
+const SettingsController = require('./src/controller/settingsController')
+
+// Time to wait for re-login.
+const reloadTime = getReloadTime() || 0
+// Current time.
+let currentReloadTime = reloadTime
 
 // Main Window.
 let mainWin
+// Create the main window.
 const createMainWindow = async () => {
     // Change the icon path depending on the platform."
     const iconPath = process.platform !== "darwin" ? "./build/icon.png" : "./build/icon.icns"
@@ -34,6 +41,15 @@ app.whenReady().then(() => {
 // Quit the app when we close all windows. (Except on macOS)
 app.on('window-all-closed', () => {
     if (process.platform !== "darwin") app.quit()
+})
+
+// Timeout for re-login.
+app.on("browser-window-blur", () => {
+    // If the main window is not focused and reload time is bigger than 0.
+    if (!mainWin.isFocused() && reloadTime) {
+        // Start the timeout.
+        checkForReload()
+    }
 })
 
 // Get the path to create the backup.
@@ -87,4 +103,38 @@ async function handleFileSave(window, options) {
         // Otherwise return the filepath.
         return filePath
     }
+}
+
+// Function to get reload time.
+function getReloadTime() {
+    const Controller = new SettingsController()
+    const settings = Controller.getSettings()
+    // If the login timeout is enabled. get the time.
+    if (settings.loginTimeout) {
+        return settings.loginTimeoutTime
+    }
+}
+
+// Function to check for re-login.
+function checkForReload() {
+    const checkInterval = setInterval(() => {
+        // Reduce count by one.
+        currentReloadTime--
+
+        // Clear the interval if the window is focused.
+        if (mainWin.isFocused()) {
+            // Reset the timer.
+            currentReloadTime = reloadTime
+            clearInterval(checkInterval)
+        }
+
+        // Reload the window to ask for re-login if the count reaches 0.
+        if (!currentReloadTime) {
+            // Reset the timer.
+            currentReloadTime = reloadTime
+            // Reload the window.
+            mainWin.webContents.reloadIgnoringCache()
+            clearInterval(checkInterval)
+        }
+    }, 1000)
 }

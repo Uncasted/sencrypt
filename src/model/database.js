@@ -2,6 +2,7 @@ const fs = require('fs')
 const utility = require('./utility')
 const path = require('path')
 const {getAppDataPath} = require('appdata-path')
+const {generateRandomKey} = require("./utility")
 
 class Database {
     constructor() {
@@ -107,7 +108,7 @@ class Database {
         }
     }
 
-// Get the length of the posts object.
+    // Get the length of the posts object.
     async getDatabaseLength() {
         try {
             await this.read()
@@ -120,8 +121,61 @@ class Database {
         }
     }
 
+    // Reset the master password.
+    async resetMasterPassword(newPassword) {
+        try {
+            await this.read()
+            const {posts} = this.data
 
-// Basic CRUD Operations.
+            // Get the accounts.
+            let accounts = [...posts[this.ENC_MP]]
+
+            // Delete the old master password key.
+            delete posts[this.ENC_MP]
+
+            // Decrypt all the accounts.
+            accounts = accounts.map(account => {
+                return {
+                    website: utility.decrypt(account.website, this.SEC_KEY),
+                    username: utility.decrypt(account.username, this.SEC_KEY),
+                    password: utility.decrypt(account.password, this.SEC_KEY)
+                }
+            })
+
+            // Generate a new random key.
+            this.SEC_KEY_2 = generateRandomKey(newPassword.length)
+            posts["SEC_KEY_2"] = this.SEC_KEY_2
+
+            // Make a new secret key.
+            this.SEC_KEY = newPassword + this.SEC_KEY_2
+
+            // Generate a new encrypted master password.
+            this.ENC_MP = utility.encrypt(newPassword, this.SEC_KEY)
+            posts["ENC_MP"] = this.ENC_MP
+
+            // Re-encrypt all the accounts.
+            accounts = accounts.map(account => {
+                return {
+                    website: utility.encrypt(account.website, this.SEC_KEY),
+                    username: utility.encrypt(account.username, this.SEC_KEY),
+                    password: utility.encrypt(account.password, this.SEC_KEY)
+                }
+            })
+
+            // Assign the accounts to the new key.
+            posts[this.ENC_MP] = accounts
+
+            // Write to the database.
+            await this.write()
+
+        } catch (error) {
+            console.log("Error at resetMasterPassword (Database).")
+            console.log(error)
+        }
+    }
+
+
+    // Basic CRUD Operations.
     async createAccount(username, password, website) {
         try {
             await this.read()
@@ -143,7 +197,7 @@ class Database {
         }
     }
 
-// Get all the accounts.
+    // Get all the accounts.
     async getAllAccounts() {
         try {
             await this.read()

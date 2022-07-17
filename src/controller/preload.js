@@ -14,6 +14,18 @@ contextBridge.exposeInMainWorld('database',
         createMasterPassword: async (masterPassword) => await database.createMasterPassword(masterPassword),
         verifyMasterPassword: async (masterPassword) => await database.verifyMasterPassword(masterPassword),
         getAllAccounts: async () => await database.getAllAccounts(),
+        resetMasterPassword: async (newPassword) => {
+            await database.resetMasterPassword(newPassword)
+        },
+        clearDatabase: async () => {
+            await database.clearDatabase()
+        },
+        createBackup: async () => {
+            await database.createBackup()
+        },
+        loadBackup: async () => {
+            await database.loadBackup()
+        },
         createAccount: async (account) => {
             await database.createAccount(account)
         },

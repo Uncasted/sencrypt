@@ -1,4 +1,5 @@
 const Database = require('../model/database')
+const {ipcRenderer} = require('electron')
 
 class DatabaseController {
     constructor() {
@@ -45,6 +46,54 @@ class DatabaseController {
             return await this.Model.getAllAccounts()
         } catch (error) {
             console.log("Error at getAllAccounts (Controller).")
+            console.log(error)
+        }
+    }
+
+    async resetMasterPassword(newPassword) {
+        try {
+            await this.Model.resetMasterPassword(newPassword)
+        } catch (error) {
+            console.log("Error at resetMasterPassword (Controller).")
+            console.log(error)
+        }
+    }
+
+    async clearDatabase() {
+        try {
+            await this.Model.clearDatabase()
+        } catch (error) {
+            console.log("Error at resetMasterPassword (Controller).")
+            console.log(error)
+        }
+    }
+
+    async createBackup() {
+        try {
+            // Send a request to the main process to get the path for the backup.
+            ipcRenderer.invoke("backup:loadPath").then(async (backupPath) => {
+                // Verify the database scheme.
+                const isVerified = await this.Model.verifyBackup(backupPath)
+                if (isVerified) {
+                    // Load the backup.
+                    await this.Model.loadBackup(backupPath)
+                }
+            })
+        } catch (error) {
+            console.log("Error at createBackup (Controller).")
+            console.log(error)
+        }
+    }
+
+    async loadBackup() {
+        try {
+            // Send a request to main process to get the path for the backup.
+            ipcRenderer.invoke("backup:createPath").then(async (backupPath) => {
+                // Create the database backup.
+                await this.Model.createBackup(backupPath)
+            })
+        } catch (error) {
+            console.log("Error at loadBackup (Controller).")
             console.log(error)
         }
     }

@@ -16,7 +16,7 @@ export default function LoginForm(props) {
     const verifyMasterPassword = async (event) => {
         event.preventDefault()
         // Verify the master password in the database.
-        const isMasterPassword = await window.controller.verifyMasterPassword(masterPassword)
+        const isMasterPassword = await window.database.verifyMasterPassword(masterPassword)
 
         if (isMasterPassword) {
             setIsMP(isMasterPassword)

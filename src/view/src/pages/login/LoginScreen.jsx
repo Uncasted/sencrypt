@@ -8,7 +8,7 @@ export default function LoginScreen(props) {
     const [isNewUser, setIsNewUser] = useState(false)
 
     useEffect(() => {
-        window.controller.checkIsNew().then(isNew => setIsNewUser(isNew))
+        window.database.checkIsNew().then(isNew => setIsNewUser(isNew))
     }, [])
 
     return (

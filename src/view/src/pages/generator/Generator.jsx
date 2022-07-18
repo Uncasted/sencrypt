@@ -8,7 +8,7 @@ import {IMAGES} from "../../data/constants"
 export function Generator() {
     return (
         <>
-            <div className="pl-6 pt-6 bg-dark-blue-2 text-white">
+            <div>
                 <SectionHeader icon={IMAGES.GENERATOR_ICON}>
                     Generator
                 </SectionHeader>

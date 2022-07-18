@@ -14,7 +14,7 @@ export function Accounts() {
             <AddAccountButton/>
             <AddAccountModal/>
             <div id="account-list"
-                 className="mt-8 space-y-1 px-2"
+                 className="mt-8 space-y-1 px-2 mx-2"
             >
                 {!accounts.length && <EmptyPlaceholder/>}
                 {accounts.map((account, index) => {

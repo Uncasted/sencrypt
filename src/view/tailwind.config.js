@@ -6,11 +6,15 @@ module.exports = {
         'active:bg-green-600',
         'hover:bg-red-500',
         'active:bg-red-600',
+        'hover:bg-blue-1',
+        'active:bg-blue-2',
         'tooltip-right',
         'tooltip-left',
         'focus:outline',
         'focus:outline-red-500',
-        'focus:outline-2'
+        'focus:outline-2',
+        'w-40',
+        'w-44'
     ],
     theme: {
         extend: {

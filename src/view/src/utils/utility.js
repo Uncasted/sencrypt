@@ -6,6 +6,11 @@ export const getLocalParameters = () => {
     return localStorage.getItem(GENERATOR_KEY) ? JSON.parse(localStorage.getItem(GENERATOR_KEY)) : {}
 }
 
+// Get a length between a minimum and a maximum value.
+export const getMinMaxLength = (min, max, value) => {
+    return Math.max(min, Math.min(max, Number(value)))
+}
+
 // Update the slider bar progress.
 export const sliderProgress = () => {
     const parameters = JSON.parse(localStorage.getItem('generator')) ?? {}

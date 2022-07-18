@@ -5,7 +5,7 @@ import LoginScreen from "./pages/login/LoginScreen"
 import {useState} from "react"
 import AccountSection from "./pages/accounts/AccountSection"
 import GeneratorSection from "./pages/generator/GeneratorSection"
-import MenuPlaceholder from "./components/MenuPlaceholder"
+import SettingsSection from "./pages/settings/SettingsSection"
 
 
 export default function App() {
@@ -20,7 +20,7 @@ export default function App() {
                 setSelected(<GeneratorSection/>)
                 break
             case 'Settings':
-                setSelected(<MenuPlaceholder/>)
+                setSelected(<SettingsSection/>)
         }
     }
 

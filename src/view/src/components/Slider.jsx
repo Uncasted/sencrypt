@@ -1,23 +1,27 @@
 import PropTypes from "prop-types"
+import InputNumberBox from "./InputNumberBox"
 
 export default function Slider(props) {
     return (
         <>
-            {props.title &&
-                <span className="text-sm no-select">
-                    {props.title}
-                </span>
-            }
-            {props.enableInput &&
-                <input type="number"
-                       min={props.min || null}
-                       max={props.max || null}
-                       value={props.defaultLength || null}
-                       onChange={props.inputOnChange || null}
-                       onKeyDown={props.inputOnKeyDown || null}
-                       className="bg-dark-blue-4 ml-2 w-10 text-center rounded-sm focus:outline-gray-200"
-                />
-            }
+            <div className="flex items-center space-x-2">
+                {props.title &&
+                    <span className="text-sm no-select">
+                        {props.title}
+                    </span>
+                }
+                {props.enableInput &&
+                    <div className="bg-dark-blue-5">
+                        <InputNumberBox
+                            min={props.min || null}
+                            max={props.max || null}
+                            value={props.defaultLength || null}
+                            onChange={props.inputOnChange || null}
+                            onKeyDown={props.inputOnKeyDown || null}
+                        />
+                    </div>
+                }
+            </div>
             <input type="range"
                    min={props.min || null}
                    max={props.max || null}

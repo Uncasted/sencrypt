@@ -6,6 +6,7 @@ import {useState} from "react"
 import AccountSection from "./pages/accounts/AccountSection"
 import GeneratorSection from "./pages/generator/GeneratorSection"
 import SettingsSection from "./pages/settings/SettingsSection"
+import SettingsProvider from "./context/settings/SettingsContext"
 
 
 export default function App() {
@@ -26,10 +27,12 @@ export default function App() {
 
     return (
         <>
-            <LoginScreen>
-                <Navbar changeSelected={changeSelected}/>
-                {selected}
-            </LoginScreen>
+            <SettingsProvider>
+                <LoginScreen>
+                    <Navbar changeSelected={changeSelected}/>
+                    {selected}
+                </LoginScreen>
+            </SettingsProvider>
         </>
     )
 }

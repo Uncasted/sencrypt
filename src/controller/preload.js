@@ -45,6 +45,9 @@ contextBridge.exposeInMainWorld("settings",
         init: async () => {
             await settings.init()
         },
+        start: async () => {
+            await settings.start()
+        },
         updateSetting: async (option, value) => {
             await settings.updateSetting(option, value)
         }

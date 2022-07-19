@@ -49,6 +49,10 @@ export default function ConfirmResetModal(props) {
                    id="confirm-reset-modal"
                    tabIndex="-1"
                    className="modal-toggle"
+                   onChange={() => {
+                       // Set the field empty when you close the modal.
+                       setMasterPass("")
+                   }}
             />
             <div className="modal">
                 <div id="confirm-reset-box"

@@ -71,13 +71,13 @@ class DatabaseController {
     async createBackup() {
         try {
             // Send a request to main process to get the path for the backup.
-            ipcRenderer.invoke("backup:create").then(async (backupPath) => {
-                // If the path is not empty.
-                if (backupPath) {
-                    // Create the database backup.
-                    await this.Model.createBackup(backupPath)
-                }
-            })
+            const backupPath = await ipcRenderer.invoke("backup:create")
+            // If the path is not empty.
+            if (backupPath) {
+                // Create the database backup.
+                await this.Model.createBackup(backupPath)
+            }
+
         } catch (error) {
             console.log("Error at loadBackup (Controller).")
             console.log(error)
@@ -87,17 +87,16 @@ class DatabaseController {
     async loadBackup() {
         try {
             // Send a request to the main process to get the path for the backup.
-            ipcRenderer.invoke("backup:load").then(async (backupPath) => {
-                // If the path is not empty.
-                if (backupPath) {
-                    // Verify the database scheme.
-                    const isVerified = await this.Model.verifyBackup(backupPath)
-                    if (isVerified) {
-                        // Load the backup.
-                        await this.Model.loadBackup(backupPath)
-                    }
+            const backupPath = await ipcRenderer.invoke("backup:load")
+            // If the path is not empty.
+            if (backupPath) {
+                // Verify the database scheme.
+                const isVerified = await this.Model.verifyBackup(backupPath)
+                if (isVerified) {
+                    // Load the backup.
+                    await this.Model.loadBackup(backupPath)
                 }
-            })
+            }
         } catch (error) {
             console.log("Error at createBackup (Controller).")
             console.log(error)

@@ -30,6 +30,16 @@ class Settings {
         }
     }
 
+    async start() {
+        try {
+            // Read the settings file.
+            await this.read()
+        } catch (error) {
+            console.log("Error at start (Settings).")
+            console.log(error)
+        }
+    }
+
     async read() {
         try {
             // If the file exists, then read it.

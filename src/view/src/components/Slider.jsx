@@ -15,7 +15,7 @@ export default function Slider(props) {
                         <InputNumberBox
                             min={props.min || null}
                             max={props.max || null}
-                            value={props.defaultLength || null}
+                            value={props.defaultLength}
                             onChange={props.inputOnChange || null}
                             onKeyDown={props.inputOnKeyDown || null}
                         />

@@ -69,6 +69,15 @@ export function ResetPasswordModal() {
                    id="reset-modal"
                    tabIndex="-1"
                    className="modal-toggle"
+                   onChange={() => {
+                       setPasswords(() => {
+                           // Set the fields empty when you close the modal.
+                           return {
+                               newMasterPass: "",
+                               confirmNewMasterPass: ""
+                           }
+                       })
+                   }}
             />
             <div className="modal">
                 <div

@@ -6,6 +6,9 @@ export default function ResetMasterPassword() {
         // Open the modal to reset the master password.
         const resetModal = document.getElementById("reset-modal")
         resetModal.click()
+        // Focus on the first field.
+        const newMasterPass = document.getElementById("newMasterPass")
+        newMasterPass.focus()
     }
 
     return (

@@ -8,8 +8,8 @@ import ConfirmResetModal from "./ConfirmResetModal"
 export function ResetPasswordModal() {
     // State
     const [passwords, setPasswords] = useState({
-        newPass: "",
-        confirmNewPass: ""
+        newMasterPass: "",
+        confirmNewMasterPass: ""
     })
 
     // Ref
@@ -40,10 +40,13 @@ export function ResetPasswordModal() {
     const submitData = (event) => {
         event.preventDefault()
 
-        if (passwords.newPass === passwords.confirmNewPass) {
+        if (passwords.newMasterPass === passwords.confirmNewMasterPass) {
             // Open the confirmation modal.
             const confirmModal = document.getElementById("confirm-reset-modal")
             confirmModal.click()
+            // Focus on the first field.
+            const oldMasterPass = document.getElementById("oldMasterPass")
+            oldMasterPass.focus()
         } else {
             // Warn the user.
             const fields = document.querySelectorAll(`[data-outline="reset-modal-outline"]`)
@@ -109,7 +112,7 @@ export function ResetPasswordModal() {
                                 <SecondaryButton type="submit"
                                                  form="reset-form"
                                                  tabIndex={13}
-                                                 disabled={!passwords.newPass || !passwords.confirmNewPass}
+                                                 disabled={!passwords.newMasterPass || !passwords.confirmNewMasterPass}
                                                  hoverColor="red-500"
                                                  activeColor="red-600"
                                 >
@@ -121,7 +124,7 @@ export function ResetPasswordModal() {
                 </div>
             </div>
             {/*Confirm reset Modal.*/}
-            <ConfirmResetModal newPassword={passwords.newPass}
+            <ConfirmResetModal newPassword={passwords.newMasterPass}
             />
         </>
     )

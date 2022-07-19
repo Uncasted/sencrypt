@@ -34,6 +34,14 @@ export default function DeleteAfterAttempts() {
                               // Update the local state.
                               setToggleDeleteAttempts(toggleDeleteAttempts => !toggleDeleteAttempts)
                           }}
+                          onKeyDown={(event) => {
+                              if (event.key === "Enter") {
+                                  // Update the setting.
+                                  updateSetting("deleteAfterAttempts", !deleteAfterAttempts)
+                                  // Update the local state.
+                                  setToggleDeleteAttempts(toggleDeleteAttempts => !toggleDeleteAttempts)
+                              }
+                          }}
                 />
                 <div className="bg-dark-blue-2">
                     <InputNumberBox min={1}

@@ -21,7 +21,8 @@ export default function LoginForm(props) {
             setDeleteAfterAttempts(settings.deleteAfterAttempts)
             setDeleteAttempts(settings.deleteAttempts)
         })
-    }, [])
+        // Reset the count when the password is verified.
+    }, [isMP])
 
     useEffect(() => {
         // If the count reaches 0, delete all the accounts in the database.

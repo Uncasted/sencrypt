@@ -1837,12 +1837,12 @@ body[dir="rtl"] .checkbox:checked,
   margin-top: 1rem;
 }
 
-.mt-8 {
-  margin-top: 2rem;
-}
-
 .ml-2 {
   margin-left: 0.5rem;
+}
+
+.mt-8 {
+  margin-top: 2rem;
 }
 
 .ml-6 {

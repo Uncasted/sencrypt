@@ -15,6 +15,16 @@ class SettingsController {
         }
     }
 
+    async start() {
+        try {
+            // Start the settings.
+            await this.Model.start()
+        } catch (error) {
+            console.log("Error at start (Controller).")
+            console.log(error)
+        }
+    }
+
     async getSettings() {
         try {
             // Get the settings.

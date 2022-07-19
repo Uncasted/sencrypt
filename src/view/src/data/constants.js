@@ -189,3 +189,25 @@ export const NAVBAR_BUTTONS = [
         defaultSelected: false,
     },
 ]
+
+// Reset master password fields.
+export const RESET_PASS_FIELDS = [
+    {
+        autofocus: true,
+        type: "password",
+        name: "newPass",
+        id: "newPass",
+        title: "New Master Password:",
+        tabIndex: 10,
+        value: "newPass"
+    },
+    {
+        autofocus: true,
+        type: "password",
+        name: "confirmNewPass",
+        id: "confirmNewPass",
+        title: "Confirm New Password:",
+        tabIndex: 11,
+        value: "confirmNewPass"
+    }
+]

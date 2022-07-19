@@ -29,6 +29,9 @@ export default function NewUserForm(props) {
         if (passwords.pass === passwords.confirmPass) {
             // Initialize the database with the new password.
             const isCreated = await window.database.createMasterPassword(passwords.pass)
+            // Initialize the settings file.
+            await window.settings.init()
+            // Create the master password.
             setIsCreatedMP(isCreated)
         } else {
             // Display warning.

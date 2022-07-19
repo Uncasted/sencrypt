@@ -1861,6 +1861,10 @@ body[dir="rtl"] .checkbox:checked,
   margin-top: -1rem;
 }
 
+.mb-6 {
+  margin-bottom: 1.5rem;
+}
+
 .inline {
   display: inline;
 }

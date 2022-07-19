@@ -5,7 +5,7 @@ import {GENERATOR_INPUTS, LOWERCASE, NUMBERS, SYMBOLS, UPPERCASE} from "../../da
 import Slider from "../../components/Slider"
 import Checkbox from "../../components/Checkbox"
 import SecondaryButton from "../../components/buttons/SecondaryButton"
-import {getMinMaxLength, sliderProgress} from "../../utils/utility"
+import {getMinMaxValue, sliderProgress} from "../../utils/utility"
 
 export default function GeneratorParameters() {
     // Context
@@ -26,8 +26,8 @@ export default function GeneratorParameters() {
 
     const handleLength = (event) => {
         // Make sure that the input is between the range.
-        const inputLength = getMinMaxLength(4, 48, event.target.value)
-        update.updateLength(String(inputLength))
+        const newLength = getMinMaxValue(0, 48, event.target.value)
+        update.updateLength(String(newLength))
     }
 
     const updateParameter = (type, parameter) => {

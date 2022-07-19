@@ -2,6 +2,9 @@ const {app, BrowserWindow, dialog, ipcMain} = require('electron')
 const path = require('path')
 const SettingsController = require('./src/controller/settingsController')
 
+
+// Check if the file explorer is opened.
+let dialogIsOpen = false
 // Time to wait for re-login.
 const reloadTime = getReloadTime() || 0
 // Main Window.
@@ -43,7 +46,7 @@ app.on('window-all-closed', () => {
 // Timeout for re-login.
 app.on("browser-window-blur", () => {
     // If the main window is not focused and reload time is bigger than 0.
-    if (!mainWin.isFocused() && reloadTime) {
+    if (!mainWin.isFocused() && reloadTime && !dialogIsOpen) {
         // Start the timeout.
         checkForReload().then()
     }
@@ -51,6 +54,7 @@ app.on("browser-window-blur", () => {
 
 // Get the path to create the backup.
 ipcMain.handle("backup:create", async () => {
+    dialogIsOpen = true
     // Options for creating a backup.
     const options = {
         title: "Create A Database Backup:",
@@ -66,6 +70,7 @@ ipcMain.handle("backup:create", async () => {
 
 // Get the path to load the backup.
 ipcMain.handle("backup:load", async () => {
+    dialogIsOpen = true
     // Options for loading a backup.
     const options = {
         title: "Load A Database Backup:",
@@ -82,6 +87,7 @@ ipcMain.handle("backup:load", async () => {
 // File Manager functions.
 async function handleFileOpen(window, options) {
     const {canceled, filePaths} = await dialog.showOpenDialog(window, options)
+    dialogIsOpen = false
     // If the user cancels the operation then just cancel.
     if (canceled) {
         return ""
@@ -93,6 +99,7 @@ async function handleFileOpen(window, options) {
 
 async function handleFileSave(window, options) {
     const {canceled, filePath} = await dialog.showSaveDialog(window, options)
+    dialogIsOpen = false
     // If the user cancels the operation then just cancel.
     if (canceled) {
         return ""

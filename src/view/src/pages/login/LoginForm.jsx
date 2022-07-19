@@ -1,4 +1,4 @@
-import {useRef, useState} from "react"
+import {useRef, useState, useEffect} from "react"
 import {BLUE_OUTLINE, IMAGES, RED_OUTLINE} from "../../data/constants"
 import InputField from "../../components/forms/InputField"
 import SecondaryButton from "../../components/buttons/SecondaryButton"
@@ -8,10 +8,27 @@ export default function LoginForm(props) {
     // State
     const [isMP, setIsMP] = useState(false)
     const [masterPassword, setMasterPassword] = useState("")
+    const [deleteAfterAttempts, setDeleteAfterAttempts] = useState(false)
+    const [deleteAttempts, setDeleteAttempts] = useState(0)
 
     // Ref
     const warningRef = useRef(null)
     const masterPassRef = useRef(null)
+
+    useEffect(() => {
+        // Load the settings at startup.
+        window.settings.getSettings().then(settings => {
+            setDeleteAfterAttempts(settings.deleteAfterAttempts)
+            setDeleteAttempts(settings.deleteAttempts)
+        })
+    }, [])
+
+    useEffect(() => {
+        // If the count reaches 0, delete all the accounts in the database.
+        if (deleteAfterAttempts && !deleteAttempts) {
+            window.database.clearDatabase().then()
+        }
+    }, [deleteAttempts])
 
     const verifyMasterPassword = async (event) => {
         event.preventDefault()
@@ -32,6 +49,11 @@ export default function LoginForm(props) {
             warning.classList.remove("invisible")
             masterPass.classList.remove(...BLUE_OUTLINE)
             masterPass.classList.add(...RED_OUTLINE)
+
+            // If deleteAfterAttempts is enabled, reduce the attempt remaining count by one.
+            if (deleteAfterAttempts) {
+                setDeleteAttempts(prevAttempts => prevAttempts - 1)
+            }
         }
     }
 

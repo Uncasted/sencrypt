@@ -46,7 +46,6 @@ app.on('window-all-closed', () => {
 // Timeout for re-login.
 app.on("browser-window-blur", () => {
     // If the main window is not focused and reload time is bigger than 0.
-    console.log(reloadTime)
     if (!mainWin.isFocused() && reloadTime && !dialogIsOpen) {
         // Start the timeout.
         checkForReload().then()

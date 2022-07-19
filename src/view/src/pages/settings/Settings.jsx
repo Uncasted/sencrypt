@@ -5,11 +5,13 @@ import DeleteAfterAttempts from "./options/DeleteAfterAttempts"
 import CreateBackup from "./options/CreateBackup"
 import LoadBackup from "./options/LoadBackup"
 import ResetMasterPassword from "./options/ResetMasterPassword"
+import {ResetPasswordModal} from "./modal/ResetPasswordModal"
 
 
 export default function Settings() {
     return (
         <>
+            <ResetPasswordModal/>
             <div>
                 <SectionHeader icon={IMAGES.SETTINGS_ICON}>
                     Settings

@@ -15,7 +15,7 @@ export default function AskForReLogin() {
     const [toggleTimeout, setToggleTimeout] = useState(loginTimeout || false)
     const [time, setTime] = useState(() => {
         // Convert the time into minutes
-        let time = loginTimeoutTime || 1800 / 60
+        let time = loginTimeoutTime / 60 || 30
         // Convert it to a string.
         return String(time)
     })

@@ -4,7 +4,7 @@
     "version": "0.0.0",
     "scripts": {
         "dev": "vite",
-        "build": "vite build",
+        "build": "npx tailwindcss -i ./src/styles/input.scss -o ./src/styles/output.css && vite build",
         "preview": "vite preview"
     },
     "dependencies": {

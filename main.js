@@ -4,14 +4,11 @@ const SettingsController = require('./src/controller/settingsController')
 
 // Time to wait for re-login.
 const reloadTime = getReloadTime() || 0
-// Current time.
-let currentReloadTime = reloadTime
-
 // Main Window.
 let mainWin
 // Create the main window.
 const createMainWindow = async () => {
-    // Change the icon path depending on the platform."
+    // Change the icon path depending on the platform.
     const iconPath = process.platform !== "darwin" ? "./build/icon.png" : "./build/icon.icns"
 
     mainWin = new BrowserWindow({
@@ -48,7 +45,7 @@ app.on("browser-window-blur", () => {
     // If the main window is not focused and reload time is bigger than 0.
     if (!mainWin.isFocused() && reloadTime) {
         // Start the timeout.
-        checkForReload()
+        checkForReload().then()
     }
 })
 
@@ -56,11 +53,11 @@ app.on("browser-window-blur", () => {
 ipcMain.handle("backup:create", async () => {
     // Options for creating a backup.
     const options = {
-        title: "Create A Database Backup",
+        title: "Create A Database Backup:",
         buttonLabel: "Create Backup",
-        defaultPath: "backup.json",
+        defaultPath: "databaseBackup.json",
         filters: [
-            {name: "Database File", extensions: ["json"]}
+            {name: "Database File (JSON)", extensions: ["json"]}
         ]
     }
     // Getting the path.
@@ -71,7 +68,7 @@ ipcMain.handle("backup:create", async () => {
 ipcMain.handle("backup:load", async () => {
     // Options for loading a backup.
     const options = {
-        title: "Load A Database Backup",
+        title: "Load A Database Backup:",
         buttonLabel: "Load Backup",
         properties: ["openFile"],
         filters: [
@@ -106,9 +103,9 @@ async function handleFileSave(window, options) {
 }
 
 // Function to get reload time.
-function getReloadTime() {
+async function getReloadTime() {
     const Controller = new SettingsController()
-    const settings = Controller.getSettings()
+    const settings = await Controller.getSettings()
     // If the login timeout is enabled. get the time.
     if (settings.loginTimeout) {
         return settings.loginTimeoutTime
@@ -116,22 +113,18 @@ function getReloadTime() {
 }
 
 // Function to check for re-login.
-function checkForReload() {
+async function checkForReload() {
+    let currentTime = await reloadTime
     const checkInterval = setInterval(() => {
         // Reduce count by one.
-        currentReloadTime--
-
+        currentTime--
         // Clear the interval if the window is focused.
         if (mainWin.isFocused()) {
-            // Reset the timer.
-            currentReloadTime = reloadTime
             clearInterval(checkInterval)
         }
 
         // Reload the window to ask for re-login if the count reaches 0.
-        if (!currentReloadTime) {
-            // Reset the timer.
-            currentReloadTime = reloadTime
+        if (!currentTime) {
             // Reload the window.
             mainWin.webContents.reloadIgnoringCache()
             clearInterval(checkInterval)

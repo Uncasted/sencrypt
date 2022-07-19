@@ -11,8 +11,8 @@ export default function DeleteAfterAttempts() {
     const updateSetting = useSettingsContextUpdate()
 
     // State
-    const [toggleDeleteAttempts, setToggleDeleteAttempts] = useState(deleteAfterAttempts)
-    const [attempts, setAttempts] = useState(String(deleteAttempts))
+    const [toggleDeleteAttempts, setToggleDeleteAttempts] = useState(deleteAfterAttempts || false)
+    const [attempts, setAttempts] = useState(String(deleteAttempts || 10))
 
     const updateAttempts = (value) => {
         // Get the min max value.

@@ -2,7 +2,7 @@ import Checkbox from "../../../components/Checkbox"
 import InputNumberBox from "../../../components/InputNumberBox"
 import Option from "../../../components/Option"
 import {useSettingsContext, useSettingsContextUpdate} from "../../../context/settings/SettingsContext"
-import {useEffect, useState} from "react"
+import {useState} from "react"
 import {getMinMaxValue} from "../../../utils/utility"
 
 export default function AskForReLogin() {
@@ -12,10 +12,10 @@ export default function AskForReLogin() {
 
     // State
     // We need to use local state for the checkbox, or it doesn't work.
-    const [toggleTimeout, setToggleTimeout] = useState(loginTimeout)
+    const [toggleTimeout, setToggleTimeout] = useState(loginTimeout || false)
     const [time, setTime] = useState(() => {
         // Convert the time into minutes
-        let time = loginTimeoutTime / 60
+        let time = loginTimeoutTime || 1800 / 60
         // Convert it to a string.
         return String(time)
     })

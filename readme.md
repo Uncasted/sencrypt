@@ -41,17 +41,16 @@ $ cd src/view/
 $ npm install
 ```
 
-<b>5. Also in the same directory, run these commands to build the view.</b>
+<b>5. Also in the same directory, run this command to build the view.</b>
 
 ```
-$ npx tailwindcss -i ./src/styles/input.scss -o ./src/styles/output.css; npm run build
+$ npm run build
 ```
 
 <b>6. Change back to the sencrypt directory.</b>
 
 ```
-[user@host sencrypt/src/view]$ cd ..
-[user@host sencrypt/src]$ cd ..
+[user@host sencrypt/src/view]$ cd ../..
 [user@host sencrypt]$
 ```
 

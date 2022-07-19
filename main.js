@@ -6,7 +6,7 @@ const SettingsController = require('./src/controller/settingsController')
 // Check if the file explorer is opened.
 let dialogIsOpen = false
 // Time to wait for re-login.
-const reloadTime = getReloadTime() || 0
+const reloadTime = getReloadTime()
 // Main Window.
 let mainWin
 // Create the main window.
@@ -46,6 +46,7 @@ app.on('window-all-closed', () => {
 // Timeout for re-login.
 app.on("browser-window-blur", () => {
     // If the main window is not focused and reload time is bigger than 0.
+    console.log(reloadTime)
     if (!mainWin.isFocused() && reloadTime && !dialogIsOpen) {
         // Start the timeout.
         checkForReload().then()
@@ -116,6 +117,8 @@ async function getReloadTime() {
     // If the login timeout is enabled. get the time.
     if (settings.loginTimeout) {
         return settings.loginTimeoutTime
+    } else {
+        return 0
     }
 }
 

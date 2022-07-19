@@ -19,6 +19,9 @@ export default function LoginForm(props) {
         const isMasterPassword = await window.database.verifyMasterPassword(masterPassword)
 
         if (isMasterPassword) {
+            // Start the settings.
+            await window.settings.start()
+            // Log in.
             setIsMP(isMasterPassword)
         } else {
             // Invalid master password warning.

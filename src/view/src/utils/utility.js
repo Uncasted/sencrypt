@@ -7,7 +7,7 @@ export const getLocalParameters = () => {
 }
 
 // Get a length between a minimum and a maximum value.
-export const getMinMaxLength = (min, max, value) => {
+export const getMinMaxValue = (min, max, value) => {
     return Math.max(min, Math.min(max, Number(value)))
 }
 

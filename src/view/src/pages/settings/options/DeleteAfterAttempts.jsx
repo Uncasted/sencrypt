@@ -44,7 +44,7 @@ export default function DeleteAfterAttempts() {
                           }}
                 />
                 <div className="bg-dark-blue-2">
-                    <InputNumberBox min={1}
+                    <InputNumberBox min={5}
                                     max={99}
                                     value={attempts}
                                     onChange={(event) => {

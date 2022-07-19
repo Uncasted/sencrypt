@@ -42,6 +42,14 @@ export default function AskForReLogin() {
                               // Update the local state.
                               setToggleTimeout(toggleTimeout => !toggleTimeout)
                           }}
+                          onKeyDown={(event) => {
+                              if (event.key === "Enter") {
+                                  // Update the setting.
+                                  updateSetting("loginTimeout", !loginTimeout)
+                                  // Update the local state.
+                                  setToggleTimeout(toggleTimeout => !toggleTimeout)
+                              }
+                          }}
                 />
                 <div className="bg-dark-blue-2">
                     <InputNumberBox min={1}

@@ -70,8 +70,8 @@ export default function ConfirmResetModal(props) {
                         <div className="flex flex-col items-center mt-8 space-y-6 mb-6">
                             <div>
                                 <InputField type="password"
-                                            name="masterPass"
-                                            fieldId="masterPass"
+                                            name="oldMasterPass"
+                                            fieldId="oldMasterPass"
                                             title="Enter your master password:"
                                             tabIndex={31}
                                             ref={masterPassRef}

@@ -1,25 +1,19 @@
 // Utility functions.
 const crypto = require('crypto')
+const {CHARS} = require("./constants")
 
-// Constants
-const CHARS = {
-    NUMBERS: "012346789",
-    UPPERCASE: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-    LOWERCASE: "abcdefghijklmnopqrstuvwxyz",
-    SYMBOLS: "~`! @#$%^&*()_-+={[}]|\\:;\"'<,>.?/"
-}
 
 // Generate random chars.
 function randomChars(length) {
     const alphaNumChars = CHARS.NUMBERS + CHARS.UPPERCASE + CHARS.LOWERCASE
-    let chars = ""
+    let randomChars = ""
 
     for (let i = 0; i < length; i++) {
         // Take random char from alphabet.
-        chars += alphaNumChars[Math.floor(Math.random() * alphaNumChars.length)]
+        randomChars += alphaNumChars[Math.floor(Math.random() * alphaNumChars.length)]
     }
 
-    return chars
+    return randomChars
 }
 
 // Generate random SEC_KEY_2 and INIT_VEC.
@@ -32,7 +26,8 @@ function generateRandomKey(length) {
     const SEC_KEY_2 = randomChars(32 - length)
     // Initialization vector
     const INIT_VEC = randomChars(16)
-    return SEC_KEY_2 + "-" + INIT_VEC
+
+    return `${SEC_KEY_2}:${INIT_VEC}`
 }
 
 // Generate a random password.
@@ -52,17 +47,20 @@ function generateRandomPassword(parameters, length) {
 }
 
 function encrypt(text, SEC_KEY) {
-    // The last 16 chars are the Initialization vector.
-    const cipher = crypto.createCipheriv('aes-256-cbc', SEC_KEY.substring(0, SEC_KEY.indexOf("-")),
-        SEC_KEY.substring(SEC_KEY.indexOf("-") + 1))
+    // Get the key and the initialization vector.
+    const [secretKey, IV] = SEC_KEY.split(":")
+    // Encrypt the text.
+    const cipher = crypto.createCipheriv('aes-256-cbc', secretKey, IV)
     let encryptedText = cipher.update(text, 'utf-8', 'base64')
     encryptedText += cipher.final('base64')
     return encryptedText
 }
 
 function decrypt(encryptedText, SEC_KEY) {
-    const decipher = crypto.createDecipheriv('aes-256-cbc', SEC_KEY.substring(0, SEC_KEY.indexOf("-")),
-        SEC_KEY.substring(SEC_KEY.indexOf("-") + 1))
+    // Get the key and initialization vector.
+    const [secretKey, IV] = SEC_KEY.split(":")
+    // Decrypt the text.
+    const decipher = crypto.createDecipheriv('aes-256-cbc', secretKey, IV)
     let decryptedText = decipher.update(encryptedText, 'base64', 'utf8')
     decryptedText += decipher.final('utf8')
     return decryptedText

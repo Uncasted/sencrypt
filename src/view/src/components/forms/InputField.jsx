@@ -2,7 +2,6 @@ import ClipboardButton from "../buttons/ClipboardButton"
 import ToggleVisibility from "../buttons/ToggleVisibility"
 import { useState, forwardRef } from "react"
 import PropTypes from "prop-types"
-import { hasProperty } from "src/model/utility"
 
 const InputField = forwardRef((props, ref) => {
   // Changing the tabIndex depending on the buttons shown.
@@ -31,12 +30,8 @@ const InputField = forwardRef((props, ref) => {
           data-outline={props.dataOutline || null}
           autoFocus={props.autoFocus || false}
           onChange={event => {
-            if (hasProperty(props, "removeWarning")) {
-              props.removeWarning()
-            }
-            if (hasProperty(props, "onChange")) {
-              props.onChange(event.target.value)
-            }
+            props?.removeWarning()
+            props?.onChange(event.target.value)
           }}
           onClick={props.removeWarning}
           className="pl-2 rounded-sm h-8 disabled:text-dark-blue-5 disabled:cursor-not-allowed

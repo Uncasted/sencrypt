@@ -11,7 +11,7 @@ export function Accounts() {
 
   return (
     <div className="mt-8">
-      <AddAccountButton />
+      {accounts.length > 0 && <AddAccountButton />}
       <AddAccountModal />
       <div id="account-list" className="mt-8 space-y-1 px-2 mx-2">
         {!accounts.length && <EmptyPlaceholder />}

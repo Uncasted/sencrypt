@@ -7,7 +7,7 @@ export default function EmptyPlaceholder() {
       <h1 className="text-lg lg:text-2xl text-gray-300">
         There isn't any accounts to show.
       </h1>
-      <h1 className="text-md lg:text-lg text-gray-300 pt-6">
+      <h1 className="text-md lg:text-lg text-gray-300 pb-6">
         Add a new account by clicking on the "Add new account" button.
       </h1>
       <AddAccountButton />

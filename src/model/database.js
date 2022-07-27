@@ -1,13 +1,13 @@
 const fs = require("fs")
 const utility = require("./utility")
 const path = require("path")
-const { getAppDataPath } = require("appdata-path")
-const { generateRandomKey } = require("./utility")
+const {getAppDataPath} = require("appdata-path")
+const {generateRandomKey} = require("./utility")
 
 class Database {
   constructor() {
     this.jsonPath = path.join(getAppDataPath("sencrypt"), "./database.json")
-    this.data = { database: {} }
+    this.data = {database: {}}
     this.SEC_KEY = ""
     this.SEC_KEY_2 = ""
     this.ENC_MP = ""
@@ -17,7 +17,7 @@ class Database {
   async init(masterPassword) {
     try {
       await this.read()
-      const { database } = this.data
+      const {database} = this.data
 
       // Generate random Key (SEC_KEY_2)
       this.SEC_KEY_2 = utility.generateRandomKey(masterPassword.length)
@@ -42,7 +42,7 @@ class Database {
   async start(masterPassword) {
     try {
       await this.read()
-      const { database } = this.data
+      const {database} = this.data
 
       this.SEC_KEY_2 = database.SEC_KEY_2
       this.SEC_KEY = masterPassword + this.SEC_KEY_2
@@ -57,7 +57,7 @@ class Database {
     // Get the keys from the database.
     try {
       await this.read()
-      const { database } = this.data
+      const {database} = this.data
 
       const userKey = masterPassword + database.SEC_KEY_2
 
@@ -83,7 +83,7 @@ class Database {
         const dataString = await fs.promises.readFile(this.jsonPath, "utf-8")
         this.data = JSON.parse(dataString)
       } else {
-        const initialData = JSON.stringify({ database: {} })
+        const initialData = JSON.stringify({database: {}})
         // Create the database file.
         await fs.promises.writeFile(this.jsonPath, initialData, "utf-8")
 
@@ -110,7 +110,7 @@ class Database {
   async getDatabaseLength() {
     try {
       await this.read()
-      const { database } = this.data
+      const {database} = this.data
 
       return Object.keys(database).length
     } catch (error) {
@@ -123,7 +123,7 @@ class Database {
   async resetMasterPassword(newPassword) {
     try {
       await this.read()
-      const { database } = this.data
+      const {database} = this.data
 
       // Get the accounts.
       let accounts = [...database[this.ENC_MP]]
@@ -175,7 +175,7 @@ class Database {
   async clearDatabase() {
     try {
       await this.read()
-      const { database } = this.data
+      const {database} = this.data
 
       // Delete all the accounts.
       const MASTER_KEY = database.ENC_MP
@@ -214,18 +214,18 @@ class Database {
       // Check if the database has, and only has a database key.
       if (
         Object.keys(backup).length === 1 &&
-        this.hasProperty(backup, "database")
+        backup.hasProperty(backup, "database")
       ) {
         // Check if the database has a SEC_KEY_2 and an ENC_MP key.
-        const { database } = backup
+        const {database} = backup
         if (
-          this.hasProperty(database, "SEC_KEY_2") &&
-          this.hasProperty(database, "ENC_MP")
+          backup.hasProperty(database, "SEC_KEY_2") &&
+          backup.hasProperty(database, "ENC_MP")
         ) {
           // Check if the ENC_MP key value and encrypted master password key are the same.
           const ENC_MP = database.ENC_MP
           // If it does then the scheme is valid, and it returns true.
-          return this.hasProperty(database, ENC_MP)
+          return backup.hasProperty(database, ENC_MP)
         }
       }
 
@@ -254,7 +254,7 @@ class Database {
   async createAccount(username, password, website) {
     try {
       await this.read()
-      const { database } = this.data
+      const {database} = this.data
 
       // Encrypt the data
       const encryptedAccount = {
@@ -276,7 +276,7 @@ class Database {
   async getAllAccounts() {
     try {
       await this.read()
-      const { database } = this.data
+      const {database} = this.data
 
       let accounts = [...database[this.ENC_MP]]
 
@@ -300,7 +300,7 @@ class Database {
   async updateAccount(index, newAccount) {
     try {
       await this.read()
-      const { database } = this.data
+      const {database} = this.data
 
       // Encrypt the account.
       newAccount = {
@@ -334,7 +334,7 @@ class Database {
   async deleteAccount(index) {
     try {
       await this.read()
-      const { database } = this.data
+      const {database} = this.data
 
       // Delete the account at the specified index.
       database[this.ENC_MP].splice(index, 1)

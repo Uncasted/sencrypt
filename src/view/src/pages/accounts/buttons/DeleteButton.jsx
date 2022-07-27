@@ -1,8 +1,8 @@
-import { useIndexContext } from "../../../context/accounts/IndexContext"
-import SecondaryButton from "../../../components/buttons/SecondaryButton"
-import { useRef } from "react"
+import { useIndexContext } from '../../../context/accounts/IndexContext'
+import SecondaryButton from '../../../components/buttons/SecondaryButton'
+import { useRef } from 'react'
 
-export function DeleteButton() {
+export function DeleteButton () {
   // Ref
   const warningRef = useRef(null)
 
@@ -22,14 +22,14 @@ export function DeleteButton() {
     <>
       <label
         htmlFor={`delete-modal-${index}`}
-        className="hidden"
+        className='hidden'
         ref={warningRef}
       />
       <SecondaryButton
-        type="button"
+        type='button'
         tabIndex={30}
-        hoverColor="red-500"
-        activeColor="red-600"
+        hoverColor='red-500'
+        activeColor='red-600'
         onClick={deleteWarning}
       >
         Delete Account

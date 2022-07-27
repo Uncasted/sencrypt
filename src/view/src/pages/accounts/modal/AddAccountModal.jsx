@@ -1,24 +1,24 @@
 import {
   useAccountsContext,
-  useAccountsContextUpdate,
-} from "../../../context/accounts/AccountsContext"
+  useAccountsContextUpdate
+} from '../../../context/accounts/AccountsContext'
 import {
   ADD_MODAL_FIELDS,
   BLUE_OUTLINE,
   HOSTNAME_REGEX,
-  RED_OUTLINE,
-} from "../../../data/constants"
-import { useRef, useState } from "react"
-import InputField from "../../../components/forms/InputField"
-import SecondaryButton from "../../../components/buttons/SecondaryButton"
-import ModalHeader from "../../../components/headers/ModalHeader"
+  RED_OUTLINE
+} from '../../../data/constants'
+import { useRef, useState } from 'react'
+import InputField from '../../../components/forms/InputField'
+import SecondaryButton from '../../../components/buttons/SecondaryButton'
+import ModalHeader from '../../../components/headers/ModalHeader'
 
-export function AddAccountModal() {
+export function AddAccountModal () {
   // State
   const [newAccount, setNewAccount] = useState({
-    website: "",
-    username: "",
-    password: "",
+    website: '',
+    username: '',
+    password: ''
   })
 
   // Ref
@@ -37,7 +37,7 @@ export function AddAccountModal() {
     })
   }
 
-  const removeWarning = () => {
+  const handleWarning = () => {
     // Remove the warning for already existing account.
     const fields = document.querySelectorAll(
       '[data-outline="add-modal-outline"]'
@@ -49,7 +49,7 @@ export function AddAccountModal() {
     }
     // Make the warning invisible.
     const warning = warningRef.current
-    warning.classList.add("invisible")
+    warning.classList.add('invisible')
   }
 
   const submitData = event => {
@@ -62,7 +62,7 @@ export function AddAccountModal() {
     const newAccountData = {
       website,
       username: newAccount.username,
-      password: newAccount.password,
+      password: newAccount.password
     }
 
     const isNotDuplicate = accounts.every(account => {
@@ -83,9 +83,9 @@ export function AddAccountModal() {
         // Clear the value of the elements after adding the account.
         setNewAccount(() => {
           return {
-            website: "",
-            username: "",
-            password: "",
+            website: '',
+            username: '',
+            password: ''
           }
         })
       })
@@ -103,27 +103,27 @@ export function AddAccountModal() {
 
       // Show the user the warning.
       const warning = warningRef.current
-      warning.classList.remove("invisible")
+      warning.classList.remove('invisible')
     }
   }
 
   return (
     <>
       <input
-        type="checkbox"
-        id="add-modal"
-        tabIndex="-1"
-        className="modal-toggle"
+        type='checkbox'
+        id='add-modal'
+        tabIndex='-1'
+        className='modal-toggle'
       />
-      <div className="modal">
-        <div className="modal-box bg-dark-blue-1 text-white rounded-none px-0 py-0 w-[350px] shadow-sm">
-          <ModalHeader htmlFor="add-modal" tabIndex={14}>
+      <div className='modal'>
+        <div className='modal-box bg-dark-blue-1 text-white rounded-none px-0 py-0 w-[350px] shadow-sm'>
+          <ModalHeader htmlFor='add-modal' tabIndex={14}>
             Add New Account:
           </ModalHeader>
           <form
-            id="add-form"
+            id='add-form'
             onSubmit={submitData}
-            className="flex flex-col items-center space-y-4"
+            className='flex flex-col items-center space-y-4'
           >
             {ADD_MODAL_FIELDS.map(field => {
               return (
@@ -134,36 +134,36 @@ export function AddAccountModal() {
                   fieldId={field.id}
                   title={field.title}
                   tabIndex={field.tabIndex}
-                  dataOutline="add-modal-outline"
+                  dataOutline='add-modal-outline'
                   value={newAccount[field.value]}
-                  removeWarning={removeWarning}
+                  handleWarning={handleWarning}
                   onChange={input => {
                     updateField(field.value, input)
                   }}
                 />
               )
             })}
-            <p ref={warningRef} className="invisible text-red-500">
+            <p ref={warningRef} className='invisible text-red-500'>
               This account already exists.
             </p>
             {/* Add account button. */}
-            <div className="modal-action">
+            <div className='modal-action'>
               <label
-                htmlFor="add-modal"
+                htmlFor='add-modal'
                 ref={addModalRef}
-                className="mb-4 mt-[-1rem]"
+                className='mb-4 mt-[-1rem]'
               >
                 <SecondaryButton
-                  type="submit"
-                  form="add-form"
+                  type='submit'
+                  form='add-form'
                   tabIndex={13}
                   disabled={
                     !newAccount.username ||
                     !newAccount.password ||
                     !newAccount.website
                   }
-                  hoverColor="blue-1"
-                  activeColor="blue-2"
+                  hoverColor='blue-1'
+                  activeColor='blue-2'
                 >
                   Add Account
                 </SecondaryButton>

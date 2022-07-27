@@ -1,6 +1,6 @@
-const { app, BrowserWindow, dialog, ipcMain } = require("electron")
-const path = require("path")
-const SettingsController = require("./src/controller/settingsController")
+const { app, BrowserWindow, dialog, ipcMain } = require('electron')
+const path = require('path')
+const SettingsController = require('./src/controller/settingsController')
 
 // Check if the file explorer is opened.
 let dialogIsOpen = false
@@ -12,7 +12,7 @@ let mainWin
 const createMainWindow = async () => {
   // Change the icon path depending on the platform.
   const iconPath =
-    process.platform !== "darwin" ? "./build/icon.png" : "./build/icon.icns"
+    process.platform !== 'darwin' ? './build/icon.png' : './build/icon.icns'
 
   mainWin = new BrowserWindow({
     width: 1280,
@@ -22,10 +22,10 @@ const createMainWindow = async () => {
     autoHideMenuBar: true,
     icon: path.join(__dirname, iconPath),
     webPreferences: {
-      preload: path.join(__dirname, "./src/controller/preload.js"),
-    },
+      preload: path.join(__dirname, './src/controller/preload.js')
+    }
   })
-  await mainWin.loadFile(path.join(__dirname, "./src/view/dist/index.html"))
+  await mainWin.loadFile(path.join(__dirname, './src/view/dist/index.html'))
 }
 
 // Starting the app.
@@ -33,18 +33,18 @@ app.whenReady().then(() => {
   createMainWindow().then()
 
   // Open a window if none are open.
-  app.on("activate", () => {
+  app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createMainWindow().then()
   })
 })
 
 // Quit the app when we close all windows. (Except on macOS)
-app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") app.quit()
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') app.quit()
 })
 
 // Timeout for re-login.
-app.on("browser-window-blur", () => {
+app.on('browser-window-blur', () => {
   // If the main window is not focused and reload time is bigger than 0.
   if (!mainWin.isFocused() && reloadTime && !dialogIsOpen) {
     // Start the timeout.
@@ -53,52 +53,52 @@ app.on("browser-window-blur", () => {
 })
 
 // Get the path to create the backup.
-ipcMain.handle("backup:create", async () => {
+ipcMain.handle('backup:create', async () => {
   dialogIsOpen = true
   // Options for creating a backup.
   const options = {
-    title: "Create A Database Backup:",
-    buttonLabel: "Create Backup",
-    defaultPath: "databaseBackup.json",
-    filters: [{ name: "Database File (JSON)", extensions: ["json"] }],
+    title: 'Create A Database Backup:',
+    buttonLabel: 'Create Backup',
+    defaultPath: 'databaseBackup.json',
+    filters: [{ name: 'Database File (JSON)', extensions: ['json'] }]
   }
   // Getting the path.
   return await handleFileSave(mainWin, options)
 })
 
 // Get the path to load the backup.
-ipcMain.handle("backup:load", async () => {
+ipcMain.handle('backup:load', async () => {
   dialogIsOpen = true
   // Options for loading a backup.
   const options = {
-    title: "Load A Database Backup:",
-    buttonLabel: "Load Backup",
-    properties: ["openFile"],
-    filters: [{ name: "Database File (JSON)", extensions: ["json"] }],
+    title: 'Load A Database Backup:',
+    buttonLabel: 'Load Backup',
+    properties: ['openFile'],
+    filters: [{ name: 'Database File (JSON)', extensions: ['json'] }]
   }
   // Getting the path.
   return await handleFileOpen(mainWin, options)
 })
 
 // File Manager functions.
-async function handleFileOpen(window, options) {
+async function handleFileOpen (window, options) {
   const { canceled, filePaths } = await dialog.showOpenDialog(window, options)
   dialogIsOpen = false
   // If the user cancels the operation then just cancel.
   if (canceled) {
-    return ""
+    return ''
   } else {
     // Otherwise return the filepath.
     return filePaths[0]
   }
 }
 
-async function handleFileSave(window, options) {
+async function handleFileSave (window, options) {
   const { canceled, filePath } = await dialog.showSaveDialog(window, options)
   dialogIsOpen = false
   // If the user cancels the operation then just cancel.
   if (canceled) {
-    return ""
+    return ''
   } else {
     // Otherwise return the filepath.
     return filePath
@@ -106,7 +106,7 @@ async function handleFileSave(window, options) {
 }
 
 // Function to get reload time.
-async function getReloadTime() {
+async function getReloadTime () {
   const Controller = new SettingsController()
   const settings = await Controller.getSettings()
   // If the login timeout is enabled. get the time.
@@ -118,7 +118,7 @@ async function getReloadTime() {
 }
 
 // Function to check for re-login.
-async function checkForReload() {
+async function checkForReload () {
   let currentTime = await reloadTime
   const checkInterval = setInterval(() => {
     // Reduce count by one.

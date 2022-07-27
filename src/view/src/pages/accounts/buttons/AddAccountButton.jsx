@@ -1,7 +1,7 @@
-import PrimaryButton from "../../../components/buttons/PrimaryButton"
-import { useRef } from "react"
+import PrimaryButton from '../../../components/buttons/PrimaryButton'
+import { useRef } from 'react'
 
-export function AddAccountButton() {
+export function AddAccountButton () {
   // Ref
   const addModalRef = useRef(null)
 
@@ -10,17 +10,17 @@ export function AddAccountButton() {
     const addModal = addModalRef.current
     addModal.click()
     // Focus on the form. (If I don't do this it doesn't work).
-    const newWebsite = document.getElementById("new-website")
+    const newWebsite = document.getElementById('new-website')
     newWebsite.focus()
   }
 
   return (
-    <label htmlFor="add-modal" ref={addModalRef} className="ml-4">
+    <label htmlFor='add-modal' ref={addModalRef} className='ml-4'>
       <PrimaryButton
-        type="button"
+        type='button'
         tabIndex={0}
-        hoverColor="blue-1"
-        activeColor="blue-2"
+        hoverColor='blue-1'
+        activeColor='blue-2'
         onClick={addAccount}
         width={44}
       >

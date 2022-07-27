@@ -1,22 +1,22 @@
 import {
   useParameterContext,
-  useParameterContextUpdate,
-} from "../../context/generator/ParameterContext"
-import { usePasswordContextUpdate } from "../../context/generator/PasswordContext"
-import { useEffect, useState } from "react"
+  useParameterContextUpdate
+} from '../../context/generator/ParameterContext'
+import { usePasswordContextUpdate } from '../../context/generator/PasswordContext'
+import { useEffect, useState } from 'react'
 import {
   GENERATOR_INPUTS,
   LOWERCASE,
   NUMBERS,
   SYMBOLS,
-  UPPERCASE,
-} from "../../data/constants"
-import Slider from "../../components/Slider"
-import Checkbox from "../../components/Checkbox"
-import SecondaryButton from "../../components/buttons/SecondaryButton"
-import { getMinMaxValue, sliderProgress } from "../../utils/utility"
+  UPPERCASE
+} from '../../data/constants'
+import Slider from '../../components/Slider'
+import Checkbox from '../../components/Checkbox'
+import SecondaryButton from '../../components/buttons/SecondaryButton'
+import { getMinMaxValue, sliderProgress } from '../../utils/utility'
 
-export default function GeneratorParameters() {
+export default function GeneratorParameters () {
   // Context
   const { length, parameters } = useParameterContext()
   const update = useParameterContextUpdate()
@@ -27,7 +27,7 @@ export default function GeneratorParameters() {
     useLower: parameters.includes(LOWERCASE),
     useUpper: parameters.includes(UPPERCASE),
     useNumbers: parameters.includes(NUMBERS),
-    useSymbols: parameters.includes(SYMBOLS),
+    useSymbols: parameters.includes(SYMBOLS)
   })
 
   // Slider progress bar.
@@ -54,9 +54,9 @@ export default function GeneratorParameters() {
 
   return (
     <div>
-      <div className="mb-4 pr-4">
+      <div className='mb-4 pr-4'>
         <Slider
-          title="Length:"
+          title='Length:'
           min={4}
           max={48}
           defaultLength={length}
@@ -67,13 +67,13 @@ export default function GeneratorParameters() {
           inputOnChange={handleLength}
           inputOnKeyDown={event => {
             // Prevent user from creating decimal numbers.
-            if (event.key === ".") {
+            if (event.key === '.') {
               event.preventDefault()
             }
           }}
         />
       </div>
-      <div className="flex flex-col space-y-4">
+      <div className='flex flex-col space-y-4'>
         {GENERATOR_INPUTS.map(({ id, label, type, value }) => {
           return (
             <Checkbox
@@ -84,7 +84,7 @@ export default function GeneratorParameters() {
                 updateParameter(type, value)
               }}
               onKeyDown={event => {
-                if (event.key === "Enter") {
+                if (event.key === 'Enter') {
                   updateParameter(type, value)
                 }
               }}
@@ -92,13 +92,13 @@ export default function GeneratorParameters() {
           )
         })}
       </div>
-      <div className="absolute bottom-4 right-4">
+      <div className='absolute bottom-4 right-4'>
         {/* Generate password button. */}
         <SecondaryButton
-          type="button"
+          type='button'
           disabled={parameters.length === 0 || length === 0}
-          hoverColor="blue-1"
-          activeColor="blue-2"
+          hoverColor='blue-1'
+          activeColor='blue-2'
           onClick={() => {
             updatePassword(parameters, length)
           }}

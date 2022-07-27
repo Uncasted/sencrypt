@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react"
-import NewUserForm from "./NewUserForm"
-import LoginForm from "./LoginForm"
-import PropTypes from "prop-types"
+import { useState, useEffect } from 'react'
+import NewUserForm from './NewUserForm'
+import LoginForm from './LoginForm'
+import PropTypes from 'prop-types'
 
-export default function LoginScreen({ children }) {
+export default function LoginScreen ({ children }) {
   // State
   const [isNewUser, setIsNewUser] = useState(false)
 
@@ -13,15 +13,17 @@ export default function LoginScreen({ children }) {
 
   return (
     <>
-      {isNewUser ? (
-        <NewUserForm>{children}</NewUserForm>
-      ) : (
-        <LoginForm>{children}</LoginForm>
-      )}
+      {isNewUser
+        ? (
+          <NewUserForm>{children}</NewUserForm>
+          )
+        : (
+          <LoginForm>{children}</LoginForm>
+          )}
     </>
   )
 }
 
 LoginScreen.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node
 }

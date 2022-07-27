@@ -1,8 +1,8 @@
-import { useState, cloneElement } from "react"
-import CollapsibleTitle from "./CollapsibleTitle"
-import PropTypes from "prop-types"
+import { useState, cloneElement } from 'react'
+import CollapsibleTitle from './CollapsibleTitle'
+import PropTypes from 'prop-types'
 
-export default function Collapsible(props) {
+export default function Collapsible (props) {
   // State.
   const [open, setOpen] = useState(false)
 
@@ -12,7 +12,7 @@ export default function Collapsible(props) {
 
   return (
     <>
-      <div onClick={toggleCollapsible} className="title cursor-pointer">
+      <div onClick={toggleCollapsible} className='title cursor-pointer'>
         <CollapsibleTitle
           toggleCollapsible={toggleCollapsible}
           tabIndex={props.tabIndex}
@@ -22,7 +22,7 @@ export default function Collapsible(props) {
         </CollapsibleTitle>
       </div>
       {/* Display the children if showContent is true. */}
-      <div className={open ? "content show" : "content"}>{props.children}</div>
+      <div className={open ? 'content show' : 'content'}>{props.children}</div>
     </>
   )
 }
@@ -30,5 +30,5 @@ export default function Collapsible(props) {
 Collapsible.propTypes = {
   tabIndex: PropTypes.number,
   title: PropTypes.node,
-  children: PropTypes.node,
+  children: PropTypes.node
 }

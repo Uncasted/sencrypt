@@ -1,9 +1,9 @@
-import AccountsProvider from "../../context/accounts/AccountsContext"
-import { Accounts } from "./Accounts"
+import AccountsProvider from '../../context/accounts/AccountsContext'
+import { Accounts } from './Accounts'
 
-export default function AccountSection() {
+export default function AccountSection () {
   return (
-    <div className="ml-[250px]">
+    <div className='ml-[250px]'>
       <AccountsProvider>
         <Accounts />
       </AccountsProvider>

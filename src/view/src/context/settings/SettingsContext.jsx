@@ -1,18 +1,18 @@
-import { createContext, useState, useContext, useEffect } from "react"
-import PropTypes from "prop-types"
+import { createContext, useState, useContext, useEffect } from 'react'
+import PropTypes from 'prop-types'
 
 const SettingsContext = createContext()
 const SettingsContextUpdate = createContext()
 
-export function useSettingsContext() {
+export function useSettingsContext () {
   return useContext(SettingsContext)
 }
 
-export function useSettingsContextUpdate() {
+export function useSettingsContextUpdate () {
   return useContext(SettingsContextUpdate)
 }
 
-export default function SettingsProvider(props) {
+export default function SettingsProvider (props) {
   const [settings, setSettings] = useState({})
   // Get the settings from the settings file.
   useEffect(() => {
@@ -42,5 +42,5 @@ export default function SettingsProvider(props) {
 }
 
 SettingsContext.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node
 }

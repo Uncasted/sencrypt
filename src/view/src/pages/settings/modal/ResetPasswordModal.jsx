@@ -1,19 +1,19 @@
-import { useRef, useState } from "react"
+import { useRef, useState } from 'react'
 import {
   BLUE_OUTLINE,
   RED_OUTLINE,
-  RESET_PASS_FIELDS,
-} from "../../../data/constants"
-import ModalHeader from "../../../components/headers/ModalHeader"
-import InputField from "../../../components/forms/InputField"
-import SecondaryButton from "../../../components/buttons/SecondaryButton"
-import ConfirmResetModal from "./ConfirmResetModal"
+  RESET_PASS_FIELDS
+} from '../../../data/constants'
+import ModalHeader from '../../../components/headers/ModalHeader'
+import InputField from '../../../components/forms/InputField'
+import SecondaryButton from '../../../components/buttons/SecondaryButton'
+import ConfirmResetModal from './ConfirmResetModal'
 
-export function ResetPasswordModal() {
+export function ResetPasswordModal () {
   // State
   const [passwords, setPasswords] = useState({
-    newMasterPass: "",
-    confirmNewMasterPass: "",
+    newMasterPass: '',
+    confirmNewMasterPass: ''
   })
 
   // Ref
@@ -28,7 +28,7 @@ export function ResetPasswordModal() {
     })
   }
 
-  const removeWarning = () => {
+  const handleWarning = () => {
     // Remove the warning for the input fields.
     const fields = document.querySelectorAll(
       '[data-outline="reset-modal-outline"]'
@@ -40,7 +40,7 @@ export function ResetPasswordModal() {
     }
     // Make the warning invisible.
     const warning = warningRef.current
-    warning.classList.add("invisible")
+    warning.classList.add('invisible')
   }
 
   const submitData = event => {
@@ -48,10 +48,10 @@ export function ResetPasswordModal() {
 
     if (passwords.newMasterPass === passwords.confirmNewMasterPass) {
       // Open the confirmation modal.
-      const confirmModal = document.getElementById("confirm-reset-modal")
+      const confirmModal = document.getElementById('confirm-reset-modal')
       confirmModal.click()
       // Focus on the first field.
-      const oldMasterPass = document.getElementById("oldMasterPass")
+      const oldMasterPass = document.getElementById('oldMasterPass')
       oldMasterPass.focus()
     } else {
       // Warn the user.
@@ -67,36 +67,36 @@ export function ResetPasswordModal() {
 
       // Show the user the warning.
       const warning = warningRef.current
-      warning.classList.remove("invisible")
+      warning.classList.remove('invisible')
     }
   }
 
   return (
     <>
       <input
-        type="checkbox"
-        id="reset-modal"
-        tabIndex="-1"
-        className="modal-toggle"
+        type='checkbox'
+        id='reset-modal'
+        tabIndex='-1'
+        className='modal-toggle'
         onChange={() => {
           setPasswords(() => {
             // Set the fields empty when you close the modal.
             return {
-              newMasterPass: "",
-              confirmNewMasterPass: "",
+              newMasterPass: '',
+              confirmNewMasterPass: ''
             }
           })
         }}
       />
-      <div className="modal">
-        <div className="modal-box bg-dark-blue-1 text-white rounded-none px-0 py-0 w-[350px] shadow-sm">
-          <ModalHeader htmlFor="reset-modal" tabIndex={14}>
+      <div className='modal'>
+        <div className='modal-box bg-dark-blue-1 text-white rounded-none px-0 py-0 w-[350px] shadow-sm'>
+          <ModalHeader htmlFor='reset-modal' tabIndex={14}>
             Reset Master Password:
           </ModalHeader>
           <form
-            id="reset-form"
+            id='reset-form'
             onSubmit={submitData}
-            className="flex flex-col items-center space-y-4"
+            className='flex flex-col items-center space-y-4'
           >
             {RESET_PASS_FIELDS.map(field => {
               return (
@@ -107,34 +107,34 @@ export function ResetPasswordModal() {
                   fieldId={field.id}
                   title={field.title}
                   tabIndex={field.tabIndex}
-                  dataOutline="reset-modal-outline"
+                  dataOutline='reset-modal-outline'
                   value={passwords[field.value]}
-                  removeWarning={removeWarning}
+                  handleWarning={handleWarning}
                   onChange={input => {
                     updateField(field.value, input)
                   }}
                 />
               )
             })}
-            <p ref={warningRef} className="invisible text-red-500">
+            <p ref={warningRef} className='invisible text-red-500'>
               The passwords do not match.
             </p>
             {/* Add account button. */}
-            <div className="modal-action">
+            <div className='modal-action'>
               <label
-                htmlFor="reset-modal"
-                id="reset-modal-button"
-                className="mb-6 mt-[-1rem]"
+                htmlFor='reset-modal'
+                id='reset-modal-button'
+                className='mb-6 mt-[-1rem]'
               >
                 <SecondaryButton
-                  type="submit"
-                  form="reset-form"
+                  type='submit'
+                  form='reset-form'
                   tabIndex={13}
                   disabled={
                     !passwords.newMasterPass || !passwords.confirmNewMasterPass
                   }
-                  hoverColor="red-500"
-                  activeColor="red-600"
+                  hoverColor='red-500'
+                  activeColor='red-600'
                 >
                   Reset Password
                 </SecondaryButton>

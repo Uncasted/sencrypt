@@ -1,14 +1,14 @@
-import Checkbox from "../../../components/Checkbox"
-import InputNumberBox from "../../../components/InputNumberBox"
-import Option from "../../../components/Option"
+import Checkbox from '../../../components/Checkbox'
+import InputNumberBox from '../../../components/InputNumberBox'
+import Option from '../../../components/Option'
 import {
   useSettingsContext,
-  useSettingsContextUpdate,
-} from "../../../context/settings/SettingsContext"
-import { useState } from "react"
-import { getMinMaxValue } from "../../../utils/utility"
+  useSettingsContextUpdate
+} from '../../../context/settings/SettingsContext'
+import { useState } from 'react'
+import { getMinMaxValue } from '../../../utils/utility'
 
-export default function AskForReLogin() {
+export default function AskForReLogin () {
   // Context
   const { loginTimeout, loginTimeoutTime } = useSettingsContext()
   const updateSetting = useSettingsContextUpdate()
@@ -29,33 +29,33 @@ export default function AskForReLogin() {
     // Convert the time to seconds.
     const timeInSeconds = newTime * 60
     // Update the setting.
-    updateSetting("loginTimeoutTime", timeInSeconds).then(() => {
+    updateSetting('loginTimeoutTime', timeInSeconds).then(() => {
       // Update the state.
       setTime(String(newTime))
     })
   }
 
   return (
-    <Option label="Require Login After Some Time (mins):">
-      <div className="flex space-x-4">
+    <Option label='Require Login After Some Time (mins):'>
+      <div className='flex space-x-4'>
         <Checkbox
           checked={toggleTimeout}
           onClick={() => {
             // Update the setting.
-            updateSetting("loginTimeout", !loginTimeout)
+            updateSetting('loginTimeout', !loginTimeout)
             // Update the local state.
             setToggleTimeout(toggleTimeout => !toggleTimeout)
           }}
           onKeyDown={event => {
-            if (event.key === "Enter") {
+            if (event.key === 'Enter') {
               // Update the setting.
-              updateSetting("loginTimeout", !loginTimeout)
+              updateSetting('loginTimeout', !loginTimeout)
               // Update the local state.
               setToggleTimeout(toggleTimeout => !toggleTimeout)
             }
           }}
         />
-        <div className="bg-dark-blue-2">
+        <div className='bg-dark-blue-2'>
           <InputNumberBox
             min={1}
             max={60}
@@ -65,7 +65,7 @@ export default function AskForReLogin() {
             }}
             onKeyDown={event => {
               // Prevent user from creating decimal numbers.
-              if (event.key === ".") {
+              if (event.key === '.') {
                 event.preventDefault()
               }
             }}

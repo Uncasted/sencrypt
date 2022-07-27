@@ -1,11 +1,11 @@
 // Utility functions.
-const crypto = require("crypto")
-const CHARS = require("./constants")
+const crypto = require('crypto')
+const CHARS = require('./constants')
 
 // Generate random chars.
-function randomChars(length) {
+function randomChars (length) {
   const alphaNumChars = CHARS.NUMBERS + CHARS.UPPERCASE + CHARS.LOWERCASE
-  let randomChars = ""
+  let randomChars = ''
 
   for (let i = 0; i < length; i++) {
     // Take random char from alphabet.
@@ -17,7 +17,7 @@ function randomChars(length) {
 }
 
 // Generate random SEC_KEY_2 and INIT_VEC.
-function generateRandomKey(length) {
+function generateRandomKey (length) {
   if (length === 32) {
     // If the length is already 32 just return the INIT_VEC.
     return randomChars(16)
@@ -31,9 +31,9 @@ function generateRandomKey(length) {
 }
 
 // Generate a random password.
-function generateRandomPassword(parameters, length) {
-  let charList = ""
-  let password = ""
+function generateRandomPassword (parameters, length) {
+  let charList = ''
+  let password = ''
   // Add the chars to the list of chars (depending on the parameters) to be used to create the password.
   for (const parameter of parameters) {
     charList += CHARS[parameter]
@@ -46,27 +46,27 @@ function generateRandomPassword(parameters, length) {
   return password
 }
 
-function encrypt(text, SEC_KEY) {
+function encrypt (text, SEC_KEY) {
   // Get the key and the initialization vector.
-  const [secretKey, IV] = SEC_KEY.split(":")
+  const [secretKey, IV] = SEC_KEY.split(':')
   // Encrypt the text.
-  const cipher = crypto.createCipheriv("aes-256-cbc", secretKey, IV)
-  let encryptedText = cipher.update(text, "utf-8", "base64")
-  encryptedText += cipher.final("base64")
+  const cipher = crypto.createCipheriv('aes-256-cbc', secretKey, IV)
+  let encryptedText = cipher.update(text, 'utf-8', 'base64')
+  encryptedText += cipher.final('base64')
   return encryptedText
 }
 
-function decrypt(encryptedText, SEC_KEY) {
+function decrypt (encryptedText, SEC_KEY) {
   // Get the key and initialization vector.
-  const [secretKey, IV] = SEC_KEY.split(":")
+  const [secretKey, IV] = SEC_KEY.split(':')
   // Decrypt the text.
-  const decipher = crypto.createDecipheriv("aes-256-cbc", secretKey, IV)
-  let decryptedText = decipher.update(encryptedText, "base64", "utf8")
-  decryptedText += decipher.final("utf8")
+  const decipher = crypto.createDecipheriv('aes-256-cbc', secretKey, IV)
+  let decryptedText = decipher.update(encryptedText, 'base64', 'utf8')
+  decryptedText += decipher.final('utf8')
   return decryptedText
 }
 
-function hasProperty(obj, prop) {
+function hasProperty (obj, prop) {
   return Object.getOwnPropertyDescriptor(obj, prop)
 }
 
@@ -75,5 +75,5 @@ module.exports = {
   generateRandomKey,
   encrypt,
   decrypt,
-  hasProperty,
+  hasProperty
 }

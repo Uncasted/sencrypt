@@ -1,25 +1,25 @@
-import { createContext, useState, useContext, useLayoutEffect } from "react"
-import { useAccountsContext } from "./AccountsContext"
-import { useIndexContext } from "./IndexContext"
-import PropTypes from "prop-types"
+import { createContext, useState, useContext, useLayoutEffect } from 'react'
+import { useAccountsContext } from './AccountsContext'
+import { useIndexContext } from './IndexContext'
+import PropTypes from 'prop-types'
 
 const InputContext = createContext()
 const InputContextUpdate = createContext()
 
-export function useInputContext() {
+export function useInputContext () {
   return useContext(InputContext)
 }
 
-export function useInputContextUpdate() {
+export function useInputContextUpdate () {
   return useContext(InputContextUpdate)
 }
 
-export default function InputProvider(props) {
+export default function InputProvider (props) {
   // State
   const [inputs, setInputs] = useState({
     username: props.username,
     website: props.website,
-    password: props.password,
+    password: props.password
   })
 
   // Context
@@ -55,5 +55,5 @@ InputProvider.propTypes = {
   username: PropTypes.string,
   website: PropTypes.string,
   password: PropTypes.string,
-  children: PropTypes.node,
+  children: PropTypes.node
 }

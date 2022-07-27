@@ -1,17 +1,17 @@
-import PrimaryButton from "../../../components/buttons/PrimaryButton"
-import Option from "../../../components/Option"
+import PrimaryButton from '../../../components/buttons/PrimaryButton'
+import Option from '../../../components/Option'
 
-export default function CreateBackup() {
+export default function CreateBackup () {
   const createBackup = async () => {
     // Create a backup of the database.
     await window.database.createBackup()
   }
 
   return (
-    <Option label="Create Database Backup:">
+    <Option label='Create Database Backup:'>
       <PrimaryButton
-        hoverColor="blue-1"
-        activeColor="blue-2"
+        hoverColor='blue-1'
+        activeColor='blue-2'
         width={40}
         onClick={createBackup}
       >

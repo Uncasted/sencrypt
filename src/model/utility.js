@@ -70,10 +70,16 @@ function hasProperty (obj, prop) {
   return Object.getOwnPropertyDescriptor(obj, prop)
 }
 
+// Generate random salt for the master password.
+function generateSalt () {
+  return crypto.randomBytes(16).toString('base64')
+}
+
 module.exports = {
   generateRandomPassword,
   generateRandomKey,
   encrypt,
   decrypt,
-  hasProperty
+  hasProperty,
+  generateSalt
 }

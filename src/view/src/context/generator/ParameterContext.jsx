@@ -1,68 +1,79 @@
-import {createContext, useState, useContext} from "react"
-import {DEFAULT_LENGTH, DEFAULT_PARAMETERS, GENERATOR_KEY} from "../../data/constants"
-import {getLocalParameters} from "../../utils/utility"
+import { createContext, useState, useContext } from "react"
+import {
+  DEFAULT_LENGTH,
+  DEFAULT_PARAMETERS,
+  GENERATOR_KEY,
+} from "../../data/constants"
+import { getLocalParameters } from "../../utils/utility"
 import PropTypes from "prop-types"
 
 const ParameterContext = createContext()
 const ParameterContextUpdate = createContext()
 
 export function useParameterContext() {
-    return useContext(ParameterContext)
+  return useContext(ParameterContext)
 }
 
 export function useParameterContextUpdate() {
-    return useContext(ParameterContextUpdate)
+  return useContext(ParameterContextUpdate)
 }
 
 export default function ParameterProvider(props) {
-    const savedParameters = getLocalParameters()
-    const [parameters, setParameters] = useState(savedParameters.parameters || DEFAULT_PARAMETERS)
-    const [length, setLength] = useState(savedParameters.length || DEFAULT_LENGTH)
+  const savedParameters = getLocalParameters()
+  const [parameters, setParameters] = useState(
+    savedParameters.parameters || DEFAULT_PARAMETERS
+  )
+  const [length, setLength] = useState(savedParameters.length || DEFAULT_LENGTH)
 
-    const addParameter = (newParameter) => {
-        setParameters(parameters => {
-            const localParameters = getLocalParameters()
-            // Saving the parameter in localStorage.
-            localParameters.parameters = [...(localParameters.parameters ?? []), newParameter]
-            localStorage.setItem(GENERATOR_KEY, JSON.stringify(localParameters))
+  const addParameter = newParameter => {
+    setParameters(parameters => {
+      const localParameters = getLocalParameters()
+      // Saving the parameter in localStorage.
+      localParameters.parameters = [
+        ...(localParameters.parameters ?? []),
+        newParameter,
+      ]
+      localStorage.setItem(GENERATOR_KEY, JSON.stringify(localParameters))
 
-            return [...parameters, newParameter]
-        })
-    }
+      return [...parameters, newParameter]
+    })
+  }
 
-    const delParameter = (parameter) => {
-        setParameters(parameters => {
-            const newParameters = [...parameters]
-            // Deleting the parameter from the array.
-            const parameterIndex = newParameters.indexOf(parameter)
-            newParameters.splice(parameterIndex, 1)
-            // Deleting the parameter from localStorage.
-            const localParameters = getLocalParameters()
-            localParameters.parameters = [...newParameters]
-            localStorage.setItem(GENERATOR_KEY, JSON.stringify(localParameters))
+  const delParameter = parameter => {
+    setParameters(parameters => {
+      const newParameters = [...parameters]
+      // Deleting the parameter from the array.
+      const parameterIndex = newParameters.indexOf(parameter)
+      newParameters.splice(parameterIndex, 1)
+      // Deleting the parameter from localStorage.
+      const localParameters = getLocalParameters()
+      localParameters.parameters = [...newParameters]
+      localStorage.setItem(GENERATOR_KEY, JSON.stringify(localParameters))
 
-            return newParameters
-        })
-    }
+      return newParameters
+    })
+  }
 
-    const updateLength = (newLength) => {
-        // Update length.
-        setLength(() => newLength)
-        // Update length in local storage.
-        const localParameters = getLocalParameters()
-        localParameters.length = newLength
-        localStorage.setItem(GENERATOR_KEY, JSON.stringify(localParameters))
-    }
+  const updateLength = newLength => {
+    // Update length.
+    setLength(() => newLength)
+    // Update length in local storage.
+    const localParameters = getLocalParameters()
+    localParameters.length = newLength
+    localStorage.setItem(GENERATOR_KEY, JSON.stringify(localParameters))
+  }
 
-    return (
-        <ParameterContext.Provider value={{parameters: parameters, length: length}}>
-            <ParameterContextUpdate.Provider value={{addParameter, delParameter, updateLength}}>
-                {props.children}
-            </ParameterContextUpdate.Provider>
-        </ParameterContext.Provider>
-    )
+  return (
+    <ParameterContext.Provider value={{ parameters, length }}>
+      <ParameterContextUpdate.Provider
+        value={{ addParameter, delParameter, updateLength }}
+      >
+        {props.children}
+      </ParameterContextUpdate.Provider>
+    </ParameterContext.Provider>
+  )
 }
 
 ParameterProvider.propTypes = {
-    children: PropTypes.node
+  children: PropTypes.node,
 }

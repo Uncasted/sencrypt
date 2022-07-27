@@ -65,8 +65,6 @@ class Database {
 
       // Get the hash of the inputted master password.
       const [, inputHash] = encryptMasterPassword(masterPassword, salt).split(':')
-      console.log(inputHash)
-      console.log(hashedMP)
 
       // Compare the hashes and return the value.
       return hashedMP === inputHash

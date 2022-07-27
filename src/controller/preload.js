@@ -1,14 +1,14 @@
 // Preload (Isolated World)
-const DatabaseController = require("./databaseController")
-const SettingsController = require("./settingsController")
-const { contextBridge } = require("electron")
-const utility = require("../model/utility")
+const DatabaseController = require('./databaseController')
+const SettingsController = require('./settingsController')
+const { contextBridge } = require('electron')
+const utility = require('../model/utility')
 
 const database = new DatabaseController()
 const settings = new SettingsController()
 
 // Database Controller.
-contextBridge.exposeInMainWorld("database", {
+contextBridge.exposeInMainWorld('database', {
   checkIsNew: async () => await database.checkIsNew(),
   createMasterPassword: async masterPassword =>
     await database.createMasterPassword(masterPassword),
@@ -35,11 +35,11 @@ contextBridge.exposeInMainWorld("database", {
   },
   deleteAccount: async index => {
     await database.deleteAccount(index)
-  },
+  }
 })
 
 // Settings controller.
-contextBridge.exposeInMainWorld("settings", {
+contextBridge.exposeInMainWorld('settings', {
   getSettings: async () => await settings.getSettings(),
   init: async () => {
     await settings.init()
@@ -49,11 +49,11 @@ contextBridge.exposeInMainWorld("settings", {
   },
   updateSetting: async (option, value) => {
     await settings.updateSetting(option, value)
-  },
+  }
 })
 
 // Utility functions.
-contextBridge.exposeInMainWorld("utility", {
+contextBridge.exposeInMainWorld('utility', {
   generateRandomPassword: (parameters, length) =>
-    utility.generateRandomPassword(parameters, length),
+    utility.generateRandomPassword(parameters, length)
 })

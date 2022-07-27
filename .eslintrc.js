@@ -2,27 +2,27 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
-    node: true,
+    node: true
   },
-  extends: ["plugin:react/recommended", "standard", "prettier"],
+  extends: ['plugin:react/recommended', 'standard', 'prettier'],
   parserOptions: {
     ecmaFeatures: {
-      jsx: true,
+      jsx: true
     },
     ecmaVersion: 12,
-    sourceType: "module",
+    sourceType: 'module'
   },
-  plugins: ["react"],
+  plugins: ['react'],
   rules: {
-    "react/prop-types": "off",
-    "react/react-in-jsx-scope": "off",
-    "no-unused-vars": "warn",
-    "import/no-absolute-path": "off",
-    "react/no-unescaped-entities": "off",
+    'react/prop-types': 'off',
+    'react/react-in-jsx-scope': 'off',
+    'no-unused-vars': 'warn',
+    'import/no-absolute-path': 'off',
+    'react/no-unescaped-entities': 'off'
   },
   settings: {
     react: {
-      version: "18.0",
-    },
-  },
+      version: '18.0'
+    }
+  }
 }

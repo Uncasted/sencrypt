@@ -1,15 +1,15 @@
-import PropTypes from "prop-types"
+import PropTypes from 'prop-types'
 
-export default function InputNumberBox(props) {
+export default function InputNumberBox (props) {
   return (
     <input
-      type="number"
+      type='number'
       min={props.min || null}
       max={props.max || null}
       value={props.value}
       onChange={props.onChange || null}
       onKeyDown={props.onKeyDown || null}
-      className="bg-transparent w-8 text-center text-sm rounded-sm focus:outline-gray-200"
+      className='bg-transparent w-8 text-center text-sm rounded-sm focus:outline-gray-200'
     />
   )
 }
@@ -19,5 +19,5 @@ InputNumberBox.propTypes = {
   max: PropTypes.number,
   value: PropTypes.string,
   onChange: PropTypes.func,
-  onKeyDown: PropTypes.func,
+  onKeyDown: PropTypes.func
 }

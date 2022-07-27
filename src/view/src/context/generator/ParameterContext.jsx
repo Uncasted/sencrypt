@@ -1,24 +1,24 @@
-import { createContext, useState, useContext } from "react"
+import { createContext, useState, useContext } from 'react'
 import {
   DEFAULT_LENGTH,
   DEFAULT_PARAMETERS,
-  GENERATOR_KEY,
-} from "../../data/constants"
-import { getLocalParameters } from "../../utils/utility"
-import PropTypes from "prop-types"
+  GENERATOR_KEY
+} from '../../data/constants'
+import { getLocalParameters } from '../../utils/utility'
+import PropTypes from 'prop-types'
 
 const ParameterContext = createContext()
 const ParameterContextUpdate = createContext()
 
-export function useParameterContext() {
+export function useParameterContext () {
   return useContext(ParameterContext)
 }
 
-export function useParameterContextUpdate() {
+export function useParameterContextUpdate () {
   return useContext(ParameterContextUpdate)
 }
 
-export default function ParameterProvider(props) {
+export default function ParameterProvider (props) {
   const savedParameters = getLocalParameters()
   const [parameters, setParameters] = useState(
     savedParameters.parameters || DEFAULT_PARAMETERS
@@ -31,9 +31,9 @@ export default function ParameterProvider(props) {
       // Saving the parameter in localStorage.
       localParameters.parameters = [
         ...(localParameters.parameters ?? []),
-        newParameter,
+        newParameter
       ]
-      localStorage.setItem(GENERATOR_KEY, JSON.stringify(localParameters))
+      window.localStorage.setItem(GENERATOR_KEY, JSON.stringify(localParameters))
 
       return [...parameters, newParameter]
     })
@@ -48,7 +48,7 @@ export default function ParameterProvider(props) {
       // Deleting the parameter from localStorage.
       const localParameters = getLocalParameters()
       localParameters.parameters = [...newParameters]
-      localStorage.setItem(GENERATOR_KEY, JSON.stringify(localParameters))
+      window.localStorage.setItem(GENERATOR_KEY, JSON.stringify(localParameters))
 
       return newParameters
     })
@@ -60,7 +60,7 @@ export default function ParameterProvider(props) {
     // Update length in local storage.
     const localParameters = getLocalParameters()
     localParameters.length = newLength
-    localStorage.setItem(GENERATOR_KEY, JSON.stringify(localParameters))
+    window.localStorage.setItem(GENERATOR_KEY, JSON.stringify(localParameters))
   }
 
   return (
@@ -75,5 +75,5 @@ export default function ParameterProvider(props) {
 }
 
 ParameterProvider.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node
 }

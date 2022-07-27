@@ -1,7 +1,7 @@
-import { useRef } from "react"
-import PropTypes from "prop-types"
+import { useRef } from 'react'
+import PropTypes from 'prop-types'
 
-export default function ModalHeader(props) {
+export default function ModalHeader (props) {
   const headerRef = useRef(null)
 
   const closeModal = () => {
@@ -11,19 +11,19 @@ export default function ModalHeader(props) {
   }
 
   return (
-    <div className="bg-blue-3 text-white w-full py-4 pl-4 mb-4">
+    <div className='bg-blue-3 text-white w-full py-4 pl-4 mb-4'>
       <label htmlFor={props.htmlFor} ref={headerRef}>
         <button
-          type="button"
+          type='button'
           tabIndex={props.tabIndex || 0}
           onClick={closeModal}
-          className="btn bg-transparent border-none absolute right-2 top-1 text-white rounded-none
-                           hover:bg-transparent focus:outline-gray-200"
+          className='btn bg-transparent border-none absolute right-2 top-1 text-white rounded-none
+                           hover:bg-transparent focus:outline-gray-200'
         >
           ✕
         </button>
       </label>
-      <h1 className="text-lg">{props.children}</h1>
+      <h1 className='text-lg'>{props.children}</h1>
     </div>
   )
 }
@@ -31,5 +31,5 @@ export default function ModalHeader(props) {
 ModalHeader.propTypes = {
   htmlFor: PropTypes.string,
   tabIndex: PropTypes.number,
-  children: PropTypes.node,
+  children: PropTypes.node
 }

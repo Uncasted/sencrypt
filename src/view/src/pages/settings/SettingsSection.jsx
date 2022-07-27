@@ -1,8 +1,8 @@
-import Settings from "./Settings"
+import Settings from './Settings'
 
-export default function SettingsSection() {
+export default function SettingsSection () {
   return (
-    <div className="ml-[250px]">
+    <div className='ml-[250px]'>
       <Settings />
     </div>
   )

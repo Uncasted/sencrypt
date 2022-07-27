@@ -1,8 +1,8 @@
-import { usePasswordContext } from "../../context/generator/PasswordContext"
-import { SHOW_TOOLTIP } from "../../data/constants"
-import { useRef } from "react"
+import { usePasswordContext } from '../../context/generator/PasswordContext'
+import { SHOW_TOOLTIP } from '../../data/constants'
+import { useRef } from 'react'
 
-export default function PasswordGenerator() {
+export default function PasswordGenerator () {
   // Ref
   const tooltipRef = useRef(null)
 
@@ -21,20 +21,20 @@ export default function PasswordGenerator() {
   }
 
   return (
-    <div className="flex space-x-2 items-center">
-      <div data-tip="Copied!" ref={tooltipRef} className="tooltip-bg">
+    <div className='flex space-x-2 items-center'>
+      <div data-tip='Copied!' ref={tooltipRef} className='tooltip-bg'>
         <input
           readOnly
-          type="text"
+          type='text'
           value={password}
           onClick={selectToClipboard}
           onKeyDown={event => {
-            if (event.key === "Enter") {
+            if (event.key === 'Enter') {
               selectToClipboard()
             }
           }}
-          className="text-dark-blue-0 pl-2 w-[36rem] xl:w-[48rem] py-1.5 text-lg focus:outline-none
-                       focus:ring focus:ring-blue-1 transition"
+          className='text-dark-blue-0 pl-2 w-[36rem] xl:w-[48rem] py-1.5 text-lg focus:outline-none
+                       focus:ring focus:ring-blue-1 transition'
         />
       </div>
     </div>

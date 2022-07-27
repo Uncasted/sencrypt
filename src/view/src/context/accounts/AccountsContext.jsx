@@ -1,18 +1,18 @@
-import { createContext, useContext, useState, useEffect } from "react"
-import PropTypes from "prop-types"
+import { createContext, useContext, useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 
 const AccountsContext = createContext()
 const AccountsContextUpdate = createContext()
 
-export function useAccountsContext() {
+export function useAccountsContext () {
   return useContext(AccountsContext)
 }
 
-export function useAccountsContextUpdate() {
+export function useAccountsContextUpdate () {
   return useContext(AccountsContextUpdate)
 }
 
-export default function AccountsProvider(props) {
+export default function AccountsProvider (props) {
   const [accounts, setAccounts] = useState([])
 
   // Get the buttons from the database.
@@ -63,5 +63,5 @@ export default function AccountsProvider(props) {
 }
 
 AccountsProvider.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node
 }

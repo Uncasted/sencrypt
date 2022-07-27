@@ -1,31 +1,31 @@
-import { createContext, useState, useEffect, useContext } from "react"
+import { createContext, useState, useEffect, useContext } from 'react'
 import {
   DEFAULT_LENGTH,
   DEFAULT_PARAMETERS,
-  LAST_GEN_PASS_KEY,
-} from "../../data/constants"
-import PropTypes from "prop-types"
+  LAST_GEN_PASS_KEY
+} from '../../data/constants'
+import PropTypes from 'prop-types'
 
 const PasswordContext = createContext()
 const PasswordContextUpdate = createContext()
 
-export function usePasswordContext() {
+export function usePasswordContext () {
   return useContext(PasswordContext)
 }
 
-export function usePasswordContextUpdate() {
+export function usePasswordContextUpdate () {
   return useContext(PasswordContextUpdate)
 }
 
-export default function PasswordProvider(props) {
+export default function PasswordProvider (props) {
   // State
-  const [password, setPassword] = useState("")
+  const [password, setPassword] = useState('')
 
   // Run generatePassword when the component gets mounted for the first time.
   // Otherwise, get the last generated password from localStorage.
   useEffect(() => {
     const localGeneratedPass =
-      window.localStorage.getItem(LAST_GEN_PASS_KEY) || ""
+      window.localStorage.getItem(LAST_GEN_PASS_KEY) || ''
     if (localGeneratedPass) {
       setPassword(() => localGeneratedPass)
     } else {
@@ -53,5 +53,5 @@ export default function PasswordProvider(props) {
 }
 
 PasswordProvider.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node
 }

@@ -1,20 +1,20 @@
-import { useRef, useState } from "react"
+import { useRef, useState } from 'react'
 import {
   BLUE_OUTLINE,
   IMAGES,
   LOGIN_FIELDS,
-  RED_OUTLINE,
-} from "../../data/constants"
-import InputField from "../../components/forms/InputField"
-import SecondaryButton from "../../components/buttons/SecondaryButton"
-import PropTypes from "prop-types"
+  RED_OUTLINE
+} from '../../data/constants'
+import InputField from '../../components/forms/InputField'
+import SecondaryButton from '../../components/buttons/SecondaryButton'
+import PropTypes from 'prop-types'
 
-export default function NewUserForm(props) {
+export default function NewUserForm (props) {
   // State
   const [isCreatedMP, setIsCreatedMP] = useState(false)
   const [passwords, setPasswords] = useState({
-    pass: "",
-    confirmPass: "",
+    pass: '',
+    confirmPass: ''
   })
 
   // Ref
@@ -43,7 +43,7 @@ export default function NewUserForm(props) {
     } else {
       // Display warning.
       const warning = warningRef.current
-      warning.classList.remove("invisible")
+      warning.classList.remove('invisible')
       // Add red outlines to inputs.
       const fields = document.querySelectorAll('[data-outline="new-user"]')
 
@@ -54,10 +54,10 @@ export default function NewUserForm(props) {
     }
   }
 
-  const removeWarning = () => {
+  const handleWarning = () => {
     // Remove the warning for invalid form.
     const warning = warningRef.current
-    warning.classList.add("invisible")
+    warning.classList.add('invisible')
 
     const fields = document.querySelectorAll('[data-outline="new-user"]')
     // Remove the red outline.
@@ -69,55 +69,57 @@ export default function NewUserForm(props) {
 
   return (
     <>
-      {!isCreatedMP ? (
-        <div className="bg-dark-blue-1 w-[100vw] h-[100vh] flex flex-col items-center justify-center space-y-10">
-          <div>
-            <img src={IMAGES.LOGO} alt="Sencrypt" className="w-72" />
-          </div>
-          <form
-            onSubmit={createPassword}
-            className="flex flex-col space-y-6 items-center"
-          >
-            {LOGIN_FIELDS.map(field => {
-              return (
-                <InputField
-                  key={field.fieldId}
-                  autoFocus={field.autofocus}
-                  title={field.title}
-                  type={field.type}
-                  fieldId={field.fieldId}
-                  name={field.name}
-                  dataOutline={field.dataOutline}
-                  minLength={field.minLength}
-                  maxLength={field.maxLength}
-                  value={passwords[field.value]}
-                  onChange={input => {
-                    updatePassword(field.value, input)
-                  }}
-                  removeWarning={removeWarning}
-                />
-              )
-            })}
-            <p ref={warningRef} className="invisible text-red-500 mt-2">
-              The passwords do not match.
-            </p>
-            <SecondaryButton
-              type="submit"
-              disabled={!passwords.pass || !passwords.confirmPass}
-              hoverColor="blue-1"
-              activeColor="blue-2"
+      {!isCreatedMP
+        ? (
+          <div className='bg-dark-blue-1 w-[100vw] h-[100vh] flex flex-col items-center justify-center space-y-10'>
+            <div>
+              <img src={IMAGES.LOGO} alt='Sencrypt' className='w-72' />
+            </div>
+            <form
+              onSubmit={createPassword}
+              className='flex flex-col space-y-6 items-center'
             >
-              Sign up
-            </SecondaryButton>
-          </form>
-        </div>
-      ) : (
-        props.children
-      )}
+              {LOGIN_FIELDS.map(field => {
+                return (
+                  <InputField
+                    key={field.fieldId}
+                    autoFocus={field.autofocus}
+                    title={field.title}
+                    type={field.type}
+                    fieldId={field.fieldId}
+                    name={field.name}
+                    dataOutline={field.dataOutline}
+                    minLength={field.minLength}
+                    maxLength={field.maxLength}
+                    value={passwords[field.value]}
+                    onChange={input => {
+                      updatePassword(field.value, input)
+                    }}
+                    handleWarning={handleWarning}
+                  />
+                )
+              })}
+              <p ref={warningRef} className='invisible text-red-500 mt-2'>
+                The passwords do not match.
+              </p>
+              <SecondaryButton
+                type='submit'
+                disabled={!passwords.pass || !passwords.confirmPass}
+                hoverColor='blue-1'
+                activeColor='blue-2'
+              >
+                Sign up
+              </SecondaryButton>
+            </form>
+          </div>
+          )
+        : (
+            props.children
+          )}
     </>
   )
 }
 
 NewUserForm.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node
 }

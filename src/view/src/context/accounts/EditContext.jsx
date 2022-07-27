@@ -1,18 +1,18 @@
-import { createContext, useState, useContext } from "react"
-import PropTypes from "prop-types"
+import { createContext, useState, useContext } from 'react'
+import PropTypes from 'prop-types'
 
 const EditContext = createContext()
 const EditContextUpdate = createContext()
 
-export function useEditContext() {
+export function useEditContext () {
   return useContext(EditContext)
 }
 
-export function useEditContextUpdate() {
+export function useEditContextUpdate () {
   return useContext(EditContextUpdate)
 }
 
-export default function EditProvider(props) {
+export default function EditProvider (props) {
   // To make them disabled by default we have to start with true.
   const [isEditable, setIsEditable] = useState(true)
 
@@ -31,5 +31,5 @@ export default function EditProvider(props) {
 }
 
 EditProvider.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node
 }

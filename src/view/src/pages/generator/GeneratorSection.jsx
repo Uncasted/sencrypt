@@ -1,8 +1,8 @@
-import { Generator } from "./Generator"
+import { Generator } from './Generator'
 
-export default function GeneratorSection() {
+export default function GeneratorSection () {
   return (
-    <div className="ml-[250px]">
+    <div className='ml-[250px]'>
       <Generator />
     </div>
   )

@@ -2,7 +2,7 @@ const fs = require('fs')
 const utility = require('./utility')
 const path = require('path')
 const { getAppDataPath } = require('appdata-path')
-const { generateRandomKey } = require('./utility')
+const { generateRandomKey, encryptMasterPassword } = require('./utility')
 
 class Database {
   constructor () {
@@ -25,7 +25,8 @@ class Database {
       // Secret key
       this.SEC_KEY = masterPassword + database.SEC_KEY_2
       // Generate Encrypted Master Password (ENC_MP)
-      this.ENC_MP = utility.encrypt(masterPassword, this.SEC_KEY)
+      const salt = utility.generateSalt()
+      this.ENC_MP = utility.encryptMasterPassword(masterPassword, salt)
       // This is done to extract the ENC_MP easily.
       database.ENC_MP = this.ENC_MP
       // This will handle the objects that contain the accounts.
@@ -59,18 +60,16 @@ class Database {
       await this.read()
       const { database } = this.data
 
-      const userKey = masterPassword + database.SEC_KEY_2
+      // Separate the salt from the hash.
+      const [salt, hashedMP] = database.ENC_MP.split(':')
 
-      // If the userKey length is not correct, then we can assume that the password is incorrect.
-      // The reason we do this is to prevent an error from invalid key length.
-      if (userKey.length === 49) {
-        const encryptedUserMP = utility.encrypt(masterPassword, userKey)
+      // Get the hash of the inputted master password.
+      const [, inputHash] = encryptMasterPassword(masterPassword, salt).split(':')
+      console.log(inputHash)
+      console.log(hashedMP)
 
-        // Compare encrypted input to encrypted master password.
-        return encryptedUserMP === database.ENC_MP
-      } else {
-        return false
-      }
+      // Compare the hashes and return the value.
+      return hashedMP === inputHash
     } catch (error) {
       console.log('Error at verifyMasterPassword (Database).')
       console.log(error)

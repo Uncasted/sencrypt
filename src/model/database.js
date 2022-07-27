@@ -214,18 +214,18 @@ class Database {
       // Check if the database has, and only has a database key.
       if (
         Object.keys(backup).length === 1 &&
-        backup.hasProperty(backup, 'database')
+        utility.hasProperty(backup, 'database')
       ) {
         // Check if the database has a SEC_KEY_2 and an ENC_MP key.
         const { database } = backup
         if (
-          backup.hasProperty(database, 'SEC_KEY_2') &&
-          backup.hasProperty(database, 'ENC_MP')
+          utility.hasProperty(database, 'SEC_KEY_2') &&
+          utility.hasProperty(database, 'ENC_MP')
         ) {
           // Check if the ENC_MP key value and encrypted master password key are the same.
           const ENC_MP = database.ENC_MP
           // If it does then the scheme is valid, and it returns true.
-          return backup.hasProperty(database, ENC_MP)
+          return utility.hasProperty(database, ENC_MP)
         }
       }
 

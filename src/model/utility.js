@@ -75,11 +75,19 @@ function generateSalt () {
   return crypto.randomBytes(16).toString('base64')
 }
 
+// Encrypting the master password.
+function encryptMasterPassword (password, salt) {
+  const hash = crypto.scryptSync(password, salt, 64).toString('base64')
+  // Return the salted hash of the master password.
+  return `${salt}:${hash}`
+}
+
 module.exports = {
   generateRandomPassword,
   generateRandomKey,
   encrypt,
   decrypt,
   hasProperty,
-  generateSalt
+  generateSalt,
+  encryptMasterPassword
 }

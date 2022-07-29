@@ -27,6 +27,7 @@ export default function TrayMenu () {
                 title={button.title}
                 icon={button.icon}
                 altIcon={button.altIcon}
+                onClick={button.onClick}
               />
             </li>
           )

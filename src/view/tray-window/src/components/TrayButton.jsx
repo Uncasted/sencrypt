@@ -3,7 +3,9 @@ import PropTypes from 'prop-types'
 export default function TrayButton (props) {
   return (
     <button
-      className='w-full text-start text-xl pl-4 py-4 hover:bg-[#00141F] transition flex focus:outline-gray-200'
+      onClick={props?.onClick}
+      className='w-full text-start text-xl pl-4 py-4 hover:bg-[#00141F] transition flex focus:outline-gray-200
+      hover:cursor-pointer'
     >
       <img
         src={props.icon}
@@ -18,5 +20,6 @@ export default function TrayButton (props) {
 TrayButton.propTypes = {
   icon: PropTypes.string,
   altIcon: PropTypes.string,
-  title: PropTypes.string
+  title: PropTypes.string,
+  onClick: PropTypes.func
 }

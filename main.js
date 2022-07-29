@@ -26,13 +26,19 @@ const createMainWindow = async () => {
     autoHideMenuBar: true,
     icon: path.join(__dirname, iconPath),
     webPreferences: {
-      preload: path.join(__dirname, './src/controller/preload.js')
+      preload: path.join(__dirname, './src/controller/applicationPreload.js')
     }
   })
   await MainWin.loadFile(path.join(__dirname, './src/view/application-window/dist/index.html'))
   // When the main window is closed, close the tray window.
-  MainWin.on('closed', () => {
-    TrayWin.destroy()
+  // MainWin.on('closed', () => {
+  //   TrayWin.destroy()
+  // })
+  MainWin.on('close', (event) => {
+    // Prevent the main window from getting destroyed.
+    event.preventDefault()
+    // Hiding the main window.
+    MainWin.hide()
   })
 }
 
@@ -51,6 +57,11 @@ const createTray = () => {
   })
   // Focus the main window on double click.
   TrayMenu.on('double-click', () => {
+    // If the main window is hidden, show it.
+    if (!MainWin.isVisible()) {
+      MainWin.show()
+    }
+    // Focus on the window.
     MainWin.focus()
   })
 }
@@ -64,7 +75,10 @@ const createTrayWindow = async () => {
     frame: false,
     fullscreenable: false,
     resizable: false,
-    skipTaskbar: true
+    skipTaskbar: true,
+    webPreferences: {
+      preload: path.join(__dirname, './src/controller/trayPreload.js')
+    }
   })
   // This is where the index.html file is loaded into the window
   await TrayWin.loadFile(path.join(__dirname, './src/view/tray-window/dist/index.html'))
@@ -86,15 +100,15 @@ app.whenReady().then(() => {
     if (BrowserWindow.getAllWindows().length === 0) createMainWindow().then()
   })
 })
-// Quit the app when we close all windows. (Except on macOS)
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    // Remove the tray icon.
-    TrayMenu.destroy()
-    // Quit the app.
-    app.quit()
-  }
-})
+// // Quit the app when we close all windows. (Except on macOS)
+// app.on('window-all-closed', () => {
+//   if (process.platform !== 'darwin') {
+//     // Remove the tray icon.
+//     TrayMenu.destroy()
+//     // Quit the app.
+//     app.quit()
+//   }
+// })
 
 // Timeout for re-login.
 app.on('browser-window-blur', () => {
@@ -131,6 +145,30 @@ ipcMain.handle('backup:load', async () => {
   }
   // Getting the path.
   return await handleFileOpen(MainWin, options)
+})
+
+// Open section from the tray menu.
+ipcMain.on('open:section', (event, section) => {
+  // Hide the tray menu.
+  TrayWin.hide()
+  // Send the signal to the main window.
+  MainWin.webContents.send('view:section', section)
+  // If the main window is hidden, show it.
+  if (!MainWin.isVisible()) {
+    MainWin.show()
+  }
+  // Focus the main window.
+  MainWin.focus()
+})
+
+// Close the application from the tray menu.
+ipcMain.on('app:quit', () => {
+  // Destroy the windows.
+  MainWin.destroy()
+  TrayWin.destroy()
+  TrayMenu.destroy()
+  // Quit the app.
+  app.quit()
 })
 
 // File Manager functions.

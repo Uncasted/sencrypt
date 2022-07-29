@@ -29,10 +29,10 @@ It should look like this:
  $ npm install
 ```
 
-<b>3. change directory into the view folder.</b>
+<b>3. change directory into the application window folder.</b>
 
 ```
-$ cd src/view/
+$ cd src/view/application-window
 ```
 
 4. <b> run `npm install` again to install all the packages for the view.</b>
@@ -47,14 +47,22 @@ $ npm install
 $ npm run build
 ```
 
-<b>6. Change back to the sencrypt directory.</b>
+<b>6. Change to the tray window directory and run the previous two commands again.</b>
 
 ```
-[user@host sencrypt/src/view]$ cd ../..
-[user@host sencrypt]$
+[user@host sencrypt/src/view/application-window]$ cd ..
+[user@host sencrypt/src/view/]$ cd tray-window/
+[user@host sencrypt/src/view/tray-window]$ ...
 ```
 
-<b>7. Run `npm run dist` to build the application.</b>
+<b>7. Change back to the main directory.</b>
+
+```
+[user@host sencrypt/src/view/tray-window]$ cd ../../..
+[user@host sencrypt]
+```
+
+<b>8. Run `npm run dist` to build the application.</b>
 
 ```
 $ npm run dist

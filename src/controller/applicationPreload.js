@@ -1,7 +1,7 @@
-// Preload (Isolated World)
+// Preload (Main Application)
 const DatabaseController = require('./databaseController')
 const SettingsController = require('./settingsController')
-const { contextBridge } = require('electron')
+const { contextBridge, ipcRenderer } = require('electron')
 const utility = require('../model/utility')
 
 const database = new DatabaseController()
@@ -56,4 +56,14 @@ contextBridge.exposeInMainWorld('settings', {
 contextBridge.exposeInMainWorld('utility', {
   generateRandomPassword: (parameters, length) =>
     utility.generateRandomPassword(parameters, length)
+})
+
+// Tray menu event listeners.
+ipcRenderer.on('view:section', (event, section) => {
+  // Click on the section.
+  const button = document.getElementById(`${section}-section`)
+  // If the section is loaded (not null), it means the user is logged in.
+  if (button) {
+    button.click()
+  }
 })

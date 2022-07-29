@@ -631,6 +631,10 @@ video {
   background-color: #000e14;
 }
 
+.hover\:cursor-pointer:hover {
+  cursor: pointer;
+}
+
 .hover\:bg-\[\#00141F\]:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(0 20 31 / var(--tw-bg-opacity));

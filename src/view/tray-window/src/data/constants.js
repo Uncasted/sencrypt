@@ -15,21 +15,33 @@ export const TRAY_BUTTONS = [
   {
     title: 'Accounts',
     icon: IMAGES.ACCOUNTS,
-    altIcon: 'Accounts'
+    altIcon: 'Accounts',
+    onClick: () => {
+      window.controller.openSection('Accounts')
+    }
   },
   {
     title: 'Generator',
     icon: IMAGES.GENERATOR,
-    altIcon: 'Generator'
+    altIcon: 'Generator',
+    onClick: () => {
+      window.controller.openSection('Generator')
+    }
   },
   {
     title: 'Settings',
     icon: IMAGES.SETTINGS,
-    altIcon: 'Settings'
+    altIcon: 'Settings',
+    onClick: () => {
+      window.controller.openSection('Settings')
+    }
   },
   {
     title: 'Exit',
     icon: IMAGES.CLOSE,
-    altIcon: 'Exit'
+    altIcon: 'Exit',
+    onClick: () => {
+      window.controller.quitApplication()
+    }
   }
 ]

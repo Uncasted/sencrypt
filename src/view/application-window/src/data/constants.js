@@ -1,11 +1,11 @@
 // Constants
-import logo from '../../public/assets/images/logo.png'
-import managerIcon from '../../public/assets/images/manager-icon.png'
-import generatorIcon from '../../public/assets/images/generator-icon.png'
-import settingsIcon from '../../public/assets/images/settings-icon.png'
-import clipboardIcon from '../../public/assets/images/clipboard-icon.png'
-import showPasswordIcon from '../../public/assets/images/show-password-icon.png'
-import hidePasswordIcon from '../../public/assets/images/hide-password-icon.png'
+import logo from '/assets/images/logo.png'
+import managerIcon from '/assets/images/manager-icon.png'
+import generatorIcon from '/assets/images/generator-icon.png'
+import settingsIcon from '/assets/images/settings-icon.png'
+import clipboardIcon from '/assets/images/clipboard-icon.png'
+import showPasswordIcon from '/assets/images/show-password-icon.png'
+import hidePasswordIcon from '/assets/images/hide-password-icon.png'
 
 // Regex to get the hostname from the URL.
 export const HOSTNAME_REGEX =

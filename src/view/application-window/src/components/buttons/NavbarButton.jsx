@@ -31,6 +31,7 @@ export default function NavbarButton (props) {
 
   return (
     <button
+      id={`${props.title}-section`}
       ref={buttonRef}
       onClick={() => {
         changeFocus(props.section)

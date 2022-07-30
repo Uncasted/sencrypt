@@ -58,6 +58,19 @@ contextBridge.exposeInMainWorld('utility', {
     utility.generateRandomPassword(parameters, length)
 })
 
+// Main Window process.
+contextBridge.exposeInMainWorld('mainWin', {
+  minimize: () => {
+    ipcRenderer.send('mainWin:minimize')
+  },
+  maximize: () => {
+    ipcRenderer.send('mainWin:maximize')
+  },
+  closeWindow: () => {
+    ipcRenderer.send('mainWin:close')
+  }
+})
+
 // Tray menu event listeners.
 ipcRenderer.on('view:section', (event, section) => {
   // Click on the section.

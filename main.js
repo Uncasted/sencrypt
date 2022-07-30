@@ -24,6 +24,7 @@ const createMainWindow = async () => {
     minWidth: 900,
     minHeight: 600,
     autoHideMenuBar: true,
+    frame: false,
     icon: path.join(__dirname, iconPath),
     webPreferences: {
       preload: path.join(__dirname, './src/controller/applicationPreload.js')
@@ -89,7 +90,7 @@ const createTrayWindow = async () => {
 }
 
 // Starting the app.
-app.whenReady().then(() => {
+app.on('ready', () => {
   createMainWindow().then(() => {
     createTrayWindow().then(() => {
       createTray()
@@ -169,6 +170,24 @@ ipcMain.on('app:quit', () => {
   TrayMenu.destroy()
   // Quit the app.
   app.quit()
+})
+
+// Minimizing the window.
+ipcMain.on('mainWin:minimize', () => {
+  MainWin.minimize()
+})
+// Maximize the window.
+ipcMain.on('mainWin:maximize', () => {
+  // If the window is maximized, unmaximize it.
+  if (MainWin.isMaximized()) {
+    MainWin.unmaximize()
+  } else {
+    MainWin.maximize()
+  }
+})
+// Close the window.
+ipcMain.on('mainWin:close', () => {
+  MainWin.hide()
 })
 
 // File Manager functions.

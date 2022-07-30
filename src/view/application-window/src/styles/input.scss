@@ -39,6 +39,16 @@
     transition: all 0.25s cubic-bezier(1, 0, 1, 0);
 }
 
+/* Drag the window with the title bar. */
+.titlebar {
+    -webkit-app-region: drag;
+}
+
+/* Enable elements in the title bar. */
+.no-drag {
+    -webkit-app-region: no-drag;
+}
+
 /* Hide scrollbar in electron. */
 ::-webkit-scrollbar {
     display: none;

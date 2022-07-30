@@ -6,6 +6,11 @@ import settingsIcon from '/assets/images/settings-icon.png'
 import clipboardIcon from '/assets/images/clipboard-icon.png'
 import showPasswordIcon from '/assets/images/show-password-icon.png'
 import hidePasswordIcon from '/assets/images/hide-password-icon.png'
+import closeIcon from '/assets/images/close-icon.png'
+import maximizeIcon from '/assets/images/maximize-icon.png'
+import minimizeIcon from '/assets/images/minimize-icon.png'
+import sideBarIcon from '/assets/images/sidebar-icon.png'
+import unmaximizeIcon from '/assets/images/unmaximize-icon.png'
 
 // Regex to get the hostname from the URL.
 export const HOSTNAME_REGEX =
@@ -19,7 +24,12 @@ export const IMAGES = {
   SETTINGS_ICON: settingsIcon,
   CLIPBOARD_ICON: clipboardIcon,
   SHOW_PASSWORD: showPasswordIcon,
-  HIDE_PASSWORD: hidePasswordIcon
+  HIDE_PASSWORD: hidePasswordIcon,
+  CLOSE_ICON: closeIcon,
+  MAXIMIZE_ICON: maximizeIcon,
+  UNMAXIMIZE_ICON: unmaximizeIcon,
+  MINIMIZE_ICON: minimizeIcon,
+  SIDEBAR_ICON: sideBarIcon
 }
 
 // Clipboard text.

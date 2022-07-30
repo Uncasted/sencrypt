@@ -16,7 +16,7 @@ export const TRAY_BUTTONS = [
     title: 'Accounts',
     icon: IMAGES.ACCOUNTS,
     altIcon: 'Accounts',
-    onClick: () => {
+    handleClick: () => {
       window.controller.openSection('Accounts')
     }
   },
@@ -24,7 +24,7 @@ export const TRAY_BUTTONS = [
     title: 'Generator',
     icon: IMAGES.GENERATOR,
     altIcon: 'Generator',
-    onClick: () => {
+    handleClick: () => {
       window.controller.openSection('Generator')
     }
   },
@@ -32,7 +32,7 @@ export const TRAY_BUTTONS = [
     title: 'Settings',
     icon: IMAGES.SETTINGS,
     altIcon: 'Settings',
-    onClick: () => {
+    handleClick: () => {
       window.controller.openSection('Settings')
     }
   },
@@ -40,7 +40,7 @@ export const TRAY_BUTTONS = [
     title: 'Exit',
     icon: IMAGES.CLOSE,
     altIcon: 'Exit',
-    onClick: () => {
+    handleClick: () => {
       window.controller.quitApplication()
     }
   }

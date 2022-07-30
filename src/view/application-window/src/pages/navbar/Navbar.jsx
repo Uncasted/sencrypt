@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { IMAGES, NAVBAR_BUTTONS } from '../../data/constants'
+import { NAVBAR_BUTTONS } from '../../data/constants'
 import NavbarButton from '../../components/buttons/NavbarButton'
 import PropTypes from 'prop-types'
 
@@ -18,13 +18,7 @@ export function Navbar (props) {
   }, [])
 
   return (
-    <nav className='bg-dark-blue-1 text-white inset-0 w-[250px] h-[100vh] pt-4 fixed'>
-      <img
-        src={IMAGES.LOGO}
-        alt='Sencrypt'
-        tabIndex='-1'
-        className='h-7 mx-auto'
-      />
+    <nav className='bg-dark-blue-1 text-white inset-0 w-[250px] h-[100vh] pt-4 fixed z-0'>
       <ul id='section-list' className='flex flex-col text-lg mt-8'>
         {NAVBAR_BUTTONS.map(button => {
           return (

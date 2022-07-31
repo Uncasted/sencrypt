@@ -1,8 +1,8 @@
 // File Manager functions.
-const {dialog} = require('electron')
+const { dialog } = require('electron')
 
-async function handleFileOpen(window, options) {
-  const {canceled, filePaths} = await dialog.showOpenDialog(window, options)
+async function handleFileOpen (window, options) {
+  const { canceled, filePaths } = await dialog.showOpenDialog(window, options)
   // If the user cancels the operation then just cancel.
   if (canceled) {
     return ''
@@ -12,8 +12,8 @@ async function handleFileOpen(window, options) {
   }
 }
 
-async function handleFileSave(window, options) {
-  const {canceled, filePath} = await dialog.showSaveDialog(window, options)
+async function handleFileSave (window, options) {
+  const { canceled, filePath } = await dialog.showSaveDialog(window, options)
   // If the user cancels the operation then just cancel.
   if (canceled) {
     return ''

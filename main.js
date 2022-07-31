@@ -1,9 +1,8 @@
-const {app, BrowserWindow, ipcMain, Tray, Menu} = require('electron')
+const { app, BrowserWindow, ipcMain, Tray, Menu } = require('electron')
 const path = require('path')
-const login = require("./login")
-const tray = require("./tray")
-const filePath = require("./filePath")
-const {getReloadTime} = require("./login")
+const login = require('./login')
+const tray = require('./tray')
+const filePath = require('./filePath')
 
 // Check if the file explorer is opened.
 let dialogIsOpen = false
@@ -16,32 +15,32 @@ let TrayWin
 // Context menu for tray (Linux).
 const contextMenu = Menu.buildFromTemplate([
   {
-    label: "Accounts",
+    label: 'Accounts',
     click: () => {
-      showSection("Accounts")
+      showSection('Accounts')
     }
   },
   {
-    label: "Generator",
+    label: 'Generator',
     click: () => {
-      showSection("Generator")
+      showSection('Generator')
     }
   },
   {
-    label: "Settings",
+    label: 'Settings',
     click: () => {
-      showSection("Settings")
+      showSection('Settings')
     }
   },
   {
-    label: "Exit",
+    label: 'Exit',
     click: quitAll
   }
 ])
 
 // Utility functions.
 
-function quitAll() {
+function quitAll () {
   // Destroy the windows.
   MainWin.destroy()
   TrayWin.destroy()
@@ -50,7 +49,7 @@ function quitAll() {
   app.quit()
 }
 
-function showMainWindow() {
+function showMainWindow () {
   // If the main window is hidden, show it.
   if (!MainWin.isVisible()) {
     MainWin.show()
@@ -59,7 +58,7 @@ function showMainWindow() {
   MainWin.focus()
 }
 
-function showSection(section) {
+function showSection (section) {
   // Hide the tray menu.
   TrayWin.hide()
   // Send the signal to the main window.
@@ -71,7 +70,7 @@ function showSection(section) {
 // Windows
 
 // Create the main window.
-async function createMainWindow() {
+async function createMainWindow () {
   // Change the icon path depending on the platform.
   const iconPath =
     process.platform !== 'darwin' ? './build/icon.png' : './build/icon.icns'
@@ -102,10 +101,10 @@ async function createMainWindow() {
 }
 
 // Create Tray window.
-function createTray() {
+function createTray () {
   TrayMenu = new Tray(path.join(__dirname, './build/icon.png'))
   // Tooltip
-  TrayMenu.setToolTip("Sencrypt")
+  TrayMenu.setToolTip('Sencrypt')
   // Set the context menu on linux.
   if (process.platform === 'linux') {
     TrayMenu.setContextMenu(contextMenu)
@@ -123,7 +122,7 @@ function createTray() {
 }
 
 // Creates window & specifies its values
-async function createTrayWindow() {
+async function createTrayWindow () {
   TrayWin = new BrowserWindow({
     width: 180,
     height: 240,
@@ -154,7 +153,7 @@ ipcMain.handle('backup:create', async () => {
     title: 'Create A Database Backup:',
     buttonLabel: 'Create Backup',
     defaultPath: 'databaseBackup.json',
-    filters: [{name: 'Database File (JSON)', extensions: ['json']}]
+    filters: [{ name: 'Database File (JSON)', extensions: ['json'] }]
   }
   // Getting the path.
   const path = await filePath.handleFileSave(MainWin, options)
@@ -170,7 +169,7 @@ ipcMain.handle('backup:load', async () => {
     title: 'Load A Database Backup:',
     buttonLabel: 'Load Backup',
     properties: ['openFile'],
-    filters: [{name: 'Database File (JSON)', extensions: ['json']}]
+    filters: [{ name: 'Database File (JSON)', extensions: ['json'] }]
   }
   // Getting the path.
   const path = await filePath.handleFileOpen(MainWin, options)

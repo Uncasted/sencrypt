@@ -1,19 +1,15 @@
 // Function to get reload time for re-login.
-const SettingsController = require("./src/controller/settingsController")
+const SettingsController = require('./src/controller/settingsController')
 
-async function getReloadTime() {
+async function getReloadTime () {
   const Controller = new SettingsController()
   const settings = await Controller.getSettings()
   // If the login timeout is enabled. get the time.
-  if (settings.loginTimeout) {
-    return settings.loginTimeoutTime
-  } else {
-    return 0
-  }
+  return settings.loginTimeout ? settings.loginTimeoutTime : 0
 }
 
 // Function to check for re-login.
-async function checkForReload(window, reloadTime) {
+async function checkForReload (window, reloadTime) {
   let currentTime = reloadTime
   const checkInterval = setInterval(() => {
     // Reduce count by one.

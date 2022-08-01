@@ -22,7 +22,7 @@ export function Sidebar(props) {
   }, [])
 
   return (
-    <nav className={` ${isCollapsed} bg-dark-blue-1 text-white inset-0 h-[100vh] pt-4 fixed z-10`}>
+    <nav className={` ${isCollapsed} bg-[#000e14] text-white inset-0 h-[100vh] pt-2 fixed z-10`}>
       <ul id="section-list" className="flex flex-col text-lg mt-8">
         {SIDEBAR_BUTTONS.map(button => {
           return (

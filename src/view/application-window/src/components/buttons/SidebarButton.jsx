@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 
-export default function NavbarButton (props) {
+export default function SidebarButton (props) {
   const buttonRef = useRef(null)
 
   // Select the default section (Accounts).
@@ -49,7 +49,7 @@ export default function NavbarButton (props) {
   )
 }
 
-NavbarButton.propTypes = {
+SidebarButton.propTypes = {
   changeSelected: PropTypes.func,
   defaultSelected: PropTypes.bool,
   title: PropTypes.string,

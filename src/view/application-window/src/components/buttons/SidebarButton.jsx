@@ -37,7 +37,7 @@ export default function NavbarButton (props) {
         changeFocus(props.section)
       }}
       data-focus='change-focus'
-      className='w-full text-start pl-8 py-3 hover:bg-dark-blue-2 transition flex focus:outline-gray-200'
+      className='w-full text-start pl-[10px] py-3 hover:bg-dark-blue-2 transition flex focus:outline-gray-200'
     >
       <img
         src={props.icon}

@@ -896,19 +896,6 @@ html {
   opacity: 0;
 }
 
-.navbar {
-  display: flex;
-  align-items: center;
-  padding: var(--navbar-padding, 0.5rem);
-  min-height: 4rem;
-  width: 100%;
-}
-
-:where(.navbar > *) {
-  display: inline-flex;
-  align-items: center;
-}
-
 .progress {
   position: relative;
   width: 100%;
@@ -1794,6 +1781,10 @@ body[dir="rtl"] .checkbox:checked,
   z-index: 10;
 }
 
+.z-20 {
+  z-index: 20;
+}
+
 .mx-20 {
   margin-left: 5rem;
   margin-right: 5rem;
@@ -1809,8 +1800,12 @@ body[dir="rtl"] .checkbox:checked,
   margin-right: auto;
 }
 
-.ml-\[250px\] {
-  margin-left: 250px;
+.ml-\[200px\] {
+  margin-left: 200px;
+}
+
+.ml-\[50px\] {
+  margin-left: 50px;
 }
 
 .mr-4 {
@@ -1845,12 +1840,12 @@ body[dir="rtl"] .checkbox:checked,
   margin-top: 1rem;
 }
 
-.ml-2 {
-  margin-left: 0.5rem;
-}
-
 .mt-8 {
   margin-top: 2rem;
+}
+
+.ml-2 {
+  margin-left: 0.5rem;
 }
 
 .ml-6 {
@@ -1959,10 +1954,6 @@ body[dir="rtl"] .checkbox:checked,
 
 .w-72 {
   width: 18rem;
-}
-
-.w-\[250px\] {
-  width: 250px;
 }
 
 .w-\[350px\] {
@@ -2197,8 +2188,8 @@ body[dir="rtl"] .checkbox:checked,
   padding-bottom: 1.5rem;
 }
 
-.pl-8 {
-  padding-left: 2rem;
+.pl-\[10px\] {
+  padding-left: 10px;
 }
 
 .pb-1 {
@@ -2245,11 +2236,6 @@ body[dir="rtl"] .checkbox:checked,
 .text-sm {
   font-size: 0.875rem;
   line-height: 1.25rem;
-}
-
-.text-2xl {
-  font-size: 1.5rem;
-  line-height: 2rem;
 }
 
 .text-3xl {
@@ -2329,6 +2315,20 @@ body[dir="rtl"] .checkbox:checked,
   transition-duration: 150ms;
 }
 
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.duration-\[250ms\] {
+  transition-duration: 250ms;
+}
+
+.ease-\[cubic-bezier\(0\.25\2c 0\.1\2c 0\.25\2c 1\)\] {
+  transition-timing-function: cubic-bezier(0.25,0.1,0.25,1);
+}
+
 @font-face {
   font-family: Inter;
 
@@ -2355,18 +2355,36 @@ body[dir="rtl"] .checkbox:checked,
   pointer-events: none;
 }
 
+/* Collapsible Component. */
+
 .content {
   visibility: hidden;
   max-height: 0;
   overflow: hidden;
-  transition: all 0.25s cubic-bezier(0, 1, 0, 1);
+  transition: all 0.3s ease;
 }
 
 .content.show {
   visibility: visible;
+  overflow: hidden;
   height: auto;
-  max-height: 9999px;
-  transition: all 0.25s cubic-bezier(1, 0, 1, 0);
+  max-height: 500px;
+  transition: all 0.4s ease;
+}
+
+/* Collapsible sidebar. */
+
+.collapse-sidebar {
+  max-width: 50px;
+  overflow: hidden;
+  transition: all 0.25s ease;
+}
+
+.show-sidebar {
+  overflow: hidden;
+  height: auto;
+  max-width: 200px;
+  transition: all 0.25s ease;
 }
 
 /* Drag the window with the title bar. */

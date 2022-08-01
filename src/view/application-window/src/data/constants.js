@@ -188,8 +188,8 @@ export const LOGIN_FIELDS = [
   }
 ]
 
-// Navbar buttons
-export const NAVBAR_BUTTONS = [
+// Sidebar buttons
+export const SIDEBAR_BUTTONS = [
   {
     title: 'Accounts',
     section: 'Accounts',

@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 
-export default function NavbarButton (props) {
+export default function SidebarButton (props) {
   const buttonRef = useRef(null)
 
   // Select the default section (Accounts).
@@ -37,7 +37,7 @@ export default function NavbarButton (props) {
         changeFocus(props.section)
       }}
       data-focus='change-focus'
-      className='w-full text-start pl-8 py-3 hover:bg-dark-blue-2 transition flex focus:outline-gray-200'
+      className='w-full text-start pl-[10px] py-3 hover:bg-dark-blue-2 transition flex focus:outline-gray-200'
     >
       <img
         src={props.icon}
@@ -49,7 +49,7 @@ export default function NavbarButton (props) {
   )
 }
 
-NavbarButton.propTypes = {
+SidebarButton.propTypes = {
   changeSelected: PropTypes.func,
   defaultSelected: PropTypes.bool,
   title: PropTypes.string,

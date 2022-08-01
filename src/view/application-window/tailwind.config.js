@@ -14,7 +14,9 @@ module.exports = {
     'focus:outline-red-500',
     'focus:outline-2',
     'w-40',
-    'w-44'
+    'w-44',
+    'ml-[200px]',
+    'ml-[50px]'
   ],
   theme: {
     extend: {

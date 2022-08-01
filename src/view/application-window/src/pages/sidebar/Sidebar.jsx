@@ -1,9 +1,13 @@
-import { useEffect } from 'react'
-import { NAVBAR_BUTTONS } from '../../data/constants'
-import NavbarButton from '../../components/buttons/NavbarButton'
+import {useEffect} from 'react'
+import {SIDEBAR_BUTTONS} from '../../data/constants'
+import SidebarButton from '../../components/buttons/SidebarButton'
 import PropTypes from 'prop-types'
+import {useSidebarContext} from '../../context/SidebarContext'
 
-export function Navbar (props) {
+export function Sidebar(props) {
+  // Context
+  const {isCollapsed} = useSidebarContext()
+
   useEffect(() => {
     const sectionList = document.getElementById('section-list')
     sectionList.addEventListener('focusout', event => {
@@ -18,12 +22,12 @@ export function Navbar (props) {
   }, [])
 
   return (
-    <nav className='bg-dark-blue-1 text-white inset-0 w-[250px] h-[100vh] pt-4 fixed z-0'>
-      <ul id='section-list' className='flex flex-col text-lg mt-8'>
-        {NAVBAR_BUTTONS.map(button => {
+    <nav className={` ${isCollapsed} bg-dark-blue-1 text-white inset-0 h-[100vh] pt-4 fixed z-10`}>
+      <ul id="section-list" className="flex flex-col text-lg mt-8">
+        {SIDEBAR_BUTTONS.map(button => {
           return (
             <li key={button.title}>
-              <NavbarButton
+              <SidebarButton
                 title={button.title}
                 section={button.section}
                 icon={button.icon}
@@ -38,6 +42,6 @@ export function Navbar (props) {
   )
 }
 
-Navbar.propTypes = {
+Sidebar.propTypes = {
   changeSelected: PropTypes.func
 }

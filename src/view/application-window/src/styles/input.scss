@@ -25,18 +25,34 @@
     pointer-events: none;
 }
 
+/* Collapsible Component. */
 .content {
     visibility: hidden;
     max-height: 0;
     overflow: hidden;
-    transition: all 0.25s cubic-bezier(0, 1, 0, 1);
+    transition: all 0.3s ease;
 }
 
 .content.show {
     visibility: visible;
+    overflow: hidden;
     height: auto;
-    max-height: 9999px;
-    transition: all 0.25s cubic-bezier(1, 0, 1, 0);
+    max-height: 500px;
+    transition: all 0.4s ease;
+}
+
+/* Collapsible sidebar. */
+.collapse-sidebar {
+    max-width: 50px;
+    overflow: hidden;
+    transition: all 0.25s ease;
+}
+
+.show-sidebar {
+    overflow: hidden;
+    height: auto;
+    max-width: 200px;
+    transition: all 0.25s ease;
 }
 
 /* Drag the window with the title bar. */

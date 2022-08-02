@@ -1,7 +1,7 @@
-import {useEffect, useRef} from 'react'
+import { useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 
-export default function SidebarButton(props) {
+export default function SidebarButton (props) {
   const buttonRef = useRef(null)
 
   // Select the default section (Accounts).
@@ -36,13 +36,13 @@ export default function SidebarButton(props) {
       onClick={() => {
         changeFocus(props.section)
       }}
-      data-focus="change-focus"
-      className="w-full text-start pl-[10px] py-3 hover:bg-[#00141F] transition flex focus:outline-gray-200"
+      data-focus='change-focus'
+      className='w-full text-start pl-[10px] py-3 hover:bg-[#00141F] transition flex focus:outline-gray-200'
     >
       <img
         src={props.icon}
-        alt="Accounts section"
-        className="w-7 h-7 mr-4 no-select"
+        alt={props.title}
+        className='w-7 h-7 mr-4 no-select'
       />
       {props.title}
     </button>

@@ -1,8 +1,12 @@
 import { IMAGES } from '../../data/constants'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 
 export default function MaximizeButton () {
+  // State
   const [icon, setIcon] = useState(IMAGES.MAXIMIZE_ICON)
+
+  // Ref
+  const buttonRef = useRef(null)
 
   // Event listener for changing the state on window resize.
   useEffect(() => {
@@ -34,13 +38,31 @@ export default function MaximizeButton () {
   return (
     <button
       onClick={handleMaximize}
+      ref={buttonRef}
+      tabIndex='-1'
       className='hover:bg-[#00141F] px-4 transition'
     >
-      <img
-        src={icon}
-        alt='Maximize'
-        className='w-[20px] h-[20px]'
-      />
+      <div
+        tabIndex='3'
+        onPointerDown={event => {
+          // Prevent the focus outline from appearing on click.
+          event.preventDefault()
+        }}
+        onKeyDown={(event => {
+          // Press the button when they key is Enter or Space.
+          if (event.key === 'Enter' || event.key === ' ') {
+            const button = buttonRef.current
+            button.click()
+          }
+        })}
+        className='focus:outline-none focus:ring focus:ring-[#003D5C] px-1 py-1 rounded-sm transition'
+      >
+        <img
+          src={icon}
+          alt='Maximize'
+          className='w-[20px] h-[20px]'
+        />
+      </div>
     </button>
   )
 }

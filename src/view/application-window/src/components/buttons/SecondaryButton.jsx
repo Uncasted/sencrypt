@@ -10,9 +10,14 @@ export default function SecondaryButton (props) {
       form={props.form || null}
       tabIndex={props.tabIndex || 0}
       disabled={props.disabled || false}
+      onPointerDown={event => {
+        // Prevent the focus outline from appearing on click.
+        event.preventDefault()
+      }}
       onClick={props.onClick || null}
-      className={`bg-blue-3 text-white px-4 py-2 shadow-md transition ${hoverColor} ${activeColor} h-10
-                focus:outline-gray-200 disabled:text-gray-300 disabled:bg-dark-blue-4 disabled:cursor-not-allowed`}
+      className={`bg-[#00293d] text-white shadow-md transition ${hoverColor} ${activeColor} h-10 w-full 
+      focus:outline-none focus:ring focus:ring-[#003D5C] focus:ring-offset-4 focus:ring-offset-[#000e14] 
+      disabled:text-gray-300 disabled:bg-[#001B29] disabled:cursor-not-allowed rounded-sm`}
     >
       {props.children}
     </button>

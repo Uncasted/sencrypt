@@ -60,7 +60,7 @@ export const RED_OUTLINE = [
   'focus:outline-2',
   'focus:outline-red-500'
 ]
-export const BLUE_OUTLINE = ['focus:ring', 'focus:ring-blue-1']
+export const BLUE_OUTLINE = ['focus:ring', 'focus:ring-[#003D5C]']
 
 // Password generator
 export const SHOW_TOOLTIP = ['tooltip', 'tooltip-open']

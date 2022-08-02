@@ -16,7 +16,9 @@ module.exports = {
     'w-40',
     'w-44',
     'ml-[200px]',
-    'ml-[50px]'
+    'ml-[50px]',
+    'active:bg-[#00293d]',
+    'focus:ring'
   ],
   theme: {
     extend: {

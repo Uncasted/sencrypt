@@ -83,6 +83,7 @@ async function createMainWindow () {
     autoHideMenuBar: true,
     frame: false,
     icon: path.join(__dirname, iconPath),
+    show: false,
     webPreferences: {
       preload: path.join(__dirname, './src/controller/applicationPreload.js')
     }
@@ -208,6 +209,11 @@ ipcMain.on('app:quit', quitAll)
 // Starting the app.
 app.on('ready', () => {
   createMainWindow().then(() => {
+    // Show the main window when it's ready.
+    MainWin.once('ready-to-show', () => {
+      MainWin.show()
+    })
+    // Create the tray window.
     createTrayWindow().then(() => {
       createTray()
     })
@@ -217,6 +223,7 @@ app.on('ready', () => {
     if (BrowserWindow.getAllWindows().length === 0) createMainWindow().then()
   })
 })
+
 // // Quit the app when we close all windows. (Except on macOS)
 // app.on('window-all-closed', () => {
 //   if (process.platform !== 'darwin') {

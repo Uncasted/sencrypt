@@ -84,6 +84,8 @@ export default function LoginForm (props) {
             >
               <InputField
                 autoFocus
+                tabIndex={1}
+                secondaryTabIndex={3}
                 placeholder='Enter Master Password...'
                 title='Enter your Master Password'
                 type='password'
@@ -104,6 +106,7 @@ export default function LoginForm (props) {
               </p>
               <SecondaryButton
                 type='submit'
+                tabIndex={2}
                 disabled={!masterPassword}
                 hoverColor='[#003D5C]'
                 activeColor='[#00293d]'

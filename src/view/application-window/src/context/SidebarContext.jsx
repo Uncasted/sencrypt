@@ -1,4 +1,5 @@
 import { createContext, useState, useContext } from 'react'
+import PropTypes from 'prop-types'
 
 const SidebarContext = createContext()
 const SidebarContextUpdate = createContext()
@@ -34,4 +35,8 @@ export default function SidebarProvider (props) {
       </SidebarContextUpdate.Provider>
     </SidebarContext.Provider>
   )
+}
+
+SidebarProvider.propTypes = {
+  children: PropTypes.node
 }

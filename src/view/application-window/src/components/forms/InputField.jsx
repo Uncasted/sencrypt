@@ -2,6 +2,9 @@ import ClipboardButton from '../buttons/ClipboardButton'
 import ToggleVisibility from '../buttons/ToggleVisibility'
 import { useState, forwardRef } from 'react'
 import PropTypes from 'prop-types'
+import { BAR_COLORS } from '../../data/constants'
+import PasswordStrengthBar from 'react-password-strength-bar'
+import { useWeakPassContextUpdate } from '../../context/WeakPassContext'
 
 const InputField = forwardRef((props, ref) => {
   // Changing the tabIndex depending on the buttons shown.
@@ -12,6 +15,8 @@ const InputField = forwardRef((props, ref) => {
 
   // State
   const [type, setType] = useState(props.type)
+  // Context
+  const handleWeakUpdate = useWeakPassContextUpdate()
 
   return (
     <label htmlFor={props.fieldId} className='space-y-3 w-full'>
@@ -54,6 +59,18 @@ const InputField = forwardRef((props, ref) => {
           />
         )}
       </div>
+      {/* Password Strength (If enabled). */}
+      {props.hasStrengthBar && (
+        <PasswordStrengthBar
+          password={props.value}
+          barColors={BAR_COLORS}
+          minLength={1}
+          onChangeScore={(score) => {
+            // score < 2 === weak password.
+            handleWeakUpdate(score)
+          }}
+        />
+      )}
     </label>
   )
 })
@@ -77,7 +94,8 @@ InputField.propTypes = {
   autoFocus: PropTypes.bool,
   minLength: PropTypes.number,
   maxLength: PropTypes.number,
-  placeholder: PropTypes.string
+  placeholder: PropTypes.string,
+  hasStrengthBar: PropTypes.bool
 }
 
 InputField.displayName = 'InputField'

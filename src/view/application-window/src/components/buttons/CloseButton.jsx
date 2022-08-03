@@ -18,7 +18,7 @@ export default function CloseButton () {
       className='hover:bg-red-500 px-4 transition'
     >
       <div
-        tabIndex='4'
+        tabIndex='9'
         onPointerDown={event => {
           // Prevent the focus outline from appearing on click.
           event.preventDefault()

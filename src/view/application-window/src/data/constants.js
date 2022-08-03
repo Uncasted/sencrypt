@@ -166,25 +166,29 @@ export const ACCOUNT_FIELDS = [
 export const LOGIN_FIELDS = [
   {
     autofocus: true,
-    title: 'Create your Master Password:',
+    title: 'Create your Master Password',
     type: 'password',
     fieldId: 'masterPassword',
     name: 'masterPassword',
     dataOutline: 'new-user',
     minLength: 1,
     maxLength: 32,
-    value: 'pass'
+    value: 'pass',
+    tabIndex: 1,
+    secondaryTabIndex: 4
   },
   {
     autofocus: false,
-    title: 'Confirm your Master Password:',
+    title: 'Confirm your Master Password',
     type: 'password',
     fieldId: 'confirmPassword',
     name: 'confirmPassword',
     dataOutline: 'new-user',
     minLength: 1,
     maxLength: 32,
-    value: 'confirmPass'
+    value: 'confirmPass',
+    tabIndex: 2,
+    secondaryTabIndex: 5
   }
 ]
 
@@ -231,3 +235,6 @@ export const RESET_PASS_FIELDS = [
     value: 'confirmNewMasterPass'
   }
 ]
+
+// Colors for the password strength bar.
+export const BAR_COLORS = ['#00293d', '#fff', '#fff', '#fff', '#fff', '#fff']

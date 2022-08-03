@@ -7,6 +7,7 @@ import SettingsSection from './pages/settings/SettingsSection'
 import SettingsProvider from './context/settings/SettingsContext'
 import TitleBar from './pages/titlebar/TitleBar'
 import SidebarProvider from './context/SidebarContext'
+import WeakPassProvider from './context/WeakPassContext'
 
 export default function App () {
   const [selected, setSelected] = useState(<AccountSection />)
@@ -27,13 +28,15 @@ export default function App () {
   return (
     <>
       <SettingsProvider>
-        <SidebarProvider>
-          <TitleBar />
-          <LoginScreen>
-            <Sidebar changeSelected={changeSelected} />
-            {selected}
-          </LoginScreen>
-        </SidebarProvider>
+        <WeakPassProvider>
+          <SidebarProvider>
+            <TitleBar />
+            <LoginScreen>
+              <Sidebar changeSelected={changeSelected} />
+              {selected}
+            </LoginScreen>
+          </SidebarProvider>
+        </WeakPassProvider>
       </SettingsProvider>
     </>
   )

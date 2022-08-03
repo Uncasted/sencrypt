@@ -10,7 +10,8 @@
     "dependencies": {
         "daisyui": "^2.17.0",
         "react": "^18.0.0",
-        "react-dom": "^18.0.0"
+        "react-dom": "^18.0.0",
+        "react-password-strength-bar": "^0.4.1"
     },
     "devDependencies": {
         "@types/react": "^18.0.0",

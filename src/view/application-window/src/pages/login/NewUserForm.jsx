@@ -8,6 +8,8 @@ import {
 import InputField from '../../components/forms/InputField'
 import SecondaryButton from '../../components/buttons/SecondaryButton'
 import PropTypes from 'prop-types'
+import { useWeakPassContext } from '../../context/WeakPassContext'
+import { WeakPasswordModal } from './WeakPasswordModal'
 
 export default function NewUserForm (props) {
   // State
@@ -16,6 +18,8 @@ export default function NewUserForm (props) {
     pass: '',
     confirmPass: ''
   })
+  // Context
+  const isWeak = useWeakPassContext()
 
   // Ref
   const warningRef = useRef(null)
@@ -28,18 +32,20 @@ export default function NewUserForm (props) {
     })
   }
 
-  const createPassword = async event => {
+  const verifyPasswords = event => {
     event.preventDefault()
-
     if (passwords.pass === passwords.confirmPass) {
-      // Initialize the database with the new password.
-      const isCreated = await window.database.createMasterPassword(
-        passwords.pass
-      )
-      // Initialize the settings file.
-      await window.settings.init()
-      // Create the master password.
-      setIsCreatedMP(isCreated)
+      if (isWeak) {
+        // If the password is weak open the modal for confirmation.
+        const modal = document.getElementById('weak-pass-modal')
+        modal.click()
+        // Focus on the modal when it's opened.
+        const modalBox = document.getElementById('weak-pass-box')
+        modalBox.focus()
+      } else {
+        // Create the master password.
+        createMasterPass().then()
+      }
     } else {
       // Display warning.
       const warning = warningRef.current
@@ -52,6 +58,17 @@ export default function NewUserForm (props) {
         field.classList.add(...RED_OUTLINE)
       }
     }
+  }
+
+  const createMasterPass = async () => {
+    // Initialize the database with the new password.
+    const isCreated = await window.database.createMasterPassword(
+      passwords.pass
+    )
+    // Initialize the settings file.
+    await window.settings.init()
+    // Create the master password.
+    setIsCreatedMP(isCreated)
   }
 
   const handleWarning = () => {
@@ -71,18 +88,21 @@ export default function NewUserForm (props) {
     <>
       {!isCreatedMP
         ? (
-          <div className='bg-dark-blue-1 w-[100vw] h-[100vh] flex flex-col items-center justify-center space-y-10'>
-            <div>
-              <img src={IMAGES.LOGO} alt='Sencrypt' className='w-72' />
+          <div className='bg-[#000e14] w-[100vw] h-[95vh] flex flex-col items-center'>
+            <WeakPasswordModal handleButton={createMasterPass} />
+            <div className='pt-36'>
+              <img src={IMAGES.LOGO} alt='Sencrypt' className='w-[500px]' />
             </div>
             <form
-              onSubmit={createPassword}
-              className='flex flex-col space-y-6 items-center'
+              onSubmit={verifyPasswords}
+              className='flex flex-col space-y-6 items-center mt-24 w-72'
             >
               {LOGIN_FIELDS.map(field => {
                 return (
                   <InputField
                     key={field.fieldId}
+                    tabIndex={field.tabIndex}
+                    secondaryTabIndex={field.secondaryTabIndex}
                     autoFocus={field.autofocus}
                     title={field.title}
                     type={field.type}
@@ -96,6 +116,8 @@ export default function NewUserForm (props) {
                       updatePassword(field.value, input)
                     }}
                     handleWarning={handleWarning}
+                    hasToggleVisibility
+                    hasStrengthBar
                   />
                 )
               })}
@@ -105,10 +127,11 @@ export default function NewUserForm (props) {
               <SecondaryButton
                 type='submit'
                 disabled={!passwords.pass || !passwords.confirmPass}
-                hoverColor='blue-1'
-                activeColor='blue-2'
+                hoverColor='[#003D5C]'
+                activeColor='[#00293d]'
+                tabIndex={3}
               >
-                Sign up
+                Create Vault
               </SecondaryButton>
             </form>
           </div>

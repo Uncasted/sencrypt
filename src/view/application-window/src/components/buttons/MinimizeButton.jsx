@@ -18,7 +18,7 @@ export default function MinimizeButton () {
       ref={buttonRef}
     >
       <div
-        tabIndex='2'
+        tabIndex='7'
         onPointerDown={event => {
           // Prevent the focus outline from appearing on click.
           event.preventDefault()

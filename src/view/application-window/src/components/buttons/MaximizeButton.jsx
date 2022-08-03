@@ -43,7 +43,7 @@ export default function MaximizeButton () {
       className='hover:bg-[#00141F] px-4 transition'
     >
       <div
-        tabIndex='3'
+        tabIndex='8'
         onPointerDown={event => {
           // Prevent the focus outline from appearing on click.
           event.preventDefault()

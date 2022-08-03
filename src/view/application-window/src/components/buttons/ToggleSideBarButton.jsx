@@ -29,7 +29,7 @@ export default function ToggleSideBarButton () {
         }
       }}
       ref={buttonRef}
-      tabIndex='1'
+      tabIndex='6'
       className='focus:outline-none focus:ring focus:ring-[#003D5C] h-[20px] rounded-sm
             focus:ring-offset-[#000e14] focus:ring-offset-2 transition'
     >

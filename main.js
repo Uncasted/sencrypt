@@ -210,6 +210,9 @@ ipcMain.on('app:quit', quitAll)
 app.on('ready', () => {
   createMainWindow().then(() => {
     // Show the main window when it's ready.
+    if (process.platform === 'linux') {
+      MainWin.show()
+    }
     MainWin.once('ready-to-show', () => {
       MainWin.show()
     })

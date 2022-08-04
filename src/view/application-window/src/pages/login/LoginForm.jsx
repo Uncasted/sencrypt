@@ -1,8 +1,8 @@
 import { useRef, useState, useEffect } from 'react'
 import { BLUE_OUTLINE, IMAGES, RED_OUTLINE } from '../../data/constants'
 import InputField from '../../components/forms/InputField'
-import SecondaryButton from '../../components/buttons/SecondaryButton'
 import PropTypes from 'prop-types'
+import PrimaryButton from '../../components/buttons/PrimaryButton'
 
 export default function LoginForm (props) {
   // State
@@ -84,6 +84,7 @@ export default function LoginForm (props) {
             >
               <InputField
                 autoFocus
+                bgColor='[#001824]'
                 tabIndex={1}
                 secondaryTabIndex={3}
                 placeholder='Enter Master Password...'
@@ -104,15 +105,16 @@ export default function LoginForm (props) {
               <p ref={warningRef} className='invisible text-red-500'>
                 Invalid Master Password.
               </p>
-              <SecondaryButton
+              <PrimaryButton
                 type='submit'
                 tabIndex={2}
                 disabled={!masterPassword}
                 hoverColor='[#003D5C]'
                 activeColor='[#00293d]'
+                width='full'
               >
                 Log in
-              </SecondaryButton>
+              </PrimaryButton>
             </form>
           </div>
           )

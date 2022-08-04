@@ -6,10 +6,10 @@ import {
   RED_OUTLINE
 } from '../../data/constants'
 import InputField from '../../components/forms/InputField'
-import SecondaryButton from '../../components/buttons/SecondaryButton'
 import PropTypes from 'prop-types'
 import { useWeakPassContext } from '../../context/WeakPassContext'
 import { WeakPasswordModal } from './WeakPasswordModal'
+import PrimaryButton from '../../components/buttons/PrimaryButton'
 
 export default function NewUserForm (props) {
   // State
@@ -101,6 +101,7 @@ export default function NewUserForm (props) {
                 return (
                   <InputField
                     key={field.fieldId}
+                    bgColor='[#001824]'
                     tabIndex={field.tabIndex}
                     secondaryTabIndex={field.secondaryTabIndex}
                     autoFocus={field.autofocus}
@@ -124,15 +125,16 @@ export default function NewUserForm (props) {
               <p ref={warningRef} className='invisible text-red-500 mt-2'>
                 The passwords do not match.
               </p>
-              <SecondaryButton
+              <PrimaryButton
                 type='submit'
                 disabled={!passwords.pass || !passwords.confirmPass}
                 hoverColor='[#003D5C]'
                 activeColor='[#00293d]'
                 tabIndex={3}
+                width='full'
               >
                 Create Vault
-              </SecondaryButton>
+              </PrimaryButton>
             </form>
           </div>
           )

@@ -18,11 +18,11 @@ export function AddAccountButton () {
     <label htmlFor='add-modal' ref={addModalRef} className='ml-4'>
       <PrimaryButton
         type='button'
-        tabIndex={0}
-        hoverColor='blue-1'
-        activeColor='blue-2'
+        tabIndex={4}
+        hoverColor='[#003D5C]'
+        activeColor='[#00293d]'
         onClick={addAccount}
-        width={44}
+        width={52}
       >
         Add New Account
       </PrimaryButton>

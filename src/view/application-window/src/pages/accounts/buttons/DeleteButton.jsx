@@ -28,8 +28,8 @@ export function DeleteButton () {
       <SecondaryButton
         type='button'
         tabIndex={30}
-        hoverColor='red-500'
-        activeColor='red-600'
+        hoverColor='[#003D5C]'
+        activeColor='[#00293d]'
         onClick={deleteWarning}
       >
         Delete Account

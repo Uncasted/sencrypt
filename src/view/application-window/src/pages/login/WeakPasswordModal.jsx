@@ -1,6 +1,7 @@
 import ModalHeader from '../../components/headers/ModalHeader'
 import SecondaryButton from '../../components/buttons/SecondaryButton'
 import PropTypes from 'prop-types'
+import PrimaryButton from '../../components/buttons/PrimaryButton'
 
 export function WeakPasswordModal (props) {
   return (
@@ -32,15 +33,16 @@ export function WeakPasswordModal (props) {
             </div>
             <div className='absolute right-4 bottom-4 w-32'>
               <label htmlFor='weak-pass-modal' className='w-full'>
-                <SecondaryButton
+                <PrimaryButton
                   type='button'
                   tabIndex={12}
                   hoverColor='[#003D5C]'
                   activeColor='[#00293d]'
                   onClick={props.handleButton}
+                  width='full'
                 >
                   Continue
-                </SecondaryButton>
+                </PrimaryButton>
               </label>
             </div>
           </div>

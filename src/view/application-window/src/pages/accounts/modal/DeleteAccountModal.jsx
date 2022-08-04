@@ -18,7 +18,7 @@ export function DeleteAccountModal () {
         <div
           id={`delete-box-${index}`}
           tabIndex='31'
-          className='modal-box bg-dark-blue-1 rounded-none px-0 py-0 w-[400px] h-[200px] shadow-sm
+          className='modal-box bg-[#00111a] rounded-none px-0 py-0 w-[400px] h-[200px] shadow-sm
                        text-white focus:outline-none'
         >
           <ModalHeader htmlFor={`delete-modal-${index}`} tabIndex={33}>

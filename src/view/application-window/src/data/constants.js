@@ -195,18 +195,21 @@ export const LOGIN_FIELDS = [
 // Sidebar buttons
 export const SIDEBAR_BUTTONS = [
   {
+    tabIndex: 1,
     title: 'Accounts',
     section: 'Accounts',
     icon: IMAGES.MANAGER_ICON,
     defaultSelected: true
   },
   {
+    tabIndex: 2,
     title: 'Generator',
     section: 'Generator',
     icon: IMAGES.GENERATOR_ICON,
     defaultSelected: false
   },
   {
+    tabIndex: 3,
     title: 'Settings',
     section: 'Settings',
     icon: IMAGES.SETTINGS_ICON,

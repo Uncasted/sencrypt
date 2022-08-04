@@ -127,6 +127,7 @@ export default function AccountInfo () {
           return (
             <InputField
               key={field.id}
+              bgColor='[#00141F]'
               type={field.type}
               name={field.name}
               title={field.title}
@@ -151,19 +152,19 @@ export default function AccountInfo () {
           This account already exists.
         </p>
       </form>
-      <div className='mt-4 mr-4 flex flex-col gap-y-4 lg:flex-row lg:space-x-4'>
+      <div className='mt-4 mr-4 flex flex-col gap-y-4 w-80 pl-40 lg:pl-0 lg:flex-row lg:space-x-4'>
         {/* Edit button. */}
         <SecondaryButton
           type='button'
           tabIndex={28}
-          hoverColor='green-500'
-          activeColor='green-600'
+          hoverColor='[#003D5C]'
+          activeColor='[#00293d]'
           onClick={toggleMode}
         >
           {editTitle}
         </SecondaryButton>
         {/* We have to use inline styles here, otherwise it doesn't work. */}
-        <div style={{ marginTop: '0px' }} className='flex flex-col gap-y-4'>
+        <div style={{ marginTop: '0px' }} className='flex flex-col gap-y-4 w-full'>
           {/* Save changes button. */}
           <SecondaryButton
             type='submit'
@@ -175,8 +176,8 @@ export default function AccountInfo () {
               !accountInput.password ||
               !accountInput.website
             }
-            hoverColor='green-500'
-            activeColor='green-600'
+            hoverColor='[#003D5C]'
+            activeColor='[#00293d]'
           >
             Save Changes
           </SecondaryButton>

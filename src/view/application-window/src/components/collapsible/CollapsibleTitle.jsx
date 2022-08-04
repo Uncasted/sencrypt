@@ -5,11 +5,17 @@ export default function CollapsibleTitle (props) {
     <div
       tabIndex={props.tabIndex || -1}
       onKeyDown={event => {
-        if (event.key === 'Enter') {
+        if (event.key === 'Enter' || event.key === ' ') {
+          // Pressing enter or space bar triggers the collapsible.
           props.toggleCollapsible()
         }
       }}
-      className='flex py-0 px-0 items-center shadow-md pb-1 focus:outline-gray-200'
+      onPointerDown={event => {
+        // Prevent the focus outline from appearing on click.
+        event.preventDefault()
+      }}
+      className='flex py-0 px-0 items-center shadow-md pb-1 focus:outline-none focus:ring focus:ring-[#003D5C]
+      transition rounded-sm'
     >
       {props.children}
     </div>

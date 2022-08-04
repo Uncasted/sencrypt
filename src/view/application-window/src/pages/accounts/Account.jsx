@@ -15,14 +15,14 @@ export function Account (props) {
   return (
     <div>
       <IdProvider>
-        <div className='shadow-total bg-dark-blue-0 text-white'>
+        <div className='shadow-sm bg-[#001B29] text-white rounded-sm'>
           <div className='absolute right-14 mt-1'>
             {/* We need to have the clipboard button outside, or it will open the menu when clicked. */}
             <ClipboardButton
               value={account.password}
               tooltip={COPY_PASSWORD}
               tooltipDirection='left'
-              tabIndex={2}
+              tabIndex={101}
             />
           </div>
           <div>
@@ -32,7 +32,7 @@ export function Account (props) {
               website={account.website}
             >
               <EditProvider>
-                <Collapsible title={<AccountTitle />} tabIndex={1}>
+                <Collapsible title={<AccountTitle />} tabIndex={100}>
                   <AccountInfo />
                 </Collapsible>
               </EditProvider>

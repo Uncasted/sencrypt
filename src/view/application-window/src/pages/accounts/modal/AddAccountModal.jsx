@@ -10,8 +10,8 @@ import {
 } from '../../../data/constants'
 import { useRef, useState } from 'react'
 import InputField from '../../../components/forms/InputField'
-import SecondaryButton from '../../../components/buttons/SecondaryButton'
 import ModalHeader from '../../../components/headers/ModalHeader'
+import PrimaryButton from '../../../components/buttons/PrimaryButton'
 
 export function AddAccountModal () {
   // State
@@ -116,19 +116,20 @@ export function AddAccountModal () {
         className='modal-toggle'
       />
       <div className='modal'>
-        <div className='modal-box bg-dark-blue-1 text-white rounded-none px-0 py-0 w-[350px] shadow-sm'>
+        <div className='modal-box bg-[#00111a] text-white rounded-none px-0 py-0 w-[350px] shadow-sm'>
           <ModalHeader htmlFor='add-modal' tabIndex={14}>
             Add New Account:
           </ModalHeader>
           <form
             id='add-form'
             onSubmit={submitData}
-            className='flex flex-col items-center space-y-4'
+            className='flex flex-col items-center space-y-4 px-12'
           >
             {ADD_MODAL_FIELDS.map(field => {
               return (
                 <InputField
                   key={field.name}
+                  bgColor='[#001824]'
                   type={field.type}
                   name={field.name}
                   fieldId={field.id}
@@ -147,13 +148,13 @@ export function AddAccountModal () {
               This account already exists.
             </p>
             {/* Add account button. */}
-            <div className='modal-action'>
+            <div className='modal-action w-full'>
               <label
                 htmlFor='add-modal'
                 ref={addModalRef}
-                className='mb-4 mt-[-1rem]'
+                className='w-full mb-8 mt-[-1rem]'
               >
-                <SecondaryButton
+                <PrimaryButton
                   type='submit'
                   form='add-form'
                   tabIndex={13}
@@ -162,11 +163,12 @@ export function AddAccountModal () {
                     !newAccount.password ||
                     !newAccount.website
                   }
-                  hoverColor='blue-1'
-                  activeColor='blue-2'
+                  hoverColor='[#003D5C]'
+                  activeColor='[#00293d]'
+                  width='full'
                 >
                   Add Account
-                </SecondaryButton>
+                </PrimaryButton>
               </label>
             </div>
           </form>

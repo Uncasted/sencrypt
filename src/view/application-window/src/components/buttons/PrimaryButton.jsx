@@ -11,10 +11,15 @@ export default function PrimaryButton (props) {
       form={props.form || null}
       tabIndex={props.tabIndex || 0}
       disabled={props.disabled || false}
+      onPointerDown={event => {
+        // Prevent the focus outline from appearing on click.
+        event.preventDefault()
+      }}
       onClick={props.onClick || null}
-      className={`${width} modal-button bg-dark-blue-1 px-4 py-3 text-white ${hoverColor} ${activeColor}
-               transition hover:cursor-pointer shadow-md focus:outline-gray-200 disabled:bg-dark-blue-7 
-               disabled:cursor-not-allowed disabled:text-gray-300`}
+      className={`${width} modal-button bg-[#00293d] h-10 text-white ${hoverColor} ${activeColor}
+               transition hover:cursor-pointer shadow-md focus:outline-none focus:ring focus:ring-[#003D5C] 
+               focus:ring-offset-4 focus:ring-offset-[#000e14] disabled:bg-[#001B29] disabled:cursor-not-allowed 
+               disabled:text-gray-300 rounded-sm `}
     >
       {props.children}
     </button>

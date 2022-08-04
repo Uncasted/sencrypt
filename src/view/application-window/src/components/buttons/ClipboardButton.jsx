@@ -33,9 +33,14 @@ export default function ClipboardButton (props) {
       onClick={() => {
         addToClipboard(props.value)
       }}
-      className={`tooltip ${tooltipDirection} tooltip-bg px-1 py-1 focus:outline-gray-200`}
+      onPointerDown={event => {
+        // Prevent the focus outline from appearing on click.
+        event.preventDefault()
+      }}
+      className={`tooltip ${tooltipDirection} tooltip-bg px-1 py-1 focus:outline-none focus:ring focus:ring-[#003D5C]
+      transition rounded-sm`}
     >
-      <img src={IMAGES.CLIPBOARD_ICON} alt='Copy username to clipboard.' />
+      <img src={IMAGES.CLIPBOARD_ICON} alt='Copy username to clipboard.' className='w-6 h-6' />
     </button>
   )
 }

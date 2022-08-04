@@ -22,12 +22,13 @@ export function Sidebar (props) {
   }, [])
 
   return (
-    <nav className={` ${isCollapsed} bg-[#000e14] text-white inset-0 h-[100vh] pt-2 fixed z-10`}>
+    <nav className={` ${isCollapsed} bg-[#000E14] text-white inset-0 h-[100vh] pt-2 fixed z-10`}>
       <ul id='section-list' className='flex flex-col text-lg mt-8'>
         {SIDEBAR_BUTTONS.map(button => {
           return (
             <li key={button.title}>
               <SidebarButton
+                tabIndex={button.tabIndex}
                 title={button.title}
                 section={button.section}
                 icon={button.icon}

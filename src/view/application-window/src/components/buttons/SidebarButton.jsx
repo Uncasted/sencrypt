@@ -36,23 +36,41 @@ export default function SidebarButton (props) {
       onClick={() => {
         changeFocus(props.section)
       }}
+      tabIndex='-1'
       data-focus='change-focus'
-      className='w-full text-start pl-[10px] py-3 hover:bg-[#00141F] transition flex focus:outline-gray-200'
+      className='w-full text-start pl-[10px] py-3 hover:bg-[#00141F] transition flex'
     >
-      <img
-        src={props.icon}
-        alt={props.title}
-        className='w-7 h-7 mr-4 no-select'
-      />
-      {props.title}
+      <div
+        tabIndex={props.tabIndex}
+        onPointerDown={event => {
+          // Prevent the focus outline from appearing on click.
+          event.preventDefault()
+        }}
+        onKeyDown={(event => {
+          // Press the button when they key is Enter or Space.
+          if (event.key === 'Enter' || event.key === ' ') {
+            const button = buttonRef.current
+            button.click()
+          }
+        })}
+        className='focus:outline-none focus:ring focus:ring-[#003D5C] rounded-sm transition flex w-[70%]'
+      >
+        <img
+          src={props.icon}
+          alt={props.title}
+          className='w-7 h-7 mr-4 no-select'
+        />
+        {props.title}
+      </div>
     </button>
   )
 }
-
+''
 SidebarButton.propTypes = {
   changeSelected: PropTypes.func,
   defaultSelected: PropTypes.bool,
   title: PropTypes.string,
   section: PropTypes.string,
-  icon: PropTypes.string
+  icon: PropTypes.string,
+  tabIndex: PropTypes.number
 }

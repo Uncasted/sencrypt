@@ -19,7 +19,7 @@ export default function AccountTitle (props) {
       </div>
       <div className='ml-2'>
         <h1 className='text-md'>{account.website}</h1>
-        <h2 className='text-xs text-blue-0'>{account.username}</h2>
+        <h2 className='text-xs text-[#006599]'>{account.username}</h2>
       </div>
       <div className='absolute right-6'>
         <span>{props.isOpen ? '-' : '+'}</span>

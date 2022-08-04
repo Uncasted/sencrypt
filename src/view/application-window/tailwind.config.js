@@ -4,8 +4,8 @@ module.exports = {
   safelist: [
     'hover:bg-green-500',
     'active:bg-green-600',
-    'hover:bg-red-500',
-    'active:bg-red-600',
+    'hover:bg-red-600',
+    'active:bg-red-700',
     'hover:bg-blue-1',
     'active:bg-blue-2',
     'tooltip-right',
@@ -14,11 +14,15 @@ module.exports = {
     'focus:outline-red-500',
     'focus:outline-2',
     'w-40',
-    'w-44',
+    'w-52',
     'ml-[200px]',
     'ml-[50px]',
     'active:bg-[#00293d]',
-    'focus:ring'
+    'focus:ring',
+    'hover:bg-[#001E2E]',
+    'active:bg-[#001B29]',
+    'bg-[#001824]',
+    'bg-[#00141F]'
   ],
   theme: {
     extend: {
@@ -40,9 +44,6 @@ module.exports = {
         'blue-2': '#088dd4',
         'blue-3': '#074c77',
         'light-blue-1': '#7f9aa8'
-      },
-      boxShadow: {
-        total: '0 0 10px 5px rgba(0, 0, 0, 0.1)'
       }
     }
   },

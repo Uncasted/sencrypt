@@ -13,6 +13,8 @@ const InputField = forwardRef((props, ref) => {
     ? props.secondaryTabIndex + 1
     : props.secondaryTabIndex
 
+  const bgColor = `bg-${props.bgColor}`
+
   // State
   const [type, setType] = useState(props.type)
   // Context
@@ -21,7 +23,7 @@ const InputField = forwardRef((props, ref) => {
   return (
     <label htmlFor={props.fieldId} className='space-y-3 w-full'>
       {props.title && <p className='text-md text-white'>{props.title}</p>}
-      <div className='flex space-x-2 w-full items-center'>
+      <div className='flex space-x-2 w-full items-center relative'>
         <input
           type={type}
           placeholder={props.placeholder || ''}
@@ -41,9 +43,9 @@ const InputField = forwardRef((props, ref) => {
           }}
           onClick={props.handleWarning}
           style={props.hasToggleVisibility ? { paddingRight: '3rem' } : {}}
-          className='pl-2 rounded-sm h-10 disabled:text-dark-blue-5 disabled:cursor-not-allowed transition bg-[#001824]
+          className={`pl-2 rounded-sm h-10 disabled:text-[#00293d] disabled:cursor-not-allowed transition ${bgColor}
           text-white focus:outline-none outline-2 outline-red-500 focus:ring focus:ring-[#003D5C] w-full
-          placeholder:text-[#00293d]'
+          placeholder:text-[#00293d]`}
         />
         {/* Show / Hide for password inputs. (If it's enabled) */}
         {props.hasToggleVisibility && (
@@ -51,12 +53,14 @@ const InputField = forwardRef((props, ref) => {
         )}
         {/* Clipboard button (If it's enabled) */}
         {props.hasClipboard && (
-          <ClipboardButton
-            value={props.value}
-            tooltip={props.clipboardTooltip}
-            tooltipDirection={props.tooltipDirection}
-            tabIndex={clipboardIndex}
-          />
+          <div className='absolute right-[-2.5rem] my-auto'>
+            <ClipboardButton
+              value={props.value}
+              tooltip={props.clipboardTooltip}
+              tooltipDirection={props.tooltipDirection}
+              tabIndex={clipboardIndex}
+            />
+          </div>
         )}
       </div>
       {/* Password Strength (If enabled). */}
@@ -95,7 +99,8 @@ InputField.propTypes = {
   minLength: PropTypes.number,
   maxLength: PropTypes.number,
   placeholder: PropTypes.string,
-  hasStrengthBar: PropTypes.bool
+  hasStrengthBar: PropTypes.bool,
+  bgColor: PropTypes.string
 }
 
 InputField.displayName = 'InputField'

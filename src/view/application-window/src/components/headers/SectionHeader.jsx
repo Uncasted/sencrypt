@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 
 export default function SectionHeader (props) {
   return (
-    <div className='pl-4 pt-6 bg-dark-blue-2 text-white'>
+    <div className='pl-4 pt-6 bg-[#00141f] text-white'>
       <div className='mb-8 no-select'>
         <h1
           tabIndex='-1'

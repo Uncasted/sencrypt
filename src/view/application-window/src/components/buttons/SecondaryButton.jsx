@@ -17,7 +17,7 @@ export default function SecondaryButton (props) {
       onClick={props.onClick || null}
       className={`bg-[#00293d] text-white shadow-md transition ${hoverColor} ${activeColor} h-10 w-full 
       focus:outline-none focus:ring focus:ring-[#003D5C] focus:ring-offset-4 focus:ring-offset-[#000e14] 
-      disabled:text-gray-300 disabled:bg-[#001B29] disabled:cursor-not-allowed rounded-sm`}
+      disabled:text-gray-300 disabled:bg-[#001824] disabled:cursor-not-allowed rounded-sm`}
     >
       {props.children}
     </button>

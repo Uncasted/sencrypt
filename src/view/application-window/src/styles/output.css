@@ -1860,12 +1860,12 @@ body[dir="rtl"] .checkbox:checked,
   margin-top: 1rem;
 }
 
-.mt-8 {
-  margin-top: 2rem;
-}
-
 .ml-2 {
   margin-left: 0.5rem;
+}
+
+.mt-8 {
+  margin-top: 2rem;
 }
 
 .ml-6 {
@@ -1950,6 +1950,14 @@ body[dir="rtl"] .checkbox:checked,
 
 .h-\[40px\] {
   height: 40px;
+}
+
+.h-12 {
+  height: 3rem;
+}
+
+.h-14 {
+  height: 3.5rem;
 }
 
 .w-full {
@@ -2676,6 +2684,14 @@ input[type=range].custom-slider.slider-progress::-webkit-slider-runnable-track {
 
 .focus\:ring-offset-\[\#00293d\]:focus {
   --tw-ring-offset-color: #00293d;
+}
+
+.focus\:ring-offset-\[\#001b29\]:focus {
+  --tw-ring-offset-color: #001b29;
+}
+
+.focus\:ring-offset-\[\#00111a\]:focus {
+  --tw-ring-offset-color: #00111a;
 }
 
 .active\:bg-green-600:active {

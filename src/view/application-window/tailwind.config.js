@@ -22,7 +22,12 @@ module.exports = {
     'hover:bg-[#001E2E]',
     'active:bg-[#001B29]',
     'bg-[#001824]',
-    'bg-[#00141F]'
+    'bg-[#00141F]',
+    'h-12',
+    'h-14',
+    'focus:ring-offset-[#001b29]',
+    'focus:ring-offset-[#00111a]',
+    'focus:ring-offset-[#000e14]'
   ],
   theme: {
     extend: {

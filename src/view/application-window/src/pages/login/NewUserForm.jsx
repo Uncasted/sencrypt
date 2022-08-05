@@ -132,6 +132,7 @@ export default function NewUserForm (props) {
                 activeColor='[#00293d]'
                 tabIndex={3}
                 width='full'
+                offsetColor='[#000e14]'
               >
                 Create Vault
               </PrimaryButton>

@@ -159,6 +159,7 @@ export default function AccountInfo () {
           tabIndex={28}
           hoverColor='[#003D5C]'
           activeColor='[#00293d]'
+          offsetColor='[#001b29]'
           onClick={toggleMode}
         >
           {editTitle}
@@ -178,6 +179,7 @@ export default function AccountInfo () {
             }
             hoverColor='[#003D5C]'
             activeColor='[#00293d]'
+            offsetColor='[#001b29]'
           >
             Save Changes
           </SecondaryButton>

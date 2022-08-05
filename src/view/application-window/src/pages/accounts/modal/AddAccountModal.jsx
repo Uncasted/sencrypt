@@ -166,6 +166,8 @@ export function AddAccountModal () {
                   hoverColor='[#003D5C]'
                   activeColor='[#00293d]'
                   width='full'
+                  height={14}
+                  offsetColor='[#00111a]'
                 >
                   Add Account
                 </PrimaryButton>

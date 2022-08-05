@@ -30,6 +30,7 @@ export function DeleteButton () {
         tabIndex={30}
         hoverColor='[#003D5C]'
         activeColor='[#00293d]'
+        offsetColor='[#001b29]'
         onClick={deleteWarning}
       >
         Delete Account

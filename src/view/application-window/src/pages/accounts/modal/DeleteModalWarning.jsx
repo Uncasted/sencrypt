@@ -26,6 +26,7 @@ export default function DeleteModalWarning () {
             tabIndex={32}
             hoverColor='red-600'
             activeColor='red-700'
+            offsetColor='[#00111a]'
             onClick={deleteAccount}
             width={40}
           >

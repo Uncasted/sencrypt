@@ -23,6 +23,7 @@ export function AddAccountButton () {
         activeColor='[#00293d]'
         onClick={addAccount}
         width={52}
+        offsetColor='[#00111a]'
       >
         Add New Account
       </PrimaryButton>

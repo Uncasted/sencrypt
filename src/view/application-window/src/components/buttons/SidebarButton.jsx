@@ -65,7 +65,7 @@ export default function SidebarButton (props) {
     </button>
   )
 }
-''
+
 SidebarButton.propTypes = {
   changeSelected: PropTypes.func,
   defaultSelected: PropTypes.bool,

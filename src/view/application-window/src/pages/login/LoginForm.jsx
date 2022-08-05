@@ -112,6 +112,7 @@ export default function LoginForm (props) {
                 hoverColor='[#003D5C]'
                 activeColor='[#00293d]'
                 width='full'
+                offsetColor='[#000e14]'
               >
                 Log in
               </PrimaryButton>

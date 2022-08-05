@@ -1,5 +1,4 @@
 import ModalHeader from '../../components/headers/ModalHeader'
-import SecondaryButton from '../../components/buttons/SecondaryButton'
 import PropTypes from 'prop-types'
 import PrimaryButton from '../../components/buttons/PrimaryButton'
 
@@ -38,6 +37,7 @@ export function WeakPasswordModal (props) {
                   tabIndex={12}
                   hoverColor='[#003D5C]'
                   activeColor='[#00293d]'
+                  offsetColor='[#00111a]'
                   onClick={props.handleButton}
                   width='full'
                 >

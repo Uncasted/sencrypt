@@ -9,13 +9,14 @@ export default function Slider (props) {
           <span className='text-sm no-select'>{props.title}</span>
         )}
         {props.enableInput && (
-          <div className='bg-dark-blue-5'>
+          <div className='bg-[#001824] rounded-sm'>
             <InputNumberBox
               min={props.min || null}
               max={props.max || null}
               value={props.defaultLength}
-              onChange={props.inputOnChange || null}
+              onChange={props.handleInputChange || null}
               onKeyDown={props.inputOnKeyDown || null}
+              onBlur={props.handleInputBlur}
             />
           </div>
         )}
@@ -26,7 +27,8 @@ export default function Slider (props) {
         max={props.max || null}
         value={props.defaultLength || null}
         onChange={props.onChange || null}
-        className='custom-slider slider-progress w-full cursor-pointer focus:outline-gray-200'
+        className='custom-slider slider-progress w-full cursor-pointer focus:outline-none focus:outline focus:outline-2
+         focus:outline-[#003D5C] transition rounded-sm'
       />
     </>
   )
@@ -38,7 +40,8 @@ Slider.propTypes = {
   min: PropTypes.number,
   max: PropTypes.number,
   defaultLength: PropTypes.string,
-  inputOnChange: PropTypes.func,
+  handleInputChange: PropTypes.func,
   inputOnKeyDown: PropTypes.func,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  onBlur: PropTypes.func
 }

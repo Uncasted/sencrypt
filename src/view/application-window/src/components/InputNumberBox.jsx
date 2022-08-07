@@ -9,7 +9,8 @@ export default function InputNumberBox (props) {
       value={props.value}
       onChange={props.onChange || null}
       onKeyDown={props.onKeyDown || null}
-      className='bg-transparent w-8 text-center text-sm rounded-sm focus:outline-gray-200'
+      onBlur={props.onBlur}
+      className='bg-transparent w-8 text-center text-sm rounded-sm focus:outline-none focus:ring focus:ring-[#003D5C]'
     />
   )
 }
@@ -19,5 +20,6 @@ InputNumberBox.propTypes = {
   max: PropTypes.number,
   value: PropTypes.string,
   onChange: PropTypes.func,
-  onKeyDown: PropTypes.func
+  onKeyDown: PropTypes.func,
+  onBlur: PropTypes.func
 }

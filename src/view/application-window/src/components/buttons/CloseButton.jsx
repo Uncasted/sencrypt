@@ -15,7 +15,7 @@ export default function CloseButton () {
       onClick={handleClose}
       ref={buttonRef}
       tabIndex='-1'
-      className='hover:bg-red-500 px-4 transition'
+      className='hover:bg-red-600 active:bg-red-700 px-4 transition'
     >
       <div
         tabIndex='9'

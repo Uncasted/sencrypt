@@ -88,6 +88,10 @@ input[type=range].custom-slider {
     -webkit-appearance: none;
 }
 
+input[type=range].custom-slider:focus-visible {
+    outline: #003D5C solid 2px;
+}
+
 /*progress support*/
 input[type=range].custom-slider.slider-progress {
     --range: calc(var(--max) - var(--min));

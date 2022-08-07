@@ -1860,12 +1860,12 @@ body[dir="rtl"] .checkbox:checked,
   margin-top: 1rem;
 }
 
-.ml-2 {
-  margin-left: 0.5rem;
-}
-
 .mt-8 {
   margin-top: 2rem;
+}
+
+.ml-2 {
+  margin-left: 0.5rem;
 }
 
 .ml-6 {
@@ -2474,6 +2474,10 @@ input[type=range].custom-slider {
   -webkit-appearance: none;
 }
 
+input[type=range].custom-slider:focus-visible {
+  outline: #003D5C solid 2px;
+}
+
 /*progress support*/
 
 input[type=range].custom-slider.slider-progress {
@@ -2605,10 +2609,6 @@ input[type=range].custom-slider.slider-progress::-webkit-slider-runnable-track {
 
 .focus\:outline-2:focus {
   outline-width: 2px;
-}
-
-.focus\:outline-\[\#003D5C\]:focus {
-  outline-color: #003D5C;
 }
 
 .focus\:outline-gray-200:focus {

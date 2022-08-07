@@ -26,6 +26,7 @@ const InputField = forwardRef((props, ref) => {
       <div className='flex space-x-2 w-full items-center relative'>
         <input
           type={type}
+          readOnly={props.readOnly}
           placeholder={props.placeholder || ''}
           id={props.fieldId}
           ref={ref || null}
@@ -38,10 +39,11 @@ const InputField = forwardRef((props, ref) => {
           data-outline={props.dataOutline || null}
           autoFocus={props.autoFocus || false}
           onChange={event => {
-            props?.handleWarning()
+            props?.handleClick()
             props?.onChange(event.target.value)
           }}
-          onClick={props.handleWarning}
+          onClick={props.handleClick}
+          onKeyDown={props.onKeyDown}
           style={props.hasToggleVisibility ? { paddingRight: '3rem' } : {}}
           className={`pl-2 rounded-sm h-10 disabled:text-[#00293d] disabled:cursor-not-allowed transition ${bgColor}
           text-white focus:outline-none outline-2 outline-red-500 focus:ring focus:ring-[#003D5C] w-full
@@ -93,14 +95,15 @@ InputField.propTypes = {
   hasClipboard: PropTypes.bool,
   clipboardTooltip: PropTypes.string,
   tooltipDirection: PropTypes.string,
-  handleWarning: PropTypes.func,
+  handleClick: PropTypes.func,
   onChange: PropTypes.func,
   autoFocus: PropTypes.bool,
   minLength: PropTypes.number,
   maxLength: PropTypes.number,
   placeholder: PropTypes.string,
   hasStrengthBar: PropTypes.bool,
-  bgColor: PropTypes.string
+  bgColor: PropTypes.string,
+  onKeyDown: PropTypes.func
 }
 
 InputField.displayName = 'InputField'

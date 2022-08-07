@@ -67,25 +67,29 @@ export const SHOW_TOOLTIP = ['tooltip', 'tooltip-open']
 
 export const GENERATOR_INPUTS = [
   {
-    id: 0,
+    key: 0,
+    id: 'checkbox-0',
     label: 'Lowercase',
     type: 'useLower',
     value: LOWERCASE
   },
   {
-    id: 1,
+    key: 1,
+    id: 'checkbox-1',
     label: 'Uppercase',
     type: 'useUpper',
     value: UPPERCASE
   },
   {
-    id: 2,
+    key: 2,
+    id: 'checkbox-2',
     label: 'Numbers',
     type: 'useNumbers',
     value: NUMBERS
   },
   {
-    id: 3,
+    key: 3,
+    id: 'checkbox-3',
     label: 'Symbols',
     type: 'useSymbols',
     value: SYMBOLS

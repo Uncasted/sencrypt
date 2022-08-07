@@ -116,7 +116,7 @@ export default function NewUserForm (props) {
                     onChange={input => {
                       updatePassword(field.value, input)
                     }}
-                    handleWarning={handleWarning}
+                    handleClick={handleWarning}
                     hasToggleVisibility
                     hasStrengthBar
                   />

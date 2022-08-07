@@ -11,7 +11,7 @@
     font-family: Inter, 'sans-serif';
     background-color: #00111a;
     color: black;
-    --pc: 203.5 100% 10%
+    --pc: 200.8 100% 5.1%
 }
 
 .tooltip-bg {
@@ -115,5 +115,5 @@ input[type=range].custom-slider::-webkit-slider-runnable-track {
 }
 
 input[type=range].custom-slider.slider-progress::-webkit-slider-runnable-track {
-    background: linear-gradient(#FFF, #FFF) 0/var(--sx) 100% no-repeat, hsla(0, 0%, 100%, .2);
+    background: linear-gradient(#FFF, #FFF) 0/var(--sx) 100% no-repeat, #00293d;
 }

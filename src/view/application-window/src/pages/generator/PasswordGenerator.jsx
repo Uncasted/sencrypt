@@ -1,6 +1,7 @@
 import { usePasswordContext } from '../../context/generator/PasswordContext'
 import { SHOW_TOOLTIP } from '../../data/constants'
 import { useRef } from 'react'
+import InputField from '../../components/forms/InputField'
 
 export default function PasswordGenerator () {
   // Ref
@@ -22,19 +23,21 @@ export default function PasswordGenerator () {
 
   return (
     <div className='flex space-x-2 items-center'>
-      <div data-tip='Copied!' ref={tooltipRef} className='tooltip-bg'>
-        <input
-          readOnly
+      <div data-tip='Copied!' ref={tooltipRef} className='tooltip-bg w-full'>
+        <InputField
+          bgColor='[#001824]'
+          fieldId='generator-input'
           type='text'
           value={password}
-          onClick={selectToClipboard}
+          handleClick={selectToClipboard}
           onKeyDown={event => {
-            if (event.key === 'Enter') {
+            if (event.key === 'Enter' || event.key === ' ') {
               selectToClipboard()
             }
           }}
-          className='text-dark-blue-0 pl-2 w-[36rem] xl:w-[48rem] py-1.5 text-lg focus:outline-none
-                       focus:ring focus:ring-blue-1 transition'
+          hasToggleVisibility
+          readOnly
+          hasStrengthBar
         />
       </div>
     </div>

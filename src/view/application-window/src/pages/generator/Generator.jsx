@@ -17,8 +17,7 @@ export function Generator () {
             <PasswordProvider>
               <PasswordGenerator />
               <div
-                className='relative mt-8 px-6 py-6 bg-dark-blue-0 w-[36rem] xl:w-[48rem] xl:py-12
-                                 shadow-md'
+                className='relative mt-4 w-[36rem] xl:w-[48rem] shadow-md'
               >
                 <GeneratorParameters />
               </div>

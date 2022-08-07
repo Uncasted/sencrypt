@@ -54,7 +54,7 @@ export default function GeneratorParameters () {
 
   return (
     <div>
-      <div className='mb-4 pr-4'>
+      <div className='mb-4 pr-1'>
         <Slider
           title='Length:'
           min={4}
@@ -64,47 +64,56 @@ export default function GeneratorParameters () {
             update.updateLength(event.target.value)
           }}
           enableInput
-          inputOnChange={handleLength}
+          handleInputChange={handleLength}
           inputOnKeyDown={event => {
             // Prevent user from creating decimal numbers.
             if (event.key === '.') {
               event.preventDefault()
             }
           }}
+          handleInputBlur={() => {
+            // Prevent the user from inputting a value outside of the range.
+            if (length < 4) update.updateLength('4')
+          }}
         />
       </div>
       <div className='flex flex-col space-y-4'>
-        {GENERATOR_INPUTS.map(({ id, label, type, value }) => {
+        {GENERATOR_INPUTS.map(({ key, id, label, type, value }) => {
           return (
             <Checkbox
-              key={id}
+              key={key}
+              id={id}
               title={label}
               checked={parameters.includes(value)}
               onClick={() => {
                 updateParameter(type, value)
               }}
               onKeyDown={event => {
+                // This checkbox already has an event key listener for spacebar (for some reason).
                 if (event.key === 'Enter') {
-                  updateParameter(type, value)
+                  // This is bad. But it doesn't work properly if I don't do this.
+                  const checkbox = document.getElementById(id)
+                  checkbox.click()
                 }
               }}
             />
           )
         })}
-      </div>
-      <div className='absolute bottom-4 right-4'>
         {/* Generate password button. */}
-        <SecondaryButton
-          type='button'
-          disabled={parameters.length === 0 || length === 0}
-          hoverColor='blue-1'
-          activeColor='blue-2'
-          onClick={() => {
-            updatePassword(parameters, length)
-          }}
-        >
-          Generate
-        </SecondaryButton>
+        <div style={{ marginTop: '2rem' }}>
+          <SecondaryButton
+            type='button'
+            disabled={parameters.length === 0 || length === 0}
+            hoverColor='[#003D5C]'
+            activeColor='[#00293d]'
+            offsetColor='[#00111a]'
+            onClick={() => {
+              updatePassword(parameters, length)
+            }}
+          >
+            Generate
+          </SecondaryButton>
+        </div>
       </div>
     </div>
   )

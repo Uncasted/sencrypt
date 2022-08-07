@@ -81,7 +81,7 @@ export default function ConfirmResetModal (props) {
                   tabIndex={31}
                   ref={masterPassRef}
                   value={masterPass}
-                  handleWarning={handleWarning}
+                  handleClick={handleWarning}
                   onChange={input => {
                     setMasterPass(input)
                   }}

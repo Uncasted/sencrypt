@@ -96,7 +96,7 @@ export default function LoginForm (props) {
                 minLength={1}
                 maxLength={32}
                 value={masterPassword}
-                handleWarning={handleWarning}
+                handleClick={handleWarning}
                 onChange={input => {
                   setMasterPassword(input)
                 }}

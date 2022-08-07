@@ -137,7 +137,7 @@ export function AddAccountModal () {
                   tabIndex={field.tabIndex}
                   dataOutline='add-modal-outline'
                   value={newAccount[field.value]}
-                  handleWarning={handleWarning}
+                  handleClick={handleWarning}
                   onChange={input => {
                     updateField(field.value, input)
                   }}

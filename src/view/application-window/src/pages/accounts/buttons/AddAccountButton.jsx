@@ -21,9 +21,9 @@ export function AddAccountButton () {
         tabIndex={4}
         hoverColor='[#003D5C]'
         activeColor='[#00293d]'
+        offsetColor='[#00111a]'
         onClick={addAccount}
         width={52}
-        offsetColor='[#00111a]'
       >
         Add New Account
       </PrimaryButton>

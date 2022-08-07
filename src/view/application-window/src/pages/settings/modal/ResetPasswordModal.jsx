@@ -109,7 +109,7 @@ export function ResetPasswordModal () {
                   tabIndex={field.tabIndex}
                   dataOutline='reset-modal-outline'
                   value={passwords[field.value]}
-                  handleWarning={handleWarning}
+                  handleClick={handleWarning}
                   onChange={input => {
                     updateField(field.value, input)
                   }}

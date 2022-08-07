@@ -141,7 +141,7 @@ export default function AccountInfo () {
               hasClipboard={field.hasClipboard}
               clipboardTooltip={field.clipboardTooltip}
               tooltipDirection={field.tooltipDirection}
-              handleWarning={handleWarning}
+              handleClick={handleWarning}
               onChange={input => {
                 updateInput(field.value, input)
               }}

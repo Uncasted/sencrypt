@@ -12,13 +12,15 @@ import { useRef, useState } from 'react'
 import InputField from '../../../components/forms/InputField'
 import ModalHeader from '../../../components/headers/ModalHeader'
 import PrimaryButton from '../../../components/buttons/PrimaryButton'
+import TextareaField from '../../../components/TextareaField'
 
 export function AddAccountModal () {
   // State
   const [newAccount, setNewAccount] = useState({
     website: '',
     username: '',
-    password: ''
+    password: '',
+    notes: ''
   })
 
   // Ref
@@ -62,7 +64,8 @@ export function AddAccountModal () {
     const newAccountData = {
       website,
       username: newAccount.username,
-      password: newAccount.password
+      password: newAccount.password,
+      notes: newAccount.notes
     }
 
     const isNotDuplicate = accounts.every(account => {
@@ -85,7 +88,8 @@ export function AddAccountModal () {
           return {
             website: '',
             username: '',
-            password: ''
+            password: '',
+            notes: ''
           }
         })
       })
@@ -132,6 +136,7 @@ export function AddAccountModal () {
                   bgColor='[#001824]'
                   type={field.type}
                   name={field.name}
+                  placeholder={field.placeholder}
                   fieldId={field.id}
                   title={field.title}
                   tabIndex={field.tabIndex}
@@ -144,6 +149,19 @@ export function AddAccountModal () {
                 />
               )
             })}
+            <TextareaField
+              bgColor='[#001824]'
+              id='new-notes'
+              name='new-notes'
+              rows={5}
+              placeholder='Notes...'
+              title='Notes'
+              value={newAccount.notes}
+              handleClick={handleWarning}
+              onChange={value => {
+                updateField('notes', value)
+              }}
+            />
             <p ref={warningRef} className='invisible text-red-500'>
               This account already exists.
             </p>

@@ -38,6 +38,26 @@ export default function AskForReLogin () {
   return (
     <Option label='Require Login After Some Time (mins):'>
       <div className='flex space-x-4'>
+        <div className='bg-[#001824] rounded-sm'>
+          <InputNumberBox
+            min={1}
+            max={60}
+            value={time}
+            onChange={event => {
+              updateTime(event.target.value)
+            }}
+            onKeyDown={event => {
+              // Prevent user from creating decimal numbers.
+              if (event.key === '.') {
+                event.preventDefault()
+              }
+            }}
+            onBlur={event => {
+              // Prevent the value from going lower than 1.
+              if (event.target.value < 1) updateTime(1)
+            }}
+          />
+        </div>
         <Checkbox
           checked={toggleTimeout}
           onClick={() => {
@@ -55,22 +75,6 @@ export default function AskForReLogin () {
             }
           }}
         />
-        <div className='bg-dark-blue-2'>
-          <InputNumberBox
-            min={1}
-            max={60}
-            value={time}
-            onChange={event => {
-              updateTime(event.target.value)
-            }}
-            onKeyDown={event => {
-              // Prevent user from creating decimal numbers.
-              if (event.key === '.') {
-                event.preventDefault()
-              }
-            }}
-          />
-        </div>
       </div>
     </Option>
   )

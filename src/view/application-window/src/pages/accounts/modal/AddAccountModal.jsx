@@ -114,6 +114,10 @@ export function AddAccountModal () {
         id='add-modal'
         tabIndex='-1'
         className='modal-toggle'
+        onChange={() => {
+          // Remove the warning when closing the modal.
+          handleWarning()
+        }}
       />
       <div className='modal'>
         <div className='modal-box bg-[#00111a] text-white rounded-none px-0 py-0 w-[350px] shadow-sm'>

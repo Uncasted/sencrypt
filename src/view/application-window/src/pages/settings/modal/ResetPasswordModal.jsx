@@ -6,15 +6,18 @@ import {
 } from '../../../data/constants'
 import ModalHeader from '../../../components/headers/ModalHeader'
 import InputField from '../../../components/forms/InputField'
-import SecondaryButton from '../../../components/buttons/SecondaryButton'
 import ConfirmResetModal from './ConfirmResetModal'
+import PrimaryButton from '../../../components/buttons/PrimaryButton'
 
 export function ResetPasswordModal () {
   // State
   const [passwords, setPasswords] = useState({
     newMasterPass: '',
-    confirmNewMasterPass: ''
+    confirmNewMasterPass: '',
+    oldMasterPass: ''
   })
+
+  const [warning, setWarning] = useState('The passwords do not match.')
 
   // Ref
   const warningRef = useRef(null)
@@ -41,34 +44,48 @@ export function ResetPasswordModal () {
     // Make the warning invisible.
     const warning = warningRef.current
     warning.classList.add('invisible')
+    // Reset warning to default value.
+    setWarning('The passwords do not match.')
   }
 
   const submitData = event => {
     event.preventDefault()
+    // Verify the old master password.
+    window.database.verifyMasterPassword(passwords.oldMasterPass).then(isMasterPass => {
+      if (passwords.newMasterPass === passwords.confirmNewMasterPass && isMasterPass) {
+        // Open the confirmation modal.
+        let confirmModal = document.getElementById('confirm-reset-modal')
+        confirmModal.click()
+        // Focus on the modal
+        confirmModal = document.getElementById('confirm-reset-box')
+        confirmModal.focus()
+      } else {
+        // Warn the user.
 
-    if (passwords.newMasterPass === passwords.confirmNewMasterPass) {
-      // Open the confirmation modal.
-      const confirmModal = document.getElementById('confirm-reset-modal')
-      confirmModal.click()
-      // Focus on the first field.
-      const oldMasterPass = document.getElementById('oldMasterPass')
-      oldMasterPass.focus()
-    } else {
-      // Warn the user.
-      const fields = document.querySelectorAll(
-        '[data-outline="reset-modal-outline"]'
-      )
+        // Display the warning depending on what's wrong.
+        if (!isMasterPass) {
+          if (passwords.newMasterPass !== passwords.confirmNewMasterPass) {
+            setWarning('All fields are invalid.')
+          } else {
+            setWarning('Invalid Master password.')
+          }
+        }
 
-      // Make the outline of the fields red.
-      for (const field of fields) {
-        field.classList.remove(...BLUE_OUTLINE)
-        field.classList.add(...RED_OUTLINE)
+        const fields = document.querySelectorAll(
+          '[data-outline="reset-modal-outline"]'
+        )
+
+        // Make the outline of the fields red.
+        for (const field of fields) {
+          field.classList.remove(...BLUE_OUTLINE)
+          field.classList.add(...RED_OUTLINE)
+        }
+
+        // Show the user the warning.
+        const warning = warningRef.current
+        warning.classList.remove('invisible')
       }
-
-      // Show the user the warning.
-      const warning = warningRef.current
-      warning.classList.remove('invisible')
-    }
+    })
   }
 
   return (
@@ -83,25 +100,30 @@ export function ResetPasswordModal () {
             // Set the fields empty when you close the modal.
             return {
               newMasterPass: '',
-              confirmNewMasterPass: ''
+              confirmNewMasterPass: '',
+              oldMasterPass: ''
             }
           })
+          // Remove the warning when closing the modal.
+          handleWarning()
         }}
       />
       <div className='modal'>
-        <div className='modal-box bg-dark-blue-1 text-white rounded-none px-0 py-0 w-[350px] shadow-sm'>
+        <div className='modal-box bg-[#00111a] text-white rounded-none px-0 py-0 w-[350px] shadow-sm'>
           <ModalHeader htmlFor='reset-modal' tabIndex={14}>
             Reset Master Password:
           </ModalHeader>
           <form
             id='reset-form'
             onSubmit={submitData}
-            className='flex flex-col items-center space-y-4'
+            className='flex flex-col items-center space-y-4 px-12'
           >
             {RESET_PASS_FIELDS.map(field => {
               return (
                 <InputField
+                  autoFocus={field.autofocus}
                   key={field.id}
+                  bgColor='[#001824]'
                   type={field.type}
                   name={field.name}
                   fieldId={field.id}
@@ -117,27 +139,30 @@ export function ResetPasswordModal () {
               )
             })}
             <p ref={warningRef} className='invisible text-red-500'>
-              The passwords do not match.
+              {warning}
             </p>
             {/* Add account button. */}
-            <div className='modal-action'>
+            <div className='modal-action w-full'>
               <label
                 htmlFor='reset-modal'
                 id='reset-modal-button'
-                className='mb-6 mt-[-1rem]'
+                className='mb-6 mt-[-1rem] w-full'
               >
-                <SecondaryButton
+                <PrimaryButton
                   type='submit'
                   form='reset-form'
                   tabIndex={13}
                   disabled={
-                    !passwords.newMasterPass || !passwords.confirmNewMasterPass
+                    !passwords.newMasterPass || !passwords.confirmNewMasterPass || !passwords.oldMasterPass
                   }
-                  hoverColor='red-500'
-                  activeColor='red-600'
+                  hoverColor='red-600'
+                  activeColor='red-700'
+                  offsetColor='[#00111a]'
+                  width='full'
+                  height={14}
                 >
-                  Reset Password
-                </SecondaryButton>
+                  Reset Master Password
+                </PrimaryButton>
               </label>
             </div>
           </form>

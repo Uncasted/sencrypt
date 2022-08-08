@@ -109,7 +109,8 @@ class DatabaseController {
       await this.Model.createAccount(
         account.username,
         account.password,
-        account.website
+        account.website,
+        account.notes
       )
     } catch (error) {
       console.log('Error at createAccount (Controller).')
@@ -118,6 +119,7 @@ class DatabaseController {
   }
 
   async updateAccount (index, newAccount) {
+    console.log(index, newAccount)
     try {
       await this.Model.updateAccount(index, newAccount)
     } catch (error) {

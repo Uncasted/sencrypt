@@ -23,7 +23,7 @@ export default function DeleteModalWarning () {
         <label htmlFor={`delete-modal-${index}`}>
           <PrimaryButton
             type='button'
-            tabIndex={32}
+            tabIndex={33}
             hoverColor='red-600'
             activeColor='red-700'
             offsetColor='[#00111a]'

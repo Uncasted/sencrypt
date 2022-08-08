@@ -24,6 +24,7 @@ import { useIdContext } from '../../context/accounts/IdContext'
 import InputField from '../../components/forms/InputField'
 import { DeleteButton } from './buttons/DeleteButton'
 import SecondaryButton from '../../components/buttons/SecondaryButton'
+import TextareaField from '../../components/TextareaField'
 
 export default function AccountInfo () {
   // State
@@ -82,8 +83,10 @@ export default function AccountInfo () {
     const accountData = {
       website: hostname,
       username: accountInput.username,
-      password: accountInput.password
+      password: accountInput.password,
+      notes: accountInput.notes
     }
+    console.log(accountData)
 
     // Prevent account duplication.
     const isNotDuplicate = accounts.every((account, accIndex) => {
@@ -130,6 +133,7 @@ export default function AccountInfo () {
               bgColor='[#00141F]'
               type={field.type}
               name={field.name}
+              placeholder={field.placeholder}
               title={field.title}
               tabIndex={field.tabIndex}
               secondaryTabIndex={field.secondaryTabIndex}
@@ -148,6 +152,22 @@ export default function AccountInfo () {
             />
           )
         })}
+        <TextareaField
+          bgColor='[#00141f]'
+          tabIndex={26}
+          id='notes'
+          name='notes'
+          rows={5}
+          placeholder='Notes...'
+          title='Notes'
+          dataOutline={`account-${index}`}
+          value={accountInput.notes}
+          handleClick={handleWarning}
+          isEditable={isEditable}
+          onChange={input => {
+            updateInput('notes', input)
+          }}
+        />
         <p ref={warningRef} className='hidden text-red-500'>
           This account already exists.
         </p>
@@ -156,7 +176,7 @@ export default function AccountInfo () {
         {/* Edit button. */}
         <SecondaryButton
           type='button'
-          tabIndex={28}
+          tabIndex={29}
           hoverColor='[#003D5C]'
           activeColor='[#00293d]'
           offsetColor='[#001b29]'
@@ -170,7 +190,7 @@ export default function AccountInfo () {
           <SecondaryButton
             type='submit'
             form={accountIds.editFormId}
-            tabIndex={29}
+            tabIndex={30}
             disabled={
               isEditable ||
               !accountInput.username ||

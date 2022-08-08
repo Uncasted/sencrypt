@@ -27,7 +27,7 @@ export function DeleteButton () {
       />
       <SecondaryButton
         type='button'
-        tabIndex={30}
+        tabIndex={31}
         hoverColor='[#003D5C]'
         activeColor='[#00293d]'
         offsetColor='[#001b29]'

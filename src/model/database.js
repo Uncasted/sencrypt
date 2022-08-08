@@ -133,7 +133,8 @@ class Database {
         return {
           website: utility.decrypt(account.website, this.SEC_KEY),
           username: utility.decrypt(account.username, this.SEC_KEY),
-          password: utility.decrypt(account.password, this.SEC_KEY)
+          password: utility.decrypt(account.password, this.SEC_KEY),
+          notes: utility.decrypt(account.notes, this.SEC_KEY)
         }
       })
 
@@ -154,7 +155,9 @@ class Database {
         return {
           website: utility.encrypt(account.website, this.SEC_KEY),
           username: utility.encrypt(account.username, this.SEC_KEY),
-          password: utility.encrypt(account.password, this.SEC_KEY)
+          password: utility.encrypt(account.password, this.SEC_KEY),
+          notes: utility.encrypt(account.notes, this.SEC_KEY)
+
         }
       })
 
@@ -249,7 +252,7 @@ class Database {
   }
 
   // Basic CRUD Operations.
-  async createAccount (username, password, website) {
+  async createAccount (username, password, website, notes) {
     try {
       await this.read()
       const { database } = this.data
@@ -258,7 +261,8 @@ class Database {
       const encryptedAccount = {
         website: utility.encrypt(website, this.SEC_KEY),
         username: utility.encrypt(username, this.SEC_KEY),
-        password: utility.encrypt(password, this.SEC_KEY)
+        password: utility.encrypt(password, this.SEC_KEY),
+        notes: utility.encrypt(notes, this.SEC_KEY)
       }
 
       // Pushing the account into the database.
@@ -284,7 +288,8 @@ class Database {
         return {
           website: utility.decrypt(account.website, this.SEC_KEY),
           username: utility.decrypt(account.username, this.SEC_KEY),
-          password: utility.decrypt(account.password, this.SEC_KEY)
+          password: utility.decrypt(account.password, this.SEC_KEY),
+          notes: utility.decrypt(account.notes, this.SEC_KEY)
         }
       })
 
@@ -304,7 +309,8 @@ class Database {
       newAccount = {
         website: utility.encrypt(newAccount.website, this.SEC_KEY),
         username: utility.encrypt(newAccount.username, this.SEC_KEY),
-        password: utility.encrypt(newAccount.password, this.SEC_KEY)
+        password: utility.encrypt(newAccount.password, this.SEC_KEY),
+        notes: utility.encrypt(newAccount.notes, this.SEC_KEY)
       }
 
       // Compare all the fields of the accounts to check if they are not the same.
@@ -313,13 +319,15 @@ class Database {
       const isNotTheSame =
         oldAccount.username !== newAccount.username ||
         oldAccount.website !== newAccount.website ||
-        oldAccount.password !== newAccount.password
+        oldAccount.password !== newAccount.password ||
+        oldAccount.notes !== newAccount.notes
 
       // If the account is not the same, then we can continue.
       // If we don't do this check and the account is the same, it will get deleted.
 
       if (isNotTheSame) {
         // Update the account.
+        console.log('This is getting updated.')
         database[this.ENC_MP][index] = newAccount
         await this.write()
       }

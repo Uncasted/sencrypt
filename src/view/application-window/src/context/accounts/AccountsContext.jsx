@@ -15,7 +15,7 @@ export function useAccountsContextUpdate () {
 export default function AccountsProvider (props) {
   const [accounts, setAccounts] = useState([])
 
-  // Get the buttons from the database.
+  // Get the accounts from the database.
   useEffect(() => {
     window.database.getAllAccounts().then(accounts => {
       setAccounts(accounts)
@@ -30,6 +30,7 @@ export default function AccountsProvider (props) {
   }
 
   const updateAccount = async (index, account) => {
+    console.log(index, account)
     // Updating the account in the database.
     await window.database.updateAccount(index, account)
     // Updating the account in the state.

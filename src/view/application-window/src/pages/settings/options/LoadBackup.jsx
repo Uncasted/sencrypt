@@ -10,8 +10,9 @@ export default function LoadBackup () {
   return (
     <Option label='Load Database Backup:'>
       <PrimaryButton
-        hoverColor='green-500'
-        activeColor='green-600'
+        hoverColor='[#003D5C]'
+        activeColor='[#00293d]'
+        offsetColor='[#00111a]'
         width={40}
         onClick={loadBackup}
       >

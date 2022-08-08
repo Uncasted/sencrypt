@@ -153,6 +153,7 @@ export function AddAccountModal () {
               bgColor='[#001824]'
               id='new-notes'
               name='new-notes'
+              tabIndex={13}
               rows={5}
               placeholder='Notes...'
               title='Notes'
@@ -175,7 +176,7 @@ export function AddAccountModal () {
                 <PrimaryButton
                   type='submit'
                   form='add-form'
-                  tabIndex={13}
+                  tabIndex={14}
                   disabled={
                     !newAccount.username ||
                     !newAccount.password ||

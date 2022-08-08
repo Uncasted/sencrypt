@@ -27,8 +27,7 @@ export default function Slider (props) {
         max={props.max || null}
         value={props.defaultLength || null}
         onChange={props.onChange || null}
-        className='custom-slider slider-progress w-full cursor-pointer focus:outline-none focus:outline focus:outline-2
-         focus:outline-[#003D5C] transition rounded-sm'
+        className='custom-slider slider-progress w-full cursor-pointer focus:outline-none transition rounded-sm'
       />
     </>
   )

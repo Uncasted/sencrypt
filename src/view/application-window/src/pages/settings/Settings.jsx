@@ -14,13 +14,22 @@ export default function Settings () {
       <div>
         <SectionHeader icon={IMAGES.SETTINGS_ICON}>Settings</SectionHeader>
       </div>
-      <div className='mt-12'>
-        <AskForReLogin />
-        <DeleteAfterAttempts />
-        <CreateBackup />
-        <LoadBackup />
-        <ResetMasterPassword />
-        <div className='mx-20 border-b-2 border-blue-3' />
+      <div className='mt-12 text-white mx-20 text-white space-y-12'>
+        <div>
+          <h1 className='text-lg mb-1'>Login</h1>
+          <div className='border-t-2 border-b-2 border-[#002133]'>
+            <AskForReLogin />
+            <DeleteAfterAttempts />
+          </div>
+        </div>
+        <div>
+          <h1 className='text-lg mb-1'>Accounts</h1>
+          <div className='border-t-2 border-b-2 border-[#002133]'>
+            <CreateBackup />
+            <LoadBackup />
+            <ResetMasterPassword />
+          </div>
+        </div>
       </div>
     </>
   )

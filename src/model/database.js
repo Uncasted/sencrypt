@@ -142,11 +142,12 @@ class Database {
       this.SEC_KEY_2 = generateRandomKey(newPassword.length)
       database.SEC_KEY_2 = this.SEC_KEY_2
 
-      // Make a new secret key.
-      this.SEC_KEY = newPassword + this.SEC_KEY_2
-
-      // Generate a new encrypted master password.
-      this.ENC_MP = utility.encrypt(newPassword, this.SEC_KEY)
+      // Secret key
+      this.SEC_KEY = newPassword + database.SEC_KEY_2
+      // Generate Encrypted Master Password (ENC_MP)
+      const salt = utility.generateSalt()
+      this.ENC_MP = utility.encryptMasterPassword(newPassword, salt)
+      // Replace the master password in the database.
       database.ENC_MP = this.ENC_MP
 
       // Re-encrypt all the accounts.

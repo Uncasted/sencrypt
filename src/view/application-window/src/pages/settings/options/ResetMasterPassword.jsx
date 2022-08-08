@@ -7,15 +7,16 @@ export default function ResetMasterPassword () {
     const resetModal = document.getElementById('reset-modal')
     resetModal.click()
     // Focus on the first field.
-    const newMasterPass = document.getElementById('newMasterPass')
-    newMasterPass.focus()
+    const oldMasterPass = document.getElementById('oldMasterPass')
+    oldMasterPass.focus()
   }
 
   return (
     <Option label='Reset Master Password:'>
       <PrimaryButton
-        hoverColor='red-500'
-        activeColor='red-600'
+        hoverColor='red-600'
+        activeColor='red-700'
+        offsetColor='[#00111a]'
         width={40}
         onClick={openResetModal}
       >

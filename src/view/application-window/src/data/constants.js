@@ -232,19 +232,28 @@ export const RESET_PASS_FIELDS = [
   {
     autofocus: true,
     type: 'password',
+    name: 'oldMasterPass',
+    id: 'oldMasterPass',
+    title: 'Old Master Password',
+    tabIndex: 10,
+    value: 'oldMasterPass'
+  },
+  {
+    autofocus: false,
+    type: 'password',
     name: 'newMasterPass',
     id: 'newMasterPass',
     title: 'New Master Password:',
-    tabIndex: 10,
+    tabIndex: 11,
     value: 'newMasterPass'
   },
   {
-    autofocus: true,
+    autofocus: false,
     type: 'password',
     name: 'confirmNewMasterPass',
     id: 'confirmNewMasterPass',
     title: 'Confirm New Password:',
-    tabIndex: 11,
+    tabIndex: 12,
     value: 'confirmNewMasterPass'
   }
 ]

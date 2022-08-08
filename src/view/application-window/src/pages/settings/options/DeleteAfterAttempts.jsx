@@ -32,6 +32,26 @@ export default function DeleteAfterAttempts () {
   return (
     <Option label='Delete Accounts After Failing To Log In (tries):'>
       <div className='flex space-x-4'>
+        <div className='bg-[#001824] rounded-sm'>
+          <InputNumberBox
+            min={5}
+            max={99}
+            value={attempts}
+            onChange={event => {
+              updateAttempts(event.target.value)
+            }}
+            onKeyDown={event => {
+              // Prevent user from creating decimal numbers.
+              if (event.key === '.') {
+                event.preventDefault()
+              }
+            }}
+            onBlur={event => {
+              // Prevent the value from going lower than 5.
+              if (event.target.value < 5) updateAttempts(5)
+            }}
+          />
+        </div>
         <Checkbox
           checked={toggleDeleteAttempts}
           onClick={() => {
@@ -53,22 +73,6 @@ export default function DeleteAfterAttempts () {
             }
           }}
         />
-        <div className='bg-dark-blue-2'>
-          <InputNumberBox
-            min={5}
-            max={99}
-            value={attempts}
-            onChange={event => {
-              updateAttempts(event.target.value)
-            }}
-            onKeyDown={event => {
-              // Prevent user from creating decimal numbers.
-              if (event.key === '.') {
-                event.preventDefault()
-              }
-            }}
-          />
-        </div>
       </div>
     </Option>
   )

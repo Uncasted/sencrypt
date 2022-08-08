@@ -19,7 +19,8 @@ export default function InputProvider (props) {
   const [inputs, setInputs] = useState({
     username: props.username,
     website: props.website,
-    password: props.password
+    password: props.password,
+    notes: props.notes
   })
 
   // Context
@@ -55,5 +56,6 @@ InputProvider.propTypes = {
   username: PropTypes.string,
   website: PropTypes.string,
   password: PropTypes.string,
+  notes: PropTypes.string,
   children: PropTypes.node
 }

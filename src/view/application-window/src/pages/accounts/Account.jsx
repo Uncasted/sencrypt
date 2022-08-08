@@ -30,6 +30,7 @@ export function Account (props) {
               username={account.username}
               password={account.password}
               website={account.website}
+              notes={account.notes}
             >
               <EditProvider>
                 <Collapsible title={<AccountTitle />} tabIndex={100}>

@@ -40,6 +40,7 @@ export function WeakPasswordModal (props) {
                   offsetColor='[#00111a]'
                   onClick={props.handleButton}
                   width='full'
+                  height={10}
                 >
                   Continue
                 </PrimaryButton>

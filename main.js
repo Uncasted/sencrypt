@@ -3,6 +3,10 @@ const path = require('path')
 const login = require('./login')
 const tray = require('./tray')
 const filePath = require('./filePath')
+const { getTraySetting } = require('./tray')
+
+// Disable hardware acceleration.
+app.disableHardwareAcceleration()
 
 // Check if the file explorer is opened.
 let dialogIsOpen = false
@@ -88,12 +92,11 @@ async function createMainWindow () {
       preload: path.join(__dirname, './src/controller/applicationPreload.js')
     }
   })
-  await MainWin.loadFile(path.join(__dirname, './src/view/application-window/dist/index.html'))
-  // When the main window is closed, close the tray window.
-  // MainWin.on('closed', () => {
-  //   TrayWin.destroy()
-  // })
-  MainWin.on('close', (event) => {
+  await MainWin.loadFile(
+    path.join(__dirname, './src/view/application-window/dist/index.html')
+  )
+
+  MainWin.on('close', event => {
     // Prevent the main window from getting destroyed.
     event.preventDefault()
     // Hiding the main window.
@@ -137,7 +140,9 @@ async function createTrayWindow () {
     }
   })
   // This is where the index.html file is loaded into the window
-  await TrayWin.loadFile(path.join(__dirname, './src/view/tray-window/dist/index.html'))
+  await TrayWin.loadFile(
+    path.join(__dirname, './src/view/tray-window/dist/index.html')
+  )
   // Hide the Tray window when it loses focus.
   TrayWin.on('blur', () => {
     TrayWin.hide()
@@ -178,6 +183,20 @@ ipcMain.handle('backup:load', async () => {
   return path
 })
 
+// Toggling the tray menu.
+ipcMain.on('toggle:tray', (event, isEnabled) => {
+  if (isEnabled) {
+    // Create the tray window.
+    createTrayWindow().then(() => {
+      createTray()
+    })
+  } else {
+    // Destroy the current tray.
+    TrayWin.destroy()
+    TrayMenu.destroy()
+  }
+})
+
 // Minimizing the window.
 ipcMain.on('mainWin:minimize', () => {
   MainWin.minimize()
@@ -193,7 +212,16 @@ ipcMain.on('mainWin:maximize', () => {
 })
 // Close the window.
 ipcMain.on('mainWin:close', () => {
-  MainWin.hide()
+  getTraySetting().then(isEnabled => {
+    // If the tray icon is enabled, hide the window.
+    if (isEnabled) {
+      MainWin.hide()
+    } else {
+      // Quit the app.
+      MainWin.destroy()
+      app.quit()
+    }
+  })
 })
 
 // Open section from the tray menu.
@@ -216,9 +244,14 @@ app.on('ready', () => {
     MainWin.once('ready-to-show', () => {
       MainWin.show()
     })
-    // Create the tray window.
-    createTrayWindow().then(() => {
-      createTray()
+    // Check if the tray menu is enabled.
+    getTraySetting().then(isEnabled => {
+      if (isEnabled) {
+        // Create the tray window.
+        createTrayWindow().then(() => {
+          createTray()
+        })
+      }
     })
   })
   // Open a window if none are open.
@@ -226,16 +259,6 @@ app.on('ready', () => {
     if (BrowserWindow.getAllWindows().length === 0) createMainWindow().then()
   })
 })
-
-// // Quit the app when we close all windows. (Except on macOS)
-// app.on('window-all-closed', () => {
-//   if (process.platform !== 'darwin') {
-//     // Remove the tray icon.
-//     TrayMenu.destroy()
-//     // Quit the app.
-//     app.quit()
-//   }
-// })
 
 // Timeout for re-login.
 app.on('browser-window-blur', () => {

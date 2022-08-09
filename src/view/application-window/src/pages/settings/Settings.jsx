@@ -7,8 +7,13 @@ import LoadBackup from './options/LoadBackup'
 import ResetMasterPassword from './options/ResetMasterPassword'
 import { ResetPasswordModal } from './modal/ResetPasswordModal'
 import MinimizeToTray from './options/MinimizeToTray'
+import OpenAtStartup from './options/OpenAtStartup'
 
 export default function Settings () {
+  // Only show the "open at start up" option in windows.
+  const platform = window.utility.getPlatform()
+  const isWindows = platform === 'win32'
+
   return (
     <>
       <ResetPasswordModal />
@@ -22,6 +27,7 @@ export default function Settings () {
           <h1 className='text-lg mb-1'>General</h1>
           <div className='border-t-2 border-b-2 border-[#002133]'>
             <MinimizeToTray />
+            {isWindows && <OpenAtStartup />}
           </div>
         </div>
         <div>

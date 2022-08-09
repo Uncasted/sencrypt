@@ -13,7 +13,7 @@ export default function MinimizeToTray () {
 
   const handleTray = () => {
     // Toggle the tray menu process.
-    window.tray.toggleTray(!minToTray)
+    window.settings.toggleTray(!minToTray)
     // Update the setting.
     updateSetting('minToTray', !minToTray)
     // Update the local state.

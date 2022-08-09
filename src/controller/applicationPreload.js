@@ -49,13 +49,22 @@ contextBridge.exposeInMainWorld('settings', {
   },
   updateSetting: async (option, value) => {
     await settings.updateSetting(option, value)
+  },
+  toggleTray: (isEnabled) => {
+    ipcRenderer.send('toggle:tray', isEnabled)
+  },
+  toggleStartup: (isEnabled) => {
+    ipcRenderer.send('toggle:startup', isEnabled)
   }
 })
 
 // Utility functions.
 contextBridge.exposeInMainWorld('utility', {
   generateRandomPassword: (parameters, length) =>
-    utility.generateRandomPassword(parameters, length)
+    utility.generateRandomPassword(parameters, length),
+  getPlatform: () => {
+    return process.platform
+  }
 })
 
 // Main Window process.
@@ -68,13 +77,6 @@ contextBridge.exposeInMainWorld('mainWin', {
   },
   closeWindow: () => {
     ipcRenderer.send('mainWin:close')
-  }
-})
-
-// Tray toggle option.
-contextBridge.exposeInMainWorld('tray', {
-  toggleTray: (isEnabled) => {
-    ipcRenderer.send('toggle:tray', isEnabled)
   }
 })
 

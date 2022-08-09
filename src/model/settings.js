@@ -16,6 +16,7 @@ class Settings {
 
       // Setting the default settings.
       settings.minToTray = false
+      settings.openAtStartup = false
       settings.loginTimeout = false
       settings.loginTimeoutTime = 1800
       settings.deleteAfterAttempts = false

@@ -197,6 +197,13 @@ ipcMain.on('toggle:tray', (event, isEnabled) => {
   }
 })
 
+// Toggling open at startup (Windows).
+ipcMain.on('toggle:startup', (event, isStartupEnabled) => {
+  app.setLoginItemSettings({
+    openAtLogin: isStartupEnabled
+  })
+})
+
 // Minimizing the window.
 ipcMain.on('mainWin:minimize', () => {
   MainWin.minimize()

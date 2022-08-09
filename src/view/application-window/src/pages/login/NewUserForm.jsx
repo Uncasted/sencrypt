@@ -88,7 +88,7 @@ export default function NewUserForm (props) {
     <>
       {!isCreatedMP
         ? (
-          <div className='bg-[#000e14] w-[100vw] h-[95vh] flex flex-col items-center'>
+          <div className='bg-[#000e14] w-[100vw] h-[100vh] flex flex-col items-center'>
             <WeakPasswordModal handleButton={createMasterPass} />
             <div className='pt-36'>
               <img src={IMAGES.LOGO} alt='Sencrypt' className='w-[500px]' />

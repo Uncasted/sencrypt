@@ -12,9 +12,11 @@ export default function Settings () {
     <>
       <ResetPasswordModal />
       <div>
-        <SectionHeader icon={IMAGES.SETTINGS_ICON}>Settings</SectionHeader>
+        <SectionHeader icon={IMAGES.SETTINGS_ICON}>
+          Settings
+        </SectionHeader>
       </div>
-      <div className='mt-12 text-white mx-20 text-white space-y-12'>
+      <div className='pt-36 text-white mx-20 text-white space-y-12'>
         <div>
           <h1 className='text-lg mb-1'>Login</h1>
           <div className='border-t-2 border-b-2 border-[#002133]'>

@@ -4,8 +4,10 @@ import managerIcon from '/assets/images/manager-icon.png'
 import generatorIcon from '/assets/images/generator-icon.png'
 import settingsIcon from '/assets/images/settings-icon.png'
 import clipboardIcon from '/assets/images/clipboard-icon.png'
-import showPasswordIcon from '/assets/images/show-password-icon.png'
-import hidePasswordIcon from '/assets/images/hide-password-icon.png'
+import showPasswordDark from '/assets/images/show-password-dark.png'
+import hidePasswordDark from '/assets/images/hide-password-dark.png'
+import showPasswordLight from '/assets/images/show-password-light.png'
+import hidePasswordLight from '/assets/images/hide-password-light.png'
 import closeIcon from '/assets/images/close-icon.png'
 import maximizeIcon from '/assets/images/maximize-icon.png'
 import minimizeIcon from '/assets/images/minimize-icon.png'
@@ -23,8 +25,10 @@ export const IMAGES = {
   GENERATOR_ICON: generatorIcon,
   SETTINGS_ICON: settingsIcon,
   CLIPBOARD_ICON: clipboardIcon,
-  SHOW_PASSWORD: showPasswordIcon,
-  HIDE_PASSWORD: hidePasswordIcon,
+  SHOW_PASSWORD_DARK: showPasswordDark,
+  HIDE_PASSWORD_DARK: hidePasswordDark,
+  SHOW_PASSWORD_LIGHT: showPasswordLight,
+  HIDE_PASSWORD_LIGHT: hidePasswordLight,
   CLOSE_ICON: closeIcon,
   MAXIMIZE_ICON: maximizeIcon,
   UNMAXIMIZE_ICON: unmaximizeIcon,

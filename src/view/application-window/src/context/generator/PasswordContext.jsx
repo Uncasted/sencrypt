@@ -5,6 +5,7 @@ import {
   LAST_GEN_PASS_KEY
 } from '../../data/constants'
 import PropTypes from 'prop-types'
+import { usePasswordListContextUpdate } from './PasswordListContext'
 
 const PasswordContext = createContext()
 const PasswordContextUpdate = createContext()
@@ -21,11 +22,14 @@ export default function PasswordProvider (props) {
   // State
   const [password, setPassword] = useState('')
 
+  // Context
+  const addPassword = usePasswordListContextUpdate()
+
   // Run generatePassword when the component gets mounted for the first time.
   // Otherwise, get the last generated password from localStorage.
   useEffect(() => {
     const localGeneratedPass =
-      window.localStorage.getItem(LAST_GEN_PASS_KEY) || ''
+      window.localStorage.getItem(LAST_GEN_PASS_KEY) ?? ''
     if (localGeneratedPass) {
       setPassword(() => localGeneratedPass)
     } else {
@@ -41,6 +45,8 @@ export default function PasswordProvider (props) {
     setPassword(() => generatedPass)
     // Save the last generated password in localStorage.
     window.localStorage.setItem(LAST_GEN_PASS_KEY, generatedPass)
+    // Add the password to the password history.
+    addPassword(generatedPass)
   }
 
   return (

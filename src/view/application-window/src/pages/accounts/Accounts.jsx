@@ -18,10 +18,10 @@ export function Accounts () {
           Accounts
         </SectionHeader>
       </div>
-      <div className='mt-8'>
+      <div className='pt-36'>
         {accounts.length > 0 && <AddAccountButton />}
         <AddAccountModal />
-        <div id='account-list' className='mt-8 space-y-1 px-2 mx-2'>
+        <div id='account-list' className='mt-10 space-y-1 px-2 mx-2'>
           {!accounts.length && <EmptyPlaceholder />}
           {accounts.map((account, index) => {
             return (

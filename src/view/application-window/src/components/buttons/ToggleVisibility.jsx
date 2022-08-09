@@ -4,7 +4,9 @@ import PropTypes from 'prop-types'
 
 export default function ToggleVisibility (props) {
   // State
-  const [icon, setIcon] = useState(IMAGES.SHOW_PASSWORD)
+  const [icon, setIcon] = useState(props.theme === 'light'
+    ? IMAGES.HIDE_PASSWORD_LIGHT
+    : IMAGES.HIDE_PASSWORD_DARK)
 
   // Ref
   const buttonRef = useRef(null)
@@ -12,11 +14,17 @@ export default function ToggleVisibility (props) {
   const toggleVisibility = () => {
     // Toggle the input visibility and the icon.
     props.setType(prevType => (prevType === 'password' ? 'text' : 'password'))
-    setIcon(prevIcon =>
-      prevIcon === IMAGES.HIDE_PASSWORD
-        ? IMAGES.SHOW_PASSWORD
-        : IMAGES.HIDE_PASSWORD
-    )
+    setIcon(prevIcon => {
+      if (props.theme === 'light') {
+        return prevIcon === IMAGES.HIDE_PASSWORD_LIGHT
+          ? IMAGES.SHOW_PASSWORD_LIGHT
+          : IMAGES.HIDE_PASSWORD_LIGHT
+      }
+
+      return prevIcon === IMAGES.HIDE_PASSWORD_DARK
+        ? IMAGES.SHOW_PASSWORD_DARK
+        : IMAGES.HIDE_PASSWORD_DARK
+    })
   }
 
   return (

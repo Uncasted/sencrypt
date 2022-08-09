@@ -55,7 +55,10 @@ contextBridge.exposeInMainWorld('settings', {
 // Utility functions.
 contextBridge.exposeInMainWorld('utility', {
   generateRandomPassword: (parameters, length) =>
-    utility.generateRandomPassword(parameters, length)
+    utility.generateRandomPassword(parameters, length),
+  getPlatform: () => {
+    return process.platform
+  }
 })
 
 // Main Window process.

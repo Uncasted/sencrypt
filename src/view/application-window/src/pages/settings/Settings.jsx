@@ -6,6 +6,7 @@ import CreateBackup from './options/CreateBackup'
 import LoadBackup from './options/LoadBackup'
 import ResetMasterPassword from './options/ResetMasterPassword'
 import { ResetPasswordModal } from './modal/ResetPasswordModal'
+import MinimizeToTray from './options/MinimizeToTray'
 
 export default function Settings () {
   return (
@@ -17,6 +18,12 @@ export default function Settings () {
         </SectionHeader>
       </div>
       <div className='pt-36 text-white mx-20 text-white space-y-12'>
+        <div>
+          <h1 className='text-lg mb-1'>General</h1>
+          <div className='border-t-2 border-b-2 border-[#002133]'>
+            <MinimizeToTray />
+          </div>
+        </div>
         <div>
           <h1 className='text-lg mb-1'>Login</h1>
           <div className='border-t-2 border-b-2 border-[#002133]'>

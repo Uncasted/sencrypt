@@ -12,7 +12,7 @@ export default function ResetMasterPassword () {
   }
 
   return (
-    <Option label='Reset Master Password:'>
+    <Option label='Reset Master Password'>
       <PrimaryButton
         hoverColor='red-600'
         activeColor='red-700'

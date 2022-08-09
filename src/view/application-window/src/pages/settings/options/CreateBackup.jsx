@@ -8,7 +8,7 @@ export default function CreateBackup () {
   }
 
   return (
-    <Option label='Create Database Backup:'>
+    <Option label='Create Database Backup'>
       <PrimaryButton
         hoverColor='[#003D5C]'
         activeColor='[#00293d]'

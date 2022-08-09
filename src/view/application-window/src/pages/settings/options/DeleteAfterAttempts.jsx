@@ -30,7 +30,7 @@ export default function DeleteAfterAttempts () {
   }
 
   return (
-    <Option label='Delete Accounts After Failing To Log In (tries):'>
+    <Option label='Delete Accounts After Failing To Log In (tries)'>
       <div className='flex space-x-4'>
         <div className='bg-[#001824] rounded-sm'>
           <InputNumberBox

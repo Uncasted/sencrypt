@@ -15,7 +15,7 @@ export default function AskForReLogin () {
 
   // State
   // We need to use local state for the checkbox, or it doesn't work.
-  const [toggleTimeout, setToggleTimeout] = useState(loginTimeout || false)
+  const [toggleTimeout, setToggleTimeout] = useState(loginTimeout ?? false)
   const [time, setTime] = useState(() => {
     // Convert the time into minutes
     const time = loginTimeoutTime / 60 || 30
@@ -36,7 +36,7 @@ export default function AskForReLogin () {
   }
 
   return (
-    <Option label='Require Login After Some Time (mins):'>
+    <Option label='Require Login After Some Time (mins)'>
       <div className='flex space-x-4'>
         <div className='bg-[#001824] rounded-sm'>
           <InputNumberBox

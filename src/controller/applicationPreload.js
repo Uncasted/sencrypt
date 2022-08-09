@@ -71,6 +71,13 @@ contextBridge.exposeInMainWorld('mainWin', {
   }
 })
 
+// Tray toggle option.
+contextBridge.exposeInMainWorld('tray', {
+  toggleTray: (isEnabled) => {
+    ipcRenderer.send('toggle:tray', isEnabled)
+  }
+})
+
 // Tray menu event listeners.
 ipcRenderer.on('view:section', (event, section) => {
   // Click on the section.

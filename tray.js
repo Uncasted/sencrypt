@@ -1,3 +1,13 @@
+const SettingsController = require('./src/controller/settingsController')
+
+// Check if the tray menu is enabled.
+async function getTraySetting () {
+  const Controller = new SettingsController()
+  const settings = await Controller.getSettings()
+
+  return settings.minToTray
+}
+
 // Get the position of the tray icon.
 function getTrayPosition (trayWin, trayMenu) {
   const windowBounds = trayWin.getBounds()
@@ -29,5 +39,6 @@ function toggleTrayWindow (trayWin, trayMenu) {
 }
 
 module.exports = {
-  toggleTrayWindow
+  toggleTrayWindow,
+  getTraySetting
 }

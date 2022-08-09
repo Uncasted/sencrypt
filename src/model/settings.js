@@ -12,15 +12,14 @@ class Settings {
     try {
       // Read the settings file.
       await this.read()
-      const settingsFile = this.settings
+      const { settings } = this.settings
 
       // Setting the default settings.
-      settingsFile.settings = {
-        loginTimeout: false,
-        loginTimeoutTime: 1800,
-        deleteAfterAttempts: false,
-        deleteAttempts: 10
-      }
+      settings.minToTray = false
+      settings.loginTimeout = false
+      settings.loginTimeoutTime = 1800
+      settings.deleteAfterAttempts = false
+      settings.deleteAttempts = 10
 
       // Write to the file.
       await this.write()

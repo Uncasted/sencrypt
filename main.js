@@ -200,7 +200,8 @@ ipcMain.on('toggle:tray', (event, isEnabled) => {
 // Toggling open at startup (Windows).
 ipcMain.on('toggle:startup', (event, isStartupEnabled) => {
   app.setLoginItemSettings({
-    openAtLogin: isStartupEnabled
+    openAtLogin: isStartupEnabled,
+    path: app.getPath('exe')
   })
 })
 

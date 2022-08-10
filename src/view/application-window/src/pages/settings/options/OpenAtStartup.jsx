@@ -28,7 +28,7 @@ export default function OpenAtStartup () {
         onClick={handleStartup}
         onKeyDown={event => {
           if (event.key === 'Enter') {
-            // This is bad, but if I don't do this it doesn't work. Properly.
+            // This is bad, but if I don't do this it doesn't work.
             const checkbox = document.getElementById('openStartup-option')
             checkbox.click()
           }

@@ -28,7 +28,7 @@ export default function MinimizeToTray () {
         onClick={handleTray}
         onKeyDown={event => {
           if (event.key === 'Enter') {
-            // This is bad, but if I don't do this it doesn't work. Properly.
+            // This is bad, but if I don't do this it doesn't work.
             const checkbox = document.getElementById('minToTray-option')
             checkbox.click()
           }

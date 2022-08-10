@@ -43,6 +43,7 @@ export default function AskForReLogin () {
             min={1}
             max={60}
             value={time}
+            disabled={!loginTimeout}
             onChange={event => {
               updateTime(event.target.value)
             }}
@@ -59,6 +60,7 @@ export default function AskForReLogin () {
           />
         </div>
         <Checkbox
+          id='loginTimeout-option'
           checked={toggleTimeout}
           onClick={() => {
             // Update the setting.
@@ -68,10 +70,9 @@ export default function AskForReLogin () {
           }}
           onKeyDown={event => {
             if (event.key === 'Enter') {
-              // Update the setting.
-              updateSetting('loginTimeout', !loginTimeout)
-              // Update the local state.
-              setToggleTimeout(toggleTimeout => !toggleTimeout)
+              // This is bad, but if I don't do this it doesn't work.
+              const checkbox = document.getElementById('loginTimeout-option')
+              checkbox.click()
             }
           }}
         />

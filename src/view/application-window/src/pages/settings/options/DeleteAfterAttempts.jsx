@@ -37,6 +37,7 @@ export default function DeleteAfterAttempts () {
             min={5}
             max={99}
             value={attempts}
+            disabled={!toggleDeleteAttempts}
             onChange={event => {
               updateAttempts(event.target.value)
             }}
@@ -53,6 +54,7 @@ export default function DeleteAfterAttempts () {
           />
         </div>
         <Checkbox
+          id='deleteTries-option'
           checked={toggleDeleteAttempts}
           onClick={() => {
             // Update the setting.
@@ -64,12 +66,9 @@ export default function DeleteAfterAttempts () {
           }}
           onKeyDown={event => {
             if (event.key === 'Enter') {
-              // Update the setting.
-              updateSetting('deleteAfterAttempts', !deleteAfterAttempts)
-              // Update the local state.
-              setToggleDeleteAttempts(
-                toggleDeleteAttempts => !toggleDeleteAttempts
-              )
+              // This is bad, but if I don't do this it doesn't work.
+              const checkbox = document.getElementById('deleteTries-option')
+              checkbox.click()
             }
           }}
         />

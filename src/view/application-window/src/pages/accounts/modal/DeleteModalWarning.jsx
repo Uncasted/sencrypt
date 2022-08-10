@@ -1,14 +1,22 @@
 import { useIndexContext } from '../../../context/accounts/IndexContext'
 import { useAccountsContextUpdate } from '../../../context/accounts/AccountsContext'
 import PrimaryButton from '../../../components/buttons/PrimaryButton'
+import { useNotificationContextUpdate } from '../../../context/NotificationContext'
+import { IMAGES } from '../../../data/constants'
 
 export default function DeleteModalWarning () {
   // Context
   const index = useIndexContext()
   const { removeAccount } = useAccountsContextUpdate()
+  const { handleTitle, handleIcon, handleShow } = useNotificationContextUpdate()
 
   const deleteAccount = () => {
-    removeAccount(index).then()
+    removeAccount(index).then(() => {
+      // Show the notification.
+      handleTitle('Account Deleted')
+      handleIcon(IMAGES.SUCCESS_ICON)
+      handleShow()
+    })
   }
 
   return (

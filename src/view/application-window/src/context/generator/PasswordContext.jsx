@@ -23,7 +23,7 @@ export default function PasswordProvider (props) {
   const [password, setPassword] = useState('')
 
   // Context
-  const addPassword = usePasswordListContextUpdate()
+  const { addPassword } = usePasswordListContextUpdate()
 
   // Run generatePassword when the component gets mounted for the first time.
   // Otherwise, get the last generated password from localStorage.

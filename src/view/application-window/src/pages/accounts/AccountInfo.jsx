@@ -4,7 +4,7 @@ import {
   BLUE_OUTLINE,
   CANCEL_LABEL,
   EDIT_LABEL,
-  HOSTNAME_REGEX,
+  HOSTNAME_REGEX, IMAGES,
   RED_OUTLINE
 } from '../../data/constants'
 import { useIndexContext } from '../../context/accounts/IndexContext'
@@ -25,6 +25,7 @@ import InputField from '../../components/forms/InputField'
 import { DeleteButton } from './buttons/DeleteButton'
 import SecondaryButton from '../../components/buttons/SecondaryButton'
 import TextareaField from '../../components/TextareaField'
+import { useNotificationContextUpdate } from '../../context/NotificationContext'
 
 export default function AccountInfo () {
   // State
@@ -43,6 +44,7 @@ export default function AccountInfo () {
   const isEditable = useEditContext()
   const toggleEditing = useEditContextUpdate()
   const accountIds = useIdContext()
+  const { handleTitle, handleIcon, handleShow } = useNotificationContextUpdate()
 
   const toggleMode = () => {
     // Revert the inputs back when you cancel that changes.
@@ -104,7 +106,12 @@ export default function AccountInfo () {
     if (isNotDuplicate) {
       // Update the account list.
       updateAccount(index, accountData).then(() => {
+        // Toggle the editing off.
         toggleMode()
+        // Show the notification.
+        handleTitle('Account Saved')
+        handleIcon(IMAGES.SUCCESS_ICON)
+        handleShow()
       })
     } else {
       // Warn the user that the account already exists.

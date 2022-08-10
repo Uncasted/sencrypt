@@ -78,7 +78,10 @@ class DatabaseController {
       if (backupPath) {
         // Create the database backup.
         await this.Model.createBackup(backupPath)
+        // Return boolean value for the notification.
+        return true
       }
+      return false
     } catch (error) {
       console.log('Error at loadBackup (Controller).')
       console.log(error)
@@ -87,17 +90,20 @@ class DatabaseController {
 
   async loadBackup () {
     try {
+      let isVerified
       // Send a request to the main process to get the path for the backup.
       const backupPath = await ipcRenderer.invoke('backup:load')
       // If the path is not empty.
       if (backupPath) {
         // Verify the database scheme.
-        const isVerified = await this.Model.verifyBackup(backupPath)
+        isVerified = await this.Model.verifyBackup(backupPath)
         if (isVerified) {
           // Load the backup.
           await this.Model.loadBackup(backupPath)
         }
       }
+      // Return boolean value for the notification.
+      return isVerified
     } catch (error) {
       console.log('Error at createBackup (Controller).')
       console.log(error)

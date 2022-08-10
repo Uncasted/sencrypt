@@ -30,9 +30,16 @@ export default function PasswordListProvider (props) {
     })
   }
 
+  const clearHistory = () => {
+    // Clearing the state.
+    setPasswords([])
+    // Clearing local storage.
+    localStorage.setItem('generatedPasswords', JSON.stringify([]))
+  }
+
   return (
     <PasswordListContext.Provider value={passwords}>
-      <PasswordListContextUpdate.Provider value={addPassword}>
+      <PasswordListContextUpdate.Provider value={{ addPassword, clearHistory }}>
         {props.children}
       </PasswordListContextUpdate.Provider>
     </PasswordListContext.Provider>

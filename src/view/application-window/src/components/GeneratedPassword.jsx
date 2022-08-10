@@ -8,7 +8,7 @@ export default function GeneratedPassword (props) {
   const [type, setType] = useState('password')
 
   return (
-    <div className='border-b-4 border-[#003a57] flex justify-between items-center w-full rounded-sm py-2'>
+    <div className='border-b-2 border-[#003a57] flex justify-between items-center w-full rounded-sm py-2'>
       <input
         readOnly
         type={type}

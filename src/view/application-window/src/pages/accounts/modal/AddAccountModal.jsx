@@ -5,7 +5,7 @@ import {
 import {
   ADD_MODAL_FIELDS,
   BLUE_OUTLINE,
-  HOSTNAME_REGEX,
+  HOSTNAME_REGEX, IMAGES,
   RED_OUTLINE
 } from '../../../data/constants'
 import { useRef, useState } from 'react'
@@ -13,6 +13,7 @@ import InputField from '../../../components/forms/InputField'
 import ModalHeader from '../../../components/headers/ModalHeader'
 import PrimaryButton from '../../../components/buttons/PrimaryButton'
 import TextareaField from '../../../components/TextareaField'
+import { useNotificationContextUpdate } from '../../../context/NotificationContext'
 
 export function AddAccountModal () {
   // State
@@ -30,6 +31,7 @@ export function AddAccountModal () {
   // Context
   const accounts = useAccountsContext()
   const { createAccount } = useAccountsContextUpdate()
+  const { handleIcon, handleTitle, handleShow } = useNotificationContextUpdate()
 
   const updateField = (field, input) => {
     setNewAccount(prevState => {
@@ -92,6 +94,11 @@ export function AddAccountModal () {
             notes: ''
           }
         })
+
+        // Show the notification.
+        handleTitle('Account Created')
+        handleIcon(IMAGES.SUCCESS_ICON)
+        handleShow()
       })
     } else {
       // Warn the user.
@@ -125,7 +132,7 @@ export function AddAccountModal () {
       />
       <div className='modal'>
         <div className='modal-box bg-[#00111a] text-white rounded-none px-0 py-0 w-[350px] shadow-sm'>
-          <ModalHeader htmlFor='add-modal' tabIndex={14}>
+          <ModalHeader htmlFor='add-modal' tabIndex={15}>
             Add New Account:
           </ModalHeader>
           <form

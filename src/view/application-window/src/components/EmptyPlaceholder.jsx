@@ -3,7 +3,7 @@ import { AddAccountButton } from '../pages/accounts/buttons/AddAccountButton'
 // This gets rendered when there aren't any buttons in the app.
 export default function EmptyPlaceholder () {
   return (
-    <div className='w-full h-[85vh] flex flex-col items-center justify-center'>
+    <div className='w-full h-[50vh] flex flex-col items-center justify-center'>
       <h1 className='text-lg lg:text-2xl text-gray-300'>
         There isn't any accounts to show.
       </h1>

@@ -22,10 +22,10 @@ contextBridge.exposeInMainWorld('database', {
     await database.clearDatabase()
   },
   createBackup: async () => {
-    await database.createBackup()
+    return await database.createBackup()
   },
   loadBackup: async () => {
-    await database.loadBackup()
+    return await database.loadBackup()
   },
   createAccount: async account => {
     await database.createAccount(account)
@@ -84,7 +84,7 @@ contextBridge.exposeInMainWorld('mainWin', {
 ipcRenderer.on('view:section', (event, section) => {
   // Click on the section.
   const button = document.getElementById(`${section}-section`)
-  // If the section is loaded (not null), it means the user is logged in.
+  // If the section is loaded, it means the user is logged in.
   if (button) {
     button.click()
   }

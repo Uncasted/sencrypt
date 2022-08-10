@@ -8,20 +8,26 @@ import SettingsProvider from './context/settings/SettingsContext'
 import TitleBar from './pages/titlebar/TitleBar'
 import SidebarProvider from './context/SidebarContext'
 import WeakPassProvider from './context/WeakPassContext'
+import Notification from './components/Notification'
+import { useNotificationContext } from './context/NotificationContext'
 
 export default function App () {
+  // State
   const [selected, setSelected] = useState(<AccountSection />)
+
+  // Context
+  const [title, icon] = useNotificationContext()
 
   const changeSelected = menu => {
     switch (menu) {
       case 'Accounts':
-        setSelected(<AccountSection />)
+        setSelected(() => <AccountSection />)
         break
       case 'Generator':
-        setSelected(<GeneratorSection />)
+        setSelected(() => <GeneratorSection />)
         break
       case 'Settings':
-        setSelected(<SettingsSection />)
+        setSelected(() => <SettingsSection />)
     }
   }
 
@@ -34,6 +40,10 @@ export default function App () {
             <LoginScreen>
               <Sidebar changeSelected={changeSelected} />
               {selected}
+              <Notification
+                title={title}
+                icon={icon}
+              />
             </LoginScreen>
           </SidebarProvider>
         </WeakPassProvider>

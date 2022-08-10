@@ -1,10 +1,24 @@
 import PrimaryButton from '../../../components/buttons/PrimaryButton'
 import Option from '../../../components/Option'
+import { useNotificationContextUpdate } from '../../../context/NotificationContext'
+import { IMAGES } from '../../../data/constants'
 
 export default function LoadBackup () {
+  // Context
+  const { handleTitle, handleIcon, handleShow } = useNotificationContextUpdate()
+
   const loadBackup = async () => {
     // Load the backup.
-    await window.database.loadBackup()
+    const isLoaded = await window.database.loadBackup()
+    // Show the notification
+    if (isLoaded) {
+      handleTitle('Backup Loaded')
+      handleIcon(IMAGES.SUCCESS_ICON)
+    } else {
+      handleTitle('Invalid Backup')
+      handleIcon(IMAGES.CLOSE_ICON)
+    }
+    handleShow()
   }
 
   return (

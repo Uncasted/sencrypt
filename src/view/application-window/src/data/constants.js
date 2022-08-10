@@ -15,6 +15,7 @@ import sideBarIcon from '/assets/images/sidebar-icon.png'
 import unmaximizeIcon from '/assets/images/unmaximize-icon.png'
 import logoutIcon from '/assets/images/logout-icon.png'
 import successIcon from '/assets/images/success-icon.png'
+import clearIcon from '/assets/images/clear-icon.png'
 
 // Regex to get the hostname from the URL.
 export const HOSTNAME_REGEX =
@@ -37,7 +38,8 @@ export const IMAGES = {
   MINIMIZE_ICON: minimizeIcon,
   SIDEBAR_ICON: sideBarIcon,
   LOGOUT_ICON: logoutIcon,
-  SUCCESS_ICON: successIcon
+  SUCCESS_ICON: successIcon,
+  CLEAR_ICON: clearIcon
 }
 
 // Clipboard text.

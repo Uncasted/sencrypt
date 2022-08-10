@@ -1832,6 +1832,10 @@ body[dir="rtl"] .checkbox:checked,
   bottom: 1rem;
 }
 
+.left-3 {
+  left: 0.75rem;
+}
+
 .z-10 {
   z-index: 10;
 }

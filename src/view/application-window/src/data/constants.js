@@ -272,3 +272,21 @@ export const RESET_PASS_FIELDS = [
 
 // Colors for the password strength bar.
 export const BAR_COLORS = ['#00293d', '#fff', '#fff', '#fff', '#fff', '#fff']
+
+// Options for the dropdown menu.
+export const OPTIONS_LIST = [
+  {
+    key: 0,
+    id: 'option-0',
+    title: 'Minimized',
+    bgColor: '[#003d5c]',
+    hoverColor: '[#003d5c]'
+  },
+  {
+    key: 1,
+    id: 'option-1',
+    title: 'Full',
+    bgColor: '[#00293d]',
+    hoverColor: '[#003d5c]'
+  }
+]

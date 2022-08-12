@@ -32,7 +32,11 @@ export default function DeleteAfterAttempts () {
   return (
     <Option label='Delete Accounts After Failing To Log In (tries)'>
       <div className='flex space-x-4'>
-        <div className='bg-[#001824] rounded-sm'>
+        <div className={toggleDeleteAttempts
+          ? 'bg-[#00293d] rounded-sm transition'
+          : 'bg-[#001824] rounded-sm ' +
+          'transition'}
+        >
           <InputNumberBox
             min={5}
             max={99}

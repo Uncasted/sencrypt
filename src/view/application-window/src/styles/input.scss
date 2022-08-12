@@ -65,6 +65,19 @@
     -webkit-app-region: no-drag;
 }
 
+/* Dropdown */
+.dropdown {
+    opacity: 0;
+    visibility: hidden;
+    transition: visibility 0s linear 300ms, opacity 250ms;
+}
+
+.dropdown.show {
+    opacity: 1;
+    visibility: visible;
+    transition: visibility 0s linear 0s, opacity 250ms;
+}
+
 /* Hide scrollbar in electron. */
 ::-webkit-scrollbar {
     display: none;

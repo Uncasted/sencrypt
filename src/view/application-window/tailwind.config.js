@@ -2,6 +2,7 @@
 module.exports = {
   content: ['./src/*.jsx', './src/**/*.jsx'],
   safelist: [
+    'hover:bg-[#003d5c]',
     'hover:bg-green-500',
     'active:bg-green-600',
     'hover:bg-red-600',

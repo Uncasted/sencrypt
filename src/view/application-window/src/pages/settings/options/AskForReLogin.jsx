@@ -38,7 +38,7 @@ export default function AskForReLogin () {
   return (
     <Option label='Require Login After Some Time (mins)'>
       <div className='flex space-x-4'>
-        <div className='bg-[#001824] rounded-sm'>
+        <div className={loginTimeout ? 'bg-[#00293d] rounded-sm transition' : 'bg-[#001824] rounded-sm transition'}>
           <InputNumberBox
             min={1}
             max={60}

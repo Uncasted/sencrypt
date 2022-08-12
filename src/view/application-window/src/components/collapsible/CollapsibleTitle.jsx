@@ -14,7 +14,7 @@ export default function CollapsibleTitle (props) {
         // Prevent the focus outline from appearing on click.
         event.preventDefault()
       }}
-      className='flex py-0 px-0 items-center shadow-md pb-1 focus:outline-none focus:ring focus:ring-[#003D5C]
+      className='flex py-0 px-0 items-center shadow-md focus:outline-none focus:ring focus:ring-[#003D5C]
       transition rounded-sm'
     >
       {props.children}

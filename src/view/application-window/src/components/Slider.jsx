@@ -9,7 +9,7 @@ export default function Slider (props) {
           <span className='text-sm no-select'>{props.title}</span>
         )}
         {props.enableInput && (
-          <div className='bg-[#001824] rounded-sm'>
+          <div className='bg-[#00293d] rounded-sm'>
             <InputNumberBox
               min={props.min || null}
               max={props.max || null}

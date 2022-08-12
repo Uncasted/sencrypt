@@ -720,6 +720,40 @@ html {
   border-radius: var(--rounded-btn, 0.5rem);
 }
 
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown > *:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.dropdown .dropdown-content {
+  visibility: hidden;
+  position: absolute;
+  z-index: 50;
+  opacity: 0;
+  transform-origin: top;
+  --tw-scale-x: .95;
+  --tw-scale-y: .95;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  transition-property: color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dropdown.dropdown-open .dropdown-content, 
+.dropdown.dropdown-hover:hover .dropdown-content, 
+.dropdown:not(.dropdown-hover):focus .dropdown-content, 
+.dropdown:not(.dropdown-hover):focus-within .dropdown-content {
+  visibility: visible;
+  opacity: 1;
+}
+
 .label {
   display: flex;
   -webkit-user-select: none;
@@ -1277,6 +1311,15 @@ body[dir="rtl"] .checkbox:checked,
   background-image: linear-gradient(45deg, transparent 65%, hsl(var(--chkbg)) 65.99%), linear-gradient(-45deg, transparent 75%, hsl(var(--chkbg)) 75.99%), linear-gradient(45deg, hsl(var(--chkbg)) 40%, transparent 40.99%), linear-gradient(-45deg, hsl(var(--chkbg)) 30%, hsl(var(--chkfg)) 30.99%, hsl(var(--chkfg)) 40%, transparent 40.99%), linear-gradient(45deg, hsl(var(--chkfg)) 50%, hsl(var(--chkbg)) 50.99%);
 }
 
+.dropdown.dropdown-open .dropdown-content, 
+.dropdown.dropdown-hover:hover .dropdown-content, 
+.dropdown:focus .dropdown-content, 
+.dropdown:focus-within .dropdown-content {
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
 .label a:hover {
   --tw-text-opacity: 1;
   color: hsl(var(--bc) / var(--tw-text-opacity));
@@ -1781,6 +1824,14 @@ body[dir="rtl"] .checkbox:checked,
   border-bottom-right-radius: var(--rounded-box, 1rem);
 }
 
+.pointer-events-none {
+  pointer-events: none;
+}
+
+.pointer-events-auto {
+  pointer-events: auto;
+}
+
 .invisible {
   visibility: hidden;
 }
@@ -1906,6 +1957,18 @@ body[dir="rtl"] .checkbox:checked,
   margin-right: 1rem;
 }
 
+.ml-2 {
+  margin-left: 0.5rem;
+}
+
+.mr-2 {
+  margin-right: 0.5rem;
+}
+
+.mt-24 {
+  margin-top: 6rem;
+}
+
 .mb-4 {
   margin-bottom: 1rem;
 }
@@ -1930,20 +1993,12 @@ body[dir="rtl"] .checkbox:checked,
   margin-top: 2.5rem;
 }
 
-.ml-2 {
-  margin-left: 0.5rem;
-}
-
 .ml-6 {
   margin-left: 1.5rem;
 }
 
 .mt-6 {
   margin-top: 1.5rem;
-}
-
-.mt-24 {
-  margin-top: 6rem;
 }
 
 .mb-2 {
@@ -2004,6 +2059,14 @@ body[dir="rtl"] .checkbox:checked,
 
 .h-7 {
   height: 1.75rem;
+}
+
+.h-\[25px\] {
+  height: 25px;
+}
+
+.h-3 {
+  height: 0.75rem;
 }
 
 .h-full {
@@ -2072,6 +2135,14 @@ body[dir="rtl"] .checkbox:checked,
   width: 1.75rem;
 }
 
+.w-\[125px\] {
+  width: 125px;
+}
+
+.w-3 {
+  width: 0.75rem;
+}
+
 .w-80 {
   width: 20rem;
 }
@@ -2118,6 +2189,10 @@ body[dir="rtl"] .checkbox:checked,
 
 .w-28 {
   width: 7rem;
+}
+
+.transform {
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
 .cursor-pointer {
@@ -2170,16 +2245,16 @@ body[dir="rtl"] .checkbox:checked,
   margin-bottom: calc(0.75rem * var(--tw-space-y-reverse));
 }
 
-.space-y-4 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-y-reverse: 0;
-  margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(1rem * var(--tw-space-y-reverse));
-}
-
 .space-y-1 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
   margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(0.25rem * var(--tw-space-y-reverse));
+}
+
+.space-y-4 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(1rem * var(--tw-space-y-reverse));
 }
 
 .space-y-6 > :not([hidden]) ~ :not([hidden]) {
@@ -2208,6 +2283,10 @@ body[dir="rtl"] .checkbox:checked,
 
 .rounded-\[25px\] {
   border-radius: 25px;
+}
+
+.rounded-md {
+  border-radius: 0.375rem;
 }
 
 .rounded-none {
@@ -2249,11 +2328,6 @@ body[dir="rtl"] .checkbox:checked,
   background-color: rgb(0 61 92 / var(--tw-bg-opacity));
 }
 
-.bg-\[\#001824\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(0 24 36 / var(--tw-bg-opacity));
-}
-
 .bg-\[\#00293d\] {
   --tw-bg-opacity: 1;
   background-color: rgb(0 41 61 / var(--tw-bg-opacity));
@@ -2287,6 +2361,11 @@ body[dir="rtl"] .checkbox:checked,
 .bg-\[\#000E14\] {
   --tw-bg-opacity: 1;
   background-color: rgb(0 14 20 / var(--tw-bg-opacity));
+}
+
+.bg-\[\#001824\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 24 36 / var(--tw-bg-opacity));
 }
 
 .bg-\[\#00141F\] {
@@ -2357,10 +2436,6 @@ body[dir="rtl"] .checkbox:checked,
   padding-left: 10px;
 }
 
-.pb-1 {
-  padding-bottom: 0.25rem;
-}
-
 .pl-2 {
   padding-left: 0.5rem;
 }
@@ -2375,6 +2450,10 @@ body[dir="rtl"] .checkbox:checked,
 
 .pl-40 {
   padding-left: 10rem;
+}
+
+.pb-1 {
+  padding-bottom: 0.25rem;
 }
 
 .pt-36 {
@@ -2569,6 +2648,20 @@ body[dir="rtl"] .checkbox:checked,
   -webkit-app-region: no-drag;
 }
 
+/* Dropdown */
+
+.dropdown {
+  opacity: 0;
+  visibility: hidden;
+  transition: visibility 0s linear 300ms, opacity 250ms;
+}
+
+.dropdown.show {
+  opacity: 1;
+  visibility: visible;
+  transition: visibility 0s linear 0s, opacity 250ms;
+}
+
 /* Hide scrollbar in electron. */
 
 ::-webkit-scrollbar {
@@ -2664,6 +2757,11 @@ input[type=range].custom-slider.slider-progress::-webkit-slider-runnable-track {
 
 .hover\:bg-transparent:hover {
   background-color: transparent;
+}
+
+.hover\:bg-\[\#003d5c\]:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 61 92 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-green-500:hover {

@@ -1,6 +1,7 @@
 import { useIndexContext } from '../../../context/accounts/IndexContext'
 import SecondaryButton from '../../../components/buttons/SecondaryButton'
 import { useRef } from 'react'
+import { playWarningSound } from '../../../utils/utility'
 
 export function DeleteButton () {
   // Ref
@@ -16,6 +17,8 @@ export function DeleteButton () {
     // Focus the "delete modal".
     const delModal = document.getElementById(`delete-box-${index}`)
     delModal.focus()
+    // Play the sound warning.
+    playWarningSound()
   }
 
   return (

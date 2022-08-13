@@ -8,6 +8,7 @@ import ModalHeader from '../../../components/headers/ModalHeader'
 import InputField from '../../../components/forms/InputField'
 import ConfirmResetModal from './ConfirmResetModal'
 import PrimaryButton from '../../../components/buttons/PrimaryButton'
+import { playWarningSound } from '../../../utils/utility'
 
 export function ResetPasswordModal () {
   // State
@@ -59,6 +60,8 @@ export function ResetPasswordModal () {
         // Focus on the modal
         confirmModal = document.getElementById('confirm-reset-box')
         confirmModal.focus()
+        // Play the warning sound.
+        playWarningSound()
       } else {
         // Warn the user.
 

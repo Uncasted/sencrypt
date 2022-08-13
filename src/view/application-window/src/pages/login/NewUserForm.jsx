@@ -10,6 +10,7 @@ import PropTypes from 'prop-types'
 import { useWeakPassContext } from '../../context/WeakPassContext'
 import { WeakPasswordModal } from './WeakPasswordModal'
 import PrimaryButton from '../../components/buttons/PrimaryButton'
+import { playWarningSound } from '../../utils/utility'
 
 export default function NewUserForm (props) {
   // State
@@ -42,6 +43,8 @@ export default function NewUserForm (props) {
         // Focus on the modal when it's opened.
         const modalBox = document.getElementById('weak-pass-box')
         modalBox.focus()
+        // Play the warning sound.
+        playWarningSound()
       } else {
         // Create the master password.
         createMasterPass().then()
@@ -87,20 +90,20 @@ export default function NewUserForm (props) {
     <>
       {!isCreatedMP
         ? (
-          <div className="bg-[#000e14] w-[100vw] h-[100vh] flex flex-col items-center">
-            <WeakPasswordModal handleButton={createMasterPass}/>
-            <div className="pt-36">
-              <img src={IMAGES.LOGO} alt="Sencrypt" className="w-[500px]"/>
+          <div className='bg-[#000e14] w-[100vw] h-[100vh] flex flex-col items-center'>
+            <WeakPasswordModal handleButton={createMasterPass} />
+            <div className='pt-36'>
+              <img src={IMAGES.LOGO} alt='Sencrypt' className='w-[500px]' />
             </div>
             <form
               onSubmit={verifyPasswords}
-              className="flex flex-col space-y-6 items-center mt-24 w-72"
+              className='flex flex-col space-y-6 items-center mt-24 w-72'
             >
               {LOGIN_FIELDS.map(field => {
                 return (
                   <InputField
                     key={field.fieldId}
-                    bgColor="[#001824]"
+                    bgColor='[#001824]'
                     tabIndex={field.tabIndex}
                     secondaryTabIndex={field.secondaryTabIndex}
                     autoFocus={field.autofocus}
@@ -121,26 +124,26 @@ export default function NewUserForm (props) {
                   />
                 )
               })}
-              <p ref={warningRef} className="invisible text-red-500 mt-2">
+              <p ref={warningRef} className='invisible text-red-500 mt-2'>
                 The passwords do not match.
               </p>
               <PrimaryButton
-                type="submit"
+                type='submit'
                 disabled={!passwords.pass || !passwords.confirmPass}
-                hoverColor="[#003D5C]"
-                activeColor="[#00293d]"
+                hoverColor='[#003D5C]'
+                activeColor='[#00293d]'
                 tabIndex={3}
-                width="full"
-                offsetColor="[#000e14]"
+                width='full'
+                offsetColor='[#000e14]'
               >
                 Create Vault
               </PrimaryButton>
             </form>
           </div>
-        )
+          )
         : (
-          props.children
-        )}
+            props.children
+          )}
     </>
   )
 }

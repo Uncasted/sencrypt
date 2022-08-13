@@ -4,6 +4,7 @@ const login = require('./login')
 const tray = require('./tray')
 const filePath = require('./filePath')
 const { getTraySetting } = require('./tray')
+const startup = require('./startup')
 
 // Disable hardware acceleration.
 app.disableHardwareAcceleration()
@@ -246,11 +247,16 @@ ipcMain.on('app:quit', quitAll)
 app.on('ready', () => {
   createMainWindow().then(() => {
     // Show the main window when it's ready.
-    if (process.platform === 'linux') {
-      MainWin.show()
-    }
-    MainWin.once('ready-to-show', () => {
-      MainWin.show()
+    startup.getStartupMinimized().then(startupMinimized => {
+      // If startupMinimized is false then just show the windows.
+      if (!startupMinimized) {
+        if (process.platform === 'linux') {
+          MainWin.show()
+        }
+        MainWin.once('ready-to-show', () => {
+          MainWin.show()
+        })
+      }
     })
     // Check if the tray menu is enabled.
     getTraySetting().then(isEnabled => {

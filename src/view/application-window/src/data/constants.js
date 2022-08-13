@@ -278,14 +278,14 @@ export const OPTIONS_LIST = [
   {
     key: 0,
     id: 'option-0',
-    title: 'Minimized',
+    title: 'Full',
     bgColor: '[#003d5c]',
     hoverColor: '[#003d5c]'
   },
   {
     key: 1,
     id: 'option-1',
-    title: 'Full',
+    title: 'Minimized',
     bgColor: '[#00293d]',
     hoverColor: '[#003d5c]'
   }

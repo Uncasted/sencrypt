@@ -1,18 +1,32 @@
 import Checkbox from '../../../components/Checkbox'
 import Option from '../../../components/Option'
 import { useSettingsContext, useSettingsContextUpdate } from '../../../context/settings/SettingsContext'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Dropdown from '../../../components/dropdown/Dropdown'
 import { OPTIONS_LIST } from '../../../data/constants'
+import { useToggleTrayContext } from '../../../context/settings/ToggleTrayContext'
 
 export default function OpenAtStartup () {
   // Context
   const { openAtStartup } = useSettingsContext()
   const updateSetting = useSettingsContextUpdate()
+  const toggleTray = useToggleTrayContext()
 
   // State
   const [toggleStartup, setIsStartup] = useState(openAtStartup ?? false)
   const [selected, setSelected] = useState(OPTIONS_LIST[0].title)
+
+  // Updating the minimized setting.
+  useEffect(() => {
+    updateSetting('startupMinimized', selected === 'Minimized')
+  }, [selected])
+
+  // Updating the setting if the toggle tray value changes.
+  useEffect(() => {
+    if (!toggleTray) {
+      handleSelected(0, 'Full')
+    }
+  }, [toggleTray])
 
   const handleSelected = (index, value) => {
     // Changing the background back to default in the options.
@@ -42,6 +56,7 @@ export default function OpenAtStartup () {
           options={OPTIONS_LIST}
           selected={selected}
           handleSelected={handleSelected}
+          disabled={!toggleStartup || !toggleTray}
         />
         <Checkbox
           id='openStartup-option'

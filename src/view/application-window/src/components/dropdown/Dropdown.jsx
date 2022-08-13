@@ -19,7 +19,7 @@ export default function Dropdown (props) {
   }
 
   return (
-    <div
+    <button
       onClick={handleOpen}
       onBlur={() => {
         // We need to do this, otherwise the buttons will cause the dropdown menu to never close.
@@ -33,9 +33,9 @@ export default function Dropdown (props) {
         })
         setOpen('dropdown')
       }}
-      tabIndex={0}
+      disabled={props.disabled}
       className='w-[125px] h-[25px] bg-[#00293d] rounded-sm flex justify-between items-center relative text-white
-    shadow-sm text-sm mr-4 cursor-pointer'
+    shadow-sm text-sm mr-4 cursor-pointer disabled:bg-[#001824] disabled:cursor-not-allowed'
     >
       <h1 className='ml-2 no-select'>{props.selected}</h1>
       <img
@@ -46,7 +46,7 @@ export default function Dropdown (props) {
       />
       <div
         className={`${open} absolute w-full py-1 px-2 space-y-1 bg-[#00293d] rounded-sm mt-24 flex flex-col 
-        items-center pointer-events-none`}
+        items-center pointer-events-none transition`}
       >
         {props.options.map(option => (
           <DropdownButton
@@ -55,18 +55,20 @@ export default function Dropdown (props) {
             id={option.id}
             bgColor={option.bgColor}
             hoverColor={option.hoverColor}
-            handleSelected={props.handleSelected}
+            onHandleSelected={props.handleSelected}
           >
             {option.title}
           </DropdownButton>
         ))}
       </div>
-    </div>
+    </button>
   )
 }
 
 Dropdown.propTypes = {
   options: PropTypes.array,
   selected: PropTypes.string,
-  handleSelected: PropTypes.func
+  handleSelected: PropTypes.func,
+  handleMinimized: PropTypes.func,
+  disabled: PropTypes.bool
 }

@@ -67,15 +67,17 @@
 
 /* Dropdown */
 .dropdown {
+    margin-top: 5rem;
     opacity: 0;
     visibility: hidden;
-    transition: visibility 0s linear 300ms, opacity 250ms;
+    transition: visibility 0s linear 250ms, opacity 250ms, margin-top 250ms;
 }
 
 .dropdown.show {
+    margin-top: 6rem;
     opacity: 1;
     visibility: visible;
-    transition: visibility 0s linear 0s, opacity 250ms;
+    transition: visibility 0s linear 0s, opacity 250ms, margin-top 250ms;
 }
 
 /* Hide scrollbar in electron. */

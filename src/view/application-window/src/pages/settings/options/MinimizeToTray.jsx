@@ -1,24 +1,11 @@
-import { useState } from 'react'
 import Option from '../../../components/Option'
 import Checkbox from '../../../components/Checkbox'
-import { useSettingsContext, useSettingsContextUpdate } from '../../../context/settings/SettingsContext'
+import { useToggleTrayContext, useToggleTrayContextUpdate } from '../../../context/settings/ToggleTrayContext'
 
 export default function MinimizeToTray () {
   // Context
-  const { minToTray } = useSettingsContext()
-  const updateSetting = useSettingsContextUpdate()
-
-  // State
-  const [toggleTray, setToggleTray] = useState(minToTray ?? false)
-
-  const handleTray = () => {
-    // Toggle the tray menu process.
-    window.settings.toggleTray(!minToTray)
-    // Update the setting.
-    updateSetting('minToTray', !minToTray)
-    // Update the local state.
-    setToggleTray(toggleTray => !toggleTray)
-  }
+  const toggleTray = useToggleTrayContext()
+  const handleTray = useToggleTrayContextUpdate()
 
   return (
     <Option label='Minimize To System Tray On Close'>

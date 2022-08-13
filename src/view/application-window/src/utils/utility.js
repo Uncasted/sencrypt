@@ -33,3 +33,10 @@ export const sliderProgress = () => {
     })
   }
 }
+
+// Play warning sound.
+export const playWarningSound = () => {
+  const warningSound = new Audio('./assets/audio/warning.mp3')
+  warningSound.volume = 0.4
+  warningSound.play().then()
+}

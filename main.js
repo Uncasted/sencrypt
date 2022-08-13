@@ -5,6 +5,7 @@ const tray = require('./tray')
 const filePath = require('./filePath')
 const { getTraySetting } = require('./tray')
 const startup = require('./startup')
+const SettingsController = require('./src/controller/settingsController')
 
 // Disable hardware acceleration.
 app.disableHardwareAcceleration()
@@ -107,7 +108,7 @@ async function createMainWindow () {
 
 // Create Tray window.
 function createTray () {
-  TrayMenu = new Tray(path.join(__dirname, './build/icon.png'))
+  TrayMenu = new Tray(path.join(__dirname, '/icon.png'))
   // Tooltip
   TrayMenu.setToolTip('Sencrypt')
   // Set the context menu on linux.
@@ -245,27 +246,25 @@ ipcMain.on('app:quit', quitAll)
 
 // Starting the app.
 app.on('ready', () => {
-  createMainWindow().then(() => {
-    // Show the main window when it's ready.
-    startup.getStartupMinimized().then(startupMinimized => {
-      // If startupMinimized is false then just show the windows.
-      if (!startupMinimized) {
-        if (process.platform === 'linux') {
+  // Start the settings.
+  const Settings = new SettingsController()
+  Settings.start().then(() => {
+    createMainWindow().then(() => {
+      // Show the main window when it's ready.
+      startup.getStartupMode().then(startupMode => {
+        // If startupMode is full then we show the window.
+        if (startupMode === 'Full') {
           MainWin.show()
         }
-        MainWin.once('ready-to-show', () => {
-          MainWin.show()
-        })
-      }
-    })
-    // Check if the tray menu is enabled.
-    getTraySetting().then(isEnabled => {
-      if (isEnabled) {
-        // Create the tray window.
-        createTrayWindow().then(() => {
-          createTray()
-        })
-      }
+      })
+      getTraySetting().then(isEnabled => {
+        if (isEnabled) {
+          // Create the tray window.
+          createTrayWindow().then(() => {
+            createTray()
+          })
+        }
+      })
     })
   })
   // Open a window if none are open.

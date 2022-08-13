@@ -5,16 +5,6 @@ class SettingsController {
     this.Model = new Settings()
   }
 
-  async init () {
-    try {
-      // Create the settings for the first time.
-      await this.Model.init()
-    } catch (error) {
-      console.log('Error at init (Controller).')
-      console.log(error)
-    }
-  }
-
   async start () {
     try {
       // Start the settings.

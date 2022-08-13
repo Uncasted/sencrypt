@@ -8,29 +8,6 @@ class Settings {
     this.settings = { settings: {} }
   }
 
-  async init () {
-    try {
-      // Read the settings file.
-      await this.read()
-      const { settings } = this.settings
-
-      // Setting the default settings.
-      settings.minToTray = false
-      settings.openAtStartup = false
-      settings.startupMinimized = false
-      settings.loginTimeout = false
-      settings.loginTimeoutTime = 1800
-      settings.deleteAfterAttempts = false
-      settings.deleteAttempts = 10
-
-      // Write to the file.
-      await this.write()
-    } catch (error) {
-      console.log('Error at init (Settings).')
-      console.log(error)
-    }
-  }
-
   async start () {
     try {
       // Read the settings file.
@@ -51,8 +28,18 @@ class Settings {
         )
         this.settings = JSON.parse(settingsData)
       } else {
-        // Otherwise, create the file.
-        const settingsScheme = JSON.stringify({ settings: {} })
+        // Otherwise, create the file with the default settings.
+        const settingsScheme = JSON.stringify({
+          settings: {
+            minToTray: false,
+            openAtStartup: false,
+            startupMode: 'Full',
+            loginTimeout: false,
+            loginTimeoutTime: 1800,
+            deleteAfterAttempts: false,
+            deleteAttempts: 10
+          }
+        })
         // Create the settings file.
         await fs.promises.writeFile(this.settingsPath, settingsScheme, 'utf-8')
 

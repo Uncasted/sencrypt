@@ -8,17 +8,17 @@ import { useToggleTrayContext } from '../../../context/settings/ToggleTrayContex
 
 export default function OpenAtStartup () {
   // Context
-  const { openAtStartup } = useSettingsContext()
+  const { openAtStartup, startupMode } = useSettingsContext()
   const updateSetting = useSettingsContextUpdate()
   const toggleTray = useToggleTrayContext()
 
   // State
   const [toggleStartup, setIsStartup] = useState(openAtStartup ?? false)
-  const [selected, setSelected] = useState(OPTIONS_LIST[0].title)
+  const [selected, setSelected] = useState(startupMode ?? 'Full')
 
   // Updating the minimized setting.
   useEffect(() => {
-    updateSetting('startupMinimized', selected === 'Minimized')
+    updateSetting('startupMode', selected)
   }, [selected])
 
   // Updating the setting if the toggle tray value changes.
@@ -50,8 +50,8 @@ export default function OpenAtStartup () {
   }
 
   return (
-    <Option label='Open at startup'>
-      <div className='flex'>
+    <Option label="Open at startup">
+      <div className="flex">
         <Dropdown
           options={OPTIONS_LIST}
           selected={selected}
@@ -59,7 +59,7 @@ export default function OpenAtStartup () {
           disabled={!toggleStartup || !toggleTray}
         />
         <Checkbox
-          id='openStartup-option'
+          id="openStartup-option"
           checked={toggleStartup}
           onClick={handleStartup}
           onKeyDown={event => {

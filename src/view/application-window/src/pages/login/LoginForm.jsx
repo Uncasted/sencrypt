@@ -73,25 +73,25 @@ export default function LoginForm (props) {
     <>
       {!isMP
         ? (
-          <div className="bg-[#000e14] w-[100vw] h-[100vh] flex flex-col items-center">
-            <div className="pt-36">
-              <img src={IMAGES.LOGO} alt="Sencrypt" className="w-[500px]"/>
+          <div className='bg-[#000e14] w-[100vw] h-[100vh] flex flex-col items-center'>
+            <div className='pt-36'>
+              <img src={IMAGES.LOGO} alt='Sencrypt' className='w-[500px]' />
             </div>
             <form
               onSubmit={verifyMasterPassword}
-              className="flex flex-col space-y-6 items-center mt-24 w-72"
+              className='flex flex-col space-y-6 items-center mt-24 w-72'
             >
               <InputField
                 autoFocus
-                bgColor="[#001824]"
+                bgColor='[#001824]'
                 tabIndex={1}
                 secondaryTabIndex={3}
-                placeholder="Enter Master Password..."
-                title="Enter your Master Password"
-                type="password"
-                fieldId="masterPassword"
+                placeholder='Enter Master Password...'
+                title='Enter your Master Password'
+                type='password'
+                fieldId='masterPassword'
                 ref={masterPassRef}
-                name="masterPassword"
+                name='masterPassword'
                 minLength={1}
                 maxLength={32}
                 value={masterPassword}
@@ -101,26 +101,26 @@ export default function LoginForm (props) {
                 }}
                 hasToggleVisibility
               />
-              <p ref={warningRef} className="invisible text-red-500">
+              <p ref={warningRef} className='invisible text-red-500'>
                 Invalid Master Password.
               </p>
               <PrimaryButton
-                type="submit"
+                type='submit'
                 tabIndex={2}
                 disabled={!masterPassword}
-                hoverColor="[#003D5C]"
-                activeColor="[#00293d]"
-                width="full"
-                offsetColor="[#000e14]"
+                hoverColor='[#003D5C]'
+                activeColor='[#00293d]'
+                width='full'
+                offsetColor='[#000e14]'
               >
                 Log in
               </PrimaryButton>
             </form>
           </div>
-        )
+          )
         : (
-          props.children
-        )}
+            props.children
+          )}
     </>
   )
 }

@@ -2509,12 +2509,12 @@ body[dir="rtl"] .checkbox:checked,
   padding-left: 10rem;
 }
 
-.pb-1 {
-  padding-bottom: 0.25rem;
-}
-
 .pt-36 {
   padding-top: 9rem;
+}
+
+.pb-1 {
+  padding-bottom: 0.25rem;
 }
 
 .pt-32 {

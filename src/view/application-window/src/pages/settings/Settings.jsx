@@ -8,6 +8,7 @@ import ResetMasterPassword from './options/ResetMasterPassword'
 import { ResetPasswordModal } from './modal/ResetPasswordModal'
 import MinimizeToTray from './options/MinimizeToTray'
 import OpenAtStartup from './options/OpenAtStartup'
+import ToggleTrayProvider from '../../context/settings/ToggleTrayContext'
 
 export default function Settings () {
   // Only show the "open at start up" option in windows.
@@ -26,8 +27,10 @@ export default function Settings () {
         <div>
           <h1 className='text-lg mb-2'>General</h1>
           <div className='border-t-2 border-b-2 border-[#002133]'>
-            <MinimizeToTray />
-            {isWindows && <OpenAtStartup />}
+            <ToggleTrayProvider>
+              <MinimizeToTray />
+              {isWindows && <OpenAtStartup />}
+            </ToggleTrayProvider>
           </div>
         </div>
         <div>

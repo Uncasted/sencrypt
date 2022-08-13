@@ -50,8 +50,8 @@ export default function OpenAtStartup () {
   }
 
   return (
-    <Option label="Open at startup">
-      <div className="flex">
+    <Option label='Open at startup'>
+      <div className='flex'>
         <Dropdown
           options={OPTIONS_LIST}
           selected={selected}
@@ -59,7 +59,7 @@ export default function OpenAtStartup () {
           disabled={!toggleStartup || !toggleTray}
         />
         <Checkbox
-          id="openStartup-option"
+          id='openStartup-option'
           checked={toggleStartup}
           onClick={handleStartup}
           onKeyDown={event => {

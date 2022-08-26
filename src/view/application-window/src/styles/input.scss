@@ -14,8 +14,26 @@
     --pc: 200.8 100% 5.1%
 }
 
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.app-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.app-content {
+    flex-grow: 1;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
 .tooltip-bg {
-    --tooltip-color: #000e14;
+    --tooltip-color: #00141f;
     --tooltip-text-color: white;
 }
 
@@ -58,6 +76,7 @@
 /* Drag the window with the title bar. */
 .titlebar {
     -webkit-app-region: drag;
+    flex-shrink: 0;
 }
 
 /* Enable elements in the title bar. */
@@ -80,9 +99,16 @@
     transition: visibility 0s linear 0s, opacity 250ms, margin-top 250ms;
 }
 
-/* Hide scrollbar in electron. */
-::-webkit-scrollbar {
+.no-scrollbar::-webkit-scrollbar {
     display: none;
+}
+
+.generator-scrollbar::-webkit-scrollbar-track {
+    margin-top: 0;
+}
+
+.generator-scrollbar::-webkit-scrollbar {
+    margin-left: 1rem;
 }
 
 /* Remove Input number arrow controls. */
@@ -135,4 +161,23 @@ input[type=range].custom-slider::-webkit-slider-runnable-track {
 
 input[type=range].custom-slider.slider-progress::-webkit-slider-runnable-track {
     background: linear-gradient(#FFF, #FFF) 0/var(--sx) 100% no-repeat, #00293d;
+}
+
+/* Custom scrollbar */
+/* ===== Scrollbar CSS ===== */
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 5px;
+}
+
+*::-webkit-scrollbar-track {
+    background: transparent;
+    margin-top: 7rem;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #003d5c;
+    border-radius: 10px;
+    border: none;
 }

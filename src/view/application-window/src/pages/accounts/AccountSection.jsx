@@ -7,7 +7,7 @@ export default function AccountSection () {
   const { margin } = useSidebarContext()
 
   return (
-    <div className={`${margin} mt-10 transition-all duration-[250ms] ease-[cubic-bezier(0.25,0.1,0.25,1)] z-0`}>
+    <div className={`${margin} transition-all duration-[250ms] ease-[cubic-bezier(0.25,0.1,0.25,1)] z-0`}>
       <AccountsProvider>
         <Accounts />
       </AccountsProvider>

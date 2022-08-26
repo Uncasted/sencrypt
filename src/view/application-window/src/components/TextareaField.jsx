@@ -25,7 +25,7 @@ const TextareaField = forwardRef((props, ref) => {
         onKeyDown={props?.onKeyDown}
         className={`${bgColor} px-2 rounded-sm transition text-white text-white focus:outline-none outline-2 
       outline-red-500 focus:ring focus:ring-[#003D5C] w-full placeholder:text-[#00293d] disabled:text-[#00293d] 
-      disabled:cursor-not-allowed overflow-scroll resize-none`}
+      disabled:cursor-not-allowed overflow-scroll resize-none no-scrollbar`}
       />
     </label>
   )

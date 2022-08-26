@@ -38,7 +38,13 @@ export function WeakPasswordModal (props) {
                   hoverColor='[#003D5C]'
                   activeColor='[#00293d]'
                   offsetColor='[#00111a]'
-                  onClick={props.handleButton}
+                  onClick={() => {
+                    const modal = document.getElementById('weak-pass-modal')
+                    // Click on the modal to make sure it closes.
+                    modal.click()
+                    // Create the master password.
+                    props.handleButton()
+                  }}
                   width='full'
                   height={10}
                 >

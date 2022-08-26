@@ -1,5 +1,5 @@
 /*
-! tailwindcss v3.1.6 | MIT License | https://tailwindcss.com
+! tailwindcss v3.1.8 | MIT License | https://tailwindcss.com
 */
 
 /*
@@ -788,6 +788,10 @@ html {
   border-radius: var(--rounded-btn, 0.5rem);
 }
 
+.input-group > .input {
+  isolation: isolate;
+}
+
 .input-group > *, 
   .input-group > .input {
   border-radius: 0px;
@@ -1142,7 +1146,7 @@ html {
 }
 
 .btn.glass:focus-visible {
-  outline: 2px solid 0 0 2px currentColor;
+  outline: 2px solid currentColor;
 }
 
 .btn-disabled, 
@@ -1243,7 +1247,8 @@ html {
 }
 
 .checkbox:checked, 
-  .checkbox[checked="true"] {
+  .checkbox[checked="true"], 
+  .checkbox[aria-checked=true] {
   --tw-bg-opacity: 1;
   background-color: hsl(var(--bc) / var(--tw-bg-opacity));
   background-repeat: no-repeat;
@@ -1278,7 +1283,8 @@ html {
 }
 
 .checkbox-primary:checked, 
-    .checkbox-primary[checked="true"] {
+    .checkbox-primary[checked="true"], 
+    .checkbox-primary[aria-checked=true] {
   --tw-border-opacity: 1;
   border-color: hsl(var(--p) / var(--tw-border-opacity));
   --tw-bg-opacity: 1;
@@ -1329,7 +1335,8 @@ body[dir="rtl"] .checkbox {
 }
 
 body[dir="rtl"] .checkbox:checked,
-    body[dir="rtl"] .checkbox[checked="true"] {
+    body[dir="rtl"] .checkbox[checked="true"],
+    body[dir="rtl"] .checkbox[aria-checked=true] {
   background-image: linear-gradient(45deg, transparent 65%, hsl(var(--chkbg)) 65.99%), linear-gradient(-45deg, transparent 75%, hsl(var(--chkbg)) 75.99%), linear-gradient(45deg, hsl(var(--chkbg)) 40%, transparent 40.99%), linear-gradient(-45deg, hsl(var(--chkbg)) 30%, hsl(var(--chkfg)) 30.99%, hsl(var(--chkfg)) 40%, transparent 40.99%), linear-gradient(45deg, hsl(var(--chkfg)) 50%, hsl(var(--chkbg)) 50.99%);
 }
 
@@ -1772,14 +1779,15 @@ body[dir="rtl"] .checkbox:checked,
 }
 
 .toggle:checked,
-  .toggle[checked="true"] {
+  .toggle[checked="true"],
+  .toggle[aria-checked=true] {
   --chkbg: hsl(var(--bc));
   --tw-border-opacity: 1;
   --tw-bg-opacity: 1;
   box-shadow: var(--handleoffset) 0 0 2px hsl(var(--b1)) inset, 0 0 0 2px hsl(var(--b1)) inset;
 }
 
-[dir="rtl"] .toggle:checked, [dir="rtl"] .toggle[checked="true"] {
+[dir="rtl"] .toggle:checked, [dir="rtl"] .toggle[checked="true"], [dir="rtl"] .toggle[aria-checked=true] {
   box-shadow: calc(var(--handleoffset) * 1) 0 0 2px hsl(var(--b1)) inset, 0 0 0 2px hsl(var(--b1)) inset;
 }
 
@@ -1960,6 +1968,10 @@ body[dir="rtl"] .checkbox:checked,
   left: 0.75rem;
 }
 
+.z-50 {
+  z-index: 50;
+}
+
 .z-10 {
   z-index: 10;
 }
@@ -1968,8 +1980,8 @@ body[dir="rtl"] .checkbox:checked,
   z-index: 0;
 }
 
-.z-20 {
-  z-index: 20;
+.z-\[70\] {
+  z-index: 70;
 }
 
 .my-auto {
@@ -1980,6 +1992,11 @@ body[dir="rtl"] .checkbox:checked,
 .mx-2 {
   margin-left: 0.5rem;
   margin-right: 0.5rem;
+}
+
+.my-2 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .mx-auto {
@@ -2334,6 +2351,14 @@ body[dir="rtl"] .checkbox:checked,
   overflow: scroll;
 }
 
+.overflow-x-hidden {
+  overflow-x: hidden;
+}
+
+.overflow-y-scroll {
+  overflow-y: scroll;
+}
+
 .rounded-sm {
   border-radius: 0.125rem;
 }
@@ -2352,6 +2377,15 @@ body[dir="rtl"] .checkbox:checked,
 
 .border-2 {
   border-width: 2px;
+}
+
+.border {
+  border-width: 1px;
+}
+
+.border-y-2 {
+  border-top-width: 2px;
+  border-bottom-width: 2px;
 }
 
 .border-b-2 {
@@ -2513,16 +2547,20 @@ body[dir="rtl"] .checkbox:checked,
   padding-top: 9rem;
 }
 
-.pb-1 {
-  padding-bottom: 0.25rem;
-}
-
 .pt-32 {
   padding-top: 8rem;
 }
 
+.pb-4 {
+  padding-bottom: 1rem;
+}
+
 .pr-1 {
   padding-right: 0.25rem;
+}
+
+.pt-24 {
+  padding-top: 6rem;
 }
 
 .pb-8 {
@@ -2649,8 +2687,26 @@ body[dir="rtl"] .checkbox:checked,
 
 }
 
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.app-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-content {
+  flex-grow: 1;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
 .tooltip-bg {
-  --tooltip-color: #000e14;
+  --tooltip-color: #00141f;
   --tooltip-text-color: white;
 }
 
@@ -2697,6 +2753,7 @@ body[dir="rtl"] .checkbox:checked,
 
 .titlebar {
   -webkit-app-region: drag;
+  flex-shrink: 0;
 }
 
 /* Enable elements in the title bar. */
@@ -2721,10 +2778,16 @@ body[dir="rtl"] .checkbox:checked,
   transition: visibility 0s linear 0s, opacity 250ms, margin-top 250ms;
 }
 
-/* Hide scrollbar in electron. */
-
-::-webkit-scrollbar {
+.no-scrollbar::-webkit-scrollbar {
   display: none;
+}
+
+.generator-scrollbar::-webkit-scrollbar-track {
+  margin-top: 0;
+}
+
+.generator-scrollbar::-webkit-scrollbar {
+  margin-left: 1rem;
 }
 
 /* Remove Input number arrow controls. */
@@ -2785,6 +2848,27 @@ input[type=range].custom-slider.slider-progress::-webkit-slider-runnable-track {
   background: linear-gradient(#FFF, #FFF) 0/var(--sx) 100% no-repeat, #00293d;
 }
 
+/* Custom scrollbar */
+
+/* ===== Scrollbar CSS ===== */
+
+/* Chrome, Edge, and Safari */
+
+*::-webkit-scrollbar {
+  width: 5px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+  margin-top: 7rem;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #003d5c;
+  border-radius: 10px;
+  border: none;
+}
+
 .placeholder\:text-\[\#00293d\]::-moz-placeholder {
   --tw-text-opacity: 1;
   color: rgb(0 41 61 / var(--tw-text-opacity));
@@ -2802,6 +2886,11 @@ input[type=range].custom-slider.slider-progress::-webkit-slider-runnable-track {
 .hover\:bg-red-600:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(220 38 38 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-\[\#00293d\]:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 41 61 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-\[\#00141F\]:hover {

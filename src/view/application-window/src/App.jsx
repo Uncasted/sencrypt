@@ -1,6 +1,6 @@
 import { Sidebar } from './pages/sidebar/Sidebar'
 import LoginScreen from './pages/login/LoginScreen'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import AccountSection from './pages/accounts/AccountSection'
 import GeneratorSection from './pages/generator/GeneratorSection'
 import SettingsSection from './pages/settings/SettingsSection'
@@ -10,8 +10,21 @@ import SidebarProvider from './context/SidebarContext'
 import WeakPassProvider from './context/WeakPassContext'
 import Notification from './components/Notification'
 import { useNotificationContext } from './context/NotificationContext'
+import AnimationStateProvider from './context/AnimationStateContext'
+import { Globals } from 'react-spring'
 
 export default function App () {
+  // We need to run this here, and not on useEffect
+  // Otherwise the login form will still animate.
+  Globals.assign({
+    skipAnimation: JSON.parse(localStorage.getItem('enableAnimations')) ?? false
+  })
+
+  useEffect(() => {
+    // Settings the initial value for enableAnimations.
+    localStorage.setItem('enableAnimations', JSON.stringify(false))
+  }, [])
+
   // State
   const [selected, setSelected] = useState(<AccountSection />)
 
@@ -32,22 +45,26 @@ export default function App () {
   }
 
   return (
-    <>
+    <div className='app-container'>
       <SettingsProvider>
-        <WeakPassProvider>
-          <SidebarProvider>
-            <TitleBar />
-            <LoginScreen>
-              <Sidebar changeSelected={changeSelected} />
-              {selected}
-              <Notification
-                title={title}
-                icon={icon}
-              />
-            </LoginScreen>
-          </SidebarProvider>
-        </WeakPassProvider>
+        <AnimationStateProvider animations={{ loginForm: true, appSection: true, sidebar: true }}>
+          <WeakPassProvider>
+            <SidebarProvider>
+              <TitleBar />
+              <LoginScreen>
+                <div className='app-content'>
+                  <Sidebar changeSelected={changeSelected} />
+                  {selected}
+                  <Notification
+                    title={title}
+                    icon={icon}
+                  />
+                </div>
+              </LoginScreen>
+            </SidebarProvider>
+          </WeakPassProvider>
+        </AnimationStateProvider>
       </SettingsProvider>
-    </>
+    </div>
   )
 }

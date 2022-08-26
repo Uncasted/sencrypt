@@ -6,8 +6,19 @@ import SectionHeader from '../../components/headers/SectionHeader'
 import GeneratorHistory from './GeneratorHistory'
 import { IMAGES } from '../../data/constants'
 import PasswordListProvider from '../../context/generator/PasswordListContext'
+import { useSpring, animated, easings } from 'react-spring'
 
 export function Generator () {
+  // Animations
+  const sectionAnimation = useSpring({
+    from: { opacity: 0, left: '50px' },
+    to: { opacity: 1, left: '0' },
+    config: {
+      duration: 400,
+      easing: easings.easeInOutQuad
+    }
+  })
+
   return (
     <>
       <div>
@@ -15,14 +26,17 @@ export function Generator () {
           Generator
         </SectionHeader>
       </div>
-      <div className='ml-6 pt-32 flex flex-col text-white justify-center h-full'>
+      <animated.div
+        style={sectionAnimation}
+        className='ml-6 pt-32 flex flex-col text-white justify-center h-full relative'
+      >
         <div className='mt-6 mx-auto'>
           <PasswordListProvider>
             <ParameterProvider>
               <PasswordProvider>
                 <PasswordGenerator />
                 <div
-                  className='relative mt-4 w-[36rem] xl:w-[48rem] shadow-md'
+                  className='relative mt-4 w-[36rem] xl:w-[48rem]'
                 >
                   <GeneratorParameters />
                   <GeneratorHistory />
@@ -31,7 +45,7 @@ export function Generator () {
             </ParameterProvider>
           </PasswordListProvider>
         </div>
-      </div>
+      </animated.div>
     </>
   )
 }

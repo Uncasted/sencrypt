@@ -30,7 +30,9 @@ module.exports = {
     'h-14',
     'focus:ring-offset-[#001b29]',
     'focus:ring-offset-[#00111a]',
-    'focus:ring-offset-[#000e14]'
+    'focus:ring-offset-[#000e14]',
+    'border-b-2',
+    'border-y-2'
   ],
   theme: {
     extend: {

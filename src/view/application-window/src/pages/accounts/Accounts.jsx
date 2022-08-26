@@ -6,23 +6,43 @@ import EmptyPlaceholder from '../../components/EmptyPlaceholder'
 import { AddAccountButton } from './buttons/AddAccountButton'
 import SectionHeader from '../../components/headers/SectionHeader'
 import { IMAGES } from '../../data/constants'
+import { useSpring, animated, easings } from 'react-spring'
+import { useAnimationStateContext } from '../../context/AnimationStateContext'
+import { useState } from 'react'
 
 export function Accounts () {
   // Context
   const accounts = useAccountsContext()
+  const animations = useAnimationStateContext()
+
+  // State
+  const [isMounted, setIsMounted] = useState(false)
+
+  // Animation.
+  const sectionAnimation = useSpring({
+    from: { opacity: 0, left: '50px' },
+    to: { opacity: 1, left: '0' },
+    cancel: animations.appSection,
+    onRest: () => {
+      // When the animation finished, it's mounted.
+      setIsMounted(isMounted => !isMounted)
+    },
+    config: {
+      duration: 400,
+      easing: easings.easeInOutQuad
+    }
+  })
 
   return (
     <>
-      <div>
-        <SectionHeader icon={IMAGES.MANAGER_ICON}>
-          Accounts
-        </SectionHeader>
-      </div>
-      <div className='pt-36'>
-        {accounts.length > 0 && <AddAccountButton />}
+      <SectionHeader icon={IMAGES.MANAGER_ICON}>
+        Accounts
+      </SectionHeader>
+      <animated.div style={sectionAnimation} className='pt-36 relative'>
+        {accounts.length > 0 &&
+          <AddAccountButton />}
         <AddAccountModal />
-        <div id='account-list' className='mt-10 space-y-1 px-2 mx-2'>
-          {!accounts.length && <EmptyPlaceholder />}
+        <div id='account-list' className='mt-10 space-y-1 mx-2'>
           {accounts.map((account, index) => {
             return (
               <IndexProvider
@@ -34,7 +54,11 @@ export function Accounts () {
             )
           })}
         </div>
-      </div>
+        <EmptyPlaceholder
+          accsLength={accounts.length}
+          isMounted={isMounted}
+        />
+      </animated.div>
     </>
   )
 }

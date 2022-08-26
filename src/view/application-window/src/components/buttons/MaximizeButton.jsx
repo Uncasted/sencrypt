@@ -40,7 +40,7 @@ export default function MaximizeButton () {
       onClick={handleMaximize}
       ref={buttonRef}
       tabIndex='-1'
-      className='hover:bg-[#00141F] px-4 transition'
+      className='hover:bg-[#00293d] px-4 transition'
     >
       <div
         tabIndex='8'

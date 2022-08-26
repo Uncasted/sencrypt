@@ -14,7 +14,7 @@ export default function MinimizeButton () {
     <button
       onClick={handleMinimize}
       tabIndex='-1'
-      className='hover:bg-[#00141F] px-4 transition'
+      className='hover:bg-[#00293d] px-4 transition'
       ref={buttonRef}
     >
       <div

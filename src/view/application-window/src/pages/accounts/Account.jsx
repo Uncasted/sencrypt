@@ -13,9 +13,9 @@ export function Account (props) {
   const account = props.account
 
   return (
-    <div>
+    <>
       <IdProvider>
-        <div className='shadow-sm bg-[#001B29] text-white rounded-sm'>
+        <div className='shadow-sm bg-[#001B29] text-white rounded-sm mx-2'>
           <div className='absolute right-14 mt-1'>
             {/* We need to have the clipboard button outside, or it will open the menu when clicked. */}
             <ClipboardButton
@@ -42,7 +42,7 @@ export function Account (props) {
         </div>
         <DeleteAccountModal />
       </IdProvider>
-    </div>
+    </>
   )
 }
 

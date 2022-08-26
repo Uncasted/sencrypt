@@ -20,8 +20,7 @@ export default function GeneratorHistory () {
 
   return (
     <div
-      className='bg-[#00293d] flex flex-col items-center text-white w-full h-[300px] rounded-sm my-12 px-4
-      relative'
+      className='bg-[#00293d] flex flex-col items-center text-white w-full h-[300px] rounded-sm my-12 relative'
     >
       <div className='absolute right-4 top-4'>
         <button onClick={handleClear}>
@@ -37,13 +36,16 @@ export default function GeneratorHistory () {
           Generator History
         </h1>
       </div>
-      <div className='w-full mt-6 border-t-2 border-[#003a57] rounded-sm overflow-scroll'>
+      <div className='w-full mt-6 border-[#003a57] rounded-sm overflow-y-scroll overflow-x-hidden
+      generator-scrollbar px-2 pb-4'
+      >
         {passwords.map((password, index) =>
           <GeneratedPassword
             key={index}
+            index={index}
             value={password}
-            clipboardTooltip='Copy to clipboard.'
-            tooltipDirection='right'
+            clipboardTooltip='Copy to clipboard'
+            tooltipDirection='left'
             tabIndex={30 + index}
             toggleIndex={31 + index}
             clipboardIndex={32 + index}

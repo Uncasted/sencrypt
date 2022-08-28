@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://i.imgur.com/Vy9G0Xt.png" alt="Sencrypt" style="height:50%; width:50%" /><br><br>
+  <img src="https://i.imgur.com/Vy9G0Xt.png" alt="Sencrypt" style="height:60%; width:60%" /><br><br>
   <b>An open source password manager made in <a href="https://www.electronjs.org/">Electron</a>.</b><br><br>
   <img src="https://i.imgur.com/nhfToBZ.png" alt="Sencrypt application screenshot" />
 </p>

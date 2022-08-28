@@ -80,6 +80,7 @@ export const SHOW_TOOLTIP = ['tooltip', 'tooltip-open']
 export const GENERATOR_INPUTS = [
   {
     key: 0,
+    tabIndex: 13,
     id: 'checkbox-0',
     label: 'Lowercase',
     type: 'useLower',
@@ -87,6 +88,7 @@ export const GENERATOR_INPUTS = [
   },
   {
     key: 1,
+    tabIndex: 14,
     id: 'checkbox-1',
     label: 'Uppercase',
     type: 'useUpper',
@@ -94,6 +96,7 @@ export const GENERATOR_INPUTS = [
   },
   {
     key: 2,
+    tabIndex: 15,
     id: 'checkbox-2',
     label: 'Numbers',
     type: 'useNumbers',
@@ -101,6 +104,7 @@ export const GENERATOR_INPUTS = [
   },
   {
     key: 3,
+    tabIndex: 16,
     id: 'checkbox-3',
     label: 'Symbols',
     type: 'useSymbols',

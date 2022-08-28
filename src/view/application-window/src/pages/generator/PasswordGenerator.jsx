@@ -25,6 +25,7 @@ export default function PasswordGenerator () {
     <div className='flex space-x-2 items-center'>
       <div data-tip='Copied!' ref={tooltipRef} className='tooltip-bg w-full'>
         <InputField
+          tabIndex={10}
           bgColor='[#001824]'
           fieldId='generator-input'
           type='text'

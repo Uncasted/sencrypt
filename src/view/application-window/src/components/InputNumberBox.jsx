@@ -4,6 +4,7 @@ export default function InputNumberBox (props) {
   return (
     <input
       type='number'
+      tabIndex={props.tabIndex}
       min={props.min || null}
       max={props.max || null}
       value={props.value}
@@ -24,5 +25,6 @@ InputNumberBox.propTypes = {
   onChange: PropTypes.func,
   onKeyDown: PropTypes.func,
   onBlur: PropTypes.func,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
+  tabIndex: PropTypes.number
 }

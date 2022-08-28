@@ -20,35 +20,38 @@ export default function GeneratorHistory () {
 
   return (
     <div
-      className='bg-[#00293d] flex flex-col items-center text-white w-full h-[300px] rounded-sm my-12 relative'
+      className="bg-[#00293d] flex flex-col items-center text-white w-full h-[300px] rounded-sm my-12 relative"
     >
-      <div className='absolute right-4 top-4'>
-        <button onClick={handleClear}>
+      <div className="absolute right-4 top-4">
+        <button onClick={handleClear}
+                tabIndex={18}
+                className="focus:outline-none focus:ring focus:ring-[#003D5C] transition rounded-sm"
+        >
           <img
             src={IMAGES.CLEAR_ICON}
-            alt='Clear History'
-            className='w-7 h-7'
+            alt="Clear History"
+            className="w-7 h-7"
           />
         </button>
       </div>
       <div>
-        <h1 className='mt-4 text-lg'>
+        <h1 className="mt-4 text-lg">
           Generator History
         </h1>
       </div>
-      <div className='w-full mt-6 border-[#003a57] rounded-sm overflow-y-scroll overflow-x-hidden
-      generator-scrollbar px-2 pb-4'
+      <div className="w-full mt-6 border-[#003a57] rounded-sm overflow-y-scroll overflow-x-hidden
+      generator-scrollbar px-2 pb-4"
       >
         {passwords.map((password, index) =>
           <GeneratedPassword
             key={index}
             index={index}
             value={password}
-            clipboardTooltip='Copy to clipboard'
-            tooltipDirection='left'
-            tabIndex={30 + index}
-            toggleIndex={31 + index}
-            clipboardIndex={32 + index}
+            clipboardTooltip="Copy to clipboard"
+            tooltipDirection="left"
+            tabIndex={20 + index}
+            toggleIndex={21 + index}
+            clipboardIndex={21 + index}
           />
         )}
       </div>

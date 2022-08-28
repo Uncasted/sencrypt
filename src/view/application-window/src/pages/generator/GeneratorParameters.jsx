@@ -54,9 +54,10 @@ export default function GeneratorParameters () {
 
   return (
     <div>
-      <div className='mb-4 pr-1'>
+      <div className="mb-4 pr-1">
         <Slider
-          title='Length:'
+          tabIndex={10}
+          title="Length:"
           min={4}
           max={48}
           defaultLength={length}
@@ -77,23 +78,24 @@ export default function GeneratorParameters () {
           }}
         />
       </div>
-      <div className='flex flex-col space-y-4'>
-        {GENERATOR_INPUTS.map(({ key, id, label, type, value }) => {
+      <div className="flex flex-col space-y-4">
+        {GENERATOR_INPUTS.map((checkbox) => {
           return (
             <Checkbox
-              key={key}
-              id={id}
-              title={label}
-              checked={parameters.includes(value)}
+              key={checkbox.key}
+              tabIndex={checkbox.tabIndex}
+              id={checkbox.id}
+              title={checkbox.label}
+              checked={parameters.includes(checkbox.value)}
               onClick={() => {
-                updateParameter(type, value)
+                updateParameter(checkbox.type, checkbox.value)
               }}
               onKeyDown={event => {
                 // This checkbox already has an event key listener for spacebar (for some reason).
                 if (event.key === 'Enter') {
                   // This is bad. But it doesn't work properly if I don't do this.
-                  const checkbox = document.getElementById(id)
-                  checkbox.click()
+                  const element = document.getElementById(checkbox.id)
+                  element.click()
                 }
               }}
             />
@@ -102,11 +104,12 @@ export default function GeneratorParameters () {
         {/* Generate password button. */}
         <div style={{ marginTop: '2rem' }}>
           <SecondaryButton
-            type='button'
+            tabIndex={17}
+            type="button"
             disabled={parameters.length === 0 || length === 0}
-            hoverColor='[#003D5C]'
-            activeColor='[#00293d]'
-            offsetColor='[#00111a]'
+            hoverColor="[#003D5C]"
+            activeColor="[#00293d]"
+            offsetColor="[#00111a]"
             onClick={() => {
               updatePassword(parameters, length)
             }}

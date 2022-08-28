@@ -797,6 +797,12 @@ html {
   border-radius: 0px;
 }
 
+.link {
+  cursor: pointer;
+  -webkit-text-decoration-line: underline;
+  text-decoration-line: underline;
+}
+
 .menu {
   display: flex;
   flex-direction: column;
@@ -1382,6 +1388,16 @@ body[dir="rtl"] .checkbox:checked,
   .input[disabled]::placeholder {
   color: hsl(var(--bc) / var(--tw-placeholder-opacity));
   --tw-placeholder-opacity: 0.2;
+}
+
+.link:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.link:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
 }
 
 .menu.horizontal li.bordered > a, 
@@ -2343,6 +2359,12 @@ body[dir="rtl"] .checkbox:checked,
   margin-bottom: calc(3rem * var(--tw-space-y-reverse));
 }
 
+.space-x-1 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(0.25rem * var(--tw-space-x-reverse));
+  margin-left: calc(0.25rem * calc(1 - var(--tw-space-x-reverse)));
+}
+
 .overflow-hidden {
   overflow: hidden;
 }
@@ -2623,6 +2645,11 @@ body[dir="rtl"] .checkbox:checked,
   color: rgb(0 101 153 / var(--tw-text-opacity));
 }
 
+.text-gray-200 {
+  --tw-text-opacity: 1;
+  color: rgb(229 231 235 / var(--tw-text-opacity));
+}
+
 .shadow-sm {
   --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
@@ -2645,6 +2672,12 @@ body[dir="rtl"] .checkbox:checked,
 
 .outline-red-500 {
   outline-color: #ef4444;
+}
+
+.ring {
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(3px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
 }
 
 .transition {
@@ -2927,6 +2960,15 @@ input[type=range].custom-slider.slider-progress::-webkit-slider-runnable-track {
   background-color: rgb(0 30 46 / var(--tw-bg-opacity));
 }
 
+.hover\:underline:hover {
+  -webkit-text-decoration-line: underline;
+          text-decoration-line: underline;
+}
+
+.hover\:underline-offset-1:hover {
+  text-underline-offset: 1px;
+}
+
 .btn-outline .badge.focus\:outline:focus {
   --tw-border-opacity: 1;
   border-color: hsl(var(--nf, var(--n)) / var(--tw-border-opacity));
@@ -3050,6 +3092,11 @@ input[type=range].custom-slider.slider-progress::-webkit-slider-runnable-track {
 .active\:bg-\[\#001B29\]:active {
   --tw-bg-opacity: 1;
   background-color: rgb(0 27 41 / var(--tw-bg-opacity));
+}
+
+.active\:text-\[\#003d5c\]:active {
+  --tw-text-opacity: 1;
+  color: rgb(0 61 92 / var(--tw-text-opacity));
 }
 
 .disabled\:cursor-not-allowed:disabled {

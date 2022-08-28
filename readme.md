@@ -6,7 +6,7 @@
 
 ## Installation
 
-<b> WARNING: This Application is currently in an alpha stage. Be cautious.</b>
+<b> WARNING: This Application is currently in an beta stage. Be cautious.</b>
 
 <p>
     You can download either the installer or the no-installer version for your operating system in the <a href="https://github.com/Uncasted/sencrypt/releases">release</a> section.

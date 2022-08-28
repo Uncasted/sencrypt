@@ -7,12 +7,13 @@
 ## Installation
 
 <b> WARNING: This Application is currently in an alpha stage. Be cautious.</b>
-    
+
 <p>
     You can download either the installer or the no-installer version for your operating system in the <a href="https://github.com/Uncasted/sencrypt/releases">release</a> section.
 </p>
 
 ## How can I build from source?
+
 <b>You will need <a href="https://nodejs.org/en/download/">Node.js</a> to be able to build from source.</b>
 
 <b>1. Open the source code directory in a terminal.</b>
@@ -69,3 +70,7 @@ $ npm run dist
 If you want to contribute, you can create a pull request with this <a href="https://pastebin.com/24A7VErV">template</a>.
 
 If you find a bug, you can create an issue using this <a href="https://pastebin.com/zMc45xBY">template</a>.
+
+---
+
+Thanks to <a href="https://icons8.com">Icons8</a> for the icons!

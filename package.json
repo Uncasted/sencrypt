@@ -1,6 +1,6 @@
 {
   "name": "sencrypt",
-  "version": "3.0.0",
+  "version": "1.0.0",
   "description": "An open source password manager made in electron.",
   "main": "main.js",
   "scripts": {

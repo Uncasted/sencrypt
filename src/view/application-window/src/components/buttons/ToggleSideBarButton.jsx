@@ -2,7 +2,7 @@ import { IMAGES } from '../../data/constants'
 import { useSidebarContextUpdate } from '../../context/SidebarContext'
 import { useRef } from 'react'
 import { useAnimationStateContext } from '../../context/AnimationStateContext'
-import { easings, useSpring, animated } from 'react-spring'
+import { useSpring, animated } from 'react-spring'
 
 export default function ToggleSideBarButton () {
   // Ref

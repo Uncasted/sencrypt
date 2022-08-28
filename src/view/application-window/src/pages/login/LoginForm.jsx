@@ -3,7 +3,7 @@ import { BLUE_OUTLINE, IMAGES, RED_OUTLINE } from '../../data/constants'
 import InputField from '../../components/forms/InputField'
 import PropTypes from 'prop-types'
 import PrimaryButton from '../../components/buttons/PrimaryButton'
-import { useTransition, animated, useSpring, easings, Globals } from 'react-spring'
+import { useTransition, animated, useSpring, easings } from 'react-spring'
 import { useAnimationStateContext, useAnimationStateContextUpdate } from '../../context/AnimationStateContext'
 
 export default function LoginForm (props) {

@@ -60,6 +60,23 @@ export default function Settings () {
             <ResetMasterPassword />
           </div>
         </div>
+        <div className='flex items-center text-gray-200 text-sm space-x-1'>
+          <span>
+            Icons provided by:
+          </span>
+          <span>
+            <a
+              href='#'
+              onClick={() => {
+                // Open the anchor link in an external browser.
+                window.utility.openURL('https://icons8.com')
+              }}
+              className='hover:underline hover:underline-offset-1 text-[#006599] active:text-[#003d5c] transition'
+            >
+              Icons8
+            </a>
+          </span>
+        </div>
       </animated.div>
     </>
   )

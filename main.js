@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, Tray, Menu } = require('electron')
+const { app, BrowserWindow, ipcMain, Tray, Menu, shell } = require('electron')
 const path = require('path')
 const login = require('./login')
 const tray = require('./tray')
@@ -47,10 +47,14 @@ const contextMenu = Menu.buildFromTemplate([
 // Utility functions.
 
 function quitAll () {
-  // Destroy the windows.
+  // Destroy the windows (If they exist).
   MainWin.destroy()
-  TrayWin.destroy()
-  TrayMenu.destroy()
+  if (TrayWin) {
+    TrayWin.destroy()
+  }
+  if (TrayMenu) {
+    TrayMenu.destroy()
+  }
   // Quit the app.
   app.quit()
 }
@@ -99,10 +103,15 @@ async function createMainWindow () {
   )
 
   MainWin.on('close', event => {
-    // Prevent the main window from getting destroyed.
-    event.preventDefault()
-    // Hiding the main window.
-    MainWin.hide()
+    // If the tray window exists.
+    if (TrayMenu) {
+      // Prevent the main window from getting destroyed.
+      event.preventDefault()
+      // Hiding the main window.
+      MainWin.hide()
+    }
+    // Otherwise just quit the app.
+    quitAll()
   })
 }
 
@@ -239,7 +248,12 @@ ipcMain.on('open:section', (event, section) => {
   showSection(section)
 })
 
-// Close the application from the tray menu.
+// Open the anchor link from the settings section.
+ipcMain.on('open:url', (event, URL) => {
+  shell.openExternal(URL).then()
+})
+
+// Close the application from the tray menu or the main window shortcut.
 ipcMain.on('app:quit', quitAll)
 
 // App event listeners.

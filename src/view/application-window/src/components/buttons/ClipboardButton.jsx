@@ -38,8 +38,8 @@ export default function ClipboardButton (props) {
           // Prevent the focus outline from appearing on click.
           event.preventDefault()
         }}
-        className={`px-1 py-1 focus:outline-none focus:ring focus:ring-[#003D5C]
-        transition rounded-sm`}
+        className='px-1 py-1 focus:outline-none focus:ring focus:ring-[#003D5C]
+        transition rounded-sm'
       >
         <img src={IMAGES.CLIPBOARD_ICON} alt='Copy username to clipboard.' className='w-6 h-6' />
       </button>

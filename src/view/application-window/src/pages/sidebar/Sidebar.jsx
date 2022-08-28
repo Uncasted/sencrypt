@@ -71,7 +71,12 @@ export function Sidebar (props) {
       <animated.button
         style={logoutBtnAnimation}
         onClick={handleLogout}
-        className='absolute left-3 bottom-4'
+        onPointerDown={(event) => {
+          // Prevent the focus ring from appearing.
+          event.preventDefault()
+        }}
+        className='absolute left-3 bottom-4 focus:outline-none focus:ring focus:ring-[#003D5C]
+        transition rounded-sm'
       >
         <img
           src={IMAGES.LOGOUT_ICON}

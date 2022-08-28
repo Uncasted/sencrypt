@@ -11,6 +11,7 @@ export default function Slider (props) {
         {props.enableInput && (
           <div className='bg-[#00293d] rounded-sm'>
             <InputNumberBox
+              tabIndex={props.tabIndex}
               min={props.min || null}
               max={props.max || null}
               value={props.defaultLength}
@@ -23,6 +24,7 @@ export default function Slider (props) {
       </div>
       <input
         type='range'
+        tabIndex={props.tabIndex + 1}
         min={props.min || null}
         max={props.max || null}
         value={props.defaultLength || null}
@@ -42,5 +44,6 @@ Slider.propTypes = {
   handleInputChange: PropTypes.func,
   inputOnKeyDown: PropTypes.func,
   onChange: PropTypes.func,
-  onBlur: PropTypes.func
+  onBlur: PropTypes.func,
+  tabIndex: PropTypes.number
 }

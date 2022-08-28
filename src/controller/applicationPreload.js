@@ -58,6 +58,9 @@ contextBridge.exposeInMainWorld('utility', {
     utility.generateRandomPassword(parameters, length),
   getPlatform: () => {
     return process.platform
+  },
+  openURL: (URL) => {
+    ipcRenderer.send('open:url', URL)
   }
 })
 

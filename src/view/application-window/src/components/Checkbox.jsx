@@ -4,6 +4,7 @@ export default function Checkbox (props) {
   return (
     <div className='space-x-2 flex items-center'>
       <input
+        tabIndex={props.tabIndex}
         type='checkbox'
         id={props.id}
         checked={props.checked || null}
@@ -21,5 +22,6 @@ Checkbox.propTypes = {
   onClick: PropTypes.func,
   onKeyDown: PropTypes.func,
   title: PropTypes.string,
-  id: PropTypes.string
+  id: PropTypes.string,
+  tabIndex: PropTypes.number
 }

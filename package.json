@@ -5,12 +5,14 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
+    "test": "jest --coverage",
     "dist": "electron-builder",
     "pack": "electron-builder --dir"
   },
   "author": "Uncasted",
   "license": "MIT",
   "dependencies": {
+    "@types/jest": "^29.0.0",
     "appdata-path": "^1.0.0"
   },
   "devDependencies": {

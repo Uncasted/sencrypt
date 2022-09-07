@@ -16,6 +16,8 @@
   "devDependencies": {
     "electron": "^19.0.6",
     "electron-builder": "^23.1.0",
+    "jest": "^29.0.2",
+    "jsdoc": "^3.6.11",
     "standard": "^17.0.0"
   }
 }

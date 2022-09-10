@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: database.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: database.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const utility = require('./utility')
+const { DATABASE_PATH } = require('./constants')
+
+/** Class that manages the database. */
+class Database {
+  constructor () {
+    this.SEC_KEY = ''
+    this.SEC_KEY_2 = ''
+    this.ENC_MP = ''
+  }
+
+  /**
+   * This method initializes the database for the first time. It creates the
+   * JSON structure required for the database and stores it in a file.
+   * @param {string} masterPassword Master Password
+   **/
+  async init (masterPassword) {
+    try {
+      await utility.readFile(DATABASE_PATH)
+      const database = {}
+
+      // Create the second part of the decryption key.
+      this.SEC_KEY_2 = utility.generateRandomKey(masterPassword.length)
+      database.SEC_KEY_2 = this.SEC_KEY_2
+      // The full decryption key includes the master password.
+      this.SEC_KEY = masterPassword + database.SEC_KEY_2
+      // The master password is stored using a salted hash.
+      const salt = utility.generateSalt()
+      this.ENC_MP = utility.encryptMasterPassword(masterPassword, salt)
+      // This is done to be able to extract the ENC_MP for validations.
+      database.ENC_MP = this.ENC_MP
+      // Array that contains the accounts.
+      database[this.ENC_MP] = []
+
+      await utility.writeFile(DATABASE_PATH, database)
+    } catch (error) {
+      console.log('Error at init (Database).')
+      console.log(error)
+    }
+  }
+
+  /**
+   * This method will make the database manageable. It will assign the
+   * decryption key, secondary part of the key, and encrypted master password
+   * to the current instance of the class.
+   * @param {string} masterPassword Master Password
+   **/
+  async start (masterPassword) {
+    try {
+      const database = await utility.readFile(DATABASE_PATH)
+
+      this.SEC_KEY_2 = database.SEC_KEY_2
+      this.SEC_KEY = masterPassword + this.SEC_KEY_2
+      this.ENC_MP = database.ENC_MP
+
+    } catch (error) {
+      console.log('Error at start (Database).')
+      console.log(error)
+    }
+  }
+
+  /**
+   * This method will compare the password passed into it with the master
+   * password that is currently in the database and return a boolean
+   * value.
+   * @param {string} masterPassword Master Password
+   * @returns {Promise&lt;boolean>} The result of the comparison of the hashes.
+   **/
+  async verifyMasterPassword (masterPassword) {
+    // Get the keys from the database.
+    try {
+      const database = await utility.readFile(DATABASE_PATH)
+
+      // Separate the salt from the hash.
+      const [salt, hashedMP] = database.ENC_MP.split(':')
+
+      // Get the hash of the inputted master password.
+      const [, inputHash] = utility.encryptMasterPassword(masterPassword, salt)
+        .split(':')
+
+      // Compare the hashes and return the value.
+      return hashedMP === inputHash
+    } catch (error) {
+      console.log('Error at verifyMasterPassword (Database).')
+      console.log(error)
+    }
+  }
+
+  /**
+   * This method returns the number of accounts (size) of the database.
+   * @returns {Promise&lt;number>} Number Of Accounts
+   **/
+  async getNumberOfAccounts () {
+    try {
+      const database = await utility.readFile(DATABASE_PATH)
+
+      return Object.keys(database).length
+    } catch (error) {
+      console.log('Error at getDatabaseLength (Database).')
+      console.log(error)
+    }
+  }
+
+  /**
+   * This method resets the master password. It takes in a new password,
+   * changes the decryption key and it re-encrypts all the accounts with the
+   * new key. The new master password also gets re-encrypted with a new salt.
+   * @param {string} newPassword New Master Password
+   **/
+  async resetMasterPassword (newPassword) {
+    try {
+      const database = await utility.readFile(DATABASE_PATH)
+      let accounts = [...database[this.ENC_MP]]
+
+      // Delete the old master password key.
+      delete database[this.ENC_MP]
+
+      // Decrypt all the accounts.
+      accounts = accounts.map(account => {
+        let data = {}
+        for (const item of Object.keys(account)) {
+          data[item] = utility.decrypt(account[item], this.SEC_KEY)
+        }
+        return data
+      })
+
+      // Create a new decryption key.
+      this.SEC_KEY_2 = utility.generateRandomKey(newPassword.length)
+      database.SEC_KEY_2 = this.SEC_KEY_2
+      this.SEC_KEY = newPassword + database.SEC_KEY_2
+
+      // Encrypt the new master password with a new salt.
+      const salt = utility.generateSalt()
+      this.ENC_MP = utility.encryptMasterPassword(newPassword, salt)
+      database.ENC_MP = this.ENC_MP
+
+      // Re-encrypt all the accounts.
+      accounts = accounts.map(account => {
+        let data = {}
+        for (const item of Object.keys(account)) {
+          data[item] = utility.encrypt(account[item], this.SEC_KEY)
+        }
+        return data
+      })
+
+      // Assign the accounts to the new key.
+      database[this.ENC_MP] = accounts
+
+      await utility.writeFile(DATABASE_PATH, database)
+    } catch (error) {
+      console.log('Error at resetMasterPassword (Database).')
+      console.log(error)
+    }
+  }
+
+  /**
+   * This method deletes all the accounts in the database, but it still
+   * retains all the other keys.
+   **/
+  async clearDatabase () {
+    try {
+      const database = await utility.readFile(DATABASE_PATH)
+      // Delete all the accounts.
+      database[database.ENC_MP] = []
+
+      await utility.writeFile(DATABASE_PATH, database)
+    } catch (error) {
+      console.log('Error at clearDatabase (Database).')
+      console.log(error)
+    }
+  }
+
+  /**
+   * This method creates a copy (backup) of the database in the specified path.
+   * @param {string} backupPath Database Backup Path
+   **/
+  async createBackup (backupPath) {
+    try {
+      const database = await utility.readFile(DATABASE_PATH)
+      // Make a copy of the database in the specified path.
+      await utility.writeFile(backupPath, database)
+    } catch (error) {
+      console.log('Error at createBackup (Database).')
+      console.log(error)
+    }
+  }
+
+  /**
+   * This method checks the structure of the JSON file to see if it contains
+   * a valid database scheme.
+   * @param {string} backupPath Database Backup Path
+   * @returns {Promise&lt;boolean>} Backup validation result
+   **/
+  async verifyBackup (backupPath) {
+    try {
+      // Read the backup file (Or use an empty object).
+      const backup = await utility.readFile(backupPath) ?? {}
+      // Check if the database has a SEC_KEY_2 and an ENC_MP key.
+      if (
+        backup.hasOwnProperty('SEC_KEY_2') &amp;&amp;
+        backup.hasOwnProperty('ENC_MP')
+      ) {
+        // Check if the ENC_MP key value and encrypted master password key are
+        // the same If it does then the scheme is valid, and it returns true.
+        return backup.hasOwnProperty(backup.ENC_MP)
+      }
+      // Otherwise, the scheme is invalid.
+      return false
+    } catch (error) {
+      console.log('Error at verifyBackup (Database).')
+      console.log(error)
+    }
+  }
+
+  /**
+   * This method loads the backup database file from the path provided and
+   * replaces the current database with it.
+   * @param {string} backupPath Database Backup Path
+   **/
+  async loadBackup (backupPath) {
+    try {
+      // Get the backup data.
+      const database = await utility.readFile(backupPath)
+      // Replace the current data.
+      await utility.writeFile(DATABASE_PATH, database)
+    } catch (error) {
+      console.log('Error at loadBackup (Database).')
+      console.log(error)
+    }
+  }
+
+  /**
+   * This method creates and encrypts a new account in the database with the
+   * data provided.
+   * @param {object} account Account
+   **/
+  async createAccount (account) {
+    try {
+      let encryptedAccount = {}
+      const database = await utility.readFile(DATABASE_PATH)
+
+      // Encrypt each item of the account.
+      for (const item of Object.keys(account)) {
+        encryptedAccount[item] = utility.encrypt(account[item], this.SEC_KEY)
+      }
+
+      database[this.ENC_MP].push(encryptedAccount)
+      await utility.writeFile(DATABASE_PATH, database)
+    } catch (error) {
+      console.log('Error at createAccount (Database).')
+      console.log(error)
+    }
+  }
+
+  /**
+   * This method decrypts and returns all the accounts from the database.
+   * @returns {Promise&lt;Array>} List Of Accounts
+   **/
+  async getAllAccounts () {
+    try {
+      const database = await utility.readFile(DATABASE_PATH)
+      let accounts = [...database[this.ENC_MP]]
+
+      accounts = accounts.map(account => {
+        let data = {}
+        // Decrypt each item of the accounts.
+        for (const item of Object.keys(account)) {
+          data[item] = utility.decrypt(account[item], this.SEC_KEY)
+        }
+
+        return data
+      })
+
+      return accounts
+    } catch (error) {
+      console.log('Error at getAllAccounts (Database).')
+      console.log(error)
+    }
+  }
+
+  /**
+   * This method updates an already existing account in the database.
+   * @param {number} index Account Index
+   * @param {object} newAccount New Account
+   **/
+  async updateAccount (index, newAccount) {
+    try {
+      let encryptedAccount = {}
+      let isNotTheSame
+      const database = await utility.readFile(DATABASE_PATH)
+
+      // If the index exists.
+      if (database[this.ENC_MP][index]) {
+        // Encrypt the new account.
+        for (const item of Object.keys(newAccount)) {
+          encryptedAccount[item] = utility.encrypt(
+            newAccount[item],
+            this.SEC_KEY
+          )
+        }
+
+        // Compare all the fields of the accounts to check if they are the same.
+        const oldAccount = database[this.ENC_MP][index]
+        // If the account is not the same, then we can continue.
+        // If we don't do this check and the account is the same,
+        // it will get deleted.
+        for (const item of Object.keys(oldAccount)) {
+          isNotTheSame = oldAccount[item] !== encryptedAccount[item]
+        }
+
+        if (isNotTheSame) {
+          // Update the account.
+          console.log('This is getting updated.')
+          database[this.ENC_MP][index] = encryptedAccount
+          await utility.writeFile(DATABASE_PATH, database)
+        }
+      }
+    } catch (error) {
+      console.log('Error at updateAccount (Database).')
+      console.log(error)
+    }
+  }
+
+  /**
+   *  This method deletes an account from the database from the provided index.
+   *  @param {number} index Account index
+   **/
+  async deleteAccount (index) {
+    try {
+      const database = await utility.readFile(DATABASE_PATH)
+      // If an account exists with that index.
+      if (database[this.ENC_MP][index]) {
+        // Delete the account.
+        database[this.ENC_MP].splice(index, 1)
+      }
+
+      await utility.writeFile(DATABASE_PATH, database)
+    } catch (error) {
+      console.log('Error at deleteAccount (Database).')
+      console.log(error)
+    }
+  }
+}
+
+module.exports = Database
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Database.html">Database</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.11</a> on Fri Sep 09 2022 19:48:33 GMT-0500 (Eastern Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

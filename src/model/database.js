@@ -52,7 +52,6 @@ class Database {
       this.SEC_KEY_2 = database.SEC_KEY_2
       this.SEC_KEY = masterPassword + this.SEC_KEY_2
       this.ENC_MP = database.ENC_MP
-
     } catch (error) {
       console.log('Error at start (Database).')
       console.log(error)
@@ -117,7 +116,7 @@ class Database {
 
       // Decrypt all the accounts.
       accounts = accounts.map(account => {
-        let data = {}
+        const data = {}
         for (const item of Object.keys(account)) {
           data[item] = utility.decrypt(account[item], this.SEC_KEY)
         }
@@ -136,7 +135,7 @@ class Database {
 
       // Re-encrypt all the accounts.
       accounts = accounts.map(account => {
-        let data = {}
+        const data = {}
         for (const item of Object.keys(account)) {
           data[item] = utility.encrypt(account[item], this.SEC_KEY)
         }
@@ -236,7 +235,7 @@ class Database {
    **/
   async createAccount (account) {
     try {
-      let encryptedAccount = {}
+      const encryptedAccount = {}
       const database = await utility.readFile(DATABASE_PATH)
 
       // Encrypt each item of the account.
@@ -262,7 +261,7 @@ class Database {
       let accounts = [...database[this.ENC_MP]]
 
       accounts = accounts.map(account => {
-        let data = {}
+        const data = {}
         // Decrypt each item of the accounts.
         for (const item of Object.keys(account)) {
           data[item] = utility.decrypt(account[item], this.SEC_KEY)
@@ -285,7 +284,7 @@ class Database {
    **/
   async updateAccount (index, newAccount) {
     try {
-      let encryptedAccount = {}
+      const encryptedAccount = {}
       let isNotTheSame
       const database = await utility.readFile(DATABASE_PATH)
 

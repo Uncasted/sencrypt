@@ -211,4 +211,3 @@ afterAll(async () => {
   // Delete the fake backup file after the test finishes.
   await fs.promises.unlink('fjei2fjjsjq')
 })
-

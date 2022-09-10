@@ -1,0 +1,21 @@
+{
+    "source": {
+        "include": [
+            "src"
+        ],
+        "includePattern": ".js$",
+        "excludePattern": "(node_modules/|docs|tailwind|dist)"
+    },
+    "plugins": [
+        "plugins/markdown"
+    ],
+    "templates": {
+        "cleverLinks": true,
+        "monospaceLinks": true
+    },
+    "opts": {
+        "recurse": true,
+        "destination": "./docs/",
+        "readme": "./readme.md"
+    }
+}

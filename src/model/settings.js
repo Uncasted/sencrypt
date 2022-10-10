@@ -1,102 +1,60 @@
-const fs = require('fs')
-const path = require('path')
-const { getAppDataPath } = require('appdata-path')
+const { readFile, writeFile } = require('./utility')
+const { DEFAULT_SETTINGS, SETTINGS_PATH } = require('./constants')
 
-class Settings {
-  constructor () {
-    this.settingsPath = path.join(getAppDataPath('sencrypt'), './settings.json')
-    this.settings = { settings: {} }
-  }
-
-  async start () {
-    try {
-      // Read the settings file.
-      await this.read()
-    } catch (error) {
-      console.log('Error at start (Settings).')
-      console.log(error)
-    }
-  }
-
-  async read () {
-    try {
-      // If the file exists, then read it.
-      if (fs.existsSync(this.settingsPath)) {
-        const settingsData = await fs.promises.readFile(
-          this.settingsPath,
-          'utf-8'
-        )
-        this.settings = JSON.parse(settingsData)
-      } else {
-        // Otherwise, create the file with the default settings.
-        const settingsScheme = JSON.stringify({
-          settings: {
-            minToTray: false,
-            openAtStartup: false,
-            startupMode: 'Full',
-            loginTimeout: false,
-            loginTimeoutTime: 1800,
-            deleteAfterAttempts: false,
-            deleteAttempts: 10
-          }
-        })
-        // Create the settings file.
-        await fs.promises.writeFile(this.settingsPath, settingsScheme, 'utf-8')
-
-        // Read the file.
-        const settingsData = await fs.promises.readFile(
-          this.settingsPath,
-          'utf-8'
-        )
-        this.settings = JSON.parse(settingsData)
-      }
-    } catch (error) {
-      console.log('Error at read (Settings).')
-      console.log(error)
-    }
-  }
-
-  async write () {
-    try {
-      // Writing the settings into the settings file.
-      const settingsToWrite = JSON.stringify(this.settings)
-      await fs.promises.writeFile(this.settingsPath, settingsToWrite, 'utf-8')
-    } catch (error) {
-      console.log('Error at write (Settings).')
-      console.log(error)
-    }
-  }
-
-  async getSettings () {
-    try {
-      // Read the settings.
-      await this.read()
-      const { settings } = this.settings
-
-      // Return the settings.
-      return settings
-    } catch (error) {
-      console.log('Error at getSettings (Settings).')
-      console.log(error)
-    }
-  }
-
-  async updateSetting (option, value) {
-    try {
-      // Read the settings.
-      await this.read()
-      const { settings } = this.settings
-
-      // Update the settings option.
-      settings[option] = value
-
-      // Write into the settings.
-      await this.write()
-    } catch (error) {
-      console.log('Error at updateSetting (Settings).')
-      console.log(error)
-    }
+/**
+ * This module manages the settings for the application.
+ * @module Settings
+ **/
+/**
+ * This function creates the settings file used for the application's settings.
+ **/
+exports.createSettings = async () => {
+  try {
+    await readFile(SETTINGS_PATH, DEFAULT_SETTINGS)
+  } catch (error) {
+    console.error('Error at start (settings.js).', error)
   }
 }
 
-module.exports = Settings
+/**
+ * This function returns a single option from the settings file.
+ * @param {string} option Setting's option.
+ * @returns {Promise<string|number|boolean>} Option's value.
+ **/
+exports.getSetting = async (option) => {
+  try {
+    const settings = await readFile(SETTINGS_PATH)
+    return settings[option]
+  } catch (error) {
+    console.error('Error at getSetting (settings.js)', error)
+  }
+}
+
+/**
+ * This method returns all the settings from the settings file.
+ * @returns {Promise<object>} Settings from the settings file.
+ **/
+exports.getAllSettings = async () => {
+  try {
+    return await readFile(SETTINGS_PATH)
+  } catch (error) {
+    console.error('Error at getAllSettings (settings.js).', error)
+  }
+}
+
+/**
+ * This method updates the value of one of the options in the settings file.
+ * @param {string} option Setting's Option
+ * @param {string|number|boolean} value Option's Value
+ **/
+exports.updateSetting = async (option, value) => {
+  try {
+    const settings = await readFile(SETTINGS_PATH)
+    settings[option] = value
+
+    await writeFile(SETTINGS_PATH, settings)
+  } catch (error) {
+    console.error('Error at updateSetting (settings.js).', error)
+  }
+}
+

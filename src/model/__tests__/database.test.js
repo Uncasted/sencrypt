@@ -53,7 +53,7 @@ describe('Misc Operations', () => {
 
   test('Reset the master password.', async () => {
     const myDB = new Database()
-    // We need to start the database first, otherwise we can't reset the password.
+    // We need to start the database, otherwise we can't reset the password.
     await myDB.start('password123')
     await myDB.resetMasterPassword('admin123')
     const databaseFile = await readFile(DATABASE_PATH)
@@ -77,7 +77,10 @@ describe('Misc Operations', () => {
 
 describe('Backup operations', () => {
   test('Create a database backup', async () => {
-    const backupPath = path.join(getAppDataPath('sencrypt'), './databaseBackup.json')
+    const backupPath = path.join(
+      getAppDataPath('sencrypt'),
+      './databaseBackup.json'
+    )
     const myDB = new Database()
     // Start the database to compare to the backup.
     await myDB.start('admin123')
@@ -91,11 +94,16 @@ describe('Backup operations', () => {
   })
 
   test('Verify a database backup', async () => {
-    const backupPath = path.join(getAppDataPath('sencrypt'), './databaseBackup.json')
+    const backupPath = path.join(
+      getAppDataPath('sencrypt'),
+      './databaseBackup.json'
+    )
     const myDB = new Database()
     const isVerified = await myDB.verifyBackup(backupPath)
     const isFakeVerified = await myDB.verifyBackup('')
-    const isAnotherFakeVerified = await myDB.verifyBackup('fjei2fjjsjq')
+    const isAnotherFakeVerified = await myDB.verifyBackup(
+      'fjei2fjjsjq'
+    )
 
     expect(isVerified).toBe(true)
     expect(isFakeVerified).toBe(false)
@@ -103,7 +111,10 @@ describe('Backup operations', () => {
   })
 
   test('Load a database backup', async () => {
-    const backupPath = path.join(getAppDataPath('sencrypt'), './databaseBackup.json')
+    const backupPath = path.join(
+      getAppDataPath('sencrypt'),
+      './databaseBackup.json'
+    )
     const myDB = new Database()
     await myDB.start('admin123')
     const backupFile = await readFile(backupPath)

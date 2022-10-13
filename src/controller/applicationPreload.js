@@ -2,13 +2,11 @@
 const DatabaseController = require('./databaseController')
 const SettingsController = require('./settingsController')
 const { contextBridge, ipcRenderer } = require('electron')
-const utility = require('../model/utility')
-
+const utility = require('../utility')
 const database = new DatabaseController()
-const settings = new SettingsController()
 
 // Database Controller.
-contextBridge.exposeInMainWorld('database', {
+contextBridge.exposeInMainWorld('DATABASE_API', {
   checkIsNew: async () => await database.checkIsNew(),
   createMasterPassword: async masterPassword =>
     await database.createMasterPassword(masterPassword),
@@ -39,10 +37,10 @@ contextBridge.exposeInMainWorld('database', {
 })
 
 // Settings controller.
-contextBridge.exposeInMainWorld('settings', {
-  getSettings: async () => await settings.getSettings(),
+contextBridge.exposeInMainWorld('SETTINGS_API', {
+  getSettings: async () => await SettingsController.getAllSettings(),
   updateSetting: async (option, value) => {
-    await settings.updateSetting(option, value)
+    await SettingsController.updateSetting(option, value)
   },
   toggleTray: (isEnabled) => {
     ipcRenderer.send('toggle:tray', isEnabled)
@@ -53,7 +51,7 @@ contextBridge.exposeInMainWorld('settings', {
 })
 
 // Utility functions.
-contextBridge.exposeInMainWorld('utility', {
+contextBridge.exposeInMainWorld('UTILITY_API', {
   generateRandomPassword: (parameters, length) =>
     utility.generateRandomPassword(parameters, length),
   getPlatform: () => {
@@ -65,7 +63,7 @@ contextBridge.exposeInMainWorld('utility', {
 })
 
 // Main Window process.
-contextBridge.exposeInMainWorld('mainWin', {
+contextBridge.exposeInMainWorld('MAIN_WIN_API', {
   minimize: () => {
     ipcRenderer.send('mainWin:minimize')
   },

@@ -2,7 +2,7 @@
 const { contextBridge, ipcRenderer } = require('electron')
 
 // Open application sections through the tray menu.
-contextBridge.exposeInMainWorld('controller', {
+contextBridge.exposeInMainWorld('WIN_API', {
   openSection: (section) => {
     ipcRenderer.send('open:section', section)
   },
